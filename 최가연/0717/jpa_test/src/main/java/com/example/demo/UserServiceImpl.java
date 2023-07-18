@@ -11,8 +11,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Override
-    public List<UserDto> findAll() {
-        List<UserDto> users = new ArrayList<>();
+    public List<UserEntity> findAll() {
+        List<UserEntity> users = new ArrayList<>();
         userRepository.findAll().forEach(e -> users.add(e));
         return users;
     }
