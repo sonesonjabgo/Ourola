@@ -4,21 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "group_channel")
+@Entity(name = "group_subscribe")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class GroupChannelDto {
+public class SubscribeGroupDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private FanUserDto fanUserDto;
+
+	@ManyToOne
+	@JoinColumn(name = "group_id")
+	private GroupChannelDto groupChannelDto;
 }

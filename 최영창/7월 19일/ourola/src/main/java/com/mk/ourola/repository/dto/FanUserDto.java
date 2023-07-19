@@ -17,21 +17,23 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "fan_user")
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 public class FanUserDto {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "profile_id", referencedColumnName = "id")
+	@JoinColumn(name = "profile_id")
 	private ProfileFileDto profileFileDto;
 
 	private String email;
 
-	private String passwoed;
+	private String password;
 
 	private String name;
 
