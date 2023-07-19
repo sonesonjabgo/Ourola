@@ -51,9 +51,20 @@ public class FanFeedController {
 	@GetMapping("/{id}")
 	public ResponseEntity<FanFeedDto> getAllFeed(
 		@PathVariable(name = "artist") String artist,
-		@PathVariable(name = "id") String id
+		@PathVariable(name = "id") int id
 	) {
+		System.out.println("단일 조회" + id);
 		FanFeedDto fanFeedList = fanFeedService.getFeed(artist, id);
 		return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+	}
+
+	@PostMapping("/modify/{id}")
+	public ResponseEntity<FanFeedDto> modifyFeed(
+		@PathVariable String artist,
+		@PathVariable int id,
+		@RequestBody FanFeedDto fanFeedDto
+	) {
+		FanFeedDto modifiedFeed = fanFeedService.modifyFeed(artist, id, fanFeedDto);
+		return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 	}
 }
