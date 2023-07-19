@@ -12,5 +12,8 @@ public interface FanFeedRepository extends JpaRepository<FanFeedDto, Integer> {
 
 	List<FanFeedDto> findAll();
 
+	FanFeedDto findById(int id);
+
 	List<FanFeedDto> findByGroupChannelDto_Id(int id);
+
 }

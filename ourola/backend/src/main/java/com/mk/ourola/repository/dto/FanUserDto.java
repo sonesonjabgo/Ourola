@@ -28,7 +28,7 @@ public class FanUserDto {
 	private int id;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "profile_id", referencedColumnName = "id")
+	@JoinColumn(name = "profile_id")
 	private ProfileFileDto profileFileDto;
 
 	private String email;
