@@ -18,12 +18,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "artist_user")
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 public class ArtistUserDto {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
@@ -36,7 +38,7 @@ public class ArtistUserDto {
 
 	private String email;
 
-	private String passwoed;
+	private String password;
 
 	private String name;
 

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class FanFeedDto {
 
@@ -51,8 +55,10 @@ public class FanFeedDto {
 	@Column(name = "update_date")
 	private Date updateDate;
 
+	@Column(name = "`like`")
 	private int like;
 
 	// 팬이면 1, 아티스트면 2
 	private int type;
+
 }
