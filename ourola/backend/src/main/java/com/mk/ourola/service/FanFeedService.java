@@ -25,11 +25,10 @@ public class FanFeedService {
 		return fanFeedRepository.findByGroupChannelDto_Id(groupId);
 	}
 
-	public FanFeedDto getFeed(String artist, String id) {
+	public FanFeedDto getFeed(String artist, int id) {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
-		System.out.println(groupId);
-		return fanFeedRepository.findById(groupId);
+		return fanFeedRepository.findById(id);
 	}
 
 	public FanFeedDto writeFeed(FanFeedDto fanFeedDto) {
@@ -39,6 +38,11 @@ public class FanFeedService {
 
 	public void removeFeed(Integer id) {
 		fanFeedRepository.deleteById(id);
+	}
+
+	public FanFeedDto modifyFeed(String artist, int id, FanFeedDto fanFeedDto) {
+		fanFeedDto.setId(id);
+		return fanFeedRepository.save(fanFeedDto);
 	}
 
 }
