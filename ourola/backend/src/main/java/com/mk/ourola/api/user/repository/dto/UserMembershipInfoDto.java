@@ -10,37 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "bill")
+@Entity(name = "user_membership_info")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class BillDto {
-
+public class UserMembershipInfoDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private FanUserDto fanUserDto;
 
 	@ManyToOne
 	@JoinColumn(name = "membership_id")
 	private MembershipPayDto membershipPayDto;
 
 	@ManyToOne
-	@JoinColumn(name = "concert_id")
-	private OnlineConcertDto onlineConcertDto;
+	@JoinColumn(name = "user_id")
+	private FanUserDto fanUserDto;
 
-	@Column(name = "payment_date")
-	private Date paymentDate;
-	
+	@Column(name = "expire_date")
+	private Date expireDate;
+
+	@Column(name = "group_name")
+	private String groupName;
 }

@@ -10,9 +10,10 @@ import com.mk.ourola.api.user.repository.dto.BillDto;
 @Repository
 public interface BillRepository extends JpaRepository<BillDto, Integer> {
 
+	// 사용자가 구매한 모든 결제 내역
 	List<BillDto> findByUserId(int userId);
+	
+	// 사용자가 구매한 모든 온라인 콘서트
+	List<BillDto> findByOnlineConcertDto_IdIsNotNull();
 
-	List<BillDto> findByMembershipPayDto_Id(int membershipId);
-
-	List<BillDto> findByOnlineConcertDto_Id(int concertId);
 }

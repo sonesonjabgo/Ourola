@@ -10,5 +10,5 @@ import com.mk.ourola.api.user.repository.dto.BookMarkDto;
 @Repository
 public interface BookMarkRepository extends JpaRepository<BookMarkDto, Integer> {
 
-	List<BookMarkDto> findByUserId(int userId);
+	List<BookMarkDto> findByFanUserDto_Id(int userId);
 }
