@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.artist.repository.GroupRepository;
-import com.mk.ourola.api.feed.repository.FanFeedRepository;
+import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class FanFeedService {
+public class FeedServiceImpl implements FeedService{
 
-	private final FanFeedRepository fanFeedRepository;
+	private final FeedRepository fanFeedRepository;
 
 	private final GroupRepository groupRepository;
 
@@ -27,12 +27,11 @@ public class FanFeedService {
 
 	public FanFeedDto getFeed(String artist, int id) {
 		System.out.println(artist + "서비스");
-		int groupId = groupRepository.findByName(artist).getId();
 		return fanFeedRepository.findById(id);
 	}
 
-	public FanFeedDto writeFeed(FanFeedDto fanFeedDto) {
-		System.out.println(fanFeedDto);
+	public FanFeedDto writeFeed(String artist, FanFeedDto fanFeedDto) {
+		fanFeedDto.setGroupChannelDto(groupRepository.findByName(artist));
 		return fanFeedRepository.save(fanFeedDto);
 	}
 
@@ -40,8 +39,7 @@ public class FanFeedService {
 		fanFeedRepository.deleteById(id);
 	}
 
-	public FanFeedDto modifyFeed(String artist, int id, FanFeedDto fanFeedDto) {
-		fanFeedDto.setId(id);
+	public FanFeedDto modifyFeed(FanFeedDto fanFeedDto) {
 		return fanFeedRepository.save(fanFeedDto);
 	}
 

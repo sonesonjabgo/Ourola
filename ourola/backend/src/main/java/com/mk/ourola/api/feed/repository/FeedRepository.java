@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
 
 @Repository
-public interface FanFeedRepository extends JpaRepository<FanFeedDto, Integer> {
+public interface FeedRepository extends JpaRepository<FanFeedDto, Integer> {
 
 	List<FanFeedDto> findAll();
 
