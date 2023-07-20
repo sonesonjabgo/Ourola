@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +36,48 @@ public class AnnouncementController {
 		}
 	}
 
-	@PostMapping("/write") // Token 따로 DB에 있으니까 Token 정보 Decoding 할 필요 없을 듯
-	public ResponseEntity<String> writeAnnouncement(@PathVariable String artist, @RequestHeader String accessToken,
+	@GetMapping("/read/{announcementId}")
+	public ResponseEntity<AnnouncementDto> getAnnouncement(@PathVariable("artist") String artist,
+		@PathVariable("announcementId") int announcementId) { // 이거 artist 받을 필요 없나?
+		try {
+			return new ResponseEntity<AnnouncementDto>(announcementService.getAnnouncement(artist, announcementId),
+				HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/write")
+	public ResponseEntity<AnnouncementDto> writeAnnouncement(@PathVariable("artist") String artist,
+		@RequestHeader String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
-			announcementService.writeAnnouncement(artist, accessToken, announcementDto);
+			AnnouncementDto result = announcementService.writeAnnouncement(artist, accessToken,
+				announcementDto);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping("/modify/{announcementId}")
+	public ResponseEntity<String> modifyAnnouncement(@PathVariable("artist") String artist,
+		@PathVariable("announcementId") int announcementId, @RequestHeader String accessToken,
+		@RequestBody AnnouncementDto announcementDto) {
+		try {
+			announcementService.modifyAnnouncement(artist, announcementId, accessToken, announcementDto);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping("/remove/{announcementId}")
+	public ResponseEntity<String> removeAnnouncement(@PathVariable("artist") String artist,
+		@PathVariable("announcementId") int announcementId,
+		@RequestHeader String accessToken) {
+		try {
+			announcementService.removeAnnouncement(artist, announcementId, accessToken);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
