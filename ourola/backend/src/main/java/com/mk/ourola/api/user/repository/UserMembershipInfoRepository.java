@@ -9,7 +9,7 @@ import com.mk.ourola.api.user.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.user.repository.dto.UserMembershipInfoDto;
 
 @Repository
-public interface UserMembershipInfoRepository extends JpaRepository<MembershipPayDto, Integer> {
+public interface UserMembershipInfoRepository extends JpaRepository<UserMembershipInfoDto, Integer> {
 
 	List<UserMembershipInfoDto> findByFanUserDto_Id(int userId);
 }

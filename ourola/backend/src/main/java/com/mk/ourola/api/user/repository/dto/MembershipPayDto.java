@@ -42,5 +42,5 @@ public class MembershipPayDto {
 	private Date createDate;
 
 	@Column(name = "expiration_date")
-	private Date expirationDate;
+	private String expirationDate;
 }

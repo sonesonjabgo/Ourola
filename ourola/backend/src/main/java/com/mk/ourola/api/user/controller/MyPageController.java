@@ -17,10 +17,10 @@ import lombok.RequiredArgsConstructor;
 public class MyPageController {
 	private final MyPageService myPageService;
 
-	@GetMapping("/user")
-	public ResponseEntity<List<BillDto>> getAllBill() {
-		try {
-			return new ResponseEntity<List<BillDto>>(myPageService.)
-		}
-	}
+	// @GetMapping("/user")
+	// public ResponseEntity<List<BillDto>> getAllBill() {
+	// 	try {
+	// 		return new ResponseEntity<List<BillDto>>(myPageService.)
+	// 	}
+	// }
 }

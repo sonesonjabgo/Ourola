@@ -20,11 +20,11 @@ import lombok.RequiredArgsConstructor;
 public class CommentController {
 	private final CommentServiceImpl commentService;
 
-	@GetMapping("")
-	public ResponseEntity<?> getCommentList(@PathVariable String artist) {
-		try {
-			List<CommentDto> commentList = commentService.getCommentList()
-		}
-	}
+	// @GetMapping("")
+	// public ResponseEntity<?> getCommentList(@PathVariable String artist) {
+	// 	try {
+	// 		List<CommentDto> commentList = commentService.getCommentList()
+	// 	}
+	// }
 
 }

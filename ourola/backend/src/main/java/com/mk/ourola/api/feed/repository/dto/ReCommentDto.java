@@ -32,15 +32,15 @@ public class ReCommentDto {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private FanUserDto userId;
+	private FanUserDto fanUserDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
-	private ArtistUserDto artist_id;
+	private ArtistUserDto artistUserDto;
 
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
-	private CommentDto comment_id;
+	private CommentDto commentDto;
 
 	private String content;
 

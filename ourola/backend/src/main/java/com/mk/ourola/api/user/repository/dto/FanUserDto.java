@@ -47,10 +47,6 @@ public class FanUserDto {
 	@Column(name = "is_admin")
 	private boolean isAdmin;
 
-	private boolean membership;
-
-	@Column(name = "expire_date")
-	private Date expireDate;
 
 	@Column(name = "refresh_token")
 	private String refreshToken;
