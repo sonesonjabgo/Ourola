@@ -26,8 +26,13 @@ public class AnnouncementService {
 		return announcementRepository.findByGroupChannelDto_Id(groupChannelDto.getId());
 	}
 
-	public void writeAnnouncement(String artist, String accessToken, AnnouncementDto announcementDto) throws Exception {
-		String decodingEmail = accessToken; // 디코딩 필요
+	public AnnouncementDto getAnnouncement(String artist, int announcementId) throws Exception {
+		return announcementRepository.findById(announcementId);
+	}
+
+	public AnnouncementDto writeAnnouncement(String artist, String accessToken, AnnouncementDto announcementDto) throws
+		Exception {
+		String decodingEmail = accessToken; // accessToken이 없으므로 디코딩 필요
 
 		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
 
@@ -39,6 +44,40 @@ public class AnnouncementService {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		announcementRepository.save(announcementDto);
+		return announcementRepository.save(announcementDto);
+	}
+
+	public void modifyAnnouncement(String artist, int announcementId, String accessToken,
+		AnnouncementDto announcementDto) throws
+		Exception {
+		String decodingEmail = accessToken; // accessToken이 없으므로 디코딩 필요
+
+		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
+
+		if (artistUserDto.getEmail() != decodingEmail) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		if (!artistUserDto.isAdmin()) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		// 수정 코드 추가하기
+	}
+
+	public void removeAnnouncement(String artist, int announcementId, String accessToken) throws Exception {
+		String decodingEmail = accessToken; // accessToken이 없으므로 디코딩 필요
+
+		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
+
+		if (artistUserDto.getEmail() != decodingEmail) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		if (!artistUserDto.isAdmin()) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		announcementRepository.deleteById(announcementId);
 	}
 }
