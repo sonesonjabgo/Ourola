@@ -13,49 +13,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
-import com.mk.ourola.api.feed.service.FanFeedService;
+import com.mk.ourola.api.feed.service.FeedServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/{artist}/feed")
-public class FanFeedController {
+public class FeedController {
 
-	private final FanFeedService fanFeedService;
+	private final FeedServiceImpl fanFeedService;
 
 	@GetMapping("")
 	public ResponseEntity<List<FanFeedDto>> getAllFeed(@PathVariable String artist) {
-		System.out.println(artist);
 		List<FanFeedDto> fanFeedList = fanFeedService.getAllFeed(artist);
 		return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 	}
 
 	@PostMapping("/write")
-	public ResponseEntity<FanFeedDto> writeFeed(@PathVariable String artist, @RequestBody FanFeedDto fanFeedDto) {
-		System.out.println(artist + " : " + fanFeedDto);
-
-		FanFeedDto fanFeedDtoResult = fanFeedService.writeFeed(fanFeedDto);
-
+	public ResponseEntity<FanFeedDto> writeFeed(
+		@PathVariable String artist,
+		@RequestBody FanFeedDto fanFeedDto
+	) {
+		FanFeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, fanFeedDto);
 		return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<String> removeFeed(@PathVariable String artist, @PathVariable Integer id) {
-
 		fanFeedService.removeFeed(id);
-
 		return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<FanFeedDto> getAllFeed(
+	public ResponseEntity<FanFeedDto> getFeed(
 		@PathVariable(name = "artist") String artist,
 		@PathVariable(name = "id") int id
 	) {
-		System.out.println("단일 조회" + id);
-		FanFeedDto fanFeedList = fanFeedService.getFeed(artist, id);
-		return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+		FanFeedDto fanFeed = fanFeedService.getFeed(artist, id);
+		return new ResponseEntity<>(fanFeed, HttpStatus.OK);
 	}
 
 	@PostMapping("/modify/{id}")
@@ -64,7 +60,8 @@ public class FanFeedController {
 		@PathVariable int id,
 		@RequestBody FanFeedDto fanFeedDto
 	) {
-		FanFeedDto modifiedFeed = fanFeedService.modifyFeed(artist, id, fanFeedDto);
+		fanFeedDto.setId(id);
+		FanFeedDto modifiedFeed = fanFeedService.modifyFeed(fanFeedDto);
 		return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 	}
 }
