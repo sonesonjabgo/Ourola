@@ -1,0 +1,3 @@
+1. 실행할 때 여러 변수명 오류뜨는 거 해결하기
+2. FanUserDto @DynamicInsert로 Default 값 설정하기
+3. 로그인 이슈 해결하기
