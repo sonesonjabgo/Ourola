@@ -28,7 +28,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FanFeedDto {
+public class FeedDto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
