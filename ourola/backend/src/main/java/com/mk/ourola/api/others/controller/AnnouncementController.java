@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
-import com.mk.ourola.api.others.service.AnnouncementService;
+import com.mk.ourola.api.others.service.AnnouncementServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +24,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AnnouncementController {
 
-	private final AnnouncementService announcementService;
+	private final AnnouncementServiceImpl announcementService;
 
+	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
 	@GetMapping("/list")
 	public ResponseEntity<List<AnnouncementDto>> getAllAnnouncement(@PathVariable("artist") String artist) {
 		try {
@@ -36,9 +37,10 @@ public class AnnouncementController {
 		}
 	}
 
+	// 선택된 하나의 공지의 정보를 보내는 메서드
 	@GetMapping("/read/{announcementId}")
 	public ResponseEntity<AnnouncementDto> getAnnouncement(@PathVariable("artist") String artist,
-		@PathVariable("announcementId") int announcementId) { // 이거 artist 받을 필요 없나?
+		@PathVariable("announcementId") int announcementId) {
 		try {
 			return new ResponseEntity<AnnouncementDto>(announcementService.getAnnouncement(artist, announcementId),
 				HttpStatus.OK);
@@ -47,6 +49,7 @@ public class AnnouncementController {
 		}
 	}
 
+	// 소속사 직원이 공지를 만드는 메서드
 	@PostMapping("/write")
 	public ResponseEntity<AnnouncementDto> writeAnnouncement(@PathVariable("artist") String artist,
 		@RequestHeader String accessToken,
@@ -60,18 +63,21 @@ public class AnnouncementController {
 		}
 	}
 
+	// 소속사 직원이 공지 제목 혹은 내용을 바꾸는 메서드
 	@PutMapping("/modify/{announcementId}")
-	public ResponseEntity<String> modifyAnnouncement(@PathVariable("artist") String artist,
+	public ResponseEntity<AnnouncementDto> modifyAnnouncement(@PathVariable("artist") String artist,
 		@PathVariable("announcementId") int announcementId, @RequestHeader String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
-			announcementService.modifyAnnouncement(artist, announcementId, accessToken, announcementDto);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<AnnouncementDto>(
+				announcementService.modifyAnnouncement(artist, announcementId, accessToken, announcementDto),
+				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	// 소속사 직원이 공지를 지우는 메서드
 	@DeleteMapping("/remove/{announcementId}")
 	public ResponseEntity<String> removeAnnouncement(@PathVariable("artist") String artist,
 		@PathVariable("announcementId") int announcementId,
