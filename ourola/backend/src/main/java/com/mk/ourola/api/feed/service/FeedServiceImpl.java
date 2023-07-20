@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.artist.repository.GroupRepository;
 import com.mk.ourola.api.feed.repository.FeedRepository;
-import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,33 +14,33 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FeedServiceImpl implements FeedService{
 
-	private final FeedRepository fanFeedRepository;
+	private final FeedRepository FeedRepository;
 
 	private final GroupRepository groupRepository;
 
-	public List<FanFeedDto> getAllFeed(String artist) {
+	public List<FeedDto> getAllFeed(String artist) {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return fanFeedRepository.findByGroupChannelDto_Id(groupId);
+		return FeedRepository.findByGroupChannelDto_Id(groupId);
 	}
 
-	public FanFeedDto getFeed(String artist, int id) {
+	public FeedDto getFeed(String artist, int id) {
 		System.out.println(artist + "서비스");
-		return fanFeedRepository.findById(id);
+		return FeedRepository.findById(id);
 	}
 
-	public FanFeedDto writeFeed(String artist, FanFeedDto fanFeedDto) {
-		fanFeedDto.setGroupChannelDto(groupRepository.findByName(artist));
-		return fanFeedRepository.save(fanFeedDto);
+	public FeedDto writeFeed(String artist, FeedDto FeedDto) {
+		FeedDto.setGroupChannelDto(groupRepository.findByName(artist));
+		return FeedRepository.save(FeedDto);
 	}
 
 	public void removeFeed(Integer id) {
-		fanFeedRepository.deleteById(id);
+		FeedRepository.deleteById(id);
 	}
 
-	public FanFeedDto modifyFeed(FanFeedDto fanFeedDto) {
-		return fanFeedRepository.save(fanFeedDto);
+	public FeedDto modifyFeed(FeedDto FeedDto) {
+		return FeedRepository.save(FeedDto);
 	}
 
 }

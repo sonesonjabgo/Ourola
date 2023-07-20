@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class FeedController {
 
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
-	public ResponseEntity<List<FanFeedDto>> getAllFeed(@PathVariable String artist) {
+	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String artist) {
 		try {
-			List<FanFeedDto> fanFeedList = fanFeedService.getAllFeed(artist);
+			List<FeedDto> fanFeedList = fanFeedService.getAllFeed(artist);
 			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -39,12 +39,12 @@ public class FeedController {
 
 	// 피드, 포스트를 작성하는 메서드
 	@PostMapping("/write")
-	public ResponseEntity<FanFeedDto> writeFeed(
+	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String artist,
-		@RequestBody FanFeedDto fanFeedDto
+		@RequestBody FeedDto FeedDto
 	) {
 		try {
-			FanFeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, fanFeedDto);
+			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto);
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,13 +64,13 @@ public class FeedController {
 
 	// 단일 피드, 포스트를 보는 메서드
 	@GetMapping("/{id}")
-	public ResponseEntity<FanFeedDto> getFeed(
+	public ResponseEntity<FeedDto> getFeed(
 		@PathVariable(name = "artist") String artist,
 		@PathVariable(name = "id") int id
 	) {
 		try {
-			FanFeedDto fanFeed = fanFeedService.getFeed(artist, id);
-			return new ResponseEntity<>(fanFeed, HttpStatus.OK);
+			FeedDto Feed = fanFeedService.getFeed(artist, id);
+			return new ResponseEntity<>(Feed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -78,14 +78,14 @@ public class FeedController {
 
 	// 해당 id의 글을 수정하는 메서드
 	@PostMapping("/modify/{id}")
-	public ResponseEntity<FanFeedDto> modifyFeed(
+	public ResponseEntity<FeedDto> modifyFeed(
 		@PathVariable String artist,
 		@PathVariable int id,
-		@RequestBody FanFeedDto fanFeedDto
+		@RequestBody FeedDto FeedDto
 	) {
 		try {
-			fanFeedDto.setId(id);
-			FanFeedDto modifiedFeed = fanFeedService.modifyFeed(fanFeedDto);
+			FeedDto.setId(id);
+			FeedDto modifiedFeed = fanFeedService.modifyFeed(FeedDto);
 			return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

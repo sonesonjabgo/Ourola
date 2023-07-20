@@ -37,7 +37,7 @@ public class MyPageServiceImpl implements MyPageService {
 	// 전체 구매 내역 가져오기
 	public List<BillDto> getAllBill(String userName){
 		Optional<FanUserDto> user = fanUserRepository.findByName(userName);
-		return user.map(fanUserDto -> billRepository.findByUserId(fanUserDto.getId())).orElse(null);
+		return user.map(fanUserDto -> billRepository.findByFanUserDto_Id(fanUserDto.getId())).orElse(null);
 	}
 
 

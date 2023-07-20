@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +32,7 @@ public class CommentDto {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private FeedDto fanFeedDto;
+	private FanUserDto fanUserDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")

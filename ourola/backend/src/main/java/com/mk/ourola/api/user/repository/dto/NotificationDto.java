@@ -43,8 +43,8 @@ public class NotificationDto {
 
 	private String content;
 
-	@Column(name = "create_time")
-	private Date createTime;
+	@Column(name = "create_date")
+	private Date createDate;
 
 	private boolean read;
 }

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +31,5 @@ public class BookMarkDto {
 
 	@ManyToOne
 	@JoinColumn(name = "feed_id")
-	private FanFeedDto fanFeedDto;
+	private FeedDto fanFeedDto;
 }

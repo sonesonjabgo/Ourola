@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
 @Repository
-public interface FeedRepository extends JpaRepository<FanFeedDto, Integer> {
+public interface FeedRepository extends JpaRepository<FeedDto, Integer> {
 
-	List<FanFeedDto> findAll();
+	List<FeedDto> findAll();
 
-	FanFeedDto findById(int id);
+	FeedDto findById(int id);
 
-	List<FanFeedDto> findByGroupChannelDto_Id(int id);
+	List<FeedDto> findByGroupChannelDto_Id(int id);
 
 }

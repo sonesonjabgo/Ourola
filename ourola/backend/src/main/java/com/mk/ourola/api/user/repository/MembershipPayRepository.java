@@ -11,5 +11,5 @@ import com.mk.ourola.api.user.repository.dto.MembershipPayDto;
 public interface MembershipPayRepository extends JpaRepository<MembershipPayDto, Integer> {
 
 	Optional<MembershipPayDto> findById(int id);
-	Optional<MembershipPayDto> findByGroupId(int groupId);
+	Optional<MembershipPayDto> findByGroupChannelDto_Id(int groupId);
 }

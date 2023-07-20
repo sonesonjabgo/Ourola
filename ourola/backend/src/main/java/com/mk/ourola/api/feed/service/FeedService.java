@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
 public interface FeedService {
 
-	public List<FanFeedDto> getAllFeed(String artist);
+	public List<FeedDto> getAllFeed(String artist);
 
-	public FanFeedDto getFeed(String artist, int id);
+	public FeedDto getFeed(String artist, int id);
 
-	public FanFeedDto writeFeed(String artist,FanFeedDto fanFeedDto);
+	public FeedDto writeFeed(String artist,FeedDto fanFeedDto);
 
 	public void removeFeed(Integer id);
-	public FanFeedDto modifyFeed(FanFeedDto fanFeedDto);
+	public FeedDto modifyFeed(FeedDto fanFeedDto);
 }
