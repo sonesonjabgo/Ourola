@@ -1,17 +1,17 @@
-package com.mk.ourola.service;
+package com.mk.ourola.api.user.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.repository.BillRepository;
-import com.mk.ourola.repository.BookMarkRepository;
-import com.mk.ourola.repository.GroupRepository;
-import com.mk.ourola.repository.MembershipPayRepository;
-import com.mk.ourola.repository.OnlineConcertRepository;
-import com.mk.ourola.repository.dto.BookMarkDto;
-import com.mk.ourola.repository.dto.MembershipPayDto;
-import com.mk.ourola.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.artist.repository.GroupRepository;
+import com.mk.ourola.api.live.onlineconcert.repository.OnlineConcertRepository;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.user.repository.BillRepository;
+import com.mk.ourola.api.user.repository.BookMarkRepository;
+import com.mk.ourola.api.user.repository.MembershipPayRepository;
+import com.mk.ourola.api.user.repository.dto.BookMarkDto;
+import com.mk.ourola.api.user.repository.dto.MembershipPayDto;
 
 import lombok.RequiredArgsConstructor;
 

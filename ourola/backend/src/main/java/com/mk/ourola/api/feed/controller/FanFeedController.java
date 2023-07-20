@@ -1,4 +1,4 @@
-package com.mk.ourola.controller;
+package com.mk.ourola.api.feed.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.repository.dto.FanFeedDto;
-import com.mk.ourola.service.FanFeedService;
+import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
+import com.mk.ourola.api.feed.service.FanFeedService;
 
 import lombok.RequiredArgsConstructor;
 

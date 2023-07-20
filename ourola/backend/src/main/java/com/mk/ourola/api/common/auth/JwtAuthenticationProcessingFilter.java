@@ -1,4 +1,4 @@
-package com.mk.ourola.common.auth;
+package com.mk.ourola.api.common.auth;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.mk.ourola.repository.FanUserRepository;
-import com.mk.ourola.repository.dto.FanUserDto;
-import com.mk.ourola.service.JwtService;
+import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

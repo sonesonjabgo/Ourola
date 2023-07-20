@@ -14,13 +14,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mk.ourola.common.auth.CustomJsonAuthenticationFilter;
-import com.mk.ourola.common.auth.JwtAuthenticationProcessingFilter;
-import com.mk.ourola.common.handler.LoginFailureHandler;
-import com.mk.ourola.common.handler.LoginSuccessHandler;
-import com.mk.ourola.repository.FanUserRepository;
-import com.mk.ourola.service.JwtService;
-import com.mk.ourola.service.LoginService;
+import com.mk.ourola.api.common.auth.CustomJsonAuthenticationFilter;
+import com.mk.ourola.api.common.auth.JwtAuthenticationProcessingFilter;
+import com.mk.ourola.api.common.handler.LoginFailureHandler;
+import com.mk.ourola.api.common.handler.LoginSuccessHandler;
+import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.service.JwtService;
+import com.mk.ourola.api.user.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.mk.ourola.service;
+package com.mk.ourola.api.user.service;
 
 import java.util.Date;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.mk.ourola.repository.FanUserRepository;
+import com.mk.ourola.api.user.repository.FanUserRepository;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

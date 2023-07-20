@@ -1,15 +1,15 @@
-package com.mk.ourola.service;
+package com.mk.ourola.api.others.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.repository.AnnouncementRepository;
-import com.mk.ourola.repository.ArtistUserRepository;
-import com.mk.ourola.repository.GroupRepository;
-import com.mk.ourola.repository.dto.AnnouncementDto;
-import com.mk.ourola.repository.dto.ArtistUserDto;
-import com.mk.ourola.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.artist.repository.ArtistUserRepository;
+import com.mk.ourola.api.artist.repository.GroupRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.others.repository.AnnouncementRepository;
+import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
 
 import lombok.RequiredArgsConstructor;
 

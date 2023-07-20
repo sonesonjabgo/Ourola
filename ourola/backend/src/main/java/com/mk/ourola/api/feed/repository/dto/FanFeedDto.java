@@ -1,4 +1,4 @@
-package com.mk.ourola.repository.dto;
+package com.mk.ourola.api.feed.repository.dto;
 
 import java.util.Date;
 
@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

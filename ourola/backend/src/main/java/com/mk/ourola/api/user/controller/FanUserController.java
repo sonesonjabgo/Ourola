@@ -1,4 +1,4 @@
-package com.mk.ourola.controller;
+package com.mk.ourola.api.user.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.repository.dto.FanUserSignUpDto;
-import com.mk.ourola.service.FanUserService;
+import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
+import com.mk.ourola.api.user.service.FanUserService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.mk.ourola.repository.dto;
+package com.mk.ourola.api.artist.repository.dto;
 
 import java.util.Date;
 
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,5 +58,4 @@ public class ArtistUserDto {
 
 	@Column(name = "refresh_token")
 	private String refreshToken;
-
 }
