@@ -1,4 +1,4 @@
-package com.mk.ourola.repository.dto;
+package com.mk.ourola.api.user.repository.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,11 +1,11 @@
-package com.mk.ourola.repository;
+package com.mk.ourola.api.user.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mk.ourola.repository.dto.BillDto;
+import com.mk.ourola.api.user.repository.dto.BillDto;
 
 @Repository
 public interface BillRepository extends JpaRepository<BillDto, Integer> {

@@ -1,4 +1,4 @@
-package com.mk.ourola.common.handler;
+package com.mk.ourola.api.common.handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
-import com.mk.ourola.repository.FanUserRepository;
-import com.mk.ourola.service.JwtService;
+import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

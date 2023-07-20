@@ -1,4 +1,4 @@
-package com.mk.ourola.common.auth;
+package com.mk.ourola.api.common.auth;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

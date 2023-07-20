@@ -1,12 +1,12 @@
-package com.mk.ourola.service;
+package com.mk.ourola.api.feed.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.repository.FanFeedRepository;
-import com.mk.ourola.repository.GroupRepository;
-import com.mk.ourola.repository.dto.FanFeedDto;
+import com.mk.ourola.api.artist.repository.GroupRepository;
+import com.mk.ourola.api.feed.repository.FanFeedRepository;
+import com.mk.ourola.api.feed.repository.dto.FanFeedDto;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,11 +1,11 @@
-package com.mk.ourola.service;
+package com.mk.ourola.api.user.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.repository.FanUserRepository;
-import com.mk.ourola.repository.dto.FanUserDto;
-import com.mk.ourola.repository.dto.FanUserSignUpDto;
+import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
 
 import lombok.RequiredArgsConstructor;
 

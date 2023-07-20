@@ -1,4 +1,4 @@
-package com.mk.ourola.common.handler;
+package com.mk.ourola.api.common.handler;
 
 import java.io.IOException;
 
