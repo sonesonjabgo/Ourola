@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +27,10 @@ public class MembershipPayDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@OneToOne
+	@JoinColumn(name = "group_id")
+	private GroupChannelDto groupChannelDto;
 
 	private String title;
 
