@@ -25,6 +25,7 @@ public class AnnouncementServiceImpl implements Announcement {
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
 	public List<AnnouncementDto> getAllAnnouncement(String artist) throws Exception {
 		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+
 		return announcementRepository.findByGroupChannelDto_Id(groupChannelDto.getId());
 	}
 
@@ -40,7 +41,7 @@ public class AnnouncementServiceImpl implements Announcement {
 
 		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
 
-		if (decodingEmail != null && artistUserDto.getEmail() != decodingEmail) {
+		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
@@ -59,7 +60,7 @@ public class AnnouncementServiceImpl implements Announcement {
 
 		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
 
-		if (decodingEmail != null && artistUserDto.getEmail() != decodingEmail) {
+		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
@@ -81,7 +82,7 @@ public class AnnouncementServiceImpl implements Announcement {
 
 		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
 
-		if (decodingEmail != null && artistUserDto.getEmail() != decodingEmail) {
+		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 

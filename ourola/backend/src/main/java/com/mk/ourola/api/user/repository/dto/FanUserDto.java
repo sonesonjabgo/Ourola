@@ -47,7 +47,7 @@ public class FanUserDto {
 
 	private String name;
 
-	private int age;
+	private Integer age;
 
 	@Column(name = "regist_date")
 	private Date registDate;

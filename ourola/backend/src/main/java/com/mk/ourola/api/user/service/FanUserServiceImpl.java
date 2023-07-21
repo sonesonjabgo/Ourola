@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
 import com.mk.ourola.api.user.repository.NotificationRepository;
+import com.mk.ourola.api.user.repository.SubscribeGroupRepository;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
 import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
 import com.mk.ourola.api.user.repository.dto.NotificationDto;
@@ -23,6 +24,7 @@ public class FanUserServiceImpl implements FanUserService {
 	private final FanUserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final NotificationRepository notificationRepository;
+	private final SubscribeGroupRepository subscribeGroupRepository;
 
 	public void signUp(FanUserSignUpDto userSignUpDto) throws Exception {
 
@@ -49,11 +51,11 @@ public class FanUserServiceImpl implements FanUserService {
 	}
 
 	// 아티스트가 글을 쓴 경우 해당 태널을 구독한 유저들에게 보낼 알림을 저장함
-	public String writeNotifications(FeedDto feedDto){
+	public String writeNotifications(FeedDto feedDto) {
 		List<SubscribeGroupDto> byGroupChannelDtoId = subscribeGroupRepository.findByGroupChannelDto_Id(
 			feedDto.getGroupChannelDto().getId());
 
-		for(SubscribeGroupDto i : byGroupChannelDtoId){
+		for (SubscribeGroupDto i : byGroupChannelDtoId) {
 			i.getFanUserDto().getId();
 			NotificationDto notificationDto = NotificationDto.builder()
 				.fanUserDto(i.getFanUserDto())
@@ -66,7 +68,7 @@ public class FanUserServiceImpl implements FanUserService {
 		return "등록 완료";
 	}
 
-	public List<SubscribeGroupDto> getSubscribeChannel(String userEmail){
+	public List<SubscribeGroupDto> getSubscribeChannel(String userEmail) {
 		Optional<FanUserDto> userDto = userRepository.findByEmail(userEmail);
 		return subscribeGroupRepository.findByFanUserDto_Id(userDto.get().getId()).get();
 	}

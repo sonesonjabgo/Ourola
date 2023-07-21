@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 
 import lombok.Getter;
@@ -22,6 +24,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class OnlineConcertDto {
 
 	@Id
@@ -45,13 +48,12 @@ public class OnlineConcertDto {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	private int price;
+	private Integer price;
 
 	@Column(name = "file_path")
 	private String filePath;
 
 	@Column(name = "file_extension")
 	private String fileExtension;
-
 
 }

@@ -37,7 +37,7 @@ public class MembershipPayDto {
 
 	private String title;
 
-	private int price;
+	private Integer price;
 
 	private String detail;
 
