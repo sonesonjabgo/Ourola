@@ -16,5 +16,7 @@ public interface FeedService {
 
 	public FeedDto modifyFeed(FeedDto fanFeedDto);
 
-	public List<FeedDto> getAllSpecificArtistFeed(String artist, int artistId) throws Exception;
+	public FeedDto modifyLike(Integer id, boolean like) throws Exception;
+
+	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception;
 }
