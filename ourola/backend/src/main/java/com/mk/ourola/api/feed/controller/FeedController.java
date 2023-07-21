@@ -91,4 +91,15 @@ public class FeedController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	// 해당 아티스트의 ID를 받아 그 아티스트의 게시물들만 보내는 메서드
+	@GetMapping("/filter/{artistId}")
+	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String artist,
+		@PathVariable int artistId) {
+		try {
+			return new ResponseEntity<>(fanFeedService.getAllSpecificArtistFeed(artist, artistId), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
