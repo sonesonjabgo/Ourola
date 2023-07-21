@@ -61,4 +61,8 @@ public class ArtistUserDto {
 
 	@Column(name = "refresh_token")
 	private String refreshToken;
+
+	private Date birthday;
+
+	private String nickname;
 }
