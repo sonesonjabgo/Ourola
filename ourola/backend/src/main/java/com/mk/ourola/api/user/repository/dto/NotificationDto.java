@@ -15,6 +15,8 @@ import org.hibernate.annotations.DynamicInsert;
 import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +26,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicInsert
 public class NotificationDto {
 
