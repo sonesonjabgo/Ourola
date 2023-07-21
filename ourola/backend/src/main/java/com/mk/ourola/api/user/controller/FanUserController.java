@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
 import com.mk.ourola.api.user.repository.dto.NotificationDto;
+import com.mk.ourola.api.user.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.user.service.FanUserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,17 @@ public class FanUserController {
 			List<NotificationDto> notifications = fanUserService.getNotification(email);
 			return new ResponseEntity<>(notifications, HttpStatus.OK);
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 유저가 가입, 구독한 아티스트 채널 목록
+	@GetMapping("/subscribechannel")
+	public ResponseEntity<?> getSubscribeChannel(String userEmail){
+		try{
+			List<SubscribeGroupDto> subscribeChannelList = fanUserService.getSubscribeChannel(userEmail);
+			return new ResponseEntity<>(subscribeChannelList, HttpStatus.OK);
+		}catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
