@@ -16,6 +16,8 @@ public interface CommentRepository extends JpaRepository<CommentDto, Integer> {
 	// 사용자 아이디로 댓글 리스트 조회
 	List<CommentDto> findByFanUserDto_Id(int id);
 
+	List<CommentDto> findByArtistUserDto_Id(int id);
+
 	CommentDto findById(int id);
 
 

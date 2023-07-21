@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
@@ -51,9 +53,11 @@ public class ReCommentDto {
 
 	private String content;
 
+	@CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;
 

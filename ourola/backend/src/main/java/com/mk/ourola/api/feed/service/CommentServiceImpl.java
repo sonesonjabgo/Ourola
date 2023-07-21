@@ -1,6 +1,15 @@
 package com.mk.ourola.api.feed.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.sql.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -25,13 +34,31 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public List<CommentDto> getUserCommnetList(int fanUserId) {
+		return commentRepository.findByFanUserDto_Id(fanUserId);
+	}
+
+	@Override
+	public List<CommentDto> getArtistCommentList(int artistUserId) {
+		return commentRepository.findByArtistUserDto_Id(artistUserId);
+	}
+
+	@Override
 	public CommentDto getComment(int commentId) {
 		return commentRepository.findById(commentId);
 	}
 
 	@Override
 	public CommentDto writeComment(CommentDto commentDto) {
+		System.out.println(commentDto);
 		return commentRepository.save(commentDto);
+	}
+
+	@Override
+	public CommentDto modifyComment(CommentDto commentDto) {
+		CommentDto newComment = commentRepository.findById(commentDto.getId());
+		newComment.setContent(commentDto.getContent());
+		return commentRepository.save(newComment);
 	}
 
 	@Override
@@ -45,6 +72,16 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public List<ReCommentDto> getUserReCommnetList(int fanUserId) {
+		return reCommentRepository.findByFanUserDto_Id(fanUserId);
+	}
+
+	@Override
+	public List<ReCommentDto> getArtistReCommentList(int artistUserId) {
+		return reCommentRepository.findByArtistUserDto_Id(artistUserId);
+	}
+
+	@Override
 	public ReCommentDto getReComment(int reCommentId) {
 		return reCommentRepository.findById(reCommentId);
 	}
@@ -55,7 +92,14 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void removereComment(int reCommentId) {
+	public ReCommentDto modifyReComment(ReCommentDto reCommentDto) {
+		ReCommentDto newReComment = reCommentRepository.findById(reCommentDto.getId());
+		newReComment.setContent(reCommentDto.getContent());
+		return reCommentRepository.save(newReComment);
+	}
+
+	@Override
+	public void removeReComment(int reCommentId) {
 		reCommentRepository.deleteById(reCommentId);
 	}
 }
