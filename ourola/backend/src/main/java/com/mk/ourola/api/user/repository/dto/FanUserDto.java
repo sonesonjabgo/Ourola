@@ -13,18 +13,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity(name = "fan_user")
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@DynamicInsert
 public class FanUserDto {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -46,7 +56,6 @@ public class FanUserDto {
 
 	@Column(name = "is_admin")
 	private boolean isAdmin;
-
 
 	@Column(name = "refresh_token")
 	private String refreshToken;
