@@ -10,6 +10,7 @@ import com.mk.ourola.api.user.repository.NotificationRepository;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
 import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
 import com.mk.ourola.api.user.repository.dto.NotificationDto;
+import com.mk.ourola.api.user.repository.dto.Role;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +34,7 @@ public class FanUserServiceImpl implements FanUserService {
 			.name(userSignUpDto.getName())
 			.age(userSignUpDto.getAge())
 			.tel(userSignUpDto.getTel())
-			//                .role(Role.USER)
+			.role(Role.USER)
 			.build();
 
 		user.passwordEncode(passwordEncoder);
