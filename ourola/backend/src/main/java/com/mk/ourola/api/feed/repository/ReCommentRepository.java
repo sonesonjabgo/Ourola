@@ -14,5 +14,7 @@ public interface ReCommentRepository extends JpaRepository<ReCommentDto, Integer
 
 	ReCommentDto findById(int id);
 
+	List<ReCommentDto> findByArtistUserDto_Id(int id);
+
 	List<ReCommentDto> findByFanUserDto_Id(int id);
 }
