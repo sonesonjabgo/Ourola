@@ -39,13 +39,33 @@ public class AnnouncementServiceImpl implements Announcement {
 		Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
 
-		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
-
-		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
+		if (decodingEmail == null) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		if (!artistUserDto.isAdmin()) {
+		System.out.println(artist);
+
+		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+
+		System.out.println(groupChannelDto);
+
+		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+			groupChannelDto.getId());
+
+		ArtistUserDto artistUserDto = null;
+
+		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+			if (artistUserInfo.isAdmin()) {
+				artistUserDto = artistUserInfo;
+				break;
+			}
+		}
+
+		if (artistUserDto == null) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		if (!artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
@@ -58,20 +78,36 @@ public class AnnouncementServiceImpl implements Announcement {
 		Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
 
-		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
-
-		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
+		if (decodingEmail == null) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		if (!artistUserDto.isAdmin()) {
+		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+
+		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+			groupChannelDto.getId());
+
+		ArtistUserDto artistUserDto = null;
+
+		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+			if (artistUserInfo.isAdmin()) {
+				artistUserDto = artistUserInfo;
+				break;
+			}
+		}
+
+		if (artistUserDto == null) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		if (!artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
 		AnnouncementDto modifyAnnouncementDto = announcementRepository.findById(announcementId);
 		modifyAnnouncementDto.setTitle(announcementDto.getTitle());
 		modifyAnnouncementDto.setContent(announcementDto.getContent());
-		announcementRepository.save(modifyAnnouncementDto); // 이러면 수정된다는 거지?
+		announcementRepository.save(modifyAnnouncementDto);
 
 		return modifyAnnouncementDto;
 	}
@@ -80,13 +116,29 @@ public class AnnouncementServiceImpl implements Announcement {
 	public void removeAnnouncement(String artist, int announcementId, String accessToken) throws Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
 
-		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
-
-		if (decodingEmail != null && !artistUserDto.getEmail().equals(decodingEmail)) {
+		if (decodingEmail == null) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		if (!artistUserDto.isAdmin()) {
+		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+
+		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+			groupChannelDto.getId());
+
+		ArtistUserDto artistUserDto = null;
+
+		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+			if (artistUserInfo.isAdmin()) {
+				artistUserDto = artistUserInfo;
+				break;
+			}
+		}
+
+		if (artistUserDto == null) {
+			throw new Exception(); // 세세한 예외 처리 필요
+		}
+
+		if (!artistUserDto.getEmail().equals(decodingEmail)) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 

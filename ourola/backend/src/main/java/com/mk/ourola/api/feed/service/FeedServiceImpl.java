@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.artist.repository.ArtistUserRepository;
 import com.mk.ourola.api.artist.repository.GroupRepository;
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
@@ -48,13 +47,21 @@ public class FeedServiceImpl implements FeedService {
 		return FeedRepository.save(FeedDto);
 	}
 
-	public List<FeedDto> getAllSpecificArtistFeed(String artist, int artistId) throws Exception {
-		ArtistUserDto artistUserDto = artistUserRepository.findByName(artist);
+	public FeedDto modifyLike(Integer id, boolean like) {
+		FeedDto feedDto = FeedRepository.findById(id).get();
 
-		if (artistUserDto != null && !artistUserDto.getName().equals(artist)) {
-			throw new Exception(); // 세세한 예외 처리 필요
+		if (like == true) {
+			feedDto.setLike(feedDto.getLike() - 1);
+		} else {
+			feedDto.setLike(feedDto.getLike() + 1);
 		}
 
+		FeedRepository.save(feedDto);
+
+		return feedDto;
+	}
+
+	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
 		List<FeedDto> specificArtistFeed = FeedRepository.findByArtistUserDto_Id(artistId);
 
 		List<FeedDto> onlyArtistFeed = new ArrayList<>();

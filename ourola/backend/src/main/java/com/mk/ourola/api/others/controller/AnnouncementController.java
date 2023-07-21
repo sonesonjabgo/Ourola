@@ -55,9 +55,8 @@ public class AnnouncementController {
 		@RequestHeader String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
-			AnnouncementDto result = announcementService.writeAnnouncement(artist, accessToken,
-				announcementDto);
-			return new ResponseEntity<>(result, HttpStatus.OK);
+			return new ResponseEntity<>(announcementService.writeAnnouncement(artist, accessToken,
+				announcementDto), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
