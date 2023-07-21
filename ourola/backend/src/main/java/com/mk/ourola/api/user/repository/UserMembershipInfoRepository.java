@@ -11,5 +11,6 @@ import com.mk.ourola.api.user.repository.dto.UserMembershipInfoDto;
 @Repository
 public interface UserMembershipInfoRepository extends JpaRepository<UserMembershipInfoDto, Integer> {
 
+	// 멤버십 가격정보 가져오기
 	List<UserMembershipInfoDto> findByFanUserDto_Id(int userId);
 }

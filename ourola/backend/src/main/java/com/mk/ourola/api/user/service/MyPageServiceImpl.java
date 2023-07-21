@@ -34,27 +34,33 @@ public class MyPageServiceImpl implements MyPageService {
 
 	private final MembershipPayRepository membershipPayRepository;
 
+	// TODO : userDto 수정되는대로 다시 구현
+	// 사용자의 개인정보 가져오기
+	// public FanUserDto getUserInfo(String userEmail) {
+	// 	Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
+	//	
+	// }
+
 	// 전체 구매 내역 가져오기
-	public List<BillDto> getAllBill(String userName){
-		Optional<FanUserDto> user = fanUserRepository.findByName(userName);
+	public List<BillDto> getAllBill(String userEmail) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
 		return user.map(fanUserDto -> billRepository.findByFanUserDto_Id(fanUserDto.getId())).orElse(null);
 	}
 
-
 	// 북마크 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String userName) {
-		Optional<FanUserDto> user = fanUserRepository.findByName(userName);
+	public List<BookMarkDto> getAllBookMark(String userEmail) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
 		return bookMarkRepository.findByFanUserDto_Id(user.get().getId());
 	}
 
 	// 사용자가 가입한 전체 멤버십 구매 내역 가져오기
-	public List<UserMembershipInfoDto> getAllMembership(String userName){
-		Optional<FanUserDto> user = fanUserRepository.findByName(userName);
+	public List<UserMembershipInfoDto> getAllMembership(String userEmail) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
 		return userMembershipInfoRepository.findByFanUserDto_Id(user.get().getId());
 	}
 
 	// 사용자가 가입한 멤버십 가격 정보 가져오기
-	public Optional<MembershipPayDto> getMembershipPay(){
+	public Optional<MembershipPayDto> getMembershipPay() {
 		// 받아오기
 		return membershipPayRepository.findById(1);
 	}
@@ -62,9 +68,9 @@ public class MyPageServiceImpl implements MyPageService {
 	// 사용자가 구매한 온라인콘서트 전체 내역 가져오기
 	public List<OnlineConcertDto> getAllOnlineConcert() {
 		List<BillDto> onlineConcert = billRepository.findByOnlineConcertDto_IdIsNotNull();
-		if(!onlineConcert.isEmpty()){
+		if (!onlineConcert.isEmpty()) {
 			List<OnlineConcertDto> list = new ArrayList<>();
-			for(BillDto bill : onlineConcert){
+			for (BillDto bill : onlineConcert) {
 				list.add(bill.getOnlineConcertDto());
 			}
 			return list;
