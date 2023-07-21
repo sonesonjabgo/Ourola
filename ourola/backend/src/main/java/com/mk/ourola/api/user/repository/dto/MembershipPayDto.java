@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 
 import lombok.Getter;
@@ -22,6 +24,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class MembershipPayDto {
 
 	@Id

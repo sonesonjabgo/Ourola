@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +22,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class UserMembershipInfoDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
