@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
@@ -28,6 +30,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class FeedDto {
 
 	@Id
@@ -51,7 +54,7 @@ public class FeedDto {
 	private String content;
 
 	@Column(name = "read_count")
-	private int readCnt;
+	private Integer readCnt;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -60,9 +63,9 @@ public class FeedDto {
 	private Date updateDate;
 
 	@Column(name = "`like`")
-	private int like;
+	private Integer like;
 
 	// 팬이면 1, 아티스트면 2
-	private int type;
+	private Integer type;
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 
@@ -23,6 +25,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class AnnouncementDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

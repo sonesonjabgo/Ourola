@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 
 import lombok.Getter;
@@ -22,6 +24,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class BillDto {
 
 	@Id
@@ -42,5 +45,5 @@ public class BillDto {
 
 	@Column(name = "payment_date")
 	private Date paymentDate;
-	
+
 }

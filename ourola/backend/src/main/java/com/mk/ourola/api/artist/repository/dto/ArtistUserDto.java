@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
 
 import lombok.Getter;
@@ -24,6 +26,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicInsert
 public class ArtistUserDto {
 
 	@Id
@@ -44,7 +47,7 @@ public class ArtistUserDto {
 
 	private String name;
 
-	private int age;
+	private Integer age;
 
 	@Column(name = "regist_date")
 	private Date registDate;

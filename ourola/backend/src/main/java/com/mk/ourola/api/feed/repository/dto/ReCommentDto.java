@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
 
@@ -24,11 +25,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "re_comment")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert @DynamicUpdate
+
 public class ReCommentDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
