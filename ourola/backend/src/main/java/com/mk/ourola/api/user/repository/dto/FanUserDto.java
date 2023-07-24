@@ -65,9 +65,16 @@ public class FanUserDto {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	// @Column(name = "social_type")
+	// @Enumerated(EnumType.STRING)
+	// private SocialType socialType;
+	//
+	// private String socialId;
+
 	private String nickname;
 
 	private Date birthday;
+
 
 	// 유저 권한 설정 메소드 ( 소셜로그인(간편) : 게스트, 추가 기능 사용시 자체 로그인 필요 )
 	public void authorizeUser() {
