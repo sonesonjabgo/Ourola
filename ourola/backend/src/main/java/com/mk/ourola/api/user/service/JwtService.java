@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.mk.ourola.api.artist.repository.ArtistUserRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.user.repository.dto.Role;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -44,23 +48,36 @@ public class JwtService {
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String EMAIL_CLAIM = "email";
+    private static final String USER_ROLE_CLAIM = "role";
+    private static final String USER_ID_CLAIM = "id";
     private static final String BEARER = "Bearer ";
 
     private final FanUserRepository fanUserRepository;
+    private final ArtistUserRepository artistUserRepository;
 
     /**
      * AccessToken 생성 메소드
      */
     public String createAccessToken(String email) {
         Date now = new Date();
+        String role;
+        // 입력된 이메일 기반으로 user/artist role 가져와서
+        // jwt token claim으로 넣어줍니다.
+        if(fanUserRepository.existsByEmail(email)) {
+            FanUserDto fanUserDto = fanUserRepository.findByEmail(email).get();
+            role = fanUserDto.getRole().getKey();
+        } else {
+            ArtistUserDto artistUserDto = artistUserRepository.findByEmail(email).get();
+            role = artistUserDto.getRole().getKey();
+        }
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
                 .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) // 토큰 만료 시간 설정
 
-                //클레임으로는 저희는 email 하나만 사용합니다.
-                //추가적으로 식별자나, 이름 등의 정보를 더 추가하셔도 됩니다.
-                //추가하실 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
+                // claim을 추가할 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
                 .withClaim(EMAIL_CLAIM, email)
+                // .withClaim(USER_ID_CLAIM, fanUserDto.getId())
+                .withClaim(USER_ROLE_CLAIM, role)
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
@@ -134,6 +151,41 @@ public class JwtService {
                     .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
                     .getClaim(EMAIL_CLAIM) // claim(Emial) 가져오기
                     .asString());
+        } catch (Exception e) {
+            log.error("액세스 토큰이 유효하지 않습니다.");
+            return Optional.empty();
+        }
+    }
+
+    // public Optional<Integer> extractId(String accessToken) {
+    //     try {
+    //         // 토큰 유효성 검사하는 데에 사용할 알고리즘이 있는 JWT verifier builder 반환
+    //         return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secretKey))
+    //             .build() // 반환된 빌더로 JWT verifier 생성
+    //             .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
+    //             .getClaim(USER_ID_CLAIM) // claim(id) 가져오기
+    //             .asInt());
+    //     } catch (Exception e) {
+    //         log.error("액세스 토큰이 유효하지 않습니다.");
+    //         return Optional.empty();
+    //     }
+    // }
+
+    /**
+     * AccessToken에서 user role 추출 (user / artist)
+     * 추출 전에 JWT.require()로 검증기 생성
+     * verify로 AceessToken 검증 후
+     * 유효하다면 getClaim()으로 이메일 추출
+     * 유효하지 않다면 빈 Optional 객체 반환
+     */
+    public Optional<String> extractRole(String accessToken) {
+        try {
+            // 토큰 유효성 검사하는 데에 사용할 알고리즘이 있는 JWT verifier builder 반환
+            return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secretKey))
+                .build() // 반환된 빌더로 JWT verifier 생성
+                .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
+                .getClaim(USER_ROLE_CLAIM) // claim(role) 가져오기
+                .asString());
         } catch (Exception e) {
             log.error("액세스 토큰이 유효하지 않습니다.");
             return Optional.empty();

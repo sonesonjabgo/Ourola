@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
+import com.mk.ourola.api.user.repository.dto.Role;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,4 +68,11 @@ public class ArtistUserDto {
 	private Date birthday;
 
 	private String nickname;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
+	public void authorizeUser() {
+		this.role = Role.ARTIST;
+	}
 }

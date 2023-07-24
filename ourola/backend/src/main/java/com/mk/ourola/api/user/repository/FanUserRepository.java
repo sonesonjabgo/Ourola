@@ -10,6 +10,8 @@ public interface FanUserRepository extends JpaRepository<FanUserDto, Integer> {
     Optional<FanUserDto> findByEmail(String email);
     Optional<FanUserDto> findByName(String name);
 
+    boolean existsByEmail(String email);
+
     Optional<FanUserDto> findByRefreshToken(String refreshToken);
 
 }
