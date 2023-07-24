@@ -1,6 +1,7 @@
 package com.mk.ourola.api.artist.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,6 @@ public interface ArtistUserRepository extends JpaRepository<ArtistUserDto, Integ
 	ArtistUserDto findByName(String name);
 
 	List<ArtistUserDto> findByGroupChannelDto_Id(int id);
+
+	Optional<ArtistUserDto> findByEmail(String email);
 }
