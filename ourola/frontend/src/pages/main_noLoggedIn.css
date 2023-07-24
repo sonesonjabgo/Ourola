@@ -1,0 +1,22 @@
+.mainbanner {
+    background-image: url(../images/noLoggedIn_mainbanner_moving2.gif);
+    background-size: cover;
+    height: 300px;
+    color: white;
+    font-size: 120px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 300px;
+}
+
+.artists-new {
+    font-size: 45px;
+    font-weight: 800;
+    margin: 50px;
+}
+
+.underline {
+    margin: 0px 100px;
+    height: 5px;
+    background-color: black;
+}
