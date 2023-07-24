@@ -1,11 +1,15 @@
+import "../../style/announcement/AnnouncementItem.css";
+
 const AnnouncementItem = ({ id, title, content, createTime }) => {
   return (
-    <div className="AnnouncementItem">
-      <a href="*" class="Title">
+    // 나중에 a -> Link로 바꾸기
+    <div id="AnnouncementItem" className="AnnouncementItem">
+      <a href="*" id="Title" className="Title">
         {title}
       </a>
-      <div class="Date">{createTime}</div>
-      <hr></hr>
+      <div id="Date" className="Date">
+        {createTime}
+      </div>
     </div>
   );
 };

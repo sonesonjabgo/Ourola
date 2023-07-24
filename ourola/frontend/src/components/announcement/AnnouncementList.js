@@ -1,16 +1,25 @@
 import "../../style/announcement/AnnouncementList.css";
 import AnnouncementItem from "./AnnouncementItem";
 
-const AnnouncementList = ({ announcementList }) => {
+const AnnouncementList = (announcementList) => {
+  const innerAnnouncementList = announcementList.announcementList;
+
   return (
-    <div className="AnnouncementList">
-      <div className="AnnouncementTitle">
-        <span className="Title">공지사항</span>
+    <div id="AnnouncementList" className="AnnouncementList">
+      <div id="AnnouncementTitle" className="AnnouncementTitle">
+        <span id="TextTitle" className="TextTitle">
+          공지사항
+        </span>
       </div>
-      <hr></hr>
-      <section className="AnnouncementBoard">
-        {announcementList.map((it) => (
-          <AnnouncementItem key={it.id} {...it}></AnnouncementItem>
+      <section id="AnnouncementBoard" className="AnnouncementBoard">
+        {innerAnnouncementList.map((it) => (
+          <AnnouncementItem
+            key={it.id}
+            id={it.id}
+            title={it.title}
+            content={it.content}
+            createTime={it.createTime}
+          ></AnnouncementItem>
         ))}
       </section>
     </div>
