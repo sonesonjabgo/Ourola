@@ -1,0 +1,30 @@
+.AnnouncementList {
+  display: block;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+  min-height: 65vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.AnnouncementTitle {
+  display: block;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 20px 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.Title {
+  font-size: 1.375em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+}
