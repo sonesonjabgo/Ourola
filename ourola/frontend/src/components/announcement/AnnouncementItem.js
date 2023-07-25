@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "../../style/announcement/AnnouncementItem.css";
 import AnnouncementDetail from "./AnnouncementDetail";
 

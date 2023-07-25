@@ -11,7 +11,9 @@ function App() {
     <div id="App" className="App">
       {/* <Header></Header> 아마 전체 페이지에 다 들어가지 않을까?*/}
         <HeaderNoLoggedIn />
+        <div className = "main">
         <MainNoLoggedIn />
+        </div>
       <Link to="/announcement" state={artist}>
         공지사항
       </Link>
