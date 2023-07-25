@@ -12,11 +12,15 @@
 .artists-new {
     font-size: 30px;
     font-weight: 800;
-    margin: 50px;
+    margin: 50px 130px;
 }
 
 .underline {
-    margin: 0px 100px;
+    margin: 0px 180px;
     height: 3px;
     background-color: black;
+}
+
+.new-list {
+    text-decoration: none;
 }

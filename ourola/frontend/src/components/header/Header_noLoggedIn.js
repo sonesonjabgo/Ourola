@@ -5,7 +5,7 @@ import mainLogo from '../../assets/images/ourola_logo.png'
 
 function HeaderNoLoggedIn() {
     const [click, setClick] = useState(false);
-    const handleClick = () => setClick(!click) ;
+    const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
     let [isSearchbarClicked, setSearchInput] = useState(false);
