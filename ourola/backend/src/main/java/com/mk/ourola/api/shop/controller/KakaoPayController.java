@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.shop.repository.dto.KakaoPayReadyVO;
 import com.mk.ourola.api.shop.service.KakaoPayServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -19,11 +18,6 @@ import lombok.extern.java.Log;
 @Log
 public class KakaoPayController {
 	private final KakaoPayServiceImpl kakaoPayService;
-
-	@GetMapping("/ready")
-	public void kakaoPayGet() {
-
-	}
 
 	// 결제 요청
 	@PostMapping("/ready")

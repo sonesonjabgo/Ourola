@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MembershipOnlyServicceImpl implements MembershipOnlyService {
+public class MembershipOnlyServiceImpl implements MembershipOnlyService {
 	private final MembershipContentsRepository membershipContentsRepository;
 	private final GroupRepository groupRepository;
 	private final FanUserRepository fanUserRepository;
@@ -41,39 +41,36 @@ public class MembershipOnlyServicceImpl implements MembershipOnlyService {
 	public MembershipContentsDto uploadMembershipOnlyContent(String accessToken,
 		MembershipContentsDto membershipContentsDto) throws Exception {
 
-		String email = jwtService.extractEmail(accessToken).get();
-		ArtistUserDto admin = artistUserRepository.findByEmail(email)
-			.orElseThrow(() -> new Exception("존재하지 않는 아티스트"));
+		String type = jwtService.extractRole(accessToken).get();
+		if(type.equals("artist")){
+			ArtistUserDto admin = artistUserRepository.findByEmail(jwtService.extractEmail(accessToken).get())
+				.orElseThrow(() -> new Exception("존재하지 않는 아티스트"));
 
-		// admin이 관리자이고, 업로드할 컨텐츠의 그룹id와 admin의 그룹id가 같으면 글 등록 가능
-		if (admin.isAdmin() && admin.getGroupChannelDto().getId() == membershipContentsDto.getGroupChannelDto()
-			.getId()) {
-			try {
-				return membershipContentsRepository.save(membershipContentsDto);    // db에 저장
-			} catch (Exception e) {
-				throw new Exception("Error :: 에러 발생");
+			if(admin.isAdmin() && admin.getGroupChannelDto().getId() == membershipContentsDto.getGroupChannelDto().getId()){
+				try {
+					return membershipContentsRepository.save(membershipContentsDto);    // db에 저장
+				} catch (Exception e) {
+					throw new Exception("Error :: 에러 발생");
+				}
 			}
-		} else {	// 관리자가 아님
-			System.out.println("관리자가 아님");
-			return null;
+		} else {
+			throw new Exception("Error :: 관리자가 아님");
 		}
-
+		return null;
 	}
 
+	// TODO : 팬 중에서 멤버십을 산 사람이 있는지 확인!
 	@Override
 	public Optional<MembershipContentsDto> getMembershipOnlyContent(String accessToken, int contentId) throws
 		Exception {
 
-		// String email = jwtService.extractEmail(accessToken).get();
-		//
-		// // 이메일로 아티스트 혹은
-		// if (artistUserRepository.findByEmail(email).isPresent()) {
-		// 	return membershipContentsRepository.findById(contentId);
-		// } else {
-		// 	Optional<FanUserDto> fan = fanUserRepository.findByEmail(email);
-		//
-		// }
-		return Optional.empty();
+		String type = jwtService.extractRole(accessToken).get();
+		if(type.equals("user")) {
+			FanUserDto fan = fanUserRepository.findByEmail(jwtService.extractEmail(accessToken).get())
+				.orElseThrow(() -> new Exception("존재하지 않는 사용자"));
+
+		}
+		return membershipContentsRepository.findById(contentId);
 	}
 
 	@Override
