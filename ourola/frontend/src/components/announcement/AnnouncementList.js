@@ -1,5 +1,6 @@
 import "../../style/announcement/AnnouncementList.css";
 import AnnouncementItem from "./AnnouncementItem";
+import React from 'react'
 
 const AnnouncementList = ({ announcementList }) => {
   return (
