@@ -1,5 +1,4 @@
 import "../../style/announcement/AnnouncementDetail.css";
-import { useState } from "react";
 
 const AnnouncementDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
@@ -10,23 +9,38 @@ const AnnouncementDetail = (props) => {
 
   const { id, title, content, createTime } = props.state;
 
+  let getDate = createTime.split("T", 2);
+  getDate[1] = getDate[1].split(".", 1);
+
   return (
-    <div id="AnnouncementDetail" className="AnnouncementDetail">
+    <div id="AnnouncementBackGround" className="AnnouncementBackGround">
       <button
         id="AnnouncementDetailClose"
         className="AnnouncementDetailClose"
         onClick={closeModal}
       >
-        X
+        ×
       </button>
-      <div id="AnnouncementDetailTitle" className="AnnouncementDetailTitle">
-        {title}
-      </div>
-      <div id="AnnouncementDetailTime" className="AnnouncementDetailTime">
-        {createTime}
-      </div>
-      <div id="AnnouncementDetailContent" className="AnnouncementDetailContent">
-        {content}
+      <div id="AnnouncementDetail" className="AnnouncementDetail">
+        <div id="AnnouncementDetailScroll" className="AnnouncementDetailScroll">
+          <div id="AnnouncemenDetailHeader" className="AnnouncemenDetailHeader">
+            <h3
+              id="AnnouncementDetailTitle"
+              className="AnnouncementDetailTitle"
+            >
+              {title}
+            </h3>
+            <div id="AnnouncementDetailTime" className="AnnouncementDetailTime">
+              {getDate[0]} {getDate[1]}
+            </div>
+          </div>
+          <div
+            id="AnnouncementDetailContent"
+            className="AnnouncementDetailContent"
+          >
+            {content}
+          </div>
+        </div>
       </div>
     </div>
   );
