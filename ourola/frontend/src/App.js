@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, Router, Routes, Route } from "react-router-dom";
 import HeaderNoLoggedIn from './components/header/Header_noLoggedIn';
 import MainNoLoggedIn from './components/main/Main_noLoggedIn';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const artist = "BTS";
