@@ -136,6 +136,12 @@ public class JwtService {
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
 
+    public Optional<String> headerStringToAccessToken(String AccessTokenHeader) {
+        return Optional.ofNullable(AccessTokenHeader)
+            .filter(refreshToken -> refreshToken.startsWith(BEARER))
+            .map(refreshToken -> refreshToken.replace(BEARER, ""));
+    }
+
     /**
      * AccessToken에서 Email 추출
      * 추출 전에 JWT.require()로 검증기 생성

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.feed.repository.dto.LikeDto;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -94,20 +96,26 @@ public class FeedController {
 		}
 	}
 
-	// 해당 사용자가 좋아요를 누르면 feed의 좋아요를 올리는 메서드
-	@PutMapping("/like/{id}")
-	public ResponseEntity<FeedDto> modifyLike(@PathVariable("artist") String artist, @PathVariable("id") int id,
-		@RequestParam boolean like) {
+	// 해당 사용자가 좋아요를 누르면 feed의 좋아요를 올리고 like 테이블에 추가
+	// pathvariable id : feed id
+	@PutMapping("/{id}/like")
+	public ResponseEntity<?> modifyLike(@RequestHeader(name = "Authorization") String accessToken, @PathVariable("artist") String artist, @PathVariable("id") int id) {
 		try {
-			FeedDto feedDto;
+			Boolean isLike = fanFeedService.modifyLike(id, accessToken);
+			return new ResponseEntity<>(isLike, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
-			if (like) {
-				feedDto = fanFeedService.modifyLike(id, true);
-			} else {
-				feedDto = fanFeedService.modifyLike(id, false);
-			}
-
-			return new ResponseEntity<>(feedDto, HttpStatus.OK);
+	// 해당 사용자가 좋아요를 누른 피드 리스트 (피드 아이디 포함)
+	@GetMapping("/like/list")
+	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("artist") String artist, @RequestHeader String accessToken) {
+		System.out.println("아티스트 : "+ artist);
+		try {
+			List<LikeDto> likelist = fanFeedService.getLikeList(accessToken);
+			return new ResponseEntity<>(likelist, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

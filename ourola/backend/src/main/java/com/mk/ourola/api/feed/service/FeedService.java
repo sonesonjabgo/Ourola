@@ -3,6 +3,7 @@ package com.mk.ourola.api.feed.service;
 import java.util.List;
 
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.feed.repository.dto.LikeDto;
 
 public interface FeedService {
 
@@ -16,7 +17,8 @@ public interface FeedService {
 
 	public FeedDto modifyFeed(FeedDto fanFeedDto);
 
-	public FeedDto modifyLike(Integer id, boolean like) throws Exception;
+	public boolean modifyLike(Integer id, String accessToken) throws Exception;
+	public List<LikeDto> getLikeList(String accessToken) throws Exception;
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception;
 }
