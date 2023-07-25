@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import '../../style/header/Header_noLoggedIn.css';
 import mainLogo from '../../assets/images/ourola_logo.png'
 
+import Login from "../auth/Login"
+import Singup from "../auth/Singup"
+
 function HeaderNoLoggedIn() {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
@@ -38,8 +41,11 @@ function HeaderNoLoggedIn() {
                     </div>
                 </div>
                 </ul>
-                <button class="btn-hover color-3">로그인</button>
-                <button class="btn-hover color-3">회원가입</button>
+                {/* <button class="btn-hover color-3" onClick={openModal}>로그인</button> */}
+                {/* 모달이 클릭되면  */}
+                <Login/>
+                {/* <button class="btn-hover color-3">회원가입</button> */}
+                <Singup/>
             </div>
         </nav>
         </>
