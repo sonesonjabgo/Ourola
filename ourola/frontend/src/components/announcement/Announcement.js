@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
 import { useLocation } from "react-router-dom";
@@ -21,6 +21,7 @@ function Announcement() {
         console.error("Error fetching data : ", error);
         setLoding(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

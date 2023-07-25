@@ -21,11 +21,11 @@
   max-height: 48px;
   text-decoration: none;
   color: #222;
-  margin-top: 12px;
+  margin-top: 20px;
   margin-left: 12px;
 }
 
-a:hover {
+.Title:hover {
   text-decoration: underline;
 }
 
@@ -36,5 +36,5 @@ a:hover {
   line-height: 21px;
   margin-top: 2px;
   margin-left: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }

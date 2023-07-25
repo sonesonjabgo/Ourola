@@ -1,10 +1,7 @@
 import "../../style/announcement/AnnouncementList.css";
 import AnnouncementItem from "./AnnouncementItem";
-import React from 'react';
 
-const AnnouncementList = (announcementList) => {
-  const innerAnnouncementList = announcementList.announcementList;
-
+const AnnouncementList = ({ announcementList }) => {
   return (
     <div id="AnnouncementList" className="AnnouncementList">
       <div id="AnnouncementTitle" className="AnnouncementTitle">
@@ -13,7 +10,7 @@ const AnnouncementList = (announcementList) => {
         </span>
       </div>
       <section id="AnnouncementBoard" className="AnnouncementBoard">
-        {innerAnnouncementList.map((it) => (
+        {announcementList.map((it) => (
           <AnnouncementItem
             key={it.id}
             id={it.id}
