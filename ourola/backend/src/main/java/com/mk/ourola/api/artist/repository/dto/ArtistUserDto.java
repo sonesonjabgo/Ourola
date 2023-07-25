@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.user.repository.dto.Role;
@@ -55,10 +56,10 @@ public class ArtistUserDto {
 	@Column(name = "regist_date")
 	private Date registDate;
 
-	private boolean resign;
+	private Boolean resign;
 
 	@Column(name = "is_admin")
-	private boolean isAdmin;
+	private Boolean isAdmin;
 
 	private String tel;
 
@@ -74,5 +75,13 @@ public class ArtistUserDto {
 
 	public void authorizeUser() {
 		this.role = Role.ARTIST;
+	}
+
+	public void passwordEncode(PasswordEncoder passwordEncoder) {
+		this.password = passwordEncoder.encode(this.password);
+	}
+
+	public void updateRefreshToken(String updateRefreshToken) {
+		this.refreshToken = updateRefreshToken;
 	}
 }

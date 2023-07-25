@@ -28,6 +28,12 @@ public class FanUserController {
 		return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
 	}
 
+	@PostMapping("/artist-sign-up")
+	public ResponseEntity<?> artistSignUp(@RequestBody FanUserSignUpDto fanUserSignUpDto) throws Exception {
+		fanUserService.signUp(fanUserSignUpDto);
+		return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
+	}
+
 	// 사용자에게 온 알림을 반환
 	@GetMapping("/notification")
 	public ResponseEntity<?> getNotification(@RequestHeader String accessToken) {
