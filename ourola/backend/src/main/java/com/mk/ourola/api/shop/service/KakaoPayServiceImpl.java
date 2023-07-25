@@ -1,87 +1,101 @@
 package com.mk.ourola.api.shop.service;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.transaction.Transactional;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.mk.ourola.api.shop.repository.dto.KakaoPayReadyResponse;
+import com.mk.ourola.api.shop.repository.dto.KakaoPayApprovalVO;
+import com.mk.ourola.api.shop.repository.dto.KakaoPayReadyVO;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
 @Service
 @Log
-@RequiredArgsConstructor
-@Transactional
 public class KakaoPayServiceImpl implements KakaoPayService {
 
-	private static final String DOMAIN = "http://localhost:80";
-	private static final String HOST = "https://kapi.kakao.com";
-	private static final String cid = "TC0ONETIME";
-	private static final String admin_Key = "9e1741de092cf5c1c60ee154f57b9e3a";
-	private KakaoPayReadyResponse kakaoReady;
+	private static final String cid = "TC0ONETIME";        // 가맹점 테스트 코드
+	private static final String ADMIN = "9e1741de092cf5c1c60ee154f57b9e3a";
+	private static final String domain = "http://localhost:80";
+	private KakaoPayReadyVO kakaoPayReadyVO;
+	private KakaoPayApprovalVO kakaoPayApprovalVO;
 
 	@Override
-	public KakaoPayReadyResponse kakaoPayReady() {
+	public String kakaoPayReady() {
+
+		// 카카오 요구 헤더값
+		HttpHeaders httpHeaders = new HttpHeaders();
+		String auth = "KakaoAK " + ADMIN;
+		httpHeaders.set("Authorization", auth);
+		httpHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+		// 서버로 요청할 Body
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("cid", cid);
+		params.add("partner_order_id", "1001");    // 가맹점 주문번호
+		params.add("partener_user_id", "mallangkongddeok");    // 가맹점 회원 ID
+		params.add("item_name", "세븐틴 멤버십");    // 상품명
+		params.add("quantity", "1");    // 총 수량
+		params.add("total_amount", "35000");    // 총 금액
+		params.add("tax_free_amount", "0");        // 상품 비과세 금액
+		params.add("approval_url", domain + "/payment/success");    // 성공 시 redirect url
+		params.add("cancel_url", domain + "/payment/cancel");        // 취소 시 redirect url
+		params.add("fail_url", domain + "/payment/fail");            // 실패 시 redirect url
+
+		// 파라미터, 헤더
+		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, httpHeaders);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		try {
+			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", requestEntity,
+				KakaoPayReadyVO.class);
+			log.info("" + kakaoPayReady());
+			return kakaoPayReadyVO.getNext_redirect_pc_url();
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		}
+
+		return "/pay";
+	}
+
+	@Override
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+		log.info("==========================KakaoPayInfoVO==========================");
+		log.info("------------------------------------------------------------------");
+
 		RestTemplate restTemplate = new RestTemplate();
 
 		// 서버로 요청할 Header
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakakAK " + admin_Key);
-		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		HttpHeaders httpHeaders = new HttpHeaders();
+		String auth = "KakaoAK " + ADMIN;
+		httpHeaders.set("Authorization", auth);
+		httpHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-		// TODO : 상품 넣기
-		// 서버로 요청할 Body
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("cid", cid);
-		params.add("partner_order_id", "1001");
-		params.add("partner_user_id", "gorany");
-		params.add("item_name", "갤럭시S9");
-		params.add("quantity", "1");
-		params.add("total_amount", "2100");
-		params.add("tax_free_amount", "100");
-		params.add("approval_url", DOMAIN + "/kakaoPaySuccess");
-		params.add("cancel_url", DOMAIN + "/kakaoPayCancel");
-		params.add("fail_url", DOMAIN + "/kakaoPaySuccessFail");
+		params.add("tid", kakaoPayReadyVO.getTid());
+		params.add("partner_order_id", "1001");    // 가맹점 주문번호
+		params.add("partener_user_id", "mallangkongddeok");    // 가맹점 회원 ID
+		params.add("pg_token", pg_token);
+		params.add("total_amount", "35000");
 
 		// 파라미터, 헤더
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, httpHeaders);
 
-		// try {
-		// 	// 외부에 보낼 url
-		// 	kakaoPayReadyResponse = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), requestEntity,
-		// 		KakaoPayReadyResponse.class);
-		//
-		// 	log.info("" + kakaoPayReadyResponse);
-		//
-		// 	return kakaoPayReadyResponse;
-		//
-		// } catch (RestClientException e) {
-		// 	// TODO Auto-generated catch block
-		// 	e.printStackTrace();
-		// } catch (URISyntaxException e) {
-		// 	// TODO Auto-generated catch block
-		// 	e.printStackTrace();
-		// }
-		//
-		// return null;
+		try {
+			kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", requestEntity,
+				KakaoPayApprovalVO.class);
+			log.info("" + kakaoPayApprovalVO);
 
-		kakaoReady = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", requestEntity,
-			KakaoPayReadyResponse.class);
+			return kakaoPayApprovalVO;
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		}
 
-		log.info("" + kakaoReady);
-
-		return kakaoReady;
+		return null;
 	}
 }
