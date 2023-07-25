@@ -1,15 +1,61 @@
+import { useEffect, useState } from "react";
 import "../../style/announcement/AnnouncementItem.css";
-import React from 'react';
+import AnnouncementDetail from "./AnnouncementDetail";
 
 const AnnouncementItem = ({ id, title, content, createTime }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  console.log(createTime);
+
+  let currentYear = new Date().getFullYear();
+
+  let currentMonth = new Date().getMonth() + 1;
+  if (currentMonth.toString().length === 1) {
+    currentMonth = "0" + currentMonth;
+  }
+
+  let currentDay = new Date().getDate();
+
+  const [currentDate, setCurrentDate] = useState(
+    currentYear + "-" + currentMonth + "-" + currentDay
+  );
+
+  useEffect(() => {
+    let currentYear = new Date().getFullYear();
+
+    let currentMonth = new Date().getMonth() + 1;
+    if (currentMonth.toString().length === 1) {
+      currentMonth = "0" + currentMonth;
+    }
+
+    let currentDay = new Date().getDate();
+
+    setCurrentDate(currentYear + "-" + currentMonth + "-" + currentDay);
+
+    return () => {};
+  }, []);
+
+  let getDate = createTime.split("T", 2);
+  getDate[1] = getDate[1].split(".", 1);
+
   return (
-    // 나중에 a -> Link로 바꾸기
     <div id="AnnouncementItem" className="AnnouncementItem">
-      <a href="*" id="Title" className="Title">
-        {title}
-      </a>
+      <div>
+        <div id="Title" className="Title" onClick={showModal}>
+          {title}
+        </div>
+        {modalOpen && (
+          <AnnouncementDetail
+            state={{ setModalOpen, id, title, content, createTime }}
+          ></AnnouncementDetail>
+        )}
+      </div>
       <div id="Date" className="Date">
-        {createTime}
+        {currentDate === getDate[0] ? getDate[1] : getDate[0]}
       </div>
     </div>
   );
