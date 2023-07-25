@@ -1,13 +1,26 @@
+import { useState } from "react";
 import "../../style/announcement/AnnouncementItem.css";
-import React from 'react';
+import AnnouncementDetail from "./AnnouncementDetail";
 
 const AnnouncementItem = ({ id, title, content, createTime }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
-    // 나중에 a -> Link로 바꾸기
     <div id="AnnouncementItem" className="AnnouncementItem">
-      <a href="*" id="Title" className="Title">
-        {title}
-      </a>
+      <div>
+        <div id="Title" className="Title" onClick={showModal}>
+          {title}
+        </div>
+        {modalOpen && (
+          <AnnouncementDetail
+            state={{ setModalOpen, id, title, content, createTime }}
+          ></AnnouncementDetail>
+        )}
+      </div>
       <div id="Date" className="Date">
         {createTime}
       </div>
