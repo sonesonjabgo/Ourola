@@ -1,33 +1,118 @@
-/* 모달창을 화면 중앙. 최상단에 노출 */
-.AnnouncementDetail {
-  /* 모달창 크기 */
-  width: 800px;
-  height: 600px;
+.AnnouncementBackGround {
+  z-index: 20000;
+  align-items: center;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 30px 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
 
-  /* 최상단 위치 */
+.AnnouncementDetail {
+  display: block;
+  width: 770px;
+  height: 910px;
+
   z-index: 999;
 
-  /* 중앙 배치 */
-  /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
-  /* translate는 본인의 크기 기준으로 작동한다. */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  /* 모달창 디자인 */
   background-color: white;
   border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #f8f7fb;
+    opacity: 0.4;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* webkit 수정하기 */
 }
 
-/* 모달창 내부 X버튼 */
 .AnnouncementDetailClose {
+  height: 60px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  top: 15px;
+  right: 80px;
+  width: 50px;
+  appearance: auto;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 70px;
+  color: #e4e6ea;
 }
 
-.AnnouncementDetail:active {
-  cursor: grabbing;
+.AnnouncemenDetailHeader {
+  padding: 15px 30px 20px;
+  display: block;
+}
+
+.AnnouncementDetailTitle {
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: bold;
+}
+
+.AnnouncementDetailTime {
+  display: block;
+  color: #adb1b8;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.AnnouncementDetailContent {
+  display: block;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  line-height: 1.85;
+  box-sizing: border-box;
+  border-top: 1px solid #e4e6ea;
+  border-bottom: 1px solid #e4e6ea;
+  font-size: 16px;
+  color: #666;
+  min-height: 650px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding: 20px 30px 30px;
 }
