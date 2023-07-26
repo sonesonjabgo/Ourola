@@ -11,7 +11,7 @@ public interface FeedService {
 
 	public FeedDto getFeed(String artist, int id);
 
-	public FeedDto writeFeed(String artist, FeedDto fanFeedDto);
+	public FeedDto writeFeed(String artist, FeedDto fanFeedDto, String email);
 
 	public void removeFeed(Integer id);
 

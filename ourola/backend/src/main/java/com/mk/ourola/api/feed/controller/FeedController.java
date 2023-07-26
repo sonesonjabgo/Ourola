@@ -30,6 +30,8 @@ public class FeedController {
 
 	private final FeedServiceImpl fanFeedService;
 
+	private final JwtService jwtService;
+
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
 	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String artist) {
@@ -45,10 +47,12 @@ public class FeedController {
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String artist,
-		@RequestBody FeedDto FeedDto
+		@RequestBody FeedDto FeedDto,
+		@RequestHeader(name = "Authorization") String accessToken
 	) {
 		try {
-			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto);
+			Optional<String> email = jwtService.extractEmail(accessToken);
+			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto, email.get());
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -49,9 +49,18 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepository.findById(id);
 	}
 
-	public FeedDto writeFeed(String artist, FeedDto FeedDto) {
-		FeedDto.setGroupChannelDto(groupRepository.findByName(artist));
-		return feedRepository.save(FeedDto);
+	public FeedDto writeFeed(String artist, FeedDto feedDto, String email) {
+		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
+		Optional<ArtistUserDto> artistDto = artistUserRepository.findByEmail(email);
+		GroupChannelDto group = groupRepository.findByName(artist);
+		if (userDto.isPresent()) {
+			feedDto.setFanUserDto(userDto.get());
+		} else if (artistDto.isPresent()) {
+			feedDto.setArtistUserDto(artistDto.get());
+		}
+		feedDto.setGroupChannelDto(groupRepository.findByName(artist));
+		feedDto.setGroupChannelDto(group);
+		return feedRepository.save(feedDto);
 	}
 
 	public void removeFeed(Integer id) {
