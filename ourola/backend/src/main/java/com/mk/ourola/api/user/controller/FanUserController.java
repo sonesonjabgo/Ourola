@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.user.repository.dto.FanUserSignUpDto;
 import com.mk.ourola.api.user.repository.dto.NotificationDto;
 import com.mk.ourola.api.user.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.user.service.FanUserServiceImpl;
+import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FanUserController {
 	private final FanUserServiceImpl fanUserService;
+	private final JwtService jwtService;
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> fanSignUp(@RequestBody FanUserSignUpDto fanUserSignUpDto) throws Exception {
@@ -53,6 +56,20 @@ public class FanUserController {
 			List<SubscribeGroupDto> subscribeChannelList = fanUserService.getSubscribeChannel(userEmail);
 			return new ResponseEntity<>(subscribeChannelList, HttpStatus.OK);
 		}catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 유저가 구독하지 않은 아티스트 채널 목록
+	@GetMapping("/notsubscribechannel")
+	public ResponseEntity<?> getNotSubscribeChannel(@RequestHeader("Authorization") String header){
+		try{
+			String accessToken = jwtService.headerStringToAccessToken(header).get();
+			String userEmail = jwtService.extractEmail(accessToken).get();
+			List<GroupChannelDto> subscribeChannelList = fanUserService.getNotSubscribeChannel(userEmail);
+			return new ResponseEntity<>(subscribeChannelList, HttpStatus.OK);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
