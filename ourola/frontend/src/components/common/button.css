@@ -1,0 +1,23 @@
+/* 필요에 따라 클래스 이름, background, text만 바꿔서 쓰시면 됩니당 */
+
+.makeAnnouncementButton {
+  display: inline-block;
+  --background: #7b68ee;
+  --text: #fff;
+  --font-size: 16px;
+  padding: 10px 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  line-height: var(--font-size);
+  border-radius: 20px;
+  outline: none;
+  text-decoration: none;
+  font-size: var(--font-size);
+  letter-spacing: 0.5px;
+  background: var(--background);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transform: translateY(var(--y)) translateZ(0);
+  transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+}
