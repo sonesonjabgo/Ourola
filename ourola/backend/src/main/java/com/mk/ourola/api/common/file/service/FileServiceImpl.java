@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mk.ourola.api.artist.repository.ArtistUserRepository;
 import com.mk.ourola.api.artist.repository.GroupRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.common.file.repository.FeedFileRepository;
 import com.mk.ourola.api.common.file.repository.ProfileFileRepository;
+import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
@@ -29,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class FileServiceImpl implements FileService {
 	private final ProfileFileRepository profileFileRepository;
 	private final FanUserRepository fanUserRepository;
-	// private final FeedFileRepository feedFileRepository;
+	private final FeedFileRepository feedFileRepository;
 	private final ArtistUserRepository artistUserRepository;
 	private final GroupRepository groupRepository;
 
@@ -73,11 +75,11 @@ public class FileServiceImpl implements FileService {
 			File dest = new File(feedfile_path);
 			file.transferTo(dest);
 
-			// FeedFileDto feedFileDto = FeedFileDto.builder()
-			// 	.feedDto(feedDto)
-			// 	.filePath(feedfile_path)
-			// 	.fileExtension(fileExtension).build();
-			// ProfileFileDto save = feedFileRepository.save(feedFileDto);
+			FeedFileDto feedFileDto = FeedFileDto.builder()
+				.feedDto(feedDto)
+				.filePath(feedfile_path)
+				.fileExtension(fileExtension).build();
+			ProfileFileDto save = feedFileRepository.save(feedFileDto);
 		}
 		return "저장완료";
 	}

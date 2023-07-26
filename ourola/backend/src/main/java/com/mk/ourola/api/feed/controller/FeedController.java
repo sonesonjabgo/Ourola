@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.LikeDto;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
@@ -33,6 +36,8 @@ public class FeedController {
 
 	private final JwtService jwtService;
 
+	private final FileServiceImpl fileService;
+
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
 	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String artist) {
@@ -48,12 +53,16 @@ public class FeedController {
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String artist,
+		@RequestParam List<MultipartFile> files,
 		@RequestBody FeedDto FeedDto,
 		@RequestHeader(name = "Authorization") String accessToken
 	) {
 		try {
-			Optional<String> email = jwtService.extractEmail(accessToken);
+			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
 			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto, email.get());
+			if (!files.isEmpty()) {
+				fileService.writeFeedImages(files, fanFeedDtoResult);
+			}
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,20 +113,22 @@ public class FeedController {
 	// 해당 사용자가 좋아요를 누르면 feed의 좋아요를 올리고 like 테이블에 추가
 	// pathvariable id : feed id
 	@PutMapping("/{id}/like")
-	public ResponseEntity<?> modifyLike(@RequestHeader(name = "Authorization") String accessToken, @PathVariable("artist") String artist, @PathVariable("id") int id) {
+	public ResponseEntity<?> modifyLike(@RequestHeader(name = "Authorization") String accessToken,
+		@PathVariable("artist") String artist, @PathVariable("id") int id) {
 		try {
 			Boolean isLike = fanFeedService.modifyLike(id, accessToken);
 			return new ResponseEntity<>(isLike, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	// 해당 사용자가 좋아요를 누른 피드 리스트 (피드 아이디 포함)
 	@GetMapping("/like/list")
-	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("artist") String artist, @RequestHeader String accessToken) {
-		System.out.println("아티스트 : "+ artist);
+	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("artist") String artist,
+		@RequestHeader String accessToken) {
+		System.out.println("아티스트 : " + artist);
 		try {
 			List<LikeDto> likelist = fanFeedService.getLikeList(accessToken);
 			return new ResponseEntity<>(likelist, HttpStatus.OK);
