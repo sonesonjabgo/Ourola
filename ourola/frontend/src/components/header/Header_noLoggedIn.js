@@ -25,6 +25,7 @@ function HeaderNoLoggedIn() {
                     <i className = {click ? 'fas fa-times' : 'fas fa-bars' } />
                 </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                <div className="header-spacer">
                 <div className="searchbar">
                     <input className="searchbar-input" 
                         onFocus = {() => {
@@ -40,12 +41,16 @@ function HeaderNoLoggedIn() {
                         <img className="searchbarbtn" src='https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png' />
                     </div>
                 </div>
+                </div>
                 </ul>
+                {/* <div className="header-spacer"></div> */}
+                <div className="buttons">
                 {/* <button class="btn-hover color-3" onClick={openModal}>로그인</button> */}
                 {/* 모달이 클릭되면  */}
                 <Login/>
                 {/* <button class="btn-hover color-3">회원가입</button> */}
                 <Singup/>
+                </div>
             </div>
         </nav>
         </>

@@ -1,5 +1,6 @@
 package com.mk.ourola.api.artist.repository.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,4 +22,10 @@ public class GroupChannelDto {
 	private int id;
 
 	private String name;
+
+	@Column(name = "file_path")
+	private String filePath;
+
+	@Column(name = "file_extension")
+	private String fileExtension;
 }

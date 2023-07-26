@@ -16,6 +16,8 @@
 }
 
 .underline {
+    display: flex;
+    justify-content: space-between;
     margin: 0px 180px;
     height: 3px;
     background-color: black;

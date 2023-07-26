@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 import org.aspectj.util.FileUtil;
@@ -12,8 +13,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mk.ourola.api.artist.repository.ArtistUserRepository;
+import com.mk.ourola.api.artist.repository.GroupRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.common.file.repository.ProfileFileRepository;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
 import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
 
 import lombok.RequiredArgsConstructor;
@@ -23,13 +29,17 @@ import lombok.RequiredArgsConstructor;
 public class FileServiceImpl implements FileService {
 	private final ProfileFileRepository profileFileRepository;
 	private final FanUserRepository fanUserRepository;
+	// private final FeedFileRepository feedFileRepository;
+	private final ArtistUserRepository artistUserRepository;
+	private final GroupRepository groupRepository;
 
 	@Value("${spring.servlet.multipart.location}")
 	private String FILE_PATH;
 
-	public ProfileFileDto writeProfileImage(MultipartFile file, Integer userId) throws
+	public FanUserDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException {
+		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
 		System.out.println("=============");
 		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 		String fileExtension = getFileExtension(file.getOriginalFilename());
@@ -43,15 +53,49 @@ public class FileServiceImpl implements FileService {
 			.filePath(profile_path)
 			.fileExtension(fileExtension).build();
 		ProfileFileDto save = profileFileRepository.save(profileFileDto);
+		FanUserDto fanUserDto = userDto.get();
+		fanUserDto.setProfileFileDto(save);
+		fanUserRepository.save(fanUserDto);
 
-		return save;
+		return fanUserDto;
 	}
 
-	public byte[] getProfileImg(int id) throws IOException {
-		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(3);
+	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
+		NoSuchAlgorithmException,
+		IOException {
+		System.out.println("=============");
+		for (MultipartFile file : files) {
+			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+			String fileExtension = getFileExtension(file.getOriginalFilename());
+			String hashName = generateUniqueFileName(fileName);
+			String feedfile_path = FILE_PATH + "/feedFile/" + hashName;
+			System.out.println(feedfile_path);
+			File dest = new File(feedfile_path);
+			file.transferTo(dest);
+
+			// FeedFileDto feedFileDto = FeedFileDto.builder()
+			// 	.feedDto(feedDto)
+			// 	.filePath(feedfile_path)
+			// 	.fileExtension(fileExtension).build();
+			// ProfileFileDto save = feedFileRepository.save(feedFileDto);
+		}
+		return "저장완료";
+	}
+
+	public byte[] getProfileImg(String email) throws IOException {
+		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
+		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(
+			userDto.get().getProfileFileDto().getId());
 		String filePath = profileFileDto.get().getFilePath();
 		String fileExtension = profileFileDto.get().getFileExtension();
 		File file = new File(filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getArtistProfileImg(int id) throws IOException {
+		Optional<ArtistUserDto> artistUserDto = artistUserRepository.findById(id);
+		File file = new File(artistUserDto.get().getProfileFileDto().getFilePath());
 		return FileUtil.readAsByteArray(file);
 	}
 

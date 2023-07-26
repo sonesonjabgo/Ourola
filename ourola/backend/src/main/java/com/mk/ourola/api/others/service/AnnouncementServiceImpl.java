@@ -55,7 +55,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}
@@ -90,7 +90,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}
@@ -128,7 +128,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}

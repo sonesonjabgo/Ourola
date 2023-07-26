@@ -1,0 +1,19 @@
+.Notification-check-close {
+    height: 15px;
+    position: relative;
+    bottom: 25px;
+    left: 250px;
+}
+
+.Notification-container {
+    height: 90px;
+    border-bottom: 1px solid #e4e6ea;
+}
+
+.Notification-text {
+    position: relative;
+    top: 18px;
+    left: 20px;
+    font-size: 30px;
+    text-align: start;
+}

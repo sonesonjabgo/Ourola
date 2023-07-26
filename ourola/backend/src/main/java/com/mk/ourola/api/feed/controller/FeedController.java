@@ -1,6 +1,7 @@
 package com.mk.ourola.api.feed.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.LikeDto;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
+import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +30,8 @@ public class FeedController {
 	// 팬 피드, 아티스트 포스트 컨트롤러
 
 	private final FeedServiceImpl fanFeedService;
+
+	private final JwtService jwtService;
 
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
@@ -45,10 +48,12 @@ public class FeedController {
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String artist,
-		@RequestBody FeedDto FeedDto
+		@RequestBody FeedDto FeedDto,
+		@RequestHeader(name = "Authorization") String accessToken
 	) {
 		try {
-			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto);
+			Optional<String> email = jwtService.extractEmail(accessToken);
+			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto, email.get());
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

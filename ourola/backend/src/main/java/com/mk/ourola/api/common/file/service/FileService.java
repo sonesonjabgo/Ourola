@@ -5,12 +5,14 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
 
 public interface FileService {
-	public ProfileFileDto writeProfileImage(MultipartFile file, Integer userId) throws
+	public FanUserDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException;
 
-	public byte[] getProfileImg(int id) throws IOException;
+	public byte[] getProfileImg(String email) throws IOException;
+
+	public byte[] getArtistProfileImg(int id) throws IOException;
 }
