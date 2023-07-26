@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AnnouncementList from "./AnnouncementList";
+import ArtistMemberList from "./ArtistMemberList";
 import { useLocation } from "react-router-dom";
 
-const Announcement = () => {
+const Artist = () => {
   const location = useLocation();
   const artist = location.state;
   const backendPort = 8000;
 
   const [loading, setLoding] = useState(true);
-  const [announcementList, setAnnouncementList] = useState([]);
+  const [artistMember, setartistMembert] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/${artist}/announcement/list`)
+      .get(`http://localhost:${backendPort}/artist/${artist}/memberList`)
       .then((response) => {
-        setAnnouncementList(response.data);
+        setartistMembert(response.data);
         setLoding(false);
       })
       .catch((error) => {
@@ -25,17 +25,13 @@ const Announcement = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(artistMember);
+
   return (
-    <div>
-      <div id="Announcement" className="Annoucement">
-        {loading ? (
-          <div></div>
-        ) : (
-          <AnnouncementList announcementList={announcementList} />
-        )}
-      </div>
+    <div id="Artist" className="Artist">
+      {loading ? <div></div> : <ArtistMemberList artistMember={artistMember} />}
     </div>
   );
 };
 
-export default Announcement;
+export default Artist;
