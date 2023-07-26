@@ -2,6 +2,7 @@ package com.mk.ourola.api.live.onlinecall.repository.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,11 +48,13 @@ public class OnlineCallDto {
 
 	private String title;
 
+	@Column(name = "start_date")
 	private Date startDate;
 
 	private String content;
 
-	private String teg;
+	private String tag;
 
+	@Column(name = "session_id")
 	private String sessionId;
 }

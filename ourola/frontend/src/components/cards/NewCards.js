@@ -36,38 +36,38 @@ import Image2 from '../../assets/images/blackpink_profile.png';
 import Image3 from '../../assets/images/newjeans_profile.png';
 import Image4 from '../../assets/images/parkboyoung_profile.png';
 
-function Cards () {
+function NewCards () {
 
     const cardData = [
         {
           src: Image1,
           text: 'BTS',
-          path: '/services',
+          path: '/bts/feed',
         },
         {
           src: Image2,
           text: 'BLACKPINK',
-          path: '/services',
+          path: '/blackpink/feed',
         },
         {
           src: Image3,
           text: 'NewJeans',
-          path: '/services',
+          path: '/newjeans/feed',
         },
         {
           src: Image4,
           text: 'Park Boyoung',
-          path: '/services',
+          path: '/parkboyoung/feed',
         },
       ];
 
     return (
         <div className="cards-container">
         {cardData.map((data, i) => (
-          <CardItem key={i} src={data.src} text={data.text} path={data.path} />
+            <CardItem key={i} src={data.src} text={data.text} path={data.path} />
         ))}
       </div>
     )
     };
 
-export default Cards;
+export default NewCards;

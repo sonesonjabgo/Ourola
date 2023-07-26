@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.mk.ourola.api.artist.repository.GroupRepository;
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
 import com.mk.ourola.api.user.repository.NotificationRepository;
@@ -19,12 +22,14 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FanUserServiceImpl implements FanUserService {
 
 	private final FanUserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final NotificationRepository notificationRepository;
 	private final SubscribeGroupRepository subscribeGroupRepository;
+	private final GroupRepository groupRepository;
 
 	public void signUp(FanUserSignUpDto userSignUpDto) throws Exception {
 
@@ -71,5 +76,10 @@ public class FanUserServiceImpl implements FanUserService {
 	public List<SubscribeGroupDto> getSubscribeChannel(String userEmail) {
 		Optional<FanUserDto> userDto = userRepository.findByEmail(userEmail);
 		return subscribeGroupRepository.findByFanUserDto_Id(userDto.get().getId()).get();
+	}
+
+	public List<GroupChannelDto> getNotSubscribeChannel(String userEmail) {
+		Optional<FanUserDto> userDto = userRepository.findByEmail(userEmail);
+		return groupRepository.findAllWithNoRelatedSubstribeGroup(userDto.get().getId());
 	}
 }

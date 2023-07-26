@@ -2,6 +2,7 @@ package com.mk.ourola.api.feed.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mk.ourola.api.artist.repository.ArtistUserRepository;
 import com.mk.ourola.api.artist.repository.GroupRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.LikeRepository;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
@@ -49,9 +51,18 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepository.findById(id);
 	}
 
-	public FeedDto writeFeed(String artist, FeedDto FeedDto) {
-		FeedDto.setGroupChannelDto(groupRepository.findByName(artist));
-		return feedRepository.save(FeedDto);
+	public FeedDto writeFeed(String artist, FeedDto feedDto, String email) {
+		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
+		Optional<ArtistUserDto> artistDto = artistUserRepository.findByEmail(email);
+		GroupChannelDto group = groupRepository.findByName(artist);
+		if (userDto.isPresent()) {
+			feedDto.setFanUserDto(userDto.get());
+		} else if (artistDto.isPresent()) {
+			feedDto.setArtistUserDto(artistDto.get());
+		}
+		feedDto.setGroupChannelDto(groupRepository.findByName(artist));
+		feedDto.setGroupChannelDto(group);
+		return feedRepository.save(feedDto);
 	}
 
 	public void removeFeed(Integer id) {

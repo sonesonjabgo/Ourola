@@ -59,8 +59,7 @@ public class MembershipOnlyServiceImpl implements MembershipOnlyService {
 			ArtistUserDto admin = artistUserRepository.findByEmail(jwtService.extractEmail(accessToken).get())
 				.orElseThrow(() -> new Exception("존재하지 않는 관리자"));
 
-			// 해당 그룹의 관리자인지 확인하기
-			if (admin.isAdmin() && admin.getGroupChannelDto().getName().equals(groupName)) {
+			if(admin.getIsAdmin() && admin.getGroupChannelDto().getName().equals(groupName)){
 				try {
 					return membershipContentsRepository.save(membershipContentsDto);    // db에 저장
 				} catch (Exception e) {
@@ -120,7 +119,7 @@ public class MembershipOnlyServiceImpl implements MembershipOnlyService {
 				.orElseThrow(() -> new Exception("존재하지 않는 관리자"));
 
 			// 해당 그룹의 관리자인지 확인하기
-			if (admin.isAdmin() && admin.getGroupChannelDto().getName().equals(groupName)) {
+			if (admin.getIsAdmin() && admin.getGroupChannelDto().getName().equals(groupName)) {
 				try {
 					Optional<MembershipContentsDto> content = membershipContentsRepository.findById(contentId);
 					content.ifPresent(t -> {
@@ -157,7 +156,7 @@ public class MembershipOnlyServiceImpl implements MembershipOnlyService {
 			ArtistUserDto admin = artistUserRepository.findByEmail(email)
 				.orElseThrow(() -> new Exception("존재하지 않는 아티스트"));
 
-			if (admin.isAdmin() && admin.getGroupChannelDto().getName().equals(groupName)) {
+			if (admin.getIsAdmin() && admin.getGroupChannelDto().getName().equals(groupName)) {
 				membershipContentsRepository.deleteById(contentId);
 			} else {
 				System.out.println("Error :: 관리자가 아님!");

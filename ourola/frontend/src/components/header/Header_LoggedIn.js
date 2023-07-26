@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 import '../../style/header/Header_noLoggedIn.css';
 import mainLogo from '../../assets/images/ourola_logo.png'
 
-import Login from "../auth/Login"
-import Singup from "../auth/Singup"
+// 공백 넣는 함수 - space = 값 조절
+function Space({ space = 50 }){
+	return (
+    	<span style={{ paddingRight: space }}></span>
+    );
+}
+
 
 function HeaderNoLoggedIn() {
     const [click, setClick] = useState(false);
@@ -47,9 +52,9 @@ function HeaderNoLoggedIn() {
                 <div className="buttons">
                 {/* <button class="btn-hover color-3" onClick={openModal}>로그인</button> */}
                 {/* 모달이 클릭되면  */}
-                <Login/>
+                로그아웃<Space />
                 {/* <button class="btn-hover color-3">회원가입</button> */}
-                <Singup/>
+                <Link to={'/username'}> 마이페이지 </Link>
                 </div>
             </div>
         </nav>
