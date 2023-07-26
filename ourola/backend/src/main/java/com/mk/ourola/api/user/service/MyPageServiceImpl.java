@@ -105,20 +105,20 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 전체 구매 내역 가져오기
-	public List<BillDto> getAllBill(String userEmail) {
-		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
+	public List<BillDto> getAllBill(String accessToken) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(jwtService.extractEmail(accessToken).get());
 		return user.map(fanUserDto -> billRepository.findByFanUserDto_Id(fanUserDto.getId())).orElse(null);
 	}
 
 	// 북마크 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String userEmail) {
-		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
+	public List<BookMarkDto> getAllBookMark(String accessToken) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(jwtService.extractEmail(accessToken).get());
 		return bookMarkRepository.findByFanUserDto_Id(user.get().getId());
 	}
 
 	// 사용자가 가입한 전체 멤버십 구매 내역 가져오기
-	public List<UserMembershipInfoDto> getAllMembership(String userEmail) {
-		Optional<FanUserDto> user = fanUserRepository.findByEmail(userEmail);
+	public List<UserMembershipInfoDto> getAllMembership(String accessToken) {
+		Optional<FanUserDto> user = fanUserRepository.findByEmail(jwtService.extractEmail(accessToken).get());
 		return userMembershipInfoRepository.findByFanUserDto_Id(user.get().getId());
 	}
 
@@ -129,8 +129,10 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 사용자가 구매한 온라인콘서트 전체 내역 가져오기
-	public List<OnlineConcertDto> getAllOnlineConcert() {
-		List<BillDto> onlineConcert = billRepository.findByOnlineConcertDto_IdIsNotNull();
+	public List<OnlineConcertDto> getAllOnlineConcert(String accessToken) {
+		String email = jwtService.extractEmail(accessToken).get();
+		int uid = fanUserRepository.findByEmail(email).get().getId();
+		List<BillDto> onlineConcert = billRepository.findByFanUserDto_IdAndOnlineConcertDto_IdIsNotNull(uid);
 		if (!onlineConcert.isEmpty()) {
 			List<OnlineConcertDto> list = new ArrayList<>();
 			for (BillDto bill : onlineConcert) {
