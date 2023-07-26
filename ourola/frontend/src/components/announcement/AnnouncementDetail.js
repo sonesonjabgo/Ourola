@@ -1,5 +1,5 @@
 import "../../style/announcement/AnnouncementDetail.css";
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
 
 const AnnouncementDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
