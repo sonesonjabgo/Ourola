@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.mk.ourola.api.artist.repository.ArtistUserRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.user.repository.FanUserRepository;
 import com.mk.ourola.api.user.repository.dto.FanUserDto;
 import com.mk.ourola.api.user.service.JwtService;
@@ -29,6 +31,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final FanUserRepository userRepository;
+    private final ArtistUserRepository artistUserRepository;
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
@@ -77,6 +80,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                     jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(user.getEmail()),
                             reIssuedRefreshToken);
                 });
+        artistUserRepository.findByRefreshToken(refreshToken)
+            .ifPresent(user -> {
+                String reIssuedRefreshToken = reIssueArtistRefreshToken(user);
+                jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(user.getEmail()),
+                    reIssuedRefreshToken);
+            });
     }
 
     /**
@@ -88,6 +97,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         String reIssuedRefreshToken = jwtService.createRefreshToken();
         user.updateRefreshToken(reIssuedRefreshToken);
         userRepository.saveAndFlush(user);
+        return reIssuedRefreshToken;
+    }
+    private String reIssueArtistRefreshToken(ArtistUserDto user) {
+        String reIssuedRefreshToken = jwtService.createRefreshToken();
+        user.updateRefreshToken(reIssuedRefreshToken);
+        artistUserRepository.saveAndFlush(user);
         return reIssuedRefreshToken;
     }
 
@@ -107,6 +122,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
                         .ifPresent(email -> userRepository.findByEmail(email)
                                 .ifPresent(this::saveAuthentication)));
+        log.info("아티스트 인증 저장 시도");
+        jwtService.extractAccessToken(request)
+            .filter(jwtService::isTokenValid)
+            .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
+                .ifPresent(email -> artistUserRepository.findByEmail(email)
+                    .ifPresent(this::saveArtistAuthentication)));
 
         filterChain.doFilter(request, response);
     }
@@ -141,6 +162,24 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         Authentication authentication =
                 new UsernamePasswordAuthenticationToken(userDetailsUser, null,
                         authoritiesMapper.mapAuthorities(userDetailsUser.getAuthorities()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+    public void saveArtistAuthentication(ArtistUserDto myUser) {
+        String password = myUser.getPassword();
+        //        if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
+        //            password = PasswordUtil.generateRandomPassword();
+        //        }
+
+        UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
+            .username(myUser.getEmail())
+            .password(password)
+            .roles(myUser.getRole().name())
+            .build();
+
+        Authentication authentication =
+            new UsernamePasswordAuthenticationToken(userDetailsUser, null,
+                authoritiesMapper.mapAuthorities(userDetailsUser.getAuthorities()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

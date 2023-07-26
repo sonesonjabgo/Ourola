@@ -1,0 +1,16 @@
+/* 필요에 따라 클래스 이름만 바꿔서 쓰시면 됩니당 */
+
+.AnnouncementBackGround {
+  z-index: 20000;
+  align-items: center;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 30px 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}

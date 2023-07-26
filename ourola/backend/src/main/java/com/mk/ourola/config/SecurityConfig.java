@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mk.ourola.api.artist.repository.ArtistUserRepository;
 import com.mk.ourola.api.common.auth.CustomJsonAuthenticationFilter;
 import com.mk.ourola.api.common.auth.JwtAuthenticationProcessingFilter;
 import com.mk.ourola.api.common.handler.LoginFailureHandler;
@@ -33,6 +34,7 @@ public class SecurityConfig {
 
     private final JwtService jwtService;
     private final FanUserRepository fanUserRepository;
+    private final ArtistUserRepository artistUserRepository;
     private final ObjectMapper objectMapper;
 
     @Bean
@@ -53,9 +55,9 @@ public class SecurityConfig {
                 .authorizeRequests()
 
                 // 아이콘, css, js 관련
-                // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
-                .antMatchers("/**","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-                .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
+                // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
+                .antMatchers("/css/**","/images/**","/js/**","/favicon.ico").permitAll()
+                .antMatchers("/sign-up", "/artist-sign-up").permitAll() // 회원가입 접근 가능
                 .anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 //                .and()
                 //== 소셜 로그인 설정 ==//
@@ -68,6 +70,7 @@ public class SecurityConfig {
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
         // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
         http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
+        // http.addFilterAfter()
         http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonAuthenticationFilter.class);
 
         return http.build();
@@ -99,7 +102,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, fanUserRepository);
+        return new LoginSuccessHandler(jwtService, fanUserRepository, artistUserRepository);
     }
 
     /**
@@ -128,7 +131,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, fanUserRepository);
+        JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, fanUserRepository, artistUserRepository);
         return jwtAuthenticationFilter;
     }
 }

@@ -26,7 +26,7 @@ public class AnnouncementServiceImpl implements Announcement {
 	public List<AnnouncementDto> getAllAnnouncement(String artist) throws Exception {
 		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
 
-		return announcementRepository.findByGroupChannelDto_Id(groupChannelDto.getId());
+		return announcementRepository.findByGroupChannelDto_IdOrderByCreateTimeDesc(groupChannelDto.getId());
 	}
 
 	// 선택된 하나의 공지의 정보를 보내는 메서드
@@ -55,7 +55,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}
@@ -90,7 +90,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}
@@ -128,7 +128,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		ArtistUserDto artistUserDto = null;
 
 		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
-			if (artistUserInfo.isAdmin()) {
+			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
 			}
