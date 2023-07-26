@@ -1,5 +1,7 @@
 .Notification-header-text {
     font-size: 45px;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #e4e6ea;
 }
