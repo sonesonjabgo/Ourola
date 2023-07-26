@@ -40,13 +40,16 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken); // 응답 헤더에 AccessToken, RefreshToken 실어서 응답
 
-        if(jwtService.extractRole(accessToken).equals(Role.USER.getKey())) {
+        // log.info(jwtService.extractRole(accessToken).get());
+        if(jwtService.extractRole(accessToken).get().equals(Role.USER.getKey())) {
+            // log.info("fan user "+refreshToken);
             fanUserRepository.findByEmail(email)
                 .ifPresent(user -> {
                     user.updateRefreshToken(refreshToken);
                     fanUserRepository.saveAndFlush(user);
                 });
         } else {
+            // log.info("artist user "+refreshToken);
             artistUserRepository.findByEmail(email)
                 .ifPresent(user -> {
                     user.updateRefreshToken(refreshToken);
