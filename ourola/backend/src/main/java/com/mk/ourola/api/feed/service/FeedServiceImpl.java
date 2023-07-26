@@ -2,6 +2,7 @@ package com.mk.ourola.api.feed.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mk.ourola.api.artist.repository.ArtistUserRepository;
 import com.mk.ourola.api.artist.repository.GroupRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.LikeRepository;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
