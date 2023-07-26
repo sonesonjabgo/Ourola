@@ -10,7 +10,7 @@ import com.mk.ourola.api.membership.repository.dto.MembershipContentsDto;
 
 @Repository
 public interface MembershipContentsRepository extends JpaRepository<MembershipContentsDto, Integer> {
-	//Optional<MembershipContentsDto> findById(int id);
+	Optional<MembershipContentsDto> findById(int id);
 
 	List<MembershipContentsDto> findByGroupChannelDto_Id(int groupId);
 }

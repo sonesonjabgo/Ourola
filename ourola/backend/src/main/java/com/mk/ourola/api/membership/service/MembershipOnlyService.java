@@ -10,16 +10,17 @@ public interface MembershipOnlyService {
 	public List<MembershipContentsDto> getAllMembershipOnlyContent(String groupName) throws Exception;
 
 	// 멤버십 전용 컨텐츠 등록
-	public MembershipContentsDto uploadMembershipOnlyContent(String accessToken,
+	public MembershipContentsDto uploadMembershipOnlyContent(String groupName, String accessToken,
 		MembershipContentsDto membershipContentsDto) throws Exception;
 
 	// 멤버십 전용 컨텐츠 조회
-	public Optional<MembershipContentsDto> getMembershipOnlyContent(String accessToken, int contentId) throws Exception;
+	public MembershipContentsDto getMembershipOnlyContent(String groupName, String accessToken,
+		int contentId) throws Exception;
 
 	// 멤버십 전용 컨텐츠 수정
-	public Optional<MembershipContentsDto> modifyMembershipOnlyContent(String accessToken,
+	public MembershipContentsDto modifyMembershipOnlyContent(String groupName, String accessToken, int contentId,
 		MembershipContentsDto membershipContentsDto) throws Exception;
 
 	// 멤버십 전용 컨텐츠 삭제
-	public void removeMembershipOnlyContent(String accessToken, int contentId) throws Exception;
+	public void removeMembershipOnlyContent(String groupName, String accessToken, int contentId) throws Exception;
 }
