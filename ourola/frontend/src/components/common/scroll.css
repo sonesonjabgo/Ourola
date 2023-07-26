@@ -1,0 +1,21 @@
+/* 필요에 따라 클래스 이름만 바꿔서 쓰시면 됩니당 */
+
+.AnnouncementDetail::-webkit-scrollbar {
+  width: 10px;
+}
+
+.AnnouncementDetail::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
+}
+
+.AnnouncementDetail::-webkit-scrollbar-button:vertical:start:decrement,
+.sub-menu::-webkit-scrollbar-button:vertical:start:increment {
+  display: block;
+  height: 20px;
+}
+
+.AnnouncementDetail::-webkit-scrollbar-button:vertical:end:decrement {
+  display: block;
+  height: 20px;
+}

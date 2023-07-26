@@ -1,4 +1,5 @@
 import "../../style/announcement/AnnouncementDetail.css";
+import { useEffect, useRef } from "react";
 
 const AnnouncementDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
@@ -12,6 +13,22 @@ const AnnouncementDetail = (props) => {
   let getDate = createTime.split("T", 2);
   getDate[1] = getDate[1].split(".", 1);
 
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setModalOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [setModalOpen]);
+
   return (
     <div id="AnnouncementBackGround" className="AnnouncementBackGround">
       <button
@@ -21,7 +38,11 @@ const AnnouncementDetail = (props) => {
       >
         ×
       </button>
-      <div id="AnnouncementDetail" className="AnnouncementDetail">
+      <div
+        ref={modalRef}
+        id="AnnouncementDetail"
+        className="AnnouncementDetail"
+      >
         <div id="AnnouncementDetailScroll" className="AnnouncementDetailScroll">
           <div id="AnnouncemenDetailHeader" className="AnnouncemenDetailHeader">
             <h3
