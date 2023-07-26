@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.user.repository.dto.Role;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +32,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @DynamicInsert
 public class ArtistUserDto {
 
