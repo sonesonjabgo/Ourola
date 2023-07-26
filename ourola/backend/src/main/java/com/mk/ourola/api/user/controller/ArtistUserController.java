@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
 import com.mk.ourola.api.user.service.ArtistUserService;
+import com.mk.ourola.api.user.service.ArtistUserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,11 +20,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArtistUserController {
 
-	private final ArtistUserService artistUserService;
+	private final ArtistUserServiceImpl artistUserService;
 
 	@GetMapping("/{group}/memberList")
 	public ResponseEntity<?> getGroupArtistList(@PathVariable(name = "group") String groupName) {
 		try {
+			System.out.println("그룹 멤버 목록 조회");
 			List<ArtistUserDto> groupArtistList = artistUserService.getGroupArtistList(groupName);
 			return new ResponseEntity<>(groupArtistList, HttpStatus.OK);
 		} catch (Exception e) {

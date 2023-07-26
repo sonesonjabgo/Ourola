@@ -20,7 +20,9 @@ public class ArtistUserServiceImpl implements ArtistUserService {
 
 	@Override
 	public List<ArtistUserDto> getGroupArtistList(String groupName) {
+		System.out.println("그룹 멤버 목록 조회중 : " + groupName);
 		GroupChannelDto groupDto = groupRepository.findByName(groupName);
-		return artistUserRepository.findByGroupChannelDto_Id(groupDto.getId());
+		System.out.println(groupDto);
+		return artistUserRepository.findByGroupChannelDto_IdAndIsAdminIsFalse(groupDto.getId());
 	}
 }
