@@ -1,5 +1,5 @@
 import styles from '../../style/auth/ModalBasic.module.css';
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 // import { useDispatch } from 'react-redux';
 // import { loginUser } from '../../../_actions/user_action';
 

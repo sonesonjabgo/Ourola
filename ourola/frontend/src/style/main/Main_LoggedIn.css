@@ -15,6 +15,12 @@
     margin: 50px 130px;
 }
 
+.artists-following {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 50px 130px;
+}
+
 .underline {
     display: flex;
     justify-content: space-between;

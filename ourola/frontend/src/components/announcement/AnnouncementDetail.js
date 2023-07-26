@@ -1,4 +1,5 @@
 import "../../style/announcement/AnnouncementDetail.css";
+import React from 'react'
 
 const AnnouncementDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
