@@ -15,6 +15,8 @@ public interface ArtistUserRepository extends JpaRepository<ArtistUserDto, Integ
 
 	List<ArtistUserDto> findByGroupChannelDto_Id(int id);
 
+	List<ArtistUserDto> findByGroupChannelDto_IdAndIsAdminIsFalse(int id);
+
 	Optional<ArtistUserDto> findByEmail(String email);
 
 	Optional<ArtistUserDto> findByRefreshToken(String refreshToken);
