@@ -91,6 +91,8 @@ public class SecurityConfig {
 		corsConfiguration.addAllowedHeader("*");
 		corsConfiguration.addAllowedOrigin("*");
 		corsConfiguration.setMaxAge(7200L);
+		corsConfiguration.addExposedHeader("Authorization");
+		corsConfiguration.addExposedHeader("Authorization-refresh");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;
