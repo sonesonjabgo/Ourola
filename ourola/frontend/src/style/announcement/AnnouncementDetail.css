@@ -28,35 +28,36 @@
   background-color: white;
   border: 1px solid black;
   border-radius: 20px;
+
   overflow-y: scroll;
   overflow-x: hidden;
+}
 
-  &::-webkit-scrollbar {
-    display: none !important;
-  }
+.AnnouncementDetail::-webkit-scrollbar {
+  width: 10px;
+}
 
-  &::-webkit-scrollbar {
-    width: 3px;
-    background: none;
-  }
+.AnnouncementDetail::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
+}
 
-  &::-webkit-scrollbar-thumb {
-    background: #f8f7fb;
-    opacity: 0.4;
-  }
+.AnnouncementDetail::-webkit-scrollbar-button:vertical:start:decrement,
+.sub-menu::-webkit-scrollbar-button:vertical:start:increment {
+  display: block;
+  height: 20px;
+}
 
-  &::-webkit-scrollbar-track {
-    background: none;
-  }
-
-  /* webkit 수정하기 */
+.AnnouncementDetail::-webkit-scrollbar-button:vertical:end:decrement {
+  display: block;
+  height: 20px;
 }
 
 .AnnouncementDetailClose {
   height: 60px;
   position: absolute;
   top: 15px;
-  right: 80px;
+  right: 510px;
   width: 50px;
   appearance: auto;
   text-rendering: auto;
