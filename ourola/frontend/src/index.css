@@ -4,6 +4,6 @@
     src: url("./fonts/NanumSquareEB.ttf") format("truetype");
   }
   
-  body {
-    font-family: "NanumSquare=Extrabold";
+  * {
+    font-family: "NanumSquare-Extrabold";
   }
