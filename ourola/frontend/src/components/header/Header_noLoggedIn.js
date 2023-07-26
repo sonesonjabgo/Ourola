@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/header/Header_noLoggedIn.css';
 import mainLogo from '../../assets/images/ourola_logo.png'
-
 import Login from "../auth/Login"
 import Singup from "../auth/Singup"
 
