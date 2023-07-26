@@ -9,7 +9,6 @@
     position: fixed;
     display: flex;
     align-items: center;
-    padding-right: 0px;
   }
   
   .navbar-container {
@@ -168,14 +167,16 @@
     }
     
     .buttons {
-        margin: 10%;
         text-align: center;
+        display: flex;
+        justify-content: flex-end;
+        margin: -2%;
+        font-size: 18.5px;
+        font-weight: 700;
     }
     
     .btn-hover {
         width: 100px;
-        font-size: 18.5px;
-        font-weight: 700;
         cursor: pointer;
         margin: 10px;
         height: 55px;
@@ -238,4 +239,13 @@ input::placeholder {
   border: none;
   outline: none;
   width: 70%;
+}
+
+.header-spacer {
+  width: 350px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
