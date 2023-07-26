@@ -8,7 +8,7 @@ import MainLoggedIn from './components/main/Main_LoggedIn';
 
 function App() {
   const artist = "BTS";
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   return (
     <div id="App" className="App">

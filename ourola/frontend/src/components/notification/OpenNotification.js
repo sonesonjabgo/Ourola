@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../../style/notification/notification.css';
+import '../../style/notification/Notification.css';
 import NotificationModal from './NotificationModal'
 import NotificationIcon from '../../assets/icons/notification.png'
 

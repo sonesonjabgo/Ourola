@@ -5,6 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Announcement from "./components/announcement/Announcement";
 import './index.css'
 
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.withCredentials = true;
+
 const container = document.getElementById("root");
 render(
   <BrowserRouter>
