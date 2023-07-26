@@ -31,14 +31,14 @@ public class FileController {
 
 	@PostMapping("/write")
 	public ResponseEntity<?> writeProfileImage(
-			@RequestParam MultipartFile file,
-			@RequestHeader(name = "Authorization") String accessToken) {
+		@RequestParam MultipartFile file,
+		@RequestHeader(name = "Authorization") String accessToken) {
 
 		// 대충 유저id를 기준으로 레포지토리에서 유저 DTO를 조회하는 서비스 메서드 호출하는 코드가 여기 있다고 침
 		// 여기선 DTO를 만들어서 테스트 함
 
 		try {
-			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get() );
+			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
 			FanUserDto fanUserDto = fileService.writeProfileImage(file, email.get());
 			return new ResponseEntity<>(fanUserDto, HttpStatus.OK);
 		} catch (NoSuchAlgorithmException e) {
@@ -57,6 +57,18 @@ public class FileController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GetMapping("/{artist}/getImg")
+	public ResponseEntity<?> getArtistProfileImg(int id) {
+		try {
+			byte[] artistProfileImg = fileService.getArtistProfileImg(id);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
