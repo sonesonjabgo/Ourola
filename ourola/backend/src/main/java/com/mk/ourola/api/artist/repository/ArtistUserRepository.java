@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.user.repository.dto.FanUserDto;
 
 @Repository
 public interface ArtistUserRepository extends JpaRepository<ArtistUserDto, Integer> {
@@ -15,4 +16,6 @@ public interface ArtistUserRepository extends JpaRepository<ArtistUserDto, Integ
 	List<ArtistUserDto> findByGroupChannelDto_Id(int id);
 
 	Optional<ArtistUserDto> findByEmail(String email);
+
+	Optional<ArtistUserDto> findByRefreshToken(String refreshToken);
 }
