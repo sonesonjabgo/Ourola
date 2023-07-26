@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "NanumSquare-Extrabold";
+    font-weight: normal;
+    src: url("./fonts/NanumSquareEB.ttf") format("truetype");
+  }
+  
+  body {
+    font-family: "NanumSquare=Extrabold";
+  }

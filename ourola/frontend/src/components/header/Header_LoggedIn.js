@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/header/Header_noLoggedIn.css';
 import mainLogo from '../../assets/images/ourola_logo.png'
+import OpenNotification from '../notification/OpenNotification'
 
 // 공백 넣는 함수 - space = 값 조절
 function Space({ space = 50 }){
@@ -50,6 +51,7 @@ function HeaderNoLoggedIn() {
                 </ul>
                 {/* <div className="header-spacer"></div> */}
                 <div className="buttons">
+                <OpenNotification /><Space />
                 {/* <button class="btn-hover color-3" onClick={openModal}>로그인</button> */}
                 {/* 모달이 클릭되면  */}
                 로그아웃<Space />
