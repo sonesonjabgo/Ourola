@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import styles from '../../style/auth/ModalBasic.module.css';
+import styles from '../../style/auth/loginmodal.module.css';
 
 function LoginBasic({ setModalOpen }) {
   const [email, setEmail] = useState('');
@@ -21,23 +21,15 @@ function LoginBasic({ setModalOpen }) {
       password: password,
     };
 
-    try {
-      // 로그인 데이터를 백엔드로 POST 요청 전송
-      const response = await axios.post('http://localhost:8000/login', data);
-
-      // 서버로부터 응답 처리
-      if (response.status === 200) {
-        // 로그인 성공 시 필요한 작업 수행
-        // 예를 들면 로그인 상태 관리, 페이지 이동 등
-        console.log(response.headers.get("Authorization"))
-
-      } else {
-        // 로그인 실패 시 필요한 작업 수행
-        // 예를 들면 에러 메시지 표시 등
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    axios.post('/login', data).then(response => {
+        const { accessToken } = response.data;
+        console.log(response)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        console.log(axios.defaults.headers)
+    }).catch((e) => {
+        console.log(e.response.data);
+        return "이메일 혹은 비밀번호를 확인하세요.";
+    });
   };
 
   return (
