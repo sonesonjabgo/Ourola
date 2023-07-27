@@ -49,6 +49,26 @@ public class FeedController {
 		}
 	}
 
+	@GetMapping("/fan")
+	public ResponseEntity<List<FeedDto>> getAllFanFeed(@PathVariable String artist) {
+		try {
+			List<FeedDto> fanFeedList = fanFeedService.getAllFanFeed(artist);
+			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/artist")
+	public ResponseEntity<List<FeedDto>> getAllArtistFeed(@PathVariable String artist) {
+		try {
+			List<FeedDto> fanFeedList = fanFeedService.getAllArtistFeed(artist);
+			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 피드, 포스트를 작성하는 메서드
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(

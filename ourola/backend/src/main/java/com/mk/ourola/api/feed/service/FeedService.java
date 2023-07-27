@@ -9,6 +9,10 @@ public interface FeedService {
 
 	public List<FeedDto> getAllFeed(String artist);
 
+	public List<FeedDto> getAllFanFeed(String artist);
+
+	public List<FeedDto> getAllArtistFeed(String artist);
+
 	public FeedDto getFeed(String artist, int id);
 
 	public FeedDto writeFeed(String artist, FeedDto fanFeedDto, String email);
