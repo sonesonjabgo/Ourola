@@ -5,7 +5,7 @@ import ArtistPageMenu from '../header/ArtistPageMenu_FanFeed'
 import CreateFeedButton from "./CreateFeedButton"
 import AnnouncementOneline from "../announcement/AnnouncementOneline"
 import FanFeedProfile from './FanFeedProfile'
-import FanFeedFeed from './FanFeedFeed'
+import FanFeedFeedList from './FanFeedFeedList'
 import '../../style/fanfeed/FanFeed.css'
 
 function Fanfeed () {
@@ -28,7 +28,7 @@ function Fanfeed () {
                 <FanFeedProfile />
             </div>
             <div className='Fanfeed-feed-container'>
-                <FanFeedFeed />
+                <FanFeedFeedList />
             </div>
         </div>
         </>

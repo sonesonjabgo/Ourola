@@ -1,5 +1,4 @@
 import React from 'react'
-import FanFeedArtistProfile from './FanFeedArtistProfile'
 import '../../style/fanfeed/FanFeedProfile.css'
 
 function FanFeedProfile () {
