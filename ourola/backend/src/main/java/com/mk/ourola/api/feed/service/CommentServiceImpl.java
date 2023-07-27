@@ -34,8 +34,6 @@ public class CommentServiceImpl implements CommentService {
 
 	private final FeedRepository feedRepository;
 
-	private final JwtService jwtService;
-
 	@Override
 	public List<CommentDto> getCommentList(int feedId) {
 		return commentRepository.findByFeedDto_Id(feedId);
@@ -103,7 +101,11 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public ReCommentDto writeReComment(String accessToken, ReCommentDto reCommentDto) {
-		return reCommentRepository.save(reCommentDto);
+		ReCommentDto reComment = reCommentRepository.save(reCommentDto);
+		CommentDto commentDto = commentRepository.findById(reComment.getCommentDto().getId());
+		commentDto.setReCommentCount(commentDto.getReCommentCount()+1);
+		commentRepository.save(commentDto);
+		return reComment;
 	}
 
 	@Override
@@ -115,6 +117,10 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void removeReComment(String accessToken, int reCommentId) {
+		ReCommentDto reComment = reCommentRepository.findById(reCommentId);
+		CommentDto commentDto = commentRepository.findById(reComment.getCommentDto().getId());
+		commentDto.setReCommentCount(commentDto.getReCommentCount()-1);
 		reCommentRepository.deleteById(reCommentId);
+		commentRepository.save(commentDto);
 	}
 }
