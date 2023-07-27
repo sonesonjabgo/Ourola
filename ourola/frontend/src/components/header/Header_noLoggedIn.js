@@ -20,11 +20,11 @@ function HeaderNoLoggedIn() {
                 <img className = 'mainLogo' src={mainLogo} alt='OurolaLogo' />
                 Ourola
                 </Link>
-                <div className='menu-icon' onClick={handleClick}>
+                {/* <div className='menu-icon' onClick={handleClick}>
                     <i className = {click ? 'fas fa-times' : 'fas fa-bars' } />
-                </div>
+                </div> */}
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                <div className="header-spacer">
+                {/* <div className="header-spacer"> */}
                 <div className="searchbar">
                     <input className="searchbar-input" 
                         onFocus = {() => {
@@ -40,7 +40,7 @@ function HeaderNoLoggedIn() {
                         <img className="searchbarbtn" src='https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png' />
                     </div>
                 </div>
-                </div>
+                {/* </div> */}
                 </ul>
                 {/* <div className="header-spacer"></div> */}
                 <div className="buttons">

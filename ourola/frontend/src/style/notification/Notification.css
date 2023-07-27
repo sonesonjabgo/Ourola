@@ -1,5 +1,5 @@
 .Notification-background {
-    z-index: 20000;
+    z-index: 999;
     align-items: center;
     bottom: 0;
     box-sizing: border-box;
