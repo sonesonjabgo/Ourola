@@ -11,9 +11,20 @@ const Announcement = () => {
   const [loading, setLoding] = useState(true);
   const [announcementList, setAnnouncementList] = useState([]);
 
+  const config = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDQ4Mjc3MywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.uWVnJAZwgRwkLPjd9KjohBYg9GZhQmBfeud1glL4XvP6L0L1FvHeRV0Tsu-Us2XG4D_S40gJw0gHLsAfBxtOzA",
+      "Content-Type": "application/json",
+    },
+  };
+
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/${artist}/announcement/list`)
+      .get(
+        `http://localhost:${backendPort}/${artist}/announcement/list`,
+        config
+      )
       .then((response) => {
         setAnnouncementList(response.data);
         setLoding(false);
