@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
 
-function LoginBasic({ setModalOpen }) {
+function LoginBasic({ setModalOpen, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,12 +21,16 @@ function LoginBasic({ setModalOpen }) {
       password: password,
     };
 
-    axios.post('/login', data).then(response => {
+    axios.post('/login', data)
+      .then(response => {
        // 현재 백에서 토큰을 headers에 담아서 보내줘서 아래와 같이 작성해야 함.
         const accessToken  = response.headers['authorization'];
-      
-      // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+
+       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common['Authorization'] = `Bearer ${ accessToken }`;
+      
+        // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
+        onLogin();
         return response.data;
     }).catch((e) => {
         console.log(e.response.data);
@@ -36,6 +40,7 @@ function LoginBasic({ setModalOpen }) {
 
   return (
     <div className={styles.container}>
+      {/* 모달의 X 를 선택하면 모달이 꺼짐 */}
       <button className={styles.close} onClick={closeModal}>
         X
       </button>
