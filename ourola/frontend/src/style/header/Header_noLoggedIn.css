@@ -1,6 +1,7 @@
 
 
 .navbar {
+    z-index: 999;
     background-color:white;
     height: 100px;
     width: 100%;

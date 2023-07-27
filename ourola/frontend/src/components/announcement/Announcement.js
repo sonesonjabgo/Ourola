@@ -3,16 +3,17 @@ import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
 import { useLocation } from "react-router-dom";
 
-function Announcement() {
+const Announcement = () => {
   const location = useLocation();
   const artist = location.state;
+  const backendPort = 8000;
 
   const [loading, setLoding] = useState(true);
   const [announcementList, setAnnouncementList] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:80/${artist}/announcement/list`)
+      .get(`http://localhost:${backendPort}/${artist}/announcement/list`)
       .then((response) => {
         setAnnouncementList(response.data);
         setLoding(false);
@@ -28,13 +29,13 @@ function Announcement() {
     <div>
       <div id="Announcement" className="Annoucement">
         {loading ? (
-          <p>Loading...</p> // 로딩창을 만들어놔도 괜찮을 듯..
+          <div></div>
         ) : (
           <AnnouncementList announcementList={announcementList} />
         )}
       </div>
     </div>
   );
-}
+};
 
 export default Announcement;

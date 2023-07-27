@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
 
@@ -22,10 +22,12 @@ function LoginBasic({ setModalOpen }) {
     };
 
     axios.post('/login', data).then(response => {
-        const { accessToken } = response.data;
-        console.log(response)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        console.log(axios.defaults.headers)
+       // 현재 백에서 토큰을 headers에 담아서 보내줘서 아래와 같이 작성해야 함.
+        const accessToken  = response.headers['authorization'];
+      
+      // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        axios.defaults.headers.common['Authorization'] = `Bearer ${ accessToken }`;
+        return response.data;
     }).catch((e) => {
         console.log(e.response.data);
         return "이메일 혹은 비밀번호를 확인하세요.";

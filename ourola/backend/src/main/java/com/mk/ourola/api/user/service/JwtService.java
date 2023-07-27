@@ -163,19 +163,20 @@ public class JwtService {
         }
     }
 
-    // public Optional<Integer> extractId(String accessToken) {
-    //     try {
-    //         // 토큰 유효성 검사하는 데에 사용할 알고리즘이 있는 JWT verifier builder 반환
-    //         return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secretKey))
-    //             .build() // 반환된 빌더로 JWT verifier 생성
-    //             .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
-    //             .getClaim(USER_ID_CLAIM) // claim(id) 가져오기
-    //             .asInt());
-    //     } catch (Exception e) {
-    //         log.error("액세스 토큰이 유효하지 않습니다.");
-    //         return Optional.empty();
-    //     }
-    // }
+    public Integer accessTokenToUserId(String accessToken) {
+        try {
+            String email = extractEmail(accessToken).get();
+            String role = extractRole(accessToken).get();
+            if(role.equals(Role.USER.getKey())) {
+                return fanUserRepository.findByEmail(email).get().getId();
+            } else {
+                return artistUserRepository.findByEmail(email).get().getId();
+            }
+        } catch (Exception e) {
+            log.error("액세스 토큰이 유효하지 않습니다.");
+            return null;
+        }
+    }
 
     /**
      * AccessToken에서 user role 추출 (user / artist)

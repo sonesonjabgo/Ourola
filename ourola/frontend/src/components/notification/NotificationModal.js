@@ -35,16 +35,15 @@ const NotificationModal = (props) => {
         >
           ×
         </button>
+
         <div
           ref={modalRef}
           className="Notification-detail"
         >
-          <div className="Notification-header"><NotificationHeader /></div>  
-          <div id="AnnouncementDetailScroll" className="AnnouncementDetailScroll">
+                  <div className="Notification-header"><NotificationHeader /></div>  
             <div className="Notification-detail-content">
                 <div><NotificationList /></div>
             </div>
-          </div>
         </div>
       </div>
     );
