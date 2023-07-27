@@ -3,8 +3,8 @@ import App from "./App";
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Announcement from "./components/announcement/Announcement";
-import Artist from "./components/artist/Artist";
-import FanFeed from './components/fanfeed/FanFeed'
+import Artist from "./components/artistfeed/Artist";
+import FanFeed from "./components/fanfeed/FanFeed";
 import "./index.css";
 
 import axios from "axios";

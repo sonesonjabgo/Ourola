@@ -1,4 +1,4 @@
-import "../../style/artist/Artist.css";
+import "../../style/artistfeed/Artist.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ArtistMemberList from "./ArtistMemberList";

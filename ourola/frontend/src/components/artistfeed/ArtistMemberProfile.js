@@ -1,4 +1,4 @@
-import "../../style/artist/ArtistMemberProfile.css";
+import "../../style/artistfeed/ArtistMemberProfile.css";
 
 const ArtistMemberProfile = ({ artist, id, name }) => {
   const backendPort = 8000;
