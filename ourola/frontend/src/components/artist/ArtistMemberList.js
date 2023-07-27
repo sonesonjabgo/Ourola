@@ -1,3 +1,4 @@
+import React from 'react';
 import ArtistMemberItem from "./ArtistMemberItem";
 
 const ArtistMemberList = ({ artistMember }) => {

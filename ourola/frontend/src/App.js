@@ -8,7 +8,7 @@ import MainLoggedIn from "./components/main/Main_LoggedIn";
 
 function App() {
   const artist = "BTS";
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   return (
     <div id="App" className="App">
@@ -17,10 +17,10 @@ function App() {
       <div className="main">
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
-      <HeaderNoLoggedIn />
+      {/* <HeaderNoLoggedIn />
       <div className="main">
         <MainNoLoggedIn />
-      </div>
+      </div> */}
       {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}
       <Link to="/announcement" state={artist}>
         공지사항
