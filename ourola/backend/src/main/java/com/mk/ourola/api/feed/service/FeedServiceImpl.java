@@ -46,6 +46,20 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepository.findByGroupChannelDto_Id(groupId);
 	}
 
+	public List<FeedDto> getAllFanFeed(String artist) {
+		System.out.println(artist + "서비스");
+		int groupId = groupRepository.findByName(artist).getId();
+		System.out.println(groupId);
+		return feedRepository.findByGroupChannelDto_IdAndTypeIs(groupId, 1);
+	}
+
+	public List<FeedDto> getAllArtistFeed(String artist) {
+		System.out.println(artist + "서비스");
+		int groupId = groupRepository.findByName(artist).getId();
+		System.out.println(groupId);
+		return feedRepository.findByGroupChannelDto_IdAndTypeIs(groupId, 2);
+	}
+
 	public FeedDto getFeed(String artist, int id) {
 		System.out.println(artist + "서비스");
 		return feedRepository.findById(id);
