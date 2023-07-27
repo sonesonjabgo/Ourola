@@ -45,7 +45,7 @@ public class ArtistUserDto {
 	@JoinColumn(name = "group_id")
 	private GroupChannelDto groupChannelDto;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	private ProfileFileDto profileFileDto;
 

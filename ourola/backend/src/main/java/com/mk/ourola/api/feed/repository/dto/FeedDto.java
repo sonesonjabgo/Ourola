@@ -68,4 +68,7 @@ public class FeedDto {
 	// 팬이면 1, 아티스트면 2
 	private Integer type;
 
+	@Column(name = "comment_count")
+	private Integer commentCount;
+
 }

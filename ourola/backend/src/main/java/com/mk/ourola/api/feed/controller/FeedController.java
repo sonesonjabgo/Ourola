@@ -32,7 +32,7 @@ public class FeedController {
 
 	// 팬 피드, 아티스트 포스트 컨트롤러
 
-	private final FeedServiceImpl fanFeedService;
+	private final FeedServiceImpl feedService;
 
 	private final JwtService jwtService;
 
@@ -42,7 +42,27 @@ public class FeedController {
 	@GetMapping("")
 	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String artist) {
 		try {
-			List<FeedDto> fanFeedList = fanFeedService.getAllFeed(artist);
+			List<FeedDto> fanFeedList = feedService.getAllFeed(artist);
+			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/fan")
+	public ResponseEntity<List<FeedDto>> getAllFanFeed(@PathVariable String artist) {
+		try {
+			List<FeedDto> fanFeedList = feedService.getAllFanFeed(artist);
+			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/artist")
+	public ResponseEntity<List<FeedDto>> getAllArtistFeed(@PathVariable String artist) {
+		try {
+			List<FeedDto> fanFeedList = feedService.getAllArtistFeed(artist);
 			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,7 +79,7 @@ public class FeedController {
 	) {
 		try {
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
-			FeedDto fanFeedDtoResult = fanFeedService.writeFeed(artist, FeedDto, email.get());
+			FeedDto fanFeedDtoResult = feedService.writeFeed(artist, FeedDto, email.get());
 			if (!files.isEmpty()) {
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
@@ -73,7 +93,7 @@ public class FeedController {
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<String> removeFeed(@PathVariable String artist, @PathVariable Integer id) {
 		try {
-			fanFeedService.removeFeed(id);
+			feedService.removeFeed(id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,7 +107,7 @@ public class FeedController {
 		@PathVariable(name = "id") int id
 	) {
 		try {
-			FeedDto Feed = fanFeedService.getFeed(artist, id);
+			FeedDto Feed = feedService.getFeed(artist, id);
 			return new ResponseEntity<>(Feed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -103,7 +123,7 @@ public class FeedController {
 	) {
 		try {
 			FeedDto.setId(id);
-			FeedDto modifiedFeed = fanFeedService.modifyFeed(FeedDto);
+			FeedDto modifiedFeed = feedService.modifyFeed(FeedDto);
 			return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -116,7 +136,7 @@ public class FeedController {
 	public ResponseEntity<?> modifyLike(@RequestHeader(name = "Authorization") String accessToken,
 		@PathVariable("artist") String artist, @PathVariable("id") int id) {
 		try {
-			Boolean isLike = fanFeedService.modifyLike(id, accessToken);
+			Boolean isLike = feedService.modifyLike(id, accessToken);
 			return new ResponseEntity<>(isLike, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -130,7 +150,7 @@ public class FeedController {
 		@RequestHeader String accessToken) {
 		System.out.println("아티스트 : " + artist);
 		try {
-			List<LikeDto> likelist = fanFeedService.getLikeList(accessToken);
+			List<LikeDto> likelist = feedService.getLikeList(accessToken);
 			return new ResponseEntity<>(likelist, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -142,7 +162,7 @@ public class FeedController {
 	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String artist,
 		@PathVariable int artistId) {
 		try {
-			return new ResponseEntity<>(fanFeedService.getAllSpecificArtistFeed(artistId), HttpStatus.OK);
+			return new ResponseEntity<>(feedService.getAllSpecificArtistFeed(artistId), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
