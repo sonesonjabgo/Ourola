@@ -1,4 +1,5 @@
-import "../../style/artist/ArtistFeedItem.css";
+import "../../style/artistfeed/ArtistFeedItem.css";
+import React, { useEffect, useState } from "react";
 
 const ArtistFeedItem = ({
   artist,

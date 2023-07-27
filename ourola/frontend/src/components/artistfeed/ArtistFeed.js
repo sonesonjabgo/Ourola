@@ -1,4 +1,4 @@
-import "../../style/artist/ArtistFeed.css";
+import "../../style/artistfeed/ArtistFeed.css";
 import ArtistFeedItem from "./ArtistFeedItem";
 
 const ArtistFeed = ({ artist, artistFeed }) => {
