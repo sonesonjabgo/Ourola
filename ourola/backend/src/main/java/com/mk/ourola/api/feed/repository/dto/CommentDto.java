@@ -56,4 +56,7 @@ public class CommentDto {
 
 	@Column(name = "update_time")
 	private Date updateTime;
+
+	@Column(name = "re_comment_count")
+	private Integer reCommentCount;
 }

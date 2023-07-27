@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,6 +59,7 @@ public class CommentController {
 			CommentDto comment = commentService.getComment(commentId);
 			return new ResponseEntity<>(comment, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -65,9 +67,9 @@ public class CommentController {
 	// 피드(포스트)에 댓글 작성
 	// 테스트 완료
 	@PostMapping("")
-	public ResponseEntity<CommentDto> writeComment(@PathVariable int feed, @RequestBody CommentDto commentDto) {
+	public ResponseEntity<CommentDto> writeComment(@PathVariable int feed, @RequestHeader(name = "Authorization") String accessToken, @RequestBody CommentDto commentDto) {
 		try {
-			CommentDto commentDtoResult = commentService.writeComment(commentDto);
+			CommentDto commentDtoResult = commentService.writeComment(accessToken, commentDto);
 			return new ResponseEntity<>(commentDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -77,9 +79,9 @@ public class CommentController {
 	// 댓글 수정
 	// 테스트 완료
 	@PutMapping("")
-	public ResponseEntity<?> modifyComment(@PathVariable int feed, @RequestBody CommentDto commentDto) {
+	public ResponseEntity<?> modifyComment(@PathVariable int feed, @RequestHeader(name = "Authorization") String accessToken, @RequestBody CommentDto commentDto) {
 		try {
-			CommentDto commentDtoResult = commentService.modifyComment(commentDto);
+			CommentDto commentDtoResult = commentService.modifyComment(accessToken, commentDto);
 			return new ResponseEntity<>(commentDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -89,9 +91,9 @@ public class CommentController {
 	// 댓글 삭제
 	// 테스트 완료
 	@DeleteMapping("/{commentId}")
-	public ResponseEntity<?> removeComment(@PathVariable int commentId) {
+	public ResponseEntity<?> removeComment(@PathVariable int commentId, @RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			commentService.removeComment(commentId);
+			commentService.removeComment(accessToken, commentId);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -137,9 +139,9 @@ public class CommentController {
 	// 대댓글 작성
 	// 테스트 완료
 	@PostMapping("/recomment")
-	public ResponseEntity<?> writeReComment(@RequestBody ReCommentDto reCommentDto) {
+	public ResponseEntity<?> writeReComment(@RequestBody ReCommentDto reCommentDto, @RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			ReCommentDto reCommentDtoResult = commentService.writeReComment(reCommentDto);
+			ReCommentDto reCommentDtoResult = commentService.writeReComment(accessToken, reCommentDto);
 			return new ResponseEntity<>(reCommentDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -149,9 +151,9 @@ public class CommentController {
 	// 대댓글 수정
 	// 테스트 완료
 	@PutMapping("/recomment")
-	public ResponseEntity<?> modifyReComment(@RequestBody ReCommentDto reCommentDto) {
+	public ResponseEntity<?> modifyReComment(@RequestBody ReCommentDto reCommentDto, @RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			ReCommentDto reComment = commentService.modifyReComment(reCommentDto);
+			ReCommentDto reComment = commentService.modifyReComment(accessToken, reCommentDto);
 			return new ResponseEntity<>(reComment, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -161,9 +163,9 @@ public class CommentController {
 	// 대댓글 삭제
 	// 테스트 완료
 	@DeleteMapping("/recomment/{reCommentId}")
-	public ResponseEntity<?> removeReComment(@PathVariable int reCommentId) {
+	public ResponseEntity<?> removeReComment(@PathVariable int reCommentId, @RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			commentService.removeReComment(reCommentId);
+			commentService.removeReComment(accessToken, reCommentId);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
