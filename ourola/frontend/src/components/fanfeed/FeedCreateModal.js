@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import styles from '../../style/fanfeed/FeedCreateModal.css';
+import FeedCreateModalProfile from './FeedCreateModalProfile'
+import FeedCreateInput from './FeedCreateInput'
 
 
 const NotificationModal = (props) => {
@@ -34,10 +36,13 @@ const NotificationModal = (props) => {
           ×
         </button>
 
-        <div
-          ref={modalRef}
-          className="CreateFeed-detail"
-        >
+        <div ref={modalRef} className="CreateFeed-detail">
+          <FeedCreateModalProfile />
+          <div className="FeedCreateInput-container">
+            <div className="FeedCreateInput">
+              <FeedCreateInput />
+            </div>
+          </div>
         </div>
       </div>
     );
