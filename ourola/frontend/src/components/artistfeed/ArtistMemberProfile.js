@@ -1,3 +1,4 @@
+import React from 'react'
 import "../../style/artistfeed/ArtistMemberProfile.css";
 
 const ArtistMemberProfile = ({ artist, id, name }) => {

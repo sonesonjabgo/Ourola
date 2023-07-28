@@ -1,0 +1,117 @@
+.ArtistFeedItem {
+    display: block;
+    border-bottom: 2px solid #000;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+  
+  .AritstFeedHeader {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .ArtistFeedInfo {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+  
+  .ArtistFeedProfile {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  .ArtistFeedInfo {
+    display: block;
+    margin-left: 8px;
+    /* overflow: hidden; */
+  }
+  
+  .ArtistFeedArtistNameWrapper {
+    align-items: center;
+    display: flex;
+  }
+  
+  .ArtistFeedArtistName {
+    font-size: 14px;
+    line-height: 17px;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  
+  .ArtistFeedCreateTimeWrapper {
+    align-items: center;
+    display: flex;
+    margin-top: 2px;
+  }
+  
+  .ArtistFeedCreateTime {
+    color: #8e8e8e;
+    flex-shrink: 0;
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .ArtistFeedContent {
+    padding-left: 5px;
+    display: block;
+    padding-top: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    line-break: anywhere;
+    white-space: pre-line;
+    word-break: break-all;
+    line-height: 21px;
+  }
+  
+  .ArtistFeedFooter {
+    padding-left: 10px;
+    align-items: center;
+    display: flex;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .ArtistFeedFeedInfo {
+    display: flex;
+    flex-shrink: 0;
+  }
+  
+  .ArtistFeedLike {
+    margin-top: 25px;
+    display: block;
+    width: 26;
+    height: 26;
+    margin-right: 30px;
+  }
+  
+  .ArtistFeedLikeImg {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .ArtistFeedLikeCount {
+    display: inline-block;
+  }
+  
+  .ArtistFeedComment {
+    margin-top: 25px;
+    display: block;
+    width: 26;
+    height: 26;
+  }
+  
+  .ArtistFeedCommentImg {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .ArtistFeedCommentCount {
+    display: inline-block;
+  }
+  

@@ -1,3 +1,4 @@
+import React from 'react'
 import "../../style/artistfeed/ArtistFeed.css";
 import ArtistFeedItem from "./ArtistFeedItem";
 

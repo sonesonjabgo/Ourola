@@ -1,3 +1,4 @@
+import React from 'react'
 import "../../style/artistfeed/ArtistMemberList.css";
 import ArtistMemberProfile from "./ArtistMemberProfile";
 
