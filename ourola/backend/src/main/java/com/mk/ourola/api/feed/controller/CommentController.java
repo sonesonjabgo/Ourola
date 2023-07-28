@@ -51,6 +51,16 @@ public class CommentController {
 		}
 	}
 
+	@GetMapping("/artist-user/{artistUserId}")
+	public ResponseEntity<?> getArtistUserComment(@PathVariable int artistUserId) {
+		try {
+			List<CommentDto> commentList = commentService.getArtistCommentList(artistUserId);
+			return new ResponseEntity<>(commentList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 단일 댓글 조회
 	// 테스트 완료
 	@GetMapping("/{commentId}")
@@ -118,6 +128,15 @@ public class CommentController {
 	public ResponseEntity<?> getUserReCommentList(@PathVariable int fanUserId) {
 		try {
 			List<ReCommentDto> reCommentList = commentService.getUserReCommnetList(fanUserId);
+			return new ResponseEntity<>(reCommentList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@GetMapping("recomment/artist-user/{artistUserId}")
+	public ResponseEntity<?> getArtistUserReCommentList(@PathVariable int artistUserId) {
+		try {
+			List<ReCommentDto> reCommentList = commentService.getArtistReCommentList(artistUserId);
 			return new ResponseEntity<>(reCommentList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

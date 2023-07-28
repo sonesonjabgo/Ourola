@@ -1,18 +1,17 @@
-import React from 'react';
-import ArtistMemberItem from "./ArtistMemberItem";
+import "../../style/artistfeed/ArtistMemberList.css";
+import ArtistMemberProfile from "./ArtistMemberProfile";
 
-const ArtistMemberList = ({ artistMember }) => {
-  console.log(typeof artistMember);
-
+const ArtistMemberList = ({ artist, artistMember }) => {
   return (
     <div id="ArtistMemberList" className="ArtistMemberList">
       <section id="ArtistMemberBoard" className="ArtistMemberBoard">
         {artistMember.map((it) => (
-          <ArtistMemberItem
+          <ArtistMemberProfile
             key={it.id}
+            artist={artist}
             id={it.id}
-            profileid={it.profileFileDto.id}
-          ></ArtistMemberItem>
+            name={it.name}
+          ></ArtistMemberProfile>
         ))}
       </section>
     </div>

@@ -1,0 +1,23 @@
+.ArtistMemberList {
+  margin: 40px auto 20px;
+  max-width: 1102px;
+  min-width: 707px;
+  position: relative;
+  transform: translate(0px);
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  will-change: transform;
+  z-index: 1;
+}
+
+.ArtistMemberBoard {
+  display: flex;
+  user-select: none;
+  -webkit-user-drag: none;
+  touch-action: pan-y;
+  position: relative;
+}
