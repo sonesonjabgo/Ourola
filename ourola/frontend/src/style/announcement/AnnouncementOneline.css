@@ -1,0 +1,28 @@
+.OnelineAnnouncement {
+    font-size: 25px;
+    border-radius: 30px;
+    border: solid 3px lightgrey;
+    text-align: center;
+    width: 60%;
+    margin-left: 4%;
+    display: flex;
+    justify-content: start;
+}
+
+.OnelineAnnouncement-icon-container {
+    display: flex;
+    justify-content: start;
+    margin-left: 2%;
+    align-items: center;
+}
+
+.Announcement-icon {
+    height: 35px;
+}
+
+.OnelineAnnouncement-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

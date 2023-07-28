@@ -32,11 +32,9 @@ function App() {
       <div className="main">
       {/* {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />} */}
       </div>
-      {/* <HeaderNoLoggedIn /> */}
       <div className="main">
         <MainNoLoggedIn />
       </div>
-      
       {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}
       <Link to="/announcement" state={artist}>
         공지사항
