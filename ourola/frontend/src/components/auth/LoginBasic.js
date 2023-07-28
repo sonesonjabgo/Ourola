@@ -28,9 +28,13 @@ function LoginBasic({ setModalOpen, onLogin }) {
 
        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common['Authorization'] = `Bearer ${ accessToken }`;
-      
+        
         // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
         onLogin();
+
+        // 로컬 스토리지에 accessToken 저장
+        localStorage.setItem('Authorization', accessToken);
+
         return response.data;
     }).catch((e) => {
         console.log(e.response.data);
