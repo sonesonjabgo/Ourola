@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header"
 import MainLoggedIn from "./components/main/Main_LoggedIn";
@@ -15,15 +15,23 @@ function App() {
   const handleLoginSuccess = () => {
     setLoggedIn(true);
   };
-  
-  // const onLogin = () => {
-  //   return handleLoginSuccess(true)
-  // }
-  
+    
   // 로그아웃 상태 변경 함수
   const handleLogout = () => {
     setLoggedIn(false);
   };
+
+  useEffect(() => {
+    // 로컬스토리지에서 Authorization 값을 가져옴
+    const authorization = localStorage.getItem('Authorization');
+
+    // Authorization 값이 존재하면 로그인 상태로 설정
+    if (authorization) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
 
   return (
     <div id="App" className="App">
