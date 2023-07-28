@@ -16,9 +16,9 @@ function App() {
     setLoggedIn(true);
   };
   
-  const onLogin = () => {
-    return handleLoginSuccess(true)
-  }
+  // const onLogin = () => {
+  //   return handleLoginSuccess(true)
+  // }
   
   // 로그아웃 상태 변경 함수
   const handleLogout = () => {
@@ -27,14 +27,11 @@ function App() {
 
   return (
     <div id="App" className="App">
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} onLogin={onLogin}/>
-      {/* {isLoggedIn ? <HeaderLoggedIn /> : <HeaderNoLoggedIn />} */}
+      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} onLogin={handleLoginSuccess}/>
       <div className="main">
-      {/* {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />} */}
       </div>
-      {/* <HeaderNoLoggedIn /> */}
       <div className="main">
-        <MainNoLoggedIn />
+        {isLoggedIn ? <MainLoggedIn/> : <MainNoLoggedIn/>}
       </div>
       
       {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}

@@ -4,7 +4,7 @@ import mainLogo from '../../assets/images/ourola_logo.png'
 import Login from "../auth/Login"
 import Singup from "../auth/Singup"
 
-function Header({ isLoggedIn, onLogin }) {
+function Header({ isLoggedIn, onLogin }) { // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
@@ -25,9 +25,12 @@ function Header({ isLoggedIn, onLogin }) {
                     </div>
                 </ul>
                 <div className="buttons">
-                    <Login onLogin={onLogin}/>
-                    <Singup/>
+                    {/* <Login onLogin={onLogin}/> */}
+                    {isLoggedIn ? <button>로그아웃</button> : <Login onLogin={onLogin}/>}
+                    {isLoggedIn ? <button>my page</button> : <Singup/>}
+
                 </div>
+                
             </div>
         </nav>
     )
