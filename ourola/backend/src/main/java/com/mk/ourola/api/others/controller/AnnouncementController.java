@@ -20,7 +20,7 @@ import com.mk.ourola.api.others.service.AnnouncementServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("{artist}/announcement")
+@RequestMapping("{group}/announcement")
 @RequiredArgsConstructor
 public class AnnouncementController {
 
@@ -28,9 +28,9 @@ public class AnnouncementController {
 
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
 	@GetMapping("/list")
-	public ResponseEntity<List<AnnouncementDto>> getAllAnnouncement(@PathVariable("artist") String artist) {
+	public ResponseEntity<List<AnnouncementDto>> getAllAnnouncement(@PathVariable("group") String groupName) {
 		try {
-			return new ResponseEntity<List<AnnouncementDto>>(announcementService.getAllAnnouncement(artist),
+			return new ResponseEntity<List<AnnouncementDto>>(announcementService.getAllAnnouncement(groupName),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -39,10 +39,10 @@ public class AnnouncementController {
 
 	// 선택된 하나의 공지의 정보를 보내는 메서드
 	@GetMapping("/read/{announcementId}")
-	public ResponseEntity<AnnouncementDto> getAnnouncement(@PathVariable("artist") String artist,
+	public ResponseEntity<AnnouncementDto> getAnnouncement(@PathVariable("group") String groupName,
 		@PathVariable("announcementId") int announcementId) {
 		try {
-			return new ResponseEntity<AnnouncementDto>(announcementService.getAnnouncement(artist, announcementId),
+			return new ResponseEntity<AnnouncementDto>(announcementService.getAnnouncement(groupName, announcementId),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,11 +51,11 @@ public class AnnouncementController {
 
 	// 소속사 직원이 공지를 만드는 메서드
 	@PostMapping("/write")
-	public ResponseEntity<AnnouncementDto> writeAnnouncement(@PathVariable("artist") String artist,
+	public ResponseEntity<AnnouncementDto> writeAnnouncement(@PathVariable("group") String groupName,
 		@RequestHeader String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
-			return new ResponseEntity<>(announcementService.writeAnnouncement(artist, accessToken,
+			return new ResponseEntity<>(announcementService.writeAnnouncement(groupName, accessToken,
 				announcementDto), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,12 +64,12 @@ public class AnnouncementController {
 
 	// 소속사 직원이 공지 제목 혹은 내용을 바꾸는 메서드
 	@PutMapping("/modify/{announcementId}")
-	public ResponseEntity<AnnouncementDto> modifyAnnouncement(@PathVariable("artist") String artist,
+	public ResponseEntity<AnnouncementDto> modifyAnnouncement(@PathVariable("group") String groupName,
 		@PathVariable("announcementId") int announcementId, @RequestHeader String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
 			return new ResponseEntity<AnnouncementDto>(
-				announcementService.modifyAnnouncement(artist, announcementId, accessToken, announcementDto),
+				announcementService.modifyAnnouncement(groupName, announcementId, accessToken, announcementDto),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,11 +78,11 @@ public class AnnouncementController {
 
 	// 소속사 직원이 공지를 지우는 메서드
 	@DeleteMapping("/remove/{announcementId}")
-	public ResponseEntity<String> removeAnnouncement(@PathVariable("artist") String artist,
+	public ResponseEntity<String> removeAnnouncement(@PathVariable("group") String groupName,
 		@PathVariable("announcementId") int announcementId,
 		@RequestHeader String accessToken) {
 		try {
-			announcementService.removeAnnouncement(artist, announcementId, accessToken);
+			announcementService.removeAnnouncement(groupName, announcementId, accessToken);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

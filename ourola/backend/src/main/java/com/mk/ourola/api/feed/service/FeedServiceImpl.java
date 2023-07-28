@@ -7,18 +7,18 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mk.ourola.api.artist.repository.ArtistUserRepository;
-import com.mk.ourola.api.artist.repository.GroupRepository;
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.Role;
+import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.fan.repository.FanRepository;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.LikeRepository;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.LikeDto;
-import com.mk.ourola.api.user.repository.FanUserRepository;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
-import com.mk.ourola.api.user.repository.dto.Role;
-import com.mk.ourola.api.user.service.JwtService;
+import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,11 +31,11 @@ public class FeedServiceImpl implements FeedService {
 
 	private final GroupRepository groupRepository;
 
-	private final ArtistUserRepository artistUserRepository;
+	private final ArtistRepository artistRepository;
 
 	private final LikeRepository likeRepository;
 
-	private final FanUserRepository fanUserRepository;
+	private final FanRepository fanRepository;
 
 	private final JwtService jwtService;
 
@@ -43,21 +43,21 @@ public class FeedServiceImpl implements FeedService {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return feedRepository.findByGroupChannelDto_Id(groupId);
+		return feedRepository.findByGroupDto_Id(groupId);
 	}
 
 	public List<FeedDto> getAllFanFeed(String artist) {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return feedRepository.findByGroupChannelDto_IdAndTypeIs(groupId, 1);
+		return feedRepository.findByGroupDto_IdAndTypeIs(groupId, 1);
 	}
 
 	public List<FeedDto> getAllArtistFeed(String artist) {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return feedRepository.findByGroupChannelDto_IdAndTypeIs(groupId, 2);
+		return feedRepository.findByGroupDto_IdAndTypeIs(groupId, 2);
 	}
 
 	public FeedDto getFeed(String artist, int id) {
@@ -66,15 +66,15 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	public FeedDto writeFeed(String artist, FeedDto feedDto, String email) {
-		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
-		Optional<ArtistUserDto> artistDto = artistUserRepository.findByEmail(email);
-		GroupChannelDto group = groupRepository.findByName(artist);
+		Optional<FanDto> userDto = fanRepository.findByEmail(email);
+		Optional<ArtistDto> artistDto = artistRepository.findByEmail(email);
+		GroupDto group = groupRepository.findByName(artist);
 		if (userDto.isPresent()) {
-			feedDto.setFanUserDto(userDto.get());
+			feedDto.setFanDto(userDto.get());
 		} else if (artistDto.isPresent()) {
-			feedDto.setArtistUserDto(artistDto.get());
+			feedDto.setArtistDto(artistDto.get());
 		}
-		feedDto.setGroupChannelDto(group);
+		feedDto.setGroupDto(group);
 		return feedRepository.save(feedDto);
 	}
 
@@ -96,8 +96,8 @@ public class FeedServiceImpl implements FeedService {
 		boolean isLike;    // 바뀐 좋아요 상태
 
 		if (role.equals(Role.USER.getKey())) {
-			FanUserDto fanUserDto = fanUserRepository.findByEmail(email).get();
-			LikeDto likeDto = likeRepository.findByFanUserDto_IdAndFeedDto_Id(fanUserDto.getId(), feedDto.getId())
+			FanDto fanDto = fanRepository.findByEmail(email).get();
+			LikeDto likeDto = likeRepository.findByFanDto_IdAndFeedDto_Id(fanDto.getId(), feedDto.getId())
 				.orElse(null);
 
 			if (likeDto != null) {                    // 이미 좋아요 되어있을 때
@@ -108,8 +108,8 @@ public class FeedServiceImpl implements FeedService {
 			} else {                                // 해당 피드가 좋아요 안되어 있을 때
 				LikeDto newLikeDto = LikeDto.builder()
 					.feedDto(feedDto)
-					.fanUserDto(fanUserDto)
-					.artistUserDto(null)
+					.fanDto(fanDto)
+					.artistDto(null)
 					.build();
 				likeRepository.save(newLikeDto);    // like 테이블에 추가
 				// 피드에
@@ -118,8 +118,8 @@ public class FeedServiceImpl implements FeedService {
 				isLike = true;
 			}
 		} else {
-			ArtistUserDto artistUserDto = artistUserRepository.findByEmail(email).get();
-			LikeDto likeDto = likeRepository.findByArtistUserDto_IdAndFeedDto_Id(artistUserDto.getId(), feedDto.getId())
+			ArtistDto artistUserDto = artistRepository.findByEmail(email).get();
+			LikeDto likeDto = likeRepository.findByArtistDto_IdAndFeedDto_Id(artistUserDto.getId(), feedDto.getId())
 				.orElse(null);
 
 			if (likeDto != null) {                    // 이미 좋아요 되어있을 때
@@ -130,8 +130,8 @@ public class FeedServiceImpl implements FeedService {
 			} else {                                // 해당 피드가 좋아요 안되어 있을 때
 				LikeDto newLikeDto = LikeDto.builder()
 					.feedDto(feedDto)
-					.fanUserDto(null)
-					.artistUserDto(artistUserDto)
+					.fanDto(null)
+					.artistDto(artistUserDto)
 					.build();
 				likeRepository.save(newLikeDto);    // like 테이블에 추가
 				// 피드에
@@ -147,13 +147,13 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<LikeDto> getLikeList(String accessToken) throws Exception {
 
-		FanUserDto fanUserDto = fanUserRepository.findByEmail(jwtService.extractEmail(accessToken).get()).get();
+		FanDto fanDto = fanRepository.findByEmail(jwtService.extractEmail(accessToken).get()).get();
 
-		return likeRepository.findByFanUserDto_Id(fanUserDto.getId());
+		return likeRepository.findByFanDto_Id(fanDto.getId());
 	}
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
-		List<FeedDto> specificArtistFeed = feedRepository.findByArtistUserDto_Id(artistId);
+		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_Id(artistId);
 
 		List<FeedDto> onlyArtistFeed = new ArrayList<>();
 

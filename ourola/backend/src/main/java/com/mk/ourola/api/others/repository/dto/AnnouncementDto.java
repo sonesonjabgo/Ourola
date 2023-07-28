@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.DynamicInsert;
 
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,11 +33,11 @@ public class AnnouncementDto {
 
 	@ManyToOne
 	@JoinColumn(name = "group_id")
-	private GroupChannelDto groupChannelDto;
+	private GroupDto groupDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
-	private ArtistUserDto artistUserDto;
+	private ArtistDto artistDto;
 
 	private String title;
 	private String content;

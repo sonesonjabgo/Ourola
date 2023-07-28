@@ -9,6 +9,6 @@ import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 public interface OnlineConcertRepository extends JpaRepository<OnlineConcertDto, Integer> {
 	OnlineConcertDto findById(int concertId);
 
-	List<OnlineConcertDto> findByGroupChannelDto_Id(int groupId);
+	List<OnlineConcertDto> findByGroupDto_Id(int groupId);
 
 }

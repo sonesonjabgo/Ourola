@@ -5,10 +5,10 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 public interface FileService {
-	public FanUserDto writeProfileImage(MultipartFile file, String email) throws
+	public FanDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException;
 
