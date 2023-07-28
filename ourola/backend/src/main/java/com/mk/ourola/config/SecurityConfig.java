@@ -18,14 +18,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mk.ourola.api.artist.repository.ArtistUserRepository;
-import com.mk.ourola.api.common.auth.CustomJsonAuthenticationFilter;
-import com.mk.ourola.api.common.auth.JwtAuthenticationProcessingFilter;
-import com.mk.ourola.api.common.handler.LoginFailureHandler;
-import com.mk.ourola.api.common.handler.LoginSuccessHandler;
-import com.mk.ourola.api.user.repository.FanUserRepository;
-import com.mk.ourola.api.user.service.JwtService;
-import com.mk.ourola.api.user.service.LoginService;
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.common.auth.filter.CustomJsonAuthenticationFilter;
+import com.mk.ourola.api.common.auth.filter.JwtAuthenticationProcessingFilter;
+import com.mk.ourola.api.common.auth.handler.LoginFailureHandler;
+import com.mk.ourola.api.common.auth.handler.LoginSuccessHandler;
+import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.common.auth.service.LoginService;
+import com.mk.ourola.api.fan.repository.FanRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,24 +37,30 @@ public class SecurityConfig {
 	private final LoginService loginService;
 
 	private final JwtService jwtService;
-	private final FanUserRepository fanUserRepository;
-	private final ArtistUserRepository artistUserRepository;
+	private final FanRepository fanRepository;
+	private final ArtistRepository artistRepository;
 	private final ObjectMapper objectMapper;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.formLogin().disable() // FormLogin 사용 X
-			.httpBasic().disable() // httpBasic 사용 X
+			.formLogin()
+			.disable() // FormLogin 사용 X
+			.httpBasic()
+			.disable() // httpBasic 사용 X
 			.cors()
 			.configurationSource(corsConfigurationSource())
 			.and()
-			.csrf().disable() // csrf 보안 사용 X
-			.headers().frameOptions().disable()
+			.csrf()
+			.disable() // csrf 보안 사용 X
+			.headers()
+			.frameOptions()
+			.disable()
 			.and()
 
 			// 세션 사용하지 않으므로 STATELESS로 설정
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
 			.and()
 
@@ -63,9 +69,12 @@ public class SecurityConfig {
 
 			// 아이콘, css, js 관련
 			// 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
-			.antMatchers("/css/**", "/images/**", "/js/**", "/favicon.ico").permitAll()
-			.antMatchers("/sign-up", "/artist/sign-up").permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함
-			.anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+			.antMatchers("/css/**", "/images/**", "/js/**", "/favicon.ico")
+			.permitAll()
+			.antMatchers("/sign-up", "/artist/sign-up")
+			.permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함
+			.anyRequest()
+			.authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 		//                .and()
 		//== 소셜 로그인 설정 ==//
 		//                .oauth2Login()
@@ -124,7 +133,7 @@ public class SecurityConfig {
 	 */
 	@Bean
 	public LoginSuccessHandler loginSuccessHandler() {
-		return new LoginSuccessHandler(jwtService, fanUserRepository, artistUserRepository);
+		return new LoginSuccessHandler(jwtService, fanRepository, artistRepository);
 	}
 
 	/**
@@ -154,7 +163,7 @@ public class SecurityConfig {
 	@Bean
 	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
 		JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService,
-			fanUserRepository, artistUserRepository);
+			fanRepository, artistRepository);
 		return jwtAuthenticationFilter;
 	}
 }

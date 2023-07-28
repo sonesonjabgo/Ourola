@@ -1,12 +1,5 @@
 package com.mk.ourola.api.feed.service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,7 +12,6 @@ import com.mk.ourola.api.feed.repository.ReCommentRepository;
 import com.mk.ourola.api.feed.repository.dto.CommentDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.ReCommentDto;
-import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,12 +33,12 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentDto> getUserCommnetList(int fanUserId) {
-		return commentRepository.findByFanUserDto_Id(fanUserId);
+		return commentRepository.findByFanDto_Id(fanUserId);
 	}
 
 	@Override
 	public List<CommentDto> getArtistCommentList(int artistUserId) {
-		return commentRepository.findByArtistUserDto_Id(artistUserId);
+		return commentRepository.findByArtistDto_Id(artistUserId);
 	}
 
 	@Override
@@ -58,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
 	public CommentDto writeComment(String accessToken, CommentDto commentDto) {
 		CommentDto newComment = commentRepository.save(commentDto);
 		FeedDto feedDto = feedRepository.findById(newComment.getFeedDto().getId());
-		feedDto.setCommentCount(feedDto.getCommentCount()+1);
+		feedDto.setCommentCount(feedDto.getCommentCount() + 1);
 		feedRepository.save(feedDto);
 		return newComment;
 	}
@@ -74,7 +66,7 @@ public class CommentServiceImpl implements CommentService {
 	public void removeComment(String accessToken, int commentId) {
 		CommentDto comment = commentRepository.findById(commentId);
 		FeedDto feedDto = feedRepository.findById(comment.getFeedDto().getId());
-		feedDto.setCommentCount(feedDto.getCommentCount()-1);
+		feedDto.setCommentCount(feedDto.getCommentCount() - 1);
 		commentRepository.deleteById(commentId);
 		feedRepository.save(feedDto);
 	}
@@ -86,12 +78,12 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<ReCommentDto> getUserReCommnetList(int fanUserId) {
-		return reCommentRepository.findByFanUserDto_Id(fanUserId);
+		return reCommentRepository.findByFanDto_Id(fanUserId);
 	}
 
 	@Override
 	public List<ReCommentDto> getArtistReCommentList(int artistUserId) {
-		return reCommentRepository.findByArtistUserDto_Id(artistUserId);
+		return reCommentRepository.findByArtistDto_Id(artistUserId);
 	}
 
 	@Override
@@ -103,7 +95,7 @@ public class CommentServiceImpl implements CommentService {
 	public ReCommentDto writeReComment(String accessToken, ReCommentDto reCommentDto) {
 		ReCommentDto reComment = reCommentRepository.save(reCommentDto);
 		CommentDto commentDto = commentRepository.findById(reComment.getCommentDto().getId());
-		commentDto.setReCommentCount(commentDto.getReCommentCount()+1);
+		commentDto.setReCommentCount(commentDto.getReCommentCount() + 1);
 		commentRepository.save(commentDto);
 		return reComment;
 	}
@@ -119,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
 	public void removeReComment(String accessToken, int reCommentId) {
 		ReCommentDto reComment = reCommentRepository.findById(reCommentId);
 		CommentDto commentDto = commentRepository.findById(reComment.getCommentDto().getId());
-		commentDto.setReCommentCount(commentDto.getReCommentCount()-1);
+		commentDto.setReCommentCount(commentDto.getReCommentCount() - 1);
 		reCommentRepository.deleteById(reCommentId);
 		commentRepository.save(commentDto);
 	}

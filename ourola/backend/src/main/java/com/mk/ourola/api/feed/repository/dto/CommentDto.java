@@ -13,8 +13,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,11 +39,11 @@ public class CommentDto {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private FanUserDto fanUserDto;
+	private FanDto fanDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
-	private ArtistUserDto artistUserDto;
+	private ArtistDto artistDto;
 
 	@ManyToOne
 	@JoinColumn(name = "feed_id")

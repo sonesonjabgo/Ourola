@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "like")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,9 +37,9 @@ public class LikeDto {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private FanUserDto fanUserDto;
+	private FanDto fanDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
-	private ArtistUserDto artistUserDto;
+	private ArtistDto artistDto;
 }

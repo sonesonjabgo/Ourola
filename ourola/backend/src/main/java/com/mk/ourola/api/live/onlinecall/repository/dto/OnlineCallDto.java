@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,15 +36,15 @@ public class OnlineCallDto {
 
 	@ManyToOne
 	@JoinColumn(name = "group_id")
-	private GroupChannelDto groupChannelDto;
+	private GroupDto groupDto;
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
-	private ArtistUserDto artistUserDto;
+	private ArtistDto artistDto;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private FanUserDto fanUserDto;
+	private FanDto fanDto;
 
 	private String title;
 

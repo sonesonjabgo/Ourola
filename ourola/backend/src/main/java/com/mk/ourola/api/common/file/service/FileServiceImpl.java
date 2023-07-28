@@ -13,16 +13,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mk.ourola.api.artist.repository.ArtistUserRepository;
-import com.mk.ourola.api.artist.repository.GroupRepository;
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.file.repository.FeedFileRepository;
 import com.mk.ourola.api.common.file.repository.ProfileFileRepository;
 import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
+import com.mk.ourola.api.fan.repository.FanRepository;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
-import com.mk.ourola.api.user.repository.FanUserRepository;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
-import com.mk.ourola.api.user.repository.dto.ProfileFileDto;
+import com.mk.ourola.api.group.repository.GroupRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,18 +30,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 	private final ProfileFileRepository profileFileRepository;
-	private final FanUserRepository fanUserRepository;
+	private final FanRepository fanRepository;
 	private final FeedFileRepository feedFileRepository;
-	private final ArtistUserRepository artistUserRepository;
+	private final ArtistRepository artistRepository;
 	private final GroupRepository groupRepository;
 
 	@Value("${spring.servlet.multipart.location}")
 	private String FILE_PATH;
 
-	public FanUserDto writeProfileImage(MultipartFile file, String email) throws
+	public FanDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException {
-		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
+		Optional<FanDto> userDto = fanRepository.findByEmail(email);
 		System.out.println("=============");
 		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 		String fileExtension = getFileExtension(file.getOriginalFilename());
@@ -55,11 +55,11 @@ public class FileServiceImpl implements FileService {
 			.filePath(profile_path)
 			.fileExtension(fileExtension).build();
 		ProfileFileDto save = profileFileRepository.save(profileFileDto);
-		FanUserDto fanUserDto = userDto.get();
-		fanUserDto.setProfileFileDto(save);
-		fanUserRepository.save(fanUserDto);
+		FanDto fanDto = userDto.get();
+		fanDto.setProfileFileDto(save);
+		fanRepository.save(fanDto);
 
-		return fanUserDto;
+		return fanDto;
 	}
 
 	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public byte[] getProfileImg(String email) throws IOException {
-		Optional<FanUserDto> userDto = fanUserRepository.findByEmail(email);
+		Optional<FanDto> userDto = fanRepository.findByEmail(email);
 		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(
 			userDto.get().getProfileFileDto().getId());
 		String filePath = profileFileDto.get().getFilePath();
@@ -96,8 +96,8 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {
-		Optional<ArtistUserDto> artistUserDto = artistUserRepository.findById(id);
-		File file = new File(artistUserDto.get().getProfileFileDto().getFilePath());
+		Optional<ArtistDto> artistDto = artistRepository.findById(id);
+		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
 		return FileUtil.readAsByteArray(file);
 	}
 

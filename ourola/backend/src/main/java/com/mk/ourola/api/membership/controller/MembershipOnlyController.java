@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.membership.repository.dto.MembershipContentsDto;
+import com.mk.ourola.api.membership.repository.dto.MembershipContentDto;
 import com.mk.ourola.api.membership.service.MembershipOnlyServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/{artist}/membership-only")
+@RequestMapping("/{group}/membership-only")
 @RequiredArgsConstructor
 public class MembershipOnlyController {
 	private final MembershipOnlyServiceImpl membershipOnlyService;
@@ -29,11 +29,11 @@ public class MembershipOnlyController {
 	 * 멤버십 전용 컨텐츠 목록 불러오기
 	 * */
 	@GetMapping("/list")
-	public ResponseEntity<List<MembershipContentsDto>> getAllMembershipOnlyContent(
-		@PathVariable("artist") String artist) {
+	public ResponseEntity<List<MembershipContentDto>> getAllMembershipOnlyContent(
+		@PathVariable("group") String group) {
 		try {
-			return new ResponseEntity<List<MembershipContentsDto>>(
-				membershipOnlyService.getAllMembershipOnlyContent(artist),
+			return new ResponseEntity<List<MembershipContentDto>>(
+				membershipOnlyService.getAllMembershipOnlyContent(group),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,11 +44,11 @@ public class MembershipOnlyController {
 	 * 멤버십 전용 컨텐츠 업로드
 	 * */
 	@PostMapping("/upload")
-	public ResponseEntity<MembershipContentsDto> uploadMembershipOnlyContent(@PathVariable("artist") String artist,
-		@RequestHeader String accessToken, @RequestBody MembershipContentsDto membershipContentsDto) {
+	public ResponseEntity<MembershipContentDto> uploadMembershipOnlyContent(@PathVariable("group") String group,
+		@RequestHeader String accessToken, @RequestBody MembershipContentDto membershipContentDto) {
 		try {
-			return new ResponseEntity<MembershipContentsDto>(
-				membershipOnlyService.uploadMembershipOnlyContent(artist, accessToken, membershipContentsDto),
+			return new ResponseEntity<MembershipContentDto>(
+				membershipOnlyService.uploadMembershipOnlyContent(group, accessToken, membershipContentDto),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,25 +59,27 @@ public class MembershipOnlyController {
 	 * 멤버십 전용 컨텐츠 조회
 	 * */
 	@GetMapping("/read/{contentId}")
-	public ResponseEntity<MembershipContentsDto> getMembershipOnlyContent(@PathVariable("artist") String artist,
+	public ResponseEntity<MembershipContentDto> getMembershipOnlyContent(@PathVariable("group") String group,
 		@RequestHeader String accessToken, @PathVariable("contentId") int contentId) {
 		try {
-			return new ResponseEntity<MembershipContentsDto>(
-				membershipOnlyService.getMembershipOnlyContent(artist, accessToken, contentId), HttpStatus.OK);
+			return new ResponseEntity<MembershipContentDto>(
+				membershipOnlyService.getMembershipOnlyContent(group, accessToken, contentId), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	/*
-	* 멤버십 전용 컨텐츠 수정
-	* */
+	 * 멤버십 전용 컨텐츠 수정
+	 * */
 	@PutMapping("/modify/{contentId}")
-	public ResponseEntity<MembershipContentsDto> modifyMembershipOnlyContent(@PathVariable("artist") String artist,
-		@RequestHeader String accessToken, @PathVariable("contentId") int contentId, @RequestBody MembershipContentsDto newMembershipContentsDto) {
+	public ResponseEntity<MembershipContentDto> modifyMembershipOnlyContent(@PathVariable("group") String group,
+		@RequestHeader String accessToken, @PathVariable("contentId") int contentId,
+		@RequestBody MembershipContentDto newMembershipContentDto) {
 		try {
-			return new ResponseEntity<MembershipContentsDto>(
-				membershipOnlyService.modifyMembershipOnlyContent(artist, accessToken, contentId, newMembershipContentsDto),
+			return new ResponseEntity<MembershipContentDto>(
+				membershipOnlyService.modifyMembershipOnlyContent(group, accessToken, contentId,
+					newMembershipContentDto),
 				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -85,14 +87,15 @@ public class MembershipOnlyController {
 	}
 
 	/*
-	* 멤버십 전용 컨텐츠 삭제
-	* */
+	 * 멤버십 전용 컨텐츠 삭제
+	 * */
 	@DeleteMapping("/remove/{contentId}")
-	public ResponseEntity<String> removeMembershipOnlyContent(@PathVariable("artist") String artist, @RequestHeader String accessToken, @PathVariable("contentId") int contentId) {
+	public ResponseEntity<String> removeMembershipOnlyContent(@PathVariable("group") String group,
+		@RequestHeader String accessToken, @PathVariable("contentId") int contentId) {
 		try {
-			membershipOnlyService.removeMembershipOnlyContent(artist, accessToken, contentId);
+			membershipOnlyService.removeMembershipOnlyContent(group, accessToken, contentId);
 			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

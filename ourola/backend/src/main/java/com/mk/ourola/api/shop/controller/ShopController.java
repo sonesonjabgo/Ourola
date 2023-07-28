@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
-import com.mk.ourola.api.user.repository.dto.MembershipPayDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +32,8 @@ public class ShopController {
 	@GetMapping("/online-concert")
 	public ResponseEntity<?> getAllOnlineConcert(@PathVariable String artist) {
 		try {
-				List<OnlineConcertDto> onlineConcertList = shopService.getAllOnlineConcertItems(artist);
-				return new ResponseEntity<>(onlineConcertList, HttpStatus.OK);
+			List<OnlineConcertDto> onlineConcertList = shopService.getAllOnlineConcertItems(artist);
+			return new ResponseEntity<>(onlineConcertList, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -57,17 +56,18 @@ public class ShopController {
 	@GetMapping("/online-concert/{id}")
 	public ResponseEntity<?> getOnlineConcert(@PathVariable String artist, @PathVariable int id) {
 		try {
-				OnlineConcertDto item = shopService.getOnlineConcertItem(artist, id);
-				return new ResponseEntity<>(item, HttpStatus.OK);
+			OnlineConcertDto item = shopService.getOnlineConcertItem(artist, id);
+			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@GetMapping("/membership/{id}")
 	public ResponseEntity<?> getMembership(@PathVariable String artist, @PathVariable int id) {
 		try {
-				MembershipPayDto item = shopService.getMembershipItem(artist, id);
-				return new ResponseEntity<>(item, HttpStatus.OK);
+			MembershipPayDto item = shopService.getMembershipItem(artist, id);
+			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -75,17 +75,20 @@ public class ShopController {
 
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
-	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
+	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
 		try {
-				OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
-				return new ResponseEntity<>(item, HttpStatus.OK);
+			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
+			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@PostMapping("/membership")
-	public ResponseEntity<?> writeMembership(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
+	public ResponseEntity<?> writeMembership(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
 		try {
 			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto);
 			return new ResponseEntity<>(item, HttpStatus.OK);
@@ -97,7 +100,8 @@ public class ShopController {
 	// 상품 수정 (소속사만 가능)
 	// 수정 시 DTO에 상품 아이디 필수
 	@PutMapping("/online-concert")
-	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
+	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
 		try {
 			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto);
 			return new ResponseEntity<>(item, HttpStatus.OK);
@@ -105,8 +109,10 @@ public class ShopController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@PutMapping("/membership")
-	public ResponseEntity<?> modifyMembership(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
+	public ResponseEntity<?> modifyMembership(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
 		try {
 			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto);
 			return new ResponseEntity<>(item, HttpStatus.OK);
@@ -117,7 +123,8 @@ public class ShopController {
 
 	// 상품 삭제 (소속사만 가능)
 	@DeleteMapping("/online-concert/{id}")
-	public ResponseEntity<?> deleteOnlineConcert(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
+	public ResponseEntity<?> deleteOnlineConcert(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
 		try {
 			shopService.deleteOnlineConcert(artist, accessToken, id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
@@ -126,8 +133,10 @@ public class ShopController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@DeleteMapping("/membership/{id}")
-	public ResponseEntity<?> deleteMembership(@PathVariable String artist, @RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
+	public ResponseEntity<?> deleteMembership(@PathVariable String artist,
+		@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
 		try {
 			shopService.deleteMembership(artist, accessToken, id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
@@ -135,6 +144,5 @@ public class ShopController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 
 }

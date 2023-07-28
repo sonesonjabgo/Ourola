@@ -1,4 +1,4 @@
-package com.mk.ourola.api.common.file.Controller;
+package com.mk.ourola.api.common.file.controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
-import com.mk.ourola.api.user.repository.dto.FanUserDto;
-import com.mk.ourola.api.user.service.JwtService;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +29,7 @@ public class FileController {
 	private final FileServiceImpl fileService;
 	private final JwtService jwtService;
 
-	@PostMapping("/write")
+	@PostMapping("/writeimg/profile")
 	public ResponseEntity<?> writeProfileImage(
 		@RequestParam MultipartFile file,
 		@RequestHeader(name = "Authorization") String accessToken) {
@@ -39,17 +39,16 @@ public class FileController {
 
 		try {
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
-			FanUserDto fanUserDto = fileService.writeProfileImage(file, email.get());
-			return new ResponseEntity<>(fanUserDto, HttpStatus.OK);
+			FanDto fanDto = fileService.writeProfileImage(file, email.get());
+			return new ResponseEntity<>(fanDto, HttpStatus.OK);
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
-	@GetMapping("/getImg")
+	@GetMapping("/getimg/profile")
 	public ResponseEntity<?> getProfileImg(@RequestHeader(name = "Authorization") String accessToken) {
 		try {
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
@@ -62,7 +61,7 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/{artist}/getImg")
+	@GetMapping("/getimg/artist-profile")
 	public ResponseEntity<?> getArtistProfileImg(int id) {
 		try {
 			byte[] artistProfileImg = fileService.getArtistProfileImg(id);

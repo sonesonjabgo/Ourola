@@ -14,11 +14,10 @@ public interface CommentRepository extends JpaRepository<CommentDto, Integer> {
 	List<CommentDto> findByFeedDto_Id(int id);
 
 	// 사용자 아이디로 댓글 리스트 조회
-	List<CommentDto> findByFanUserDto_Id(int id);
+	List<CommentDto> findByFanDto_Id(int id);
 
-	List<CommentDto> findByArtistUserDto_Id(int id);
+	List<CommentDto> findByArtistDto_Id(int id);
 
 	CommentDto findById(int id);
-
 
 }

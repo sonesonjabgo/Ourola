@@ -13,11 +13,10 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-@DynamicInsert @DynamicUpdate
+@DynamicInsert
+@DynamicUpdate
 public class OnlineConcertDto {
 
 	@Id
@@ -38,19 +38,19 @@ public class OnlineConcertDto {
 
 	@ManyToOne
 	@JoinColumn(name = "group_id")
-	private GroupChannelDto groupChannelDto;
+	private GroupDto groupDto;
 
 	private String title;
 
 	private String content;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "start_time")
 	private Date startTime;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "ticketing_time")
 	private Date ticketingTime;
 

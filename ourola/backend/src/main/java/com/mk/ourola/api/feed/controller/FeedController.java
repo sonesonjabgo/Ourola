@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.LikeDto;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
-import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{artist}/feed")
+@RequestMapping("/{group}/feed")
 public class FeedController {
 
 	// 팬 피드, 아티스트 포스트 컨트롤러
@@ -40,9 +40,9 @@ public class FeedController {
 
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
-	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String artist) {
+	public ResponseEntity<List<FeedDto>> getAllFeed(@PathVariable String group) {
 		try {
-			List<FeedDto> fanFeedList = feedService.getAllFeed(artist);
+			List<FeedDto> fanFeedList = feedService.getAllFeed(group);
 			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -50,9 +50,9 @@ public class FeedController {
 	}
 
 	@GetMapping("/fan")
-	public ResponseEntity<List<FeedDto>> getAllFanFeed(@PathVariable String artist) {
+	public ResponseEntity<List<FeedDto>> getAllFanFeed(@PathVariable String group) {
 		try {
-			List<FeedDto> fanFeedList = feedService.getAllFanFeed(artist);
+			List<FeedDto> fanFeedList = feedService.getAllFanFeed(group);
 			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,9 +60,9 @@ public class FeedController {
 	}
 
 	@GetMapping("/artist")
-	public ResponseEntity<List<FeedDto>> getAllArtistFeed(@PathVariable String artist) {
+	public ResponseEntity<List<FeedDto>> getAllArtistFeed(@PathVariable String group) {
 		try {
-			List<FeedDto> fanFeedList = feedService.getAllArtistFeed(artist);
+			List<FeedDto> fanFeedList = feedService.getAllArtistFeed(group);
 			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,14 +72,14 @@ public class FeedController {
 	// 피드, 포스트를 작성하는 메서드
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(
-		@PathVariable String artist,
+		@PathVariable String group,
 		@RequestParam List<MultipartFile> files,
 		@RequestBody FeedDto FeedDto,
 		@RequestHeader(name = "Authorization") String accessToken
 	) {
 		try {
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
-			FeedDto fanFeedDtoResult = feedService.writeFeed(artist, FeedDto, email.get());
+			FeedDto fanFeedDtoResult = feedService.writeFeed(group, FeedDto, email.get());
 			if (!files.isEmpty()) {
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
@@ -91,7 +91,7 @@ public class FeedController {
 
 	// 해당 id의 피드, 포스트를 삭제하는 메서드
 	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<String> removeFeed(@PathVariable String artist, @PathVariable Integer id) {
+	public ResponseEntity<String> removeFeed(@PathVariable String group, @PathVariable Integer id) {
 		try {
 			feedService.removeFeed(id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
@@ -103,11 +103,11 @@ public class FeedController {
 	// 단일 피드, 포스트를 보는 메서드
 	@GetMapping("/{id}")
 	public ResponseEntity<FeedDto> getFeed(
-		@PathVariable(name = "artist") String artist,
+		@PathVariable(name = "group") String group,
 		@PathVariable(name = "id") int id
 	) {
 		try {
-			FeedDto Feed = feedService.getFeed(artist, id);
+			FeedDto Feed = feedService.getFeed(group, id);
 			return new ResponseEntity<>(Feed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -117,7 +117,7 @@ public class FeedController {
 	// 해당 id의 글을 수정하는 메서드
 	@PostMapping("/modify/{id}")
 	public ResponseEntity<FeedDto> modifyFeed(
-		@PathVariable String artist,
+		@PathVariable String group,
 		@PathVariable int id,
 		@RequestBody FeedDto FeedDto
 	) {
@@ -134,7 +134,7 @@ public class FeedController {
 	// pathvariable id : feed id
 	@PutMapping("/{id}/like")
 	public ResponseEntity<?> modifyLike(@RequestHeader(name = "Authorization") String accessToken,
-		@PathVariable("artist") String artist, @PathVariable("id") int id) {
+		@PathVariable("group") String group, @PathVariable("id") int id) {
 		try {
 			Boolean isLike = feedService.modifyLike(id, accessToken);
 			return new ResponseEntity<>(isLike, HttpStatus.OK);
@@ -146,9 +146,9 @@ public class FeedController {
 
 	// 해당 사용자가 좋아요를 누른 피드 리스트 (피드 아이디 포함)
 	@GetMapping("/like/list")
-	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("artist") String artist,
+	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("group") String group,
 		@RequestHeader String accessToken) {
-		System.out.println("아티스트 : " + artist);
+		System.out.println("아티스트 : " + group);
 		try {
 			List<LikeDto> likelist = feedService.getLikeList(accessToken);
 			return new ResponseEntity<>(likelist, HttpStatus.OK);
@@ -159,7 +159,7 @@ public class FeedController {
 
 	// 해당 아티스트의 ID를 받아 그 아티스트의 게시물들만 보내는 메서드
 	@GetMapping("/filter/{artistId}")
-	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String artist,
+	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String group,
 		@PathVariable int artistId) {
 		try {
 			return new ResponseEntity<>(feedService.getAllSpecificArtistFeed(artistId), HttpStatus.OK);

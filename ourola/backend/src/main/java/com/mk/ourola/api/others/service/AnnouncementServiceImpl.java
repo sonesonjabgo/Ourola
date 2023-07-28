@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.api.artist.repository.ArtistUserRepository;
-import com.mk.ourola.api.artist.repository.GroupRepository;
-import com.mk.ourola.api.artist.repository.dto.ArtistUserDto;
-import com.mk.ourola.api.artist.repository.dto.GroupChannelDto;
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.others.repository.AnnouncementRepository;
 import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
-import com.mk.ourola.api.user.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,23 +19,24 @@ import lombok.RequiredArgsConstructor;
 public class AnnouncementServiceImpl implements Announcement {
 	private final AnnouncementRepository announcementRepository;
 	private final GroupRepository groupRepository;
-	private final ArtistUserRepository artistUserRepository;
+	private final ArtistRepository artistUserRepository;
 	private final JwtService jwtService;
 
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
-	public List<AnnouncementDto> getAllAnnouncement(String artist) throws Exception {
-		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+	public List<AnnouncementDto> getAllAnnouncement(String groupName) throws Exception {
+		GroupDto groupChannelDto = groupRepository.findByName(groupName);
 
-		return announcementRepository.findByGroupChannelDto_IdOrderByCreateTimeDesc(groupChannelDto.getId());
+		return announcementRepository.findByGroupDto_IdOrderByCreateTimeDesc(groupChannelDto.getId());
 	}
 
 	// 선택된 하나의 공지의 정보를 보내는 메서드
-	public AnnouncementDto getAnnouncement(String artist, int announcementId) throws Exception {
+	public AnnouncementDto getAnnouncement(String groupName, int announcementId) throws Exception {
 		return announcementRepository.findById(announcementId);
 	}
 
 	// 소속사 직원이 공지를 만드는 메서드
-	public AnnouncementDto writeAnnouncement(String artist, String accessToken, AnnouncementDto announcementDto) throws
+	public AnnouncementDto writeAnnouncement(String groupName, String accessToken,
+		AnnouncementDto announcementDto) throws
 		Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
 
@@ -43,18 +44,16 @@ public class AnnouncementServiceImpl implements Announcement {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		System.out.println(artist);
-
-		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+		GroupDto groupChannelDto = groupRepository.findByName(groupName);
 
 		System.out.println(groupChannelDto);
 
-		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+		List<ArtistDto> artistUserDtoList = artistUserRepository.findByGroupDto_Id(
 			groupChannelDto.getId());
 
-		ArtistUserDto artistUserDto = null;
+		ArtistDto artistUserDto = null;
 
-		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+		for (ArtistDto artistUserInfo : artistUserDtoList) {
 			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
@@ -73,7 +72,7 @@ public class AnnouncementServiceImpl implements Announcement {
 	}
 
 	// 소속사 직원이 공지 제목 혹은 내용을 바꾸는 메서드
-	public AnnouncementDto modifyAnnouncement(String artist, int announcementId, String accessToken,
+	public AnnouncementDto modifyAnnouncement(String groupName, int announcementId, String accessToken,
 		AnnouncementDto announcementDto) throws
 		Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
@@ -82,14 +81,14 @@ public class AnnouncementServiceImpl implements Announcement {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+		GroupDto groupChannelDto = groupRepository.findByName(groupName);
 
-		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+		List<ArtistDto> artistUserDtoList = artistUserRepository.findByGroupDto_Id(
 			groupChannelDto.getId());
 
-		ArtistUserDto artistUserDto = null;
+		ArtistDto artistUserDto = null;
 
-		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+		for (ArtistDto artistUserInfo : artistUserDtoList) {
 			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
@@ -113,21 +112,21 @@ public class AnnouncementServiceImpl implements Announcement {
 	}
 
 	// 소속사 직원이 공지를 지우는 메서드
-	public void removeAnnouncement(String artist, int announcementId, String accessToken) throws Exception {
+	public void removeAnnouncement(String groupName, int announcementId, String accessToken) throws Exception {
 		String decodingEmail = jwtService.extractEmail(accessToken).get();
 
 		if (decodingEmail == null) {
 			throw new Exception(); // 세세한 예외 처리 필요
 		}
 
-		GroupChannelDto groupChannelDto = groupRepository.findByName(artist);
+		GroupDto groupChannelDto = groupRepository.findByName(groupName);
 
-		List<ArtistUserDto> artistUserDtoList = artistUserRepository.findByGroupChannelDto_Id(
+		List<ArtistDto> artistUserDtoList = artistUserRepository.findByGroupDto_Id(
 			groupChannelDto.getId());
 
-		ArtistUserDto artistUserDto = null;
+		ArtistDto artistUserDto = null;
 
-		for (ArtistUserDto artistUserInfo : artistUserDtoList) {
+		for (ArtistDto artistUserInfo : artistUserDtoList) {
 			if (artistUserInfo.getIsAdmin()) {
 				artistUserDto = artistUserInfo;
 				break;
