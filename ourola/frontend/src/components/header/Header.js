@@ -6,10 +6,23 @@ import Singup from "../auth/Singup"
 
 import '../../style/header/Header_noLoggedIn.css';
 
-function Header({ isLoggedIn, onLogin }) { // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
+function Header({ isLoggedIn, onLogin, onLogout }) { // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    const clickLogout = () => {
+        // 로그아웃 로직 수행
+        // ...
+    
+        // 로컬스토리지에서 Authorization 제거
+        localStorage.removeItem('Authorization');
+    
+        // isLoggedIn 상태를 false로 설정
+        onLogout()
+      };
+
+
     return (
         <nav className = 'navbar'>
             <div className = 'navbar-container'>
@@ -28,7 +41,7 @@ function Header({ isLoggedIn, onLogin }) { // isLoggedIn 의 상태에 따라 He
                 </ul>
                 <div className="buttons">
                     {/* <Login onLogin={onLogin}/> */}
-                    {isLoggedIn ? <button>로그아웃</button> : <Login onLogin={onLogin}/>}
+                    {isLoggedIn ? <button onClick={clickLogout}>로그아웃</button> : <Login onLogin={onLogin}/>}
                     {isLoggedIn ? <button>my page</button> : <Singup/>}
 
                 </div>

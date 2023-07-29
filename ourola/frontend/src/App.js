@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div id="App" className="App">
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} onLogin={handleLoginSuccess}/>
+      <Header isLoggedIn={isLoggedIn}  onLogin={handleLoginSuccess} onLogout={handleLogout}/>
       <div className="main">
       </div>
       <div className="main">
