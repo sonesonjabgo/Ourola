@@ -5,6 +5,7 @@ import styles from '../../style/auth/loginmodal.module.css';
 function LoginBasic({ setModalOpen, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   // 모달 끄기
   const closeModal = () => {
@@ -38,7 +39,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
         return response.data;
     }).catch((e) => {
         console.log(e.response.data);
-        return "이메일 혹은 비밀번호를 확인하세요.";
+        setShowErrorMessage(true);
     });
   };
 
@@ -49,6 +50,10 @@ function LoginBasic({ setModalOpen, onLogin }) {
         X
       </button>
       <p className={styles.logintitle}>로그인</p>
+
+      {/* {showErrorMessage && <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p>} */}
+      {showErrorMessage ? <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p> : <p></p>}
+      
       <form onSubmit={handleSubmit}>
         <input
           type='email'
@@ -64,15 +69,14 @@ function LoginBasic({ setModalOpen, onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {/* <div className={styles.checkbox}>
+        <div className={styles.checkbox}>
             <label>
                 <input type="checkbox" name="option1" value="value1"/> 아이디 저장
             </label>
             <label>
                 <input type="checkbox" name="option1" value="value1"/> 자동 로그인
             </label>
-        </div> */}
+        </div>
 
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
