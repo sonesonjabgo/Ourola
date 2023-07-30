@@ -165,8 +165,14 @@ public class JwtService {
 
 	public Integer accessTokenToUserId(String accessToken) {
 		try {
+			// System.out.println("accessToken in att : "+accessToken);
+			accessToken = headerStringToAccessToken(accessToken).get();
+			// System.out.println("accessToken in att : "+accessToken);
+
 			String email = extractEmail(accessToken).get();
+			// System.out.println("email : "+email);
 			String role = extractRole(accessToken).get();
+			// System.out.println("role : "+role);
 			if (role.equals(Role.USER.getKey())) {
 				return fanRepository.findByEmail(email).get().getId();
 			} else {

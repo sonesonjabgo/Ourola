@@ -147,8 +147,8 @@ public class FeedController {
 	// 해당 사용자가 좋아요를 누른 피드 리스트 (피드 아이디 포함)
 	@GetMapping("/like/list")
 	public ResponseEntity<List<LikeDto>> getLikeList(@PathVariable("group") String group,
-		@RequestHeader String accessToken) {
-		System.out.println("아티스트 : " + group);
+		@RequestHeader("Authorization") String accessToken) {
+		// System.out.println("아티스트 : " + group);
 		try {
 			List<LikeDto> likelist = feedService.getLikeList(accessToken);
 			return new ResponseEntity<>(likelist, HttpStatus.OK);
