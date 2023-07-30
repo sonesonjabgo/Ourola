@@ -146,8 +146,8 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public List<LikeDto> getLikeList(String accessToken) throws Exception {
-
-		FanDto fanDto = fanRepository.findByEmail(jwtService.extractEmail(accessToken).get()).get();
+		// System.out.println("accessToken: "+accessToken);
+		FanDto fanDto = fanRepository.findById(jwtService.accessTokenToUserId(accessToken)).get();
 
 		return likeRepository.findByFanDto_Id(fanDto.getId());
 	}
