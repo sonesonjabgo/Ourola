@@ -116,3 +116,22 @@
     display: flex;
     justify-content: center;
   }
+
+  .FeedCreate-button-container {
+    display: flex;
+    margin: 5px 35px;
+    justify-content: space-between;
+  }
+
+  .FeedCreate-button-uploadfile {
+    height: 45px;
+    width: 45px;
+  }
+
+  .FeedCreate-button-uploadfeed {
+    width: 100px;
+    border-radius: 20px;
+    background-color: #7b68ee;
+    border: none;
+    font-size: 20px;
+  }
