@@ -10,6 +10,7 @@ const ArtistFeedItem = ({
   title,
   content,
   like,
+  commentCount,
   createDate,
 }) => {
   const backendPort = 8000;
@@ -34,6 +35,41 @@ const ArtistFeedItem = ({
 
   const showModal = () => {
     setModalOpen(true);
+  };
+
+  // 좋아요 기능 수정 필요
+  // const [loading, setLoding] = useState(true);
+  // const [likeList, setLikeList] = useState(true);
+
+  // const config = {
+  //   headers: {
+  //     Authorization:
+  //       "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDc2MjgzNiwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.fNnUPvVsJPlOxollDYRcvneC9DW9-wa26OdcnfhLAjAYcJ_zSADfmubeZade8MRO5vDLGxb9_U5jXfIqaOlyNw",
+  //     "Content-Type": "application/json",
+  //   },
+  // };
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:${backendPort}/${artist}/feed/like/list`, config)
+  //     .then((response) => {
+  //       setLikeList(response.data);
+  //       setLoding(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data : ", error);
+  //       setLoding(false);
+  //     });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  const [prevPos, setPrevPos] = useState(-1);
+
+  const scrollToCenter = (event) => {
+    const { clientY } = event;
+    setPrevPos(clientY);
+    const scrollContainerHeight = window.innerHeight;
+    window.scrollTo(0, scrollContainerHeight / 2);
   };
 
   return (
@@ -74,17 +110,21 @@ const ArtistFeedItem = ({
         id="ArtistFeedContent"
         className="ArtistFeedContent"
         onClick={showModal}
+        onClickCapture={scrollToCenter}
       >
         {modalOpen && (
           <ArtistFeedDetail
             state={{
               setModalOpen,
+              artist,
               accessImg,
               artistName,
               formatTime,
               title,
               content,
               like,
+              commentCount,
+              prevPos,
             }}
           ></ArtistFeedDetail>
         )}
@@ -107,7 +147,7 @@ const ArtistFeedItem = ({
               댓글 {/*  나중에 댓글 이미지로 수정필요 */}
             </div>
             <div id="ArtistFeedCommentCount" className="ArtistFeedCommentCount">
-              {like} {/*  나중에 댓글 갯수로 수정필요 */}
+              {commentCount} {/*  나중에 댓글 갯수로 수정필요 */}
             </div>
           </div>
         </div>

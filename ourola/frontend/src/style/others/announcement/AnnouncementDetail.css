@@ -54,6 +54,7 @@
 }
 
 .AnnouncementDetailClose {
+  z-index: 23000;
   height: 60px;
   position: absolute;
   top: 15px;
