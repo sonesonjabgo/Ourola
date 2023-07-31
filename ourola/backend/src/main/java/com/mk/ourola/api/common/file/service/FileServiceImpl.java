@@ -95,6 +95,12 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
+	public byte[] getGroupImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/groupImg/" + filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {
 		Optional<ArtistDto> artistDto = artistRepository.findById(id);
 		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
