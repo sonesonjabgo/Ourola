@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Router, Routes, Route } from "react-router-dom";
-import Header from "./components/header/Header";
+import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/Main_LoggedIn";
 import MainNoLoggedIn from "./components/main/Main_noLoggedIn";
 // import HeaderNoLoggedIn from "./components/header/Header_noLoggedIn";
@@ -54,8 +54,6 @@ function App() {
         아티스트
       </Link>
       {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
-      <br />
-      <Link to="/mypage">마이페이지</Link>
     </div>
   );
 }
