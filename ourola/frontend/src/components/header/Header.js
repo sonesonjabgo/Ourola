@@ -43,7 +43,7 @@ function Header({ isLoggedIn, onLogin, onLogout }) { // isLoggedIn 의 상태에
                 <div className="buttons">
                     {/* <Login onLogin={onLogin}/> */}
                     {isLoggedIn ? <button onClick={clickLogout}>로그아웃</button> : <Login onLogin={onLogin}/>}
-                    {isLoggedIn ? <button>my page</button> : <Singup/>}
+                    {isLoggedIn ? <button>my page</button> : <Link to="/signup">회원가입</Link>}
 
                 </div>
                 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom'
-import HeaderLoggedIn from '../header/Header_LoggedIn'
-import ArtistPageMenu from '../header/ArtistPageMenu'
+import Header from '../header/Header'
+import ArtistPageMenu from '../header/ArtistPageMenu_FanFeed'
 import CreateFeedButton from "./CreateFeedButton"
 import AnnouncementOneline from "../announcement/AnnouncementOneline"
 import FanFeedProfile from './FanFeedProfile'
@@ -15,7 +15,7 @@ function Fanfeed () {
     return(
         <>
         <div className="FanFeed-Header">
-            <div><HeaderLoggedIn /></div>
+            <div><Header /></div>
             <div><ArtistPageMenu /></div>
         </div>
         <div className="Content-container">

@@ -12,7 +12,7 @@ import Header from './components/header/Header'
 import ArtistHeader from './components/header/ArtistPageMenu'
 
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://i9d204.p.ssafy.io:8001";
 // axios.defaults.withCredentials = true;
 
 const container = document.getElementById("root");
