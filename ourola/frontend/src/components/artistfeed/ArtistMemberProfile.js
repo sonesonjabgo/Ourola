@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
 import "../../style/artistfeed/ArtistMemberProfile.css";
 
-const ArtistMemberProfile = ({ artist, id, name }) => {
+const ArtistMemberProfile = ({ artist, id, profileId, name }) => {
   const backendPort = 8000;
 
   const accessImg =
-    "http://localhost:" + backendPort + "/file/" + artist + "/getImg?id=" + id;
+    "http://localhost:" +
+    backendPort +
+    "/file/getimg/artist-profile?id=" +
+    profileId;
 
   return (
     <div id="ArtistMemberProfile" className="ArtistMemberProfile">

@@ -9,8 +9,6 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
     setModalOpen(true);
   };
 
-  console.log(createTime);
-
   let currentYear = new Date().getFullYear();
 
   let currentMonth = new Date().getMonth() + 1;
