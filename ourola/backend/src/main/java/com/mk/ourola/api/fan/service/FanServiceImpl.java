@@ -3,11 +3,14 @@ package com.mk.ourola.api.fan.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.*;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.ourola.api.common.Role;
+import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.NotificationRepository;
 import com.mk.ourola.api.fan.repository.SubscribeGroupRepository;
@@ -31,6 +34,7 @@ public class FanServiceImpl implements FanService {
 	private final NotificationRepository notificationRepository;
 	private final SubscribeGroupRepository subscribeGroupRepository;
 	private final GroupRepository groupRepository;
+	private final JwtService jwtService;
 
 	public void signUp(FanSignUpDto fanSignUpDto) throws Exception {
 
@@ -51,9 +55,32 @@ public class FanServiceImpl implements FanService {
 		fanRepository.save(user);
 	}
 
+	public boolean emailDuplicateCheck(String email) throws Exception {
+		return fanRepository.existsByEmail(email);
+	}
+
 	public List<NotificationDto> getNotification(String email) {
 		int loginUserId = fanRepository.findByEmail(email).get().getId();
 		return notificationRepository.findByFanDto_Id(loginUserId);
+	}
+
+	@Override
+	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group, String nickname) throws Exception {
+		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
+		String email = jwtService.extractEmail(accessToken).get();
+		FanDto fanDto = fanRepository.findByEmail(email).get();
+		GroupDto groupDto = groupRepository.findByName(group);
+		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
+			.fanDto(fanDto)
+			.groupDto(groupDto)
+			.nickname(nickname)
+			.build();
+		return subscribeGroupRepository.save(subscribeGroupDto);
+	}
+
+	public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
+		GroupDto groupDto = groupRepository.findByName(group);
+		return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
 	}
 
 	// 아티스트가 글을 쓴 경우 해당 태널을 구독한 유저들에게 보낼 알림을 저장함

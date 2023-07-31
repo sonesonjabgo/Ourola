@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class SubscribeGroupDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +35,6 @@ public class SubscribeGroupDto {
 	@ManyToOne
 	@JoinColumn(name = "group_id")
 	private GroupDto groupDto;
+
+	private String nickname;
 }

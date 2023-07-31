@@ -1,6 +1,7 @@
 package com.mk.ourola.api.fan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,16 @@ public class FanController {
 		return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
 	}
 
+	// 회원가입 시 이메일 중복 체크 (중복 여부 반환)
+	@PostMapping("/email-duplicate-check")
+	public ResponseEntity<?> emailDuplicateCheck(@RequestBody String email) {
+		try {
+			return new ResponseEntity<>(fanService.emailDuplicateCheck(email), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 사용자에게 온 알림을 반환
 	@GetMapping("/notification")
 	public ResponseEntity<?> getNotification(@RequestHeader("Authorization") String accessToken) {
@@ -41,6 +52,29 @@ public class FanController {
 			List<NotificationDto> notifications = fanService.getNotification(email);
 			return new ResponseEntity<>(notifications, HttpStatus.OK);
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 채널 구독
+	// TODO: 중복으로 들어가는거 처리 필요
+	@PostMapping("/subscribe")
+	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+		try {
+			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 채널 구독 시 닉네임 중복 체크 (중복 여부 반환)
+	@PostMapping("/nickname-duplicate-check")
+	public ResponseEntity<?> nicknameDuplicateCheck(@RequestBody Map<String, String> map) {
+		try {
+			return new ResponseEntity<>(fanService.nicknameDuplicateCheck(map.get("group"), map.get("nickname")), HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

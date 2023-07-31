@@ -12,7 +12,11 @@ public interface FanService {
 
 	public void signUp(FanSignUpDto fanSignUpDto) throws Exception;
 
+	public boolean emailDuplicateCheck(String email) throws Exception;
+
 	public List<NotificationDto> getNotification(String email);
+
+	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group, String nickname) throws Exception;
 
 	public List<SubscribeGroupDto> getSubscribeGroup(int userId);
 
