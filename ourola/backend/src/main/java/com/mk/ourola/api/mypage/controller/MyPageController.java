@@ -2,6 +2,7 @@ package com.mk.ourola.api.mypage.controller;
 
 import java.util.List;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,15 @@ public class MyPageController {
 
 	// 개인정보 확인
 	// FIXME : 유저 DTO 수정되는 대로 다시 건드리기
+	// 아티스트인지 유저인지 확인하기
+	@GetMapping("/role")
+	public ResponseEntity<String> getRole(@RequestHeader("Authorization") String accessToken) {
+		try {
+			return new ResponseEntity<String>(myPageService.getRole(accessToken), HttpStatus.OK);
+		} catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	// 아티스트 개인정보 불러오기
 	@GetMapping("/artist/userinfo")
@@ -66,8 +76,8 @@ public class MyPageController {
 
 	// 팬 개인정보
 	// 팬 개인정보 불러오기
-	@GetMapping("/user/userinfo")
-	public ResponseEntity<FanDto> getFanUserInfo(@RequestHeader String accessToken) {
+	@GetMapping("/userinfo")
+	public ResponseEntity<FanDto> getFanUserInfo(@RequestHeader("Authorization") String accessToken) {
 		try {
 			return new ResponseEntity<FanDto>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 		} catch (Exception e) {

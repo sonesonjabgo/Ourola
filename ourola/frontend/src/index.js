@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Announcement from "./components/announcement/Announcement";
 import Artist from "./components/artistfeed/Artist";
 import FanFeed from "./components/fanfeed/FanFeed";
+import MyPage from "components/mypage/MyPage";
 import "./index.css";
 
 import axios from "axios";
@@ -19,6 +20,7 @@ render(
       <Route path="/announcement" element={<Announcement />}></Route>
       <Route path="/artist" element={<Artist />}></Route>
       <Route path="/seventeen/feed" element={<FanFeed />}></Route>
+      <Route path="/mypage" element={<MyPage />}></Route>
     </Routes>
   </BrowserRouter>,
   container
