@@ -40,8 +40,6 @@ const Artist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(artistMember);
-
   useEffect(() => {
     axios
       .get(`http://localhost:${backendPort}/${artist}/feed/artist`, config)
