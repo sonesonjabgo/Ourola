@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../style/announcement/AnnouncementItem.css";
+import "../../../style/others/announcement/AnnouncementItem.css";
 import AnnouncementDetail from "./AnnouncementDetail";
 
 const AnnouncementItem = ({ id, title, content, createTime }) => {

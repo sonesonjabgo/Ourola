@@ -1,6 +1,6 @@
 import React from "react";
-import "../../style/announcement/AnnouncementOneline.css";
-import AnnouncementIcon from "../../assets/icons/announcement.png";
+import "../../../style/others/announcement/AnnouncementOneline.css";
+import AnnouncementIcon from "../../../assets/icons/announcement.png";
 
 function AnnouncementOneline() {
   return (

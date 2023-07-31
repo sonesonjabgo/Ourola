@@ -1,4 +1,4 @@
-import "../../style/announcement/AnnouncementList.css";
+import "../../../style/others/announcement/AnnouncementList.css";
 import AnnouncementItem from "./AnnouncementItem";
 import React from "react";
 import { Link } from "react-router-dom";

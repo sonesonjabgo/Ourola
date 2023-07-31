@@ -1,4 +1,4 @@
-import "../../style/announcement/AnnouncementDetail.css";
+import "../../../style/others/announcement/AnnouncementDetail.css";
 import React, { useEffect, useRef } from "react";
 
 const AnnouncementDetail = (props) => {

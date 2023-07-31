@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import mainLogo from "../../assets/images/ourola_logo.png";
-import Login from "../../auth/Login";
+import mainLogo from "../../../assets/images/ourola_logo.png";
+import Login from "components/auth/Login";
 import Singup from "../../auth/Singup";
 
-import "../../style/header/Header_noLoggedIn.css";
+import "../../../style/common/header/Header_noLoggedIn.css";
 
 function Header({ isLoggedIn, onLogin, onLogout }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함

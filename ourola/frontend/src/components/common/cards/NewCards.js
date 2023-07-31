@@ -9,65 +9,64 @@
 //             <div className="cards__container">
 //                 <div className="cards__wrapper">
 //                     <ul className="cards__items">
-//                         <CardItem 
+//                         <CardItem
 //                          src={Image1}
 //                          text="BTS"
 //                          path='/services'
 //                         />
-//                         <CardItem 
+//                         <CardItem
 //                          src={Image1}
 //                          text="BTS"
 //                          path='/services'
-//                         /> 
-//                     </ul>   
+//                         />
+//                     </ul>
 //                 </div>
-//             </div>            
+//             </div>
 //         </div>
 //     );
 // }
 
 // export default Cards;
 
-import React from 'react';
-import CardItem from './CardItem';
-import '../../style/cards/Cards.css';
-import Image1 from '../../assets/images/bts_profile.png';
-import Image2 from '../../assets/images/blackpink_profile.png';
-import Image3 from '../../assets/images/newjeans_profile.png';
-import Image4 from '../../assets/images/parkboyoung_profile.png';
+import React from "react";
+import CardItem from "./CardItem";
+import "../../../style/common/cards/Cards.css";
+import Image1 from "../../../assets/images/bts_profile.png";
+import Image2 from "../../../assets/images/blackpink_profile.png";
+import Image3 from "../../../assets/images/newjeans_profile.png";
+import Image4 from "../../../assets/images/parkboyoung_profile.png";
 
-function NewCards () {
+function NewCards() {
+  const cardData = [
+    {
+      src: Image1,
+      text: "BTS",
+      path: "/bts/feed",
+    },
+    {
+      src: Image2,
+      text: "BLACKPINK",
+      path: "/blackpink/feed",
+    },
+    {
+      src: Image3,
+      text: "NewJeans",
+      path: "/newjeans/feed",
+    },
+    {
+      src: Image4,
+      text: "Park Boyoung",
+      path: "/parkboyoung/feed",
+    },
+  ];
 
-    const cardData = [
-        {
-          src: Image1,
-          text: 'BTS',
-          path: '/bts/feed',
-        },
-        {
-          src: Image2,
-          text: 'BLACKPINK',
-          path: '/blackpink/feed',
-        },
-        {
-          src: Image3,
-          text: 'NewJeans',
-          path: '/newjeans/feed',
-        },
-        {
-          src: Image4,
-          text: 'Park Boyoung',
-          path: '/parkboyoung/feed',
-        },
-      ];
-
-    return (
-        <div className="cards-container">
-        {cardData.map((data, i) => (
-            <CardItem key={i} src={data.src} text={data.text} path={data.path} />
-        ))}
-      </div>
-    )
-    };
+  return (
+    <div className="cards-container">
+      {cardData.map((data, i) => (
+        <CardItem key={i} src={data.src} text={data.text} path={data.path} />
+      ))}
+    </div>
+  );
+}
 
 export default NewCards;
