@@ -1,0 +1,21 @@
+.Shop-content-container {
+    position: absolute;
+    margin-top: 185px;
+    width: 95%;
+}
+
+.Shop-basket-container {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    width: 100%;
+    justify-content: right;
+    margin-bottom: 50px;
+}
+
+.Shop-basket-icon {
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+    margin-top: -10px;
+}
