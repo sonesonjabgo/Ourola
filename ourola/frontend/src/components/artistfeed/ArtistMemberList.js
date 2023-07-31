@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import "../../style/artistfeed/ArtistMemberList.css";
 import ArtistMemberProfile from "./ArtistMemberProfile";
 
@@ -11,6 +11,7 @@ const ArtistMemberList = ({ artist, artistMember }) => {
             key={it.id}
             artist={artist}
             id={it.id}
+            profileId={it.profileFileDto.id}
             name={it.name}
           ></ArtistMemberProfile>
         ))}

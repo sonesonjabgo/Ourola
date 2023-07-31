@@ -1,5 +1,6 @@
 import "../../style/artistfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
+import ArtistFeedDetail from "./ArtistFeedDetail";
 
 const ArtistFeedItem = ({
   artist,
@@ -16,10 +17,8 @@ const ArtistFeedItem = ({
   const accessImg =
     "http://localhost:" +
     backendPort +
-    "/file/" +
-    artist +
-    "/getImg?id=" +
-    artistId;
+    "/file/getimg/artist-profile?id=" +
+    artistProfileId;
 
   const dateObj = new Date(createDate);
 
@@ -30,6 +29,12 @@ const ArtistFeedItem = ({
   const minute = dateObj.getMinutes().toString().padStart(2, "0");
 
   const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div id="ArtistFeedItem" className="ArtistFeedItem">
@@ -65,7 +70,24 @@ const ArtistFeedItem = ({
           </div>
         </div>
       </div>
-      <div id="ArtistFeedContent" className="ArtistFeedContent">
+      <div
+        id="ArtistFeedContent"
+        className="ArtistFeedContent"
+        onClick={showModal}
+      >
+        {modalOpen && (
+          <ArtistFeedDetail
+            state={{
+              setModalOpen,
+              accessImg,
+              artistName,
+              formatTime,
+              title,
+              content,
+              like,
+            }}
+          ></ArtistFeedDetail>
+        )}
         <div id="ArtistFeedContent" className="ArtistFeedContent">
           {content}
         </div>

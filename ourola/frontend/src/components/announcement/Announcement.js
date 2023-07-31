@@ -1,3 +1,4 @@
+import "../../style/announcement/Announcement.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
@@ -14,7 +15,7 @@ const Announcement = () => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDQ4Mjc3MywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.uWVnJAZwgRwkLPjd9KjohBYg9GZhQmBfeud1glL4XvP6L0L1FvHeRV0Tsu-Us2XG4D_S40gJw0gHLsAfBxtOzA",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDgwNTU0NCwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.P8Owz0BvEbJWF6Fp06GLDbVWXLxWAGZ6fNp8nTnnL6O0jXda6El_SPKsqL5Z2vT8gIX4QOiSmjBCKmIN3bd4jw",
       "Content-Type": "application/json",
     },
   };
@@ -37,8 +38,8 @@ const Announcement = () => {
   }, []);
 
   return (
-    <div>
-      <div id="Announcement" className="Annoucement">
+    <div id="Announcement" className="Announcement">
+      <div>
         {loading ? (
           <div></div>
         ) : (
