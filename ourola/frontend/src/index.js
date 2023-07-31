@@ -16,6 +16,8 @@ import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
 import Header from "./components/header/Header";
 import ArtistHeader from "./components/header/ArtistPageMenu";
+import Signup from "./components/auth/Singup"
+
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -39,6 +41,7 @@ render(
         element={<ShopItemDetail />}
       ></Route>
       <Route path="/mypage" element={<MyPage />}></Route>
+      <Route path="/signup" element={<Signup/>}></Route>
     </Routes>
   </BrowserRouter>,
   container
