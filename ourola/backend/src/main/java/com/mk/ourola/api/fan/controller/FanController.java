@@ -36,9 +36,9 @@ public class FanController {
 
 	// 회원가입 시 이메일 중복 체크 (중복 여부 반환)
 	@PostMapping("/email-duplicate-check")
-	public ResponseEntity<?> emailDuplicateCheck(@RequestBody String email) {
+	public ResponseEntity<?> emailDuplicateCheck(@RequestBody Map<String, String> map) {
 		try {
-			return new ResponseEntity<>(fanService.emailDuplicateCheck(email), HttpStatus.OK);
+			return new ResponseEntity<>(fanService.emailDuplicateCheck(map.get("email")), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
