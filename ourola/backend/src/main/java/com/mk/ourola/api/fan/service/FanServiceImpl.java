@@ -56,6 +56,7 @@ public class FanServiceImpl implements FanService {
 	}
 
 	public boolean emailDuplicateCheck(String email) throws Exception {
+		System.out.println("email: "+email);
 		return fanRepository.existsByEmail(email);
 	}
 

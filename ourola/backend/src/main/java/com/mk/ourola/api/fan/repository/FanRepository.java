@@ -1,5 +1,6 @@
 package com.mk.ourola.api.fan.repository;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,7 @@ public interface FanRepository extends JpaRepository<FanDto, Integer> {
 	boolean existsByEmail(String email);
 
 	Optional<FanDto> findByRefreshToken(String refreshToken);
+
+	Optional<FanDto> findByNameAndBirthdayAndTel(String name, Date birthday, String tel);
 
 }
