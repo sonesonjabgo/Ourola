@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Header from "../header/Header";
+import Header from "../common/header/Header";
 import CreateFeedButton from "./CreateFeedButton";
-import AnnouncementOneline from "../announcement/AnnouncementOneline";
+import AnnouncementOneline from "../others/announcement/AnnouncementOneline";
 import FanFeedProfile from "./FanFeedProfile";
 import FanFeedList from "./FanFeedList";
 import "../../style/fanfeed/FanFeed.css";

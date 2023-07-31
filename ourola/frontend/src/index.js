@@ -8,16 +8,15 @@ import {
   useLocation,
   useMatch,
 } from "react-router-dom";
-import Announcement from "./components/announcement/Announcement";
+import Announcement from "./components/others/announcement/Announcement";
 import Artist from "./components/artistfeed/Artist";
 import FanFeed from "./components/fanfeed/FanFeed";
 import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
-import Header from "./components/header/Header";
-import ArtistHeader from "./components/header/ArtistPageMenu";
-import Signup from "./components/auth/Singup"
-
+import Header from "./components/common/header/Header";
+import ArtistHeader from "./components/common/header/ArtistPageMenu";
+import Signup from "./components/auth/Singup";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -41,7 +40,7 @@ render(
         element={<ShopItemDetail />}
       ></Route>
       <Route path="/mypage" element={<MyPage />}></Route>
-      <Route path="/signup" element={<Signup/>}></Route>
+      <Route path="/signup" element={<Signup />}></Route>
     </Routes>
   </BrowserRouter>,
   container
