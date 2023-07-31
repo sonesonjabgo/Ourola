@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,18 @@ public class FileController {
 		}
 	}
 
+	@GetMapping("/getimg/group-img/{filepath}")
+	public ResponseEntity<?> getGroupImg(@PathVariable(name = "filepath") String filePath) {
+		try {
+			byte[] profileImg = fileService.getGroupImg(filePath);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	@GetMapping("/getimg/profile")
 	public ResponseEntity<?> getProfileImg(@RequestHeader(name = "Authorization") String accessToken) {
 		try {
@@ -62,7 +75,7 @@ public class FileController {
 	}
 
 	@GetMapping("/getimg/artist-profile")
-	public ResponseEntity<?> getArtistProfileImg(int id) {
+	public ResponseEntity<?> getArtistProfileImg(@RequestParam int id) {
 		try {
 			byte[] artistProfileImg = fileService.getArtistProfileImg(id);
 			HttpHeaders headers = new HttpHeaders();

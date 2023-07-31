@@ -62,11 +62,14 @@ public class FileServiceImpl implements FileService {
 		return fanDto;
 	}
 
+	@Override
 	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
 		NoSuchAlgorithmException,
 		IOException {
 		System.out.println("=============");
+		System.out.println(files.size());
 		for (MultipartFile file : files) {
+			System.out.println(file.getOriginalFilename());
 			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 			String fileExtension = getFileExtension(file.getOriginalFilename());
 			String hashName = generateUniqueFileName(fileName);
@@ -79,7 +82,7 @@ public class FileServiceImpl implements FileService {
 				.feedDto(feedDto)
 				.filePath(feedfile_path)
 				.fileExtension(fileExtension).build();
-			ProfileFileDto save = feedFileRepository.save(feedFileDto);
+			FeedFileDto save = feedFileRepository.save(feedFileDto);
 		}
 		return "저장완료";
 	}
@@ -91,6 +94,12 @@ public class FileServiceImpl implements FileService {
 		String filePath = profileFileDto.get().getFilePath();
 		String fileExtension = profileFileDto.get().getFileExtension();
 		File file = new File(filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getGroupImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/groupImg/" + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 
