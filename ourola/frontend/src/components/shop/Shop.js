@@ -1,6 +1,4 @@
 import React from 'react'
-import HeaderLoggedIn from '../header/Header_LoggedIn'
-import ArtistPageMenu from '../header/ArtistPageMenu'
 import BasketIcon from '../../assets/icons/basket.png'
 import ShopItemList from './ShopItemList'
 import '../../style/shop/Shop.css'

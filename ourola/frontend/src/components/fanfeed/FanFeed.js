@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom'
 import Header from '../header/Header'
-import ArtistPageMenu from '../header/ArtistPageMenu_FanFeed'
 import CreateFeedButton from "./CreateFeedButton"
 import AnnouncementOneline from "../announcement/AnnouncementOneline"
 import FanFeedProfile from './FanFeedProfile'
@@ -14,10 +13,6 @@ function Fanfeed () {
 
     return(
         <>
-        <div className="FanFeed-Header">
-            <div><Header /></div>
-            <div><ArtistPageMenu /></div>
-        </div>
         <div className="Content-container">
             <div className="Button-createfeed-container">
                 <CreateFeedButton />
