@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom'
 import HeaderLoggedIn from '../header/Header_LoggedIn'
-import ArtistPageMenu from '../header/ArtistPageMenu_FanFeed'
+import ArtistPageMenu from '../header/ArtistPageMenu'
 import CreateFeedButton from "./CreateFeedButton"
 import AnnouncementOneline from "../announcement/AnnouncementOneline"
 import FanFeedProfile from './FanFeedProfile'
-import FanFeedFeedList from './FanFeedFeedList'
+import FanFeedList from './FanFeedList'
 import '../../style/fanfeed/FanFeed.css'
 import { useLocation } from "react-router-dom";
 
@@ -31,7 +31,7 @@ function Fanfeed () {
                 <FanFeedProfile />
             </div>
             <div className='Fanfeed-feed-container'>
-                <FanFeedFeedList />
+                <FanFeedList />
             </div>
         </div>
         </>
