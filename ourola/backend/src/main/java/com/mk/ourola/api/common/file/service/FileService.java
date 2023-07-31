@@ -15,4 +15,6 @@ public interface FileService {
 	public byte[] getProfileImg(String email) throws IOException;
 
 	public byte[] getArtistProfileImg(int id) throws IOException;
+
+	public byte[] getGroupImg(String filePath) throws IOException;
 }
