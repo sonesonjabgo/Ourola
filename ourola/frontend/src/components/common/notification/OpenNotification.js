@@ -1,25 +1,27 @@
-import React, {useState} from 'react';
-import '../../style/notification/Notification.css';
-import NotificationModal from './NotificationModal'
-import NotificationIcon from '../../assets/icons/notification.png'
+import React, { useState } from "react";
+import "../../../style/common/notification/Notification.css";
+import NotificationModal from "./NotificationModal";
+import NotificationIcon from "../../../assets/icons/notification.png";
 
 const OpenNotification = () => {
-    const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false);
 
-    const showModal = () => {
-        setModalOpen(true)
-    }
-    
-    return (
-          <div>
-            <img onClick={showModal} className="notification-icon" src={NotificationIcon} />
-            {modalOpen && (
-              <NotificationModal
-                state={{ setModalOpen }}
-              ></NotificationModal>
-            )}
-          </div>
-      );
-    };
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  return (
+    <div>
+      <img
+        onClick={showModal}
+        className="notification-icon"
+        src={NotificationIcon}
+      />
+      {modalOpen && (
+        <NotificationModal state={{ setModalOpen }}></NotificationModal>
+      )}
+    </div>
+  );
+};
 
 export default OpenNotification;
