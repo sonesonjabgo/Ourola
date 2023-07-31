@@ -1,4 +1,4 @@
-
+import "../../style/artistfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef } from "react";
 
 const ArtistFeedDetail = (props) => {
