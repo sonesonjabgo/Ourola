@@ -22,11 +22,15 @@
     cursor: pointer;
     font-size: 17px;
 }
-
+/* 
 .ArtistPageMenu-button.now {
     color: white;
-}
+} */
 
 .ArtistPageMenu-spacer {
     width: 200px;
+}
+
+.Hidden {
+    display: none;
 }
