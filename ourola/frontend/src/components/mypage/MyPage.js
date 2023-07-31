@@ -27,11 +27,20 @@ const MyPage = () => {
     if (role === "USER") {
       axios
         .get(`${url}/user/userinfo`, config)
-        .then((response) => {})
-        .catch();
+        .then((response) => {
+          //console.log(response.data.name);
+          setUserInfo(response.data);
+        })
+        .catch("Error :: Failed to get fan info");
     } else if (role === "Artist") {
+      axios
+        .get(`${url}/user/artist/userinfo`)
+        .then((response) => {
+          setUserInfo(response.data);
+        })
+        .catch("Error :: Failed to get artist info");
     }
-  });
+  }, []);
 
   return (
     <div className="MyPageHome">
