@@ -2,10 +2,12 @@ package com.mk.ourola.api.common.file.service;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
 public interface FileService {
 	public FanDto writeProfileImage(MultipartFile file, String email) throws
@@ -13,6 +15,10 @@ public interface FileService {
 		IOException;
 
 	public byte[] getProfileImg(String email) throws IOException;
+
+	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
+		NoSuchAlgorithmException,
+		IOException;
 
 	public byte[] getArtistProfileImg(int id) throws IOException;
 

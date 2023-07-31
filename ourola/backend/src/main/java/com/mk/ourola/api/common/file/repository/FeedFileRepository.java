@@ -7,6 +7,6 @@ import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 
 @Repository
-public interface FeedFileRepository extends JpaRepository<ProfileFileDto, Integer> {
-	public ProfileFileDto save(FeedFileDto feedFileDto);
+public interface FeedFileRepository extends JpaRepository<FeedFileDto, Integer> {
+	public FeedFileDto save(FeedFileDto feedFileDto);
 }
