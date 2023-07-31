@@ -54,6 +54,7 @@ function App() {
         아티스트
       </Link>
       {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
+      <br />
       <Link to="/mypage">마이페이지</Link>
     </div>
   );
