@@ -74,17 +74,19 @@ public class FeedController {
 	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String group,
 		@RequestParam List<MultipartFile> files,
-		@RequestBody FeedDto FeedDto,
+		FeedDto feedDto,
 		@RequestHeader(name = "Authorization") String accessToken
 	) {
 		try {
+			System.out.println(feedDto);
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
-			FeedDto fanFeedDtoResult = feedService.writeFeed(group, FeedDto, email.get());
+			FeedDto fanFeedDtoResult = feedService.writeFeed(group, feedDto, email.get());
 			if (!files.isEmpty()) {
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
