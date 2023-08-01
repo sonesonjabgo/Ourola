@@ -1,15 +1,27 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import MyPageProfile from "./sidebar/MyPageProfile";
 import axios from "axios";
 import "../../style/mypage/MyPage.css";
 import MyPageMenu from "./sidebar/MyPageMenu";
 import BookMark from "./bookmark/BookMark";
+import PurchaseHistory from "./purchase/PurchaseHistory";
 
 const MyPage = () => {
   const [loadingRole, setLoadingRole] = useState(true);
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
+
+  // 아티스트인지 팬인지 확인하는 변수
   const [role, setRole] = useState("");
+
+  // 프로필과 개인정보 수정을 위한 userinfo
   const [userinfo, setUserInfo] = useState({});
+
+  // 북마크 내역
+  const [bookmark, setBookMark] = useState([]);
+
+  // 구매 내역
+  const [purchseList, setPurchaseList] = useState([]);
+
   const backendPort = 8000;
   const url = `http://localhost:${backendPort}`;
   const menu = [
@@ -21,7 +33,7 @@ const MyPage = () => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzkxMCwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.PlGs16elzjOOy3Du96xWDb9__dqF58FSu6p06qliKIYPvfpOEXO7O4Xyxw2do-ezWKOnjfRS0K04Rme1zkZszA",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDkxMDU5MSwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.Z8zmWzsdbGl171mD-tKcLcTnB8Hll9LcHkOuNcw0VSuRpzN6kRg8II5QIj64pXAT-bThin9kl9YDkujOxLYEMA",
       "Content-Type": "application/json",
     },
   };
@@ -90,7 +102,9 @@ const MyPage = () => {
         <div className="bookmark">
           <BookMark accessToken={config.headers.Authorization}></BookMark>
         </div>
-        <div className="purchaseHistory"></div>
+        <div className="purchaseHistory">
+          <PurchaseHistory config={config} />
+        </div>
         {/* 내가 작성한 포스트, 댓글 내역 */}
         <div className="myPosts"></div>
         <div className="myComments"></div>

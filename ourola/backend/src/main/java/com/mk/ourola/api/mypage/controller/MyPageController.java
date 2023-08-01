@@ -107,12 +107,11 @@ public class MyPageController {
 		}
 	}
 
-
 	// 모든 구매 내역 불러옴
-	@GetMapping("/contents")
-	public ResponseEntity<List<BillDto>> getAllBill() {
+	@GetMapping("/purchase")
+	public ResponseEntity<List<BillDto>> getAllBill(@RequestHeader("Authorization") String accessToken) {
 		try {
-			return new ResponseEntity<List<BillDto>>(myPageService.getAllBill("김싸피"), HttpStatus.OK);
+			return new ResponseEntity<List<BillDto>>(myPageService.getAllBill(accessToken), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
