@@ -39,7 +39,7 @@ public class FanDto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	private ProfileFileDto profileFileDto;
 
