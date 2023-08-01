@@ -1,6 +1,7 @@
 import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
 import ArtistFeedDetail from "./ArtistFeedDetail";
+import axios from "axios";
 
 const ArtistFeedItem = ({
   id,
@@ -11,7 +12,6 @@ const ArtistFeedItem = ({
   title,
   content,
   like,
-  commentCount,
   createDate,
 }) => {
   const backendPort = 8000;
@@ -64,15 +64,39 @@ const ArtistFeedItem = ({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  const [prevPos, setPrevPos] = useState(-1);
-
-  const scrollToCenter = (event) => {
-    const offsetFromTop = event.target.getBoundingClientRect().top;
-    const scrollContainerHeight = window.innerHeight;
-    window.scrollTo(0, scrollContainerHeight / 4);
+  const config = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzExNSwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.n_EJyQY2fG-fYM1yGoRS0n1xSGqkJpWaL5NmapGgee61VcAWPB5VcrWya3ChVcg0ZJMtB5tMY1VlSmCjkQ7hSQ",
+      "Content-Type": "application/json",
+    },
   };
 
-  const clickFunction = (event) => {
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/${id}/comment`, config)
+      .then((response) => {
+        setComment(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const commentCount = comment.length;
+
+  // const [prevPos, setPrevPos] = useState(-1);
+
+  // const scrollToCenter = (event) => {
+  //   const offsetFromTop = event.target.getBoundingClientRect().top;
+  //   const scrollContainerHeight = window.innerHeight;
+  //   window.scrollTo(0, scrollContainerHeight / 4);
+  // };
+
+  const openModalClickFunction = (event) => {
     showModal();
     // scrollToCenter(event);
   };
@@ -114,12 +138,13 @@ const ArtistFeedItem = ({
       <div
         id="artistFeedContent"
         className="artistFeedContent"
-        onClick={clickFunction}
+        onClick={openModalClickFunction}
       >
         {modalOpen && (
           <ArtistFeedDetail
             state={{
               setModalOpen,
+              setComment,
               id,
               artist,
               accessImg,
@@ -129,7 +154,8 @@ const ArtistFeedItem = ({
               content,
               like,
               commentCount,
-              prevPos,
+              // prevPos,
+              comment,
             }}
           ></ArtistFeedDetail>
         )}
