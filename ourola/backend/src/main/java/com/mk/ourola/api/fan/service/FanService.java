@@ -2,6 +2,7 @@ package com.mk.ourola.api.fan.service;
 
 import java.util.List;
 
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.FanSignUpDto;
 import com.mk.ourola.api.fan.repository.dto.NotificationDto;
 import com.mk.ourola.api.fan.repository.dto.SubscribeGroupDto;
@@ -23,4 +24,6 @@ public interface FanService {
 	public List<GroupDto> getNotSubscribeGroup(String userEmail);
 
 	public String writeNotifications(FeedDto feedDto);
+
+	public FanDto getFanInfo(int fanId);
 }

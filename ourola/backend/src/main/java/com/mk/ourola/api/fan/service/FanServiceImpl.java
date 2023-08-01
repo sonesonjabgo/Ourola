@@ -117,4 +117,10 @@ public class FanServiceImpl implements FanService {
 		Optional<FanDto> userDto = fanRepository.findByEmail(userEmail);
 		return groupRepository.findAllWithNoRelatedSubstribeGroup(userDto.get().getId());
 	}
+
+	//id를 기준으로 fan유저 정보를 가져오는 것
+	public FanDto getFanInfo(int fanId){
+		Optional<FanDto> byId = fanRepository.findById(fanId);
+		return byId.get();
+	}
 }
