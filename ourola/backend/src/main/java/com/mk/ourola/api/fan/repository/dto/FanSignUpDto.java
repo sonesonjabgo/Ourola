@@ -1,5 +1,7 @@
 package com.mk.ourola.api.fan.repository.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,4 +13,5 @@ public class FanSignUpDto {
 	private String name;
 	private Integer age;
 	private String tel;
+	private Date birthday;
 }
