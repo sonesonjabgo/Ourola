@@ -1,4 +1,4 @@
-.ArtistFeedItem {
+.GroupFeedItem {
   display: block;
   border-bottom: 2px solid #000;
   padding-bottom: 25px;
@@ -10,13 +10,13 @@
   align-items: flex-start;
 }
 
-.ArtistFeedInfo {
+.GroupFeedInfo {
   display: flex;
   align-items: center;
   min-width: 0;
 }
 
-.ArtistFeedProfile {
+.GroupFeedProfile {
   flex-shrink: 0;
   width: 36px;
   height: 36px;
@@ -24,18 +24,18 @@
   position: relative;
 }
 
-.ArtistFeedInfo {
+.GroupFeedInfo {
   display: block;
   margin-left: 8px;
   /* overflow: hidden; */
 }
 
-.ArtistFeedArtistNameWrapper {
+.GroupFeedGroupNameWrapper {
   align-items: center;
   display: flex;
 }
 
-.ArtistFeedArtistName {
+.GroupFeedGroupName {
   font-size: 14px;
   line-height: 17px;
   /* overflow: hidden; */
@@ -44,20 +44,20 @@
   font-weight: bold;
 }
 
-.ArtistFeedCreateTimeWrapper {
+.GroupFeedCreateTimeWrapper {
   align-items: center;
   display: flex;
   margin-top: 2px;
 }
 
-.ArtistFeedCreateTime {
+.GroupFeedCreateTime {
   color: #8e8e8e;
   flex-shrink: 0;
   font-size: 12px;
   line-height: 14px;
 }
 
-.ArtistFeedContent {
+.GroupFeedContent {
   padding-left: 5px;
   display: block;
   padding-top: 15px;
@@ -69,7 +69,7 @@
   line-height: 21px;
 }
 
-.ArtistFeedFooter {
+.GroupFeedFooter {
   padding-left: 10px;
   align-items: center;
   display: flex;
@@ -77,12 +77,12 @@
   z-index: 1;
 }
 
-.ArtistFeedFeedInfo {
+.GroupFeedFeedInfo {
   display: flex;
   flex-shrink: 0;
 }
 
-.ArtistFeedLike {
+.GroupFeedLike {
   margin-top: 25px;
   display: block;
   width: 26;
@@ -90,27 +90,27 @@
   margin-right: 30px;
 }
 
-.ArtistFeedLikeImg {
+.GroupFeedLikeImg {
   display: inline-block;
   margin-right: 5px;
 }
 
-.ArtistFeedLikeCount {
+.GroupFeedLikeCount {
   display: inline-block;
 }
 
-.ArtistFeedComment {
+.GroupFeedComment {
   margin-top: 25px;
   display: block;
   width: 26;
   height: 26;
 }
 
-.ArtistFeedCommentImg {
+.GroupFeedCommentImg {
   display: inline-block;
   margin-right: 5px;
 }
 
-.ArtistFeedCommentCount {
+.GroupFeedCommentCount {
   display: inline-block;
 }
