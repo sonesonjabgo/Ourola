@@ -6,6 +6,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.Role;
+import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.feed.repository.CommentRepository;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.ReCommentRepository;
@@ -25,6 +30,12 @@ public class CommentServiceImpl implements CommentService {
 	private final ReCommentRepository reCommentRepository;
 
 	private final FeedRepository feedRepository;
+
+	private final JwtService jwtService;
+
+	private final FanRepository fanRepository;
+
+	private final ArtistRepository artistRepository;
 
 	@Override
 	public List<CommentDto> getCommentList(int feedId) {
@@ -47,7 +58,16 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public CommentDto writeComment(String accessToken, CommentDto commentDto) {
+	public CommentDto writeComment(String header, CommentDto commentDto) {
+		String accessToken = jwtService.headerStringToAccessToken(header).get();
+		String role = jwtService.extractRole(accessToken).get();
+		int id = jwtService.accessTokenToUserId(header);
+		if(role.equals(Role.USER.getKey()) || role.equals(Role.ADMIN.getKey()) || role.equals(Role.GUEST.getKey())) {
+			commentDto.setFanDto(fanRepository.findById(id).get());
+		} else {
+			commentDto.setArtistDto(artistRepository.findById(id).get());
+		}
+		// System.out.println("commentDto: "+commentDto);
 		CommentDto newComment = commentRepository.save(commentDto);
 		FeedDto feedDto = feedRepository.findById(newComment.getFeedDto().getId());
 		feedDto.setCommentCount(feedDto.getCommentCount() + 1);
@@ -92,7 +112,15 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public ReCommentDto writeReComment(String accessToken, ReCommentDto reCommentDto) {
+	public ReCommentDto writeReComment(String header, ReCommentDto reCommentDto) {
+		String accessToken = jwtService.headerStringToAccessToken(header).get();
+		String role = jwtService.extractRole(accessToken).get();
+		int id = jwtService.accessTokenToUserId(header);
+		if(role.equals(Role.USER.getKey()) || role.equals(Role.ADMIN.getKey()) || role.equals(Role.GUEST.getKey())) {
+			reCommentDto.setFanDto(fanRepository.findById(id).get());
+		} else {
+			reCommentDto.setArtistDto(artistRepository.findById(id).get());
+		}
 		ReCommentDto reComment = reCommentRepository.save(reCommentDto);
 		CommentDto commentDto = commentRepository.findById(reComment.getCommentDto().getId());
 		commentDto.setReCommentCount(commentDto.getReCommentCount() + 1);
