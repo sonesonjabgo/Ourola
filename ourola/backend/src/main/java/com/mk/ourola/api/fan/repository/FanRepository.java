@@ -18,4 +18,6 @@ public interface FanRepository extends JpaRepository<FanDto, Integer> {
 
 	Optional<FanDto> findByNameAndBirthdayAndTel(String name, Date birthday, String tel);
 
+	boolean existsByNickname(String nicknmame);
+
 }
