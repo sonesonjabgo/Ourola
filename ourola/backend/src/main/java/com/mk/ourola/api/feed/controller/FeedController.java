@@ -159,6 +159,19 @@ public class FeedController {
 		}
 	}
 
+	// 해당 피드와 사용자의 좋아요 여부
+	@GetMapping("/{id}/like")
+	public ResponseEntity<?> getLike(@RequestHeader(name = "Authorization") String accessToken,
+		@PathVariable("group") String group, @PathVariable("id") int id) {
+		try {
+			Boolean isLike = feedService.getLike(id, accessToken);
+			return new ResponseEntity<>(isLike, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 해당 아티스트의 ID를 받아 그 아티스트의 게시물들만 보내는 메서드
 	@GetMapping("/filter/{artistId}")
 	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String group,
