@@ -2,10 +2,10 @@ import "../../style/fanfeed/FanFeedItem.css";
 import React, { useEffect, useState } from "react";
 
 const FanFeedItem = ({
-  artist,
-  artistId,
-  artistProfileId,
-  artistName,
+  Group,
+  GroupId,
+  GroupProfileId,
+  GroupName,
   title,
   content,
   like,
@@ -17,9 +17,9 @@ const FanFeedItem = ({
     "http://localhost:" +
     backendPort +
     "/file/" +
-    artist +
+    Group +
     "/getImg?id=" +
-    artistId;
+    GroupId;
 
   const dateObj = new Date(createDate);
 
@@ -32,59 +32,56 @@ const FanFeedItem = ({
   const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
 
   return (
-    <div id="ArtistFeedItem" className="ArtistFeedItem">
-      <div id="ArtistFeedHeader" className="AritstFeedHeader">
-        <div id="ArtistFeedInfo" className="ArtistFeedInfo">
+    <div className="groupFeedItem">
+      <div className="aritstFeedHeader">
+        <div className="groupFeedInfo">
           <img
-            id="ArtistFeedProfile"
-            className="ArtistFeedProfile"
+            className="groupFeedProfile"
             src={accessImg}
           ></img>
         </div>
-        <div id="ArtistFeedInfo" className="ArtistFeedInfo">
+        <div className="groupFeedInfo">
           <div
-            id="ArtistFeedArtistNameWrapper"
-            className="ArtistFeedArtistNameWrapper"
+            className="groupFeedGroupNameWrapper"
           >
-            <strong id="ArtistFeedArtistName" className="ArtistFeedArtistName">
-              {artistName}
+            <strong className="groupFeedGroupName">
+              {GroupName}
             </strong>
           </div>
           <div
-            id="ArtistFeedCreateTimeWrapper"
-            className="ArtistFeedCreateTimeWrapper"
+            className="groupFeedCreateTimeWrapper"
           >
-            <span id="ArtistFeedCreateTime" className="ArtistFeedCreateTime">
+            <span className="groupFeedCreateTime">
               {formatTime}
             </span>
           </div>
         </div>
-        <div id="ArtistFeedBlank" className="ArtistFeedBlank">
-          <div id="ArtistFeedBookmark" className="ArtistFeedBookmark">
+        <div className="groupFeedBlank">
+          <div className="groupFeedBookmark">
             북마크 {/* 나중에 북마크 표시 추가 */}
           </div>
         </div>
       </div>
-      <div id="ArtistFeedContent" className="ArtistFeedContent">
-        <div id="ArtistFeedContent" className="ArtistFeedContent">
+      <div className="groupFeedContent">
+        <div className="groupFeedContent">
           {content}
         </div>
       </div>
-      <div id="ArtistFeedFooter" className="ArtistFeedFooter">
-        <div id="ArtistFeedFeedInfo" className="ArtistFeedFeedInfo">
-          <div id="ArtistFeedLike" className="ArtistFeedLike">
-            <div id="ArtistFeedLikeImg" className="ArtistFeedLikeImg">
+      <div className="groupFeedFooter">
+        <div className="groupFeedFeedInfo">
+          <div className="groupFeedLike">
+            <div className="groupFeedLikeImg">
               좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
             </div>
-            <div id="ArtistFeedLikeCount" className="ArtistFeedLikeCount">
+            <div className="groupFeedLikeCount">
               {like}
             </div>
           </div>
-          <div id="ArtistFeedComment" className="ArtistFeedComment">
-            <div id="ArtistFeedCommentImg" className="ArtistFeedCommentImg">
+          <div className="groupFeedComment">
+            <div className="groupFeedCommentImg">
               댓글 {/*  나중에 댓글 이미지로 수정필요 */}
             </div>
-            <div id="ArtistFeedCommentCount" className="ArtistFeedCommentCount">
+            <div className="groupFeedCommentCount">
               {like} {/*  나중에 댓글 갯수로 수정필요 */}
             </div>
           </div>

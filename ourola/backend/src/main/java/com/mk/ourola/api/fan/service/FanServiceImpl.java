@@ -48,6 +48,8 @@ public class FanServiceImpl implements FanService {
 			.name(fanSignUpDto.getName())
 			.age(fanSignUpDto.getAge())
 			.tel(fanSignUpDto.getTel())
+			.birthday(fanSignUpDto.getBirthday())
+			.nickname(fanSignUpDto.getNickname())
 			.role(Role.USER)
 			.build();
 

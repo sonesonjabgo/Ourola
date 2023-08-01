@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
-import Singup from "../../auth/Singup";
+import Singup from "../../auth/SignUp";
 
 import "../../../style/common/header/Header_noLoggedIn.css";
 
@@ -26,21 +26,21 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
-        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+      <div className="navbarContainer">
+        <Link to="/" className="navbarLogo" onClick={closeMobileMenu}>
           <img className="mainLogo" src={mainLogo} alt="OurolaLogo" />
           Ourola
         </Link>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        <ul className={click ? "navMenu active" : "navMenu"}>
           <div className="searchbar">
             {/* <input className="searchbar-input" placeholder={isSearchbarClicked === true ? "" : "아티스트 검색"}></input> */}
             <input
-              className="searchbar-input"
+              className="searchbarInput"
               placeholder="아티스트 검색"
             ></input>
             <div>
               <img
-                className="searchbarbtn"
+                className="searchbarButton"
                 src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
               />
             </div>

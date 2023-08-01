@@ -6,12 +6,12 @@ import '../../style/shop/Shop.css'
 const Shop = () => {
     return (
         <>
-        <div className="Shop-content-container">
-            <div className="Shop-basket-container">
-                <img className="Shop-basket-icon" src={BasketIcon}/>
+        <div className="shopContentContainer">
+            <div className="shopBasketContainer">
+                <img className="shopBasketIcon" src={BasketIcon}/>
                 장바구니
             </div>
-            <div className="Shop-Items-container">
+            <div className="shopItemsContainer">
                 <ShopItemList />
             </div>
         </div>

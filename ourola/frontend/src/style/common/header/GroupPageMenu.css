@@ -1,4 +1,4 @@
-.ArtistPageMenu-container {
+.groupPageMenuContainer {
     z-index: 998;
     margin-top: 90px;
     width: 100%;
@@ -9,28 +9,20 @@
     background: linear-gradient(to right, #7B68EE, #C4BAFF);
 }
 
-.ArtistPageMenu-button-container {
+.groupPageMenuButtonContainer {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
 }
 
-.ArtistPageMenu-button {
+.groupPageMenuButton {
     width: 100px;
     text-align: center;
     cursor: pointer;
     font-size: 17px;
 }
-/* 
-.ArtistPageMenu-button.now {
-    color: white;
-} */
 
-.ArtistPageMenu-spacer {
+.groupPageMenuSpacer {
     width: 200px;
-}
-
-.Hidden {
-    display: none;
 }

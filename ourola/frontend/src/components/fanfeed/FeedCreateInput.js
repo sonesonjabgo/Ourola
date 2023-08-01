@@ -11,7 +11,7 @@ const FeedCreateInput = () => {
 
     return (
         <>
-        <textarea className="feedcreate-inputspace" 
+        <textarea className="feedcreateInputspace" 
             onFocus = {() => {
                 setInputspace(true);
             }}

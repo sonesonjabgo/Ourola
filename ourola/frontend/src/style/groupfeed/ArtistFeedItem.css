@@ -1,4 +1,4 @@
-.ArtistFeedItem {
+.artistFeedItem {
   display: block;
   border-bottom: 2px solid #000;
   padding-bottom: 25px;
@@ -6,18 +6,18 @@
   min-width: 1000px;
 }
 
-.AritstFeedHeader {
+.aritstFeedHeader {
   display: flex;
   align-items: flex-start;
 }
 
-.ArtistFeedInfo {
+.artistFeedInfo {
   display: flex;
   align-items: center;
   min-width: 0;
 }
 
-.ArtistFeedProfile {
+.artistFeedProfile {
   flex-shrink: 0;
   width: 36px;
   height: 36px;
@@ -25,18 +25,18 @@
   position: relative;
 }
 
-.ArtistFeedInfo {
+.artistFeedInfo {
   display: block;
   margin-left: 8px;
   /* overflow: hidden; */
 }
 
-.ArtistFeedArtistNameWrapper {
+.artistFeedArtistNameWrapper {
   align-items: center;
   display: flex;
 }
 
-.ArtistFeedArtistName {
+.artistFeedArtistName {
   font-size: 14px;
   line-height: 17px;
   /* overflow: hidden; */
@@ -45,20 +45,20 @@
   font-weight: bold;
 }
 
-.ArtistFeedCreateTimeWrapper {
+.artistFeedCreateTimeWrapper {
   align-items: center;
   display: flex;
   margin-top: 2px;
 }
 
-.ArtistFeedCreateTime {
+.artistFeedCreateTime {
   color: #8e8e8e;
   flex-shrink: 0;
   font-size: 12px;
   line-height: 14px;
 }
 
-.ArtistFeedContent {
+.artistFeedContent {
   padding-left: 5px;
   display: block;
   padding-top: 15px;
@@ -70,7 +70,7 @@
   line-height: 21px;
 }
 
-.ArtistFeedFooter {
+.artistFeedFooter {
   padding-left: 10px;
   align-items: center;
   display: flex;
@@ -78,12 +78,12 @@
   z-index: 1;
 }
 
-.ArtistFeedFeedInfo {
+.artistFeedFeedInfo {
   display: flex;
   flex-shrink: 0;
 }
 
-.ArtistFeedLike {
+.artistFeedLike {
   margin-top: 25px;
   display: block;
   width: 26;
@@ -91,27 +91,27 @@
   margin-right: 30px;
 }
 
-.ArtistFeedLikeImg {
+.artistFeedLikeImg {
   display: inline-block;
   margin-right: 5px;
 }
 
-.ArtistFeedLikeCount {
+.artistFeedLikeCount {
   display: inline-block;
 }
 
-.ArtistFeedComment {
+.artistFeedComment {
   margin-top: 25px;
   display: block;
-  width: 26;
+  width: 20;
   height: 26;
 }
 
-.ArtistFeedCommentImg {
+.artistFeedCommentImg {
   display: inline-block;
   margin-right: 5px;
 }
 
-.ArtistFeedCommentCount {
+.artistFeedCommentRealCount {
   display: inline-block;
 }

@@ -152,6 +152,18 @@ public class FeedServiceImpl implements FeedService {
 		return likeRepository.findByFanDto_Id(fanDto.getId());
 	}
 
+	@Override
+	public boolean getLike(Integer id, String header) throws Exception {
+		String accessToken = jwtService.headerStringToAccessToken(header).get();
+		String role = jwtService.extractRole(accessToken).get();
+		int user_id = jwtService.accessTokenToUserId(header);
+		if(role.equals(Role.USER.getKey()) || role.equals(Role.ADMIN.getKey())) {
+			return likeRepository.existsByFeedDto_IdAndFanDto_Id(id, user_id);
+		} else {
+			return likeRepository.existsByFeedDto_IdAndArtistDto_Id(id, user_id);
+		}
+	}
+
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
 		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_Id(artistId);
 

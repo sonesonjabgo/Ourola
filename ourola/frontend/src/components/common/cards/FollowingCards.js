@@ -13,7 +13,7 @@ function FollowingCards() {
   ];
 
   return (
-    <div className="cards-container">
+    <div className="cardsContainer">
       {cardData.map((data, i) => (
         <CardItem key={i} src={data.src} text={data.text} path={data.path} />
       ))}

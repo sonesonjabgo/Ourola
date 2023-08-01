@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 const AnnouncementList = ({ announcementList }) => {
   return (
-    <div id="AnnouncementList" className="AnnouncementList">
-      <div id="AnnouncementTitle" className="AnnouncementTitle">
-        <span id="TextTitle" className="TextTitle">
+    <div id="announcementList" className="announcementList">
+      <div id="announcementTitle" className="announcementTitle">
+        <span id="textTitle" className="textTitle">
           공지사항
         </span>
       </div>
-      <section id="AnnouncementBoard" className="AnnouncementBoard">
+      <section id="announcementBoard" className="announcementBoard">
         {announcementList.map((it) => (
           <AnnouncementItem
             key={it.id}

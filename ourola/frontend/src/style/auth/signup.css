@@ -1,4 +1,4 @@
-.Container {
+.container {
     display: inline-flex;
     height: 100%;
     width: 100%;
@@ -7,7 +7,7 @@
     gap: 23.252px;
 }
 
-.SignupHeader{
+.signupHeader{
     margin-top: 50px;
     margin-bottom: 50px;
     border-width: 2px;
@@ -19,6 +19,6 @@
     justify-content: center;
 }
 
-.inputbox::placeholder {
+.inputBox::placeholder {
     color: gray;
   }
