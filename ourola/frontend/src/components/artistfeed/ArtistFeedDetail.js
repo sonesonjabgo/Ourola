@@ -12,7 +12,7 @@ const ArtistFeedDetail = (props) => {
   };
 
   const {
-    artist,
+    id,
     accessImg,
     artistName,
     formatTime,
@@ -23,6 +23,10 @@ const ArtistFeedDetail = (props) => {
   } = props.state;
 
   const modalRef = useRef(null);
+
+  // const scrollToOrigin = () => {
+  //   window.scrollTo(0, props.state.prevPos);
+  // };
 
   useEffect(() => {
     const handler = (event) => {
@@ -41,34 +45,34 @@ const ArtistFeedDetail = (props) => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDgwNTU0NCwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.P8Owz0BvEbJWF6Fp06GLDbVWXLxWAGZ6fNp8nTnnL6O0jXda6El_SPKsqL5Z2vT8gIX4QOiSmjBCKmIN3bd4jw",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzExNSwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.n_EJyQY2fG-fYM1yGoRS0n1xSGqkJpWaL5NmapGgee61VcAWPB5VcrWya3ChVcg0ZJMtB5tMY1VlSmCjkQ7hSQ",
       "Content-Type": "application/json",
     },
   };
 
-  const scrollToOrigin = (event) => {
-    window.scrollTo(0, props.state.prevPos);
-  };
+  const clickFunction = (event) => {
+    closeModal();
+    // scrollToOrigin();
+  }
 
-  // const [comment, setComment] = useState([]);
-  // const [loadingComment, setLoadingComment] = useState(true);
+  const [comment, setComment] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `http://localhost:${backendPort}/search/${artist}/memberlist`,
-  //       config
-  //     )
-  //     .then((response) => {
-  //       setComment(response.data);
-  //       setLoadingComment(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data : ", error);
-  //       setLoadingComment(false);
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8000/${id}/comment`,
+        config
+      )
+      .then((response) => {
+        setComment(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(comment);
 
   return (
     <div>
@@ -78,7 +82,6 @@ const ArtistFeedDetail = (props) => {
             id="ArtistFeedContent"
             className="ArtistFeedContent"
             ref={modalRef}
-            onMouseDownCapture={scrollToOrigin}
           >
             <div id="ArtistFeedView" className="ArtistFeedView">
               <div
@@ -160,8 +163,7 @@ const ArtistFeedDetail = (props) => {
                 <button
                   id="backButton"
                   className="backButton"
-                  onMouseDown={closeModal}
-                  onMouseDownCapture={scrollToOrigin}
+                  onMouseUp={clickFunction}
                 >
                   ⇒
                 </button>

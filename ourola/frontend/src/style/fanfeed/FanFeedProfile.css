@@ -1,4 +1,4 @@
-.FanFeedProfile-artist-container {
+.FanFeedProfile-Group-container {
     display: flex;
     justify-content: center;
     align-items: end;
@@ -11,7 +11,7 @@
     margin-top: 15%;
 }
 
-.FanFeedProfile-artist-namespace {
+.FanFeedProfile-Group-namespace {
     color: white;
     font-size: 170%;
     height: 30%;
