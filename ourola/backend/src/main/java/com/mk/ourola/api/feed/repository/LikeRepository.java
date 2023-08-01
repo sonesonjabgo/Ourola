@@ -20,5 +20,8 @@ public interface LikeRepository extends JpaRepository<LikeDto, Integer> {
 
 	List<LikeDto> findByFanDto_Id(int fanId);
 
+	boolean existsByFeedDto_IdAndFanDto_Id(int feedId, int fanId);
+	boolean existsByFeedDto_IdAndArtistDto_Id(int feedId, int artistId);
+
 	void deleteById(int id);
 }
