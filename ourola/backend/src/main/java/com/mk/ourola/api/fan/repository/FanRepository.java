@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.mk.ourola.api.common.auth.repository.SocialType;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 public interface FanRepository extends JpaRepository<FanDto, Integer> {
@@ -18,6 +19,8 @@ public interface FanRepository extends JpaRepository<FanDto, Integer> {
 
 	Optional<FanDto> findByNameAndBirthdayAndTel(String name, Date birthday, String tel);
 
-	boolean existsByNickname(String nicknmame);
+	boolean existsByNickname(String nickname);
+
+	Optional<FanDto> findBySocialTypeAndSocialId(SocialType socialType, String socialId);
 
 }
