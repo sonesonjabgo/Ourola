@@ -10,8 +10,8 @@ const FeedCreateModalProfile = () => {
 
     return (
         <>
-        <div className='FeedCreateModalProfile-user-container'>
-            <div className='FeedCreateModalProfile-user-img'></div>
+        <div className='feedCreateModalProfileUserContainer'>
+            <div className='feedCreateModalProfileUserImg'></div>
             {user.name}
         </div>
         </>

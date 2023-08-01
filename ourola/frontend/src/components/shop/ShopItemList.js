@@ -13,7 +13,7 @@ const ShopItemList = () => {
       ];
 
     return (
-        <div className="cards-container">
+        <div className="cardsContainer">
         {cardData.map((data, i) => (
             <ShopItem key={i} src={data.src} text={data.text} path={data.path} />
         ))}

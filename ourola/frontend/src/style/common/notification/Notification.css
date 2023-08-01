@@ -1,4 +1,4 @@
-.Notification-background {
+.notificationBackground {
     z-index: 999;
     align-items: center;
     bottom: 0;
@@ -13,7 +13,7 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
   
-  .Notification-detail {
+  .notificationDetail {
     display: block;
     width: 40%;
     height: 80%;
@@ -33,27 +33,27 @@
     overflow-x: hidden;
   }
   
-  .Notification-detail::-webkit-scrollbar {
+  .notificationDetail::-webkit-scrollbar {
     width: 10px;
   }
   
-  .Notification-detail::-webkit-scrollbar-thumb {
+  .notificationDetail::-webkit-scrollbar-thumb {
     background-color: #7b68ee;
     border-radius: 10px;
   }
   
-  .Notification-detail::-webkit-scrollbar-button:vertical:start:decrement,
-  .sub-menu::-webkit-scrollbar-button:vertical:start:increment {
+  .notificationDetail::-webkit-scrollbar-button:vertical:start:decrement,
+  .subMenu::-webkit-scrollbar-button:vertical:start:increment {
     display: block;
     height: 20px;
   }
   
-  .Notification-detail::-webkit-scrollbar-button:vertical:end:decrement {
+  .sotificationDetail::-webkit-scrollbar-button:vertical:end:decrement {
     display: block;
     height: 20px;
   }
   
-  .Notification-close {
+  .notificationClose {
     height: 60px;
     position: absolute;
     top: 70px;
@@ -80,7 +80,7 @@
     color: #e4e6ea;
   }
   
-  .Notification-detail-content {
+  .notificationDetailContent {
     display: block;
     width: 100%;
     max-width: 750px;
@@ -99,13 +99,13 @@
     margin-top: 95px;
   }
 
-  .notification-icon {
+  .notificationIcon {
     height: 30px;
     margin-right: 40px;
     cursor: pointer;
   }
 
-  .Notification-header {
+  .notificationHeader {
     position: fixed;
     width: 100%;
   }

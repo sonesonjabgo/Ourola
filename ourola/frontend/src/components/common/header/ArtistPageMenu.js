@@ -23,28 +23,26 @@ function GroupPageMenu() {
   if (isGroupPage) {
     return (
       <>
-        <div className="GroupPageMenu-container">
-          <div className="GroupPageMenu-spacer"></div>
-          <div className="GroupPageMenu-button-container">
-            <div className="GroupPageMenu-button now">
+        <div className="groupPageMenuContainer">
+          <div className="groupPageMenuSpacer"></div>
+          <div className="groupPageMenuButtonContainer">
               <NavLink
                 to="/seventeen/feed"
                 style={isFanFeed ? activeStyle : {}}
               >
                 팬 피드
               </NavLink>
-            </div>
-            <div className="GroupPageMenu-button">아티스트 피드</div>
-            <div className="GroupPageMenu-button">라이브</div>
-            <div className="GroupPageMenu-button">미디어</div>
-            <div className="GroupPageMenu-button">Others</div>
-            <div className="GroupPageMenu-button">
+            <div className="groupPageMenuButton">아티스트 피드</div>
+            <div className="groupPageMenuButton">라이브</div>
+            <div className="groupPageMenuButton">미디어</div>
+            <div className="groupPageMenuButton">Others</div>
+            <div className="groupPageMenuButton">
               <NavLink to="/seventeen/shop" style={isShop ? activeStyle : {}}>
                 Shop
               </NavLink>
             </div>
           </div>
-          <div className="GroupPageMenu-spacer"></div>
+          <div className="groupPageMenuSpacer"></div>
         </div>
       </>
     );

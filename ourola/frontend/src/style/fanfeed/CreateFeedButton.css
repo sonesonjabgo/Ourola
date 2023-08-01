@@ -1,5 +1,5 @@
 /* 피드 작성 버튼  */
-.Button-createfeed-container {
+.buttonCreatefeedContainer {
     width: 87%;
     padding-top: 3%;
     margin-top: 2%;
@@ -8,7 +8,7 @@
     justify-content: center;
 }
 
-.Button-createfeed {
+.buttonCreatefeed {
     background:#7b68ee;
     color:white;
     border:none;
@@ -24,12 +24,12 @@
     margin-left: -16%;
 }
 
-.Button-createfeed:hover{
+.buttonCreatefeed:hover{
     background:#fff;
     color:#7b68ee;
 }
 
-.Button-createfeed:before, .Button-createfeed:after{
+.buttonCreatefeed:before, .buttonCreatefeed:after{
     content:'';
     position:absolute;
     top:0;
@@ -40,14 +40,14 @@
     transition:50ms ease all;
 }
 
-.Button-createfeed:after{
+.buttonCreatefeed:after{
     right:inherit;
     top:inherit;
     left:0;
     bottom:0;
 }
 
-.Button-createfeed:hover:before, .Button-createfeed:hover:after{
+.buttonCreatefeed:hover:before, .buttonCreatefeed:hover:after{
     width:100%;
     transition:800ms ease all;
 }
