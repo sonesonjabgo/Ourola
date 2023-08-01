@@ -14,4 +14,5 @@ public class FanSignUpDto {
 	private Integer age;
 	private String tel;
 	private Date birthday;
+	private String nickname;
 }
