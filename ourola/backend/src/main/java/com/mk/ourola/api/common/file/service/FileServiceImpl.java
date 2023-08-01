@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.aspectj.util.FileUtil;
@@ -99,6 +101,25 @@ public class FileServiceImpl implements FileService {
 	public byte[] getGroupImg(String filePath) throws IOException {
 		File file = new File(FILE_PATH + "/groupImg/" + filePath);
 		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public Map<String, String> writeGroupImage(MultipartFile file) throws
+		NoSuchAlgorithmException,
+		IOException {
+		System.out.println("=============");
+		System.out.println(file.getOriginalFilename());
+		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+		String fileExtension = getFileExtension(file.getOriginalFilename());
+		String hashName = generateUniqueFileName(fileName);
+		String groupFile_path = FILE_PATH + "/groupImg/" + hashName;
+		System.out.println(groupFile_path);
+		File dest = new File(groupFile_path);
+		file.transferTo(dest);
+		Map<String, String> result = new HashMap<>();
+		result.put("hashName", hashName);
+		result.put("fileExtension", fileExtension);
+		return result;
 	}
 
 	@Override

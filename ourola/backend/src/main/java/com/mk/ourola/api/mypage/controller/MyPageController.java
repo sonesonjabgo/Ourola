@@ -2,7 +2,6 @@ package com.mk.ourola.api.mypage.controller;
 
 import java.util.List;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
 import com.mk.ourola.api.mypage.service.MyPageServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -106,16 +104,6 @@ public class MyPageController {
 			return HttpStatus.OK;
 		} catch (Exception e) {
 			return HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-	}
-
-	// 북마크 내역 불러오기
-	@GetMapping("/bookmark")
-	public ResponseEntity<List<BookMarkDto>> getAllBookMark(@RequestHeader("Authorization") String accessToken) {
-		try {
-			return new ResponseEntity<List<BookMarkDto>>(myPageService.getAllBookMark(accessToken), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
