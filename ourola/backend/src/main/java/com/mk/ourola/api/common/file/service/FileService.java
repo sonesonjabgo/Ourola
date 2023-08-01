@@ -14,7 +14,7 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public byte[] getProfileImg(String email) throws IOException;
+	public byte[] getProfileImg(int id) throws IOException;
 
 	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
 		NoSuchAlgorithmException,

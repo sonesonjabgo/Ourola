@@ -62,15 +62,16 @@ public class FileController {
 	}
 
 	@GetMapping("/getimg/profile")
-	public ResponseEntity<?> getProfileImg(@RequestHeader(name = "Authorization") String accessToken) {
+	public ResponseEntity<?> getProfileImg(@RequestParam int id) {
 		try {
-			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
-			byte[] profileImg = fileService.getProfileImg(email.get());
+			System.out.println(id);
+			//Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
+			byte[] profileImg = fileService.getProfileImg(id);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -82,7 +83,7 @@ public class FileController {
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
