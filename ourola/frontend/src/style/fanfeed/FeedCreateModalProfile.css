@@ -1,4 +1,4 @@
-.FeedCreateModalProfile-user-container {
+.feedCreateModalProfileUserContainer {
     height: 80px;
     width: 300px;
     border-radius: 15px;
@@ -10,7 +10,7 @@
     line-height: 300%;
 }
 
-.FeedCreateModalProfile-user-img {
+.feedCreateModalProfileUserImg {
     background-image: url('../../assets/images/sad_pepe.jpg');
     background-size: cover;
     width: 80px;

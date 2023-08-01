@@ -27,16 +27,16 @@ const NotificationModal = (props) => {
   }, [setModalOpen]);
 
   return (
-    <div className="Notification-background">
-      <button className="Notification-close" onClick={closeModal}>
+    <div className="notificationBackground">
+      <button className="notificationClose" onClick={closeModal}>
         ×
       </button>
 
-      <div ref={modalRef} className="Notification-detail">
-        <div className="Notification-header">
+      <div ref={modalRef} className="notificationDetail">
+        <div className="notificationHeader">
           <NotificationHeader />
         </div>
-        <div className="Notification-detail-content">
+        <div className="notificationDetailContent">
           <div>
             <NotificationList />
           </div>

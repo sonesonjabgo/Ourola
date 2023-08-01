@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 const ShopItem = ({path, src, text}) => {
     return (
         <>
-        <Link to={path} className="artist-link">
+        <Link to={path} className="stuffDetailLink">
         <div className="card">
             <img src={src} alt={text} />
-            <div className="card-info">
+            <div className="cardInfo">
                 <p className="text">{text}</p>
             </div>
         </div>

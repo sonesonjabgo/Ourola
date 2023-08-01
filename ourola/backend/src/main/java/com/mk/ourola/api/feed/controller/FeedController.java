@@ -19,8 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.fan.service.FanServiceImpl;
+import com.mk.ourola.api.feed.repository.dto.BookmarkDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.feed.repository.dto.LikeDto;
+import com.mk.ourola.api.feed.service.BookmarkService;
+import com.mk.ourola.api.feed.service.BookmarkServiceImpl;
 import com.mk.ourola.api.feed.service.FeedServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +42,11 @@ public class FeedController {
 	private final JwtService jwtService;
 
 	private final FileServiceImpl fileService;
+
+	private final BookmarkServiceImpl bookmarkService;
+
+	private final FanServiceImpl fanService;
+
 
 	// 해당 그룹의 모든 피드, 포스트를 불러오는 메서드
 	@GetMapping("")
@@ -159,6 +169,19 @@ public class FeedController {
 		}
 	}
 
+	// 해당 피드와 사용자의 좋아요 여부
+	@GetMapping("/{id}/like")
+	public ResponseEntity<?> getLike(@RequestHeader(name = "Authorization") String accessToken,
+		@PathVariable("group") String group, @PathVariable("id") int id) {
+		try {
+			Boolean isLike = feedService.getLike(id, accessToken);
+			return new ResponseEntity<>(isLike, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 해당 아티스트의 ID를 받아 그 아티스트의 게시물들만 보내는 메서드
 	@GetMapping("/filter/{artistId}")
 	public ResponseEntity<List<FeedDto>> getAllSpecificArtistFeed(@PathVariable String group,
@@ -166,6 +189,35 @@ public class FeedController {
 		try {
 			return new ResponseEntity<>(feedService.getAllSpecificArtistFeed(artistId), HttpStatus.OK);
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 해당 게시글을 북마크 등록하는 메서드
+	@PostMapping("/writeBookmark")
+	public ResponseEntity<?> writeBookmark(@RequestHeader(name = "Authorization") String accessToken,
+		@RequestBody int feedId){
+		try{
+			FeedDto feed = feedService.getFeed("", feedId);
+			Integer fanId = jwtService.accessTokenToUserId(accessToken);
+			FanDto fanInfo = fanService.getFanInfo(fanId);
+			BookmarkDto bookmarkDto = bookmarkService.writeBookmark(fanInfo, feed);
+			System.out.println(bookmarkDto);
+			return new ResponseEntity<>(bookmarkDto, HttpStatus.OK);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/getBookmarkList")
+	public ResponseEntity<?> getBookmarkList(@RequestHeader(name = "Authorization") String accessToken){
+		try{
+			Integer userId = jwtService.accessTokenToUserId(accessToken);
+			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(userId);
+			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

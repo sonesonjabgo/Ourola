@@ -3,6 +3,7 @@ package com.mk.ourola.api.common.file.service;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,7 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public byte[] getProfileImg(String email) throws IOException;
+	public byte[] getProfileImg(int id) throws IOException;
 
 	public String writeFeedImages(List<MultipartFile> files, FeedDto feedDto) throws
 		NoSuchAlgorithmException,
@@ -23,4 +24,8 @@ public interface FileService {
 	public byte[] getArtistProfileImg(int id) throws IOException;
 
 	public byte[] getGroupImg(String filePath) throws IOException;
+
+	public Map<String, String> writeGroupImage(MultipartFile file) throws
+		NoSuchAlgorithmException,
+		IOException;
 }

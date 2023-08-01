@@ -17,6 +17,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.mk.ourola.api.common.Role;
+import com.mk.ourola.api.common.auth.repository.SocialType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +40,7 @@ public class FanDto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	private ProfileFileDto profileFileDto;
 
@@ -67,11 +68,11 @@ public class FanDto {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	// @Column(name = "social_type")
-	// @Enumerated(EnumType.STRING)
-	// private SocialType socialType;
-	//
-	// private String socialId;
+	@Column(name = "social_type")
+	@Enumerated(EnumType.STRING)
+	private SocialType socialType;
+
+	private String socialId;
 
 	private String nickname;
 

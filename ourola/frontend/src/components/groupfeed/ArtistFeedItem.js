@@ -1,4 +1,4 @@
-import "../../style/artistfeed/ArtistFeedItem.css";
+import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 
@@ -75,45 +75,45 @@ const ArtistFeedItem = ({
   const clickFunction = (event) => {
     showModal();
     // scrollToCenter(event);
-  }
+  };
 
   return (
-    <div id="ArtistFeedItem" className="ArtistFeedItem">
-      <div id="ArtistFeedHeader" className="AritstFeedHeader">
-        <div id="ArtistFeedInfo" className="ArtistFeedInfo">
+    <div id="artistFeedItem" className="artistFeedItem">
+      <div id="aritstFeedHeader" className="aritstFeedHeader">
+        <div id="artistFeedInfo" className="artistFeedInfo">
           <img
-            id="ArtistFeedProfile"
-            className="ArtistFeedProfile"
+            id="artistFeedProfile"
+            className="artistFeedProfile"
             src={accessImg}
           ></img>
         </div>
-        <div id="ArtistFeedInfo" className="ArtistFeedInfo">
+        <div id="artistFeedInfo" className="artistFeedInfo">
           <div
-            id="ArtistFeedArtistNameWrapper"
-            className="ArtistFeedArtistNameWrapper"
+            id="artistFeedArtistNameWrapper"
+            className="artistFeedArtistNameWrapper"
           >
-            <strong id="ArtistFeedArtistName" className="ArtistFeedArtistName">
+            <strong id="artistFeedArtistName" className="artistFeedArtistName">
               {artistName}
             </strong>
           </div>
           <div
-            id="ArtistFeedCreateTimeWrapper"
-            className="ArtistFeedCreateTimeWrapper"
+            id="artistFeedCreateTimeWrapper"
+            className="artistFeedCreateTimeWrapper"
           >
-            <span id="ArtistFeedCreateTime" className="ArtistFeedCreateTime">
+            <span id="artistFeedCreateTime" className="artistFeedCreateTime">
               {formatTime}
             </span>
           </div>
         </div>
-        <div id="ArtistFeedBlank" className="ArtistFeedBlank">
-          <div id="ArtistFeedBookmark" className="ArtistFeedBookmark">
+        <div id="artistFeedBlank" className="artistFeedBlank">
+          <div id="artistFeedBookmark" className="artistFeedBookmark">
             북마크 {/* 나중에 북마크 표시 추가 */}
           </div>
         </div>
       </div>
       <div
-        id="ArtistFeedContent"
-        className="ArtistFeedContent"
+        id="artistFeedContent"
+        className="artistFeedContent"
         onClick={clickFunction}
       >
         {modalOpen && (
@@ -133,25 +133,28 @@ const ArtistFeedItem = ({
             }}
           ></ArtistFeedDetail>
         )}
-        <div id="ArtistFeedContent" className="ArtistFeedContent">
+        <div id="artistFeedContent" className="artistFeedContent">
           {content}
         </div>
       </div>
-      <div id="ArtistFeedFooter" className="ArtistFeedFooter">
-        <div id="ArtistFeedFeedInfo" className="ArtistFeedFeedInfo">
-          <div id="ArtistFeedLike" className="ArtistFeedLike">
-            <div id="ArtistFeedLikeImg" className="ArtistFeedLikeImg">
+      <div id="artistFeedFooter" className="artistFeedFooter">
+        <div id="artistFeedFeedInfo" className="artistFeedFeedInfo">
+          <div id="artistFeedLike" className="artistFeedLike">
+            <div id="artistFeedLikeImg" className="artistFeedLikeImg">
               좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
             </div>
-            <div id="ArtistFeedLikeCount" className="ArtistFeedLikeCount">
+            <div id="artistFeedLikeCount" className="artistFeedLikeCount">
               {like}
             </div>
           </div>
-          <div id="ArtistFeedComment" className="ArtistFeedComment">
-            <div id="ArtistFeedCommentImg" className="ArtistFeedCommentImg">
+          <div id="artistFeedComment" className="artistFeedComment">
+            <div id="artistFeedCommentImg" className="artistFeedCommentImg">
               댓글 {/*  나중에 댓글 이미지로 수정필요 */}
             </div>
-            <div id="ArtistFeedCommentCount" className="ArtistFeedCommentCount">
+            <div
+              id="artistFeedCommentRealCount"
+              className="artistFeedCommentRealCount"
+            >
               {commentCount} {/*  나중에 댓글 갯수로 수정필요 */}
             </div>
           </div>

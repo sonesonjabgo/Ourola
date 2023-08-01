@@ -5,11 +5,11 @@ import '../../style/shop/ShopItemDetail.css'
 const ShopItemDetail = () => {
     return (
         <>
-        <div className="ShopDetail-content-container">
-            <div className="ShopDetail-basket-container">
-                <button className="ShopDetail-toListButton">목록으로</button>
-                <div className="ShopDetail-basket-button">
-                    <img className="ShopDetail-basket-icon" src={BasketIcon}/>
+        <div className="shopDetailContentContainer">
+            <div className="shopDetailBasketContainer">
+                <button className="shopDetailToListButton">목록으로</button>
+                <div className="shopDetailBasketButton">
+                    <img className="shopDetailBasketIcon" src={BasketIcon}/>
                     장바구니
                 </div>
             </div>

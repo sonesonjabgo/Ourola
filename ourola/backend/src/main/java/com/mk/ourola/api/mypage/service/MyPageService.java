@@ -7,7 +7,6 @@ import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 
@@ -16,26 +15,24 @@ public interface MyPageService {
 	public ArtistDto getArtistUserInfo(String accessToken) throws Exception;
 
 	// 아티스트 닉네임 수정
-	public ArtistDto modifyArtistNickname(String accessToken, String newNickname) throws Exception;
+	public ArtistDto modifyArtistNickname(String accessToken, ArtistDto newNickname) throws Exception;
 
 	// 아티스트 비밀번호 수정
-	public void modifyArtistPassword(String accessToken, String newPassword) throws Exception;
+	public void modifyArtistPassword(String accessToken, ArtistDto newPassword) throws Exception;
 
 	// 팬 개인정보
 	// 팬 개인정보 가져오기
 	public FanDto getFanUserInfo(String accessToken) throws Exception;
 
 	// 팬 닉네임 수정
-	public FanDto modifyFanNickname(String accessToken, String newNickname) throws Exception;
+	public FanDto modifyFanNickname(String accessToken, FanDto newNickname) throws Exception;
 
 	// 팬 비밀번호 수정
-	public void modifyFanPassword(String accessToken, String newPassword) throws Exception;
+	public void modifyFanPassword(String accessToken, FanDto newPassword) throws Exception;
 
 	// 사용자가 구매한 모든 구매내역 가져오기
 	public List<BillDto> getAllBill(String accessToken);
 
-	// 사용자가 북마크한 모든 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String accessToken);
 
 	// 사용자가 구매한 모든 멤버십 불러오기
 	public List<UserMembershipInfoDto> getAllMembership(String accessToken);

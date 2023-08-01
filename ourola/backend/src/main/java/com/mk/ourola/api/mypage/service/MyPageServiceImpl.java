@@ -13,11 +13,9 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.BillRepository;
-import com.mk.ourola.api.mypage.repository.BookMarkRepository;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
 import com.mk.ourola.api.mypage.repository.UserMembershipInfoRepository;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 
@@ -31,7 +29,6 @@ public class MyPageServiceImpl implements MyPageService {
 	private final ArtistRepository artistRepository;
 
 	private final BillRepository billRepository;
-	private final BookMarkRepository bookMarkRepository;
 
 	private final UserMembershipInfoRepository userMembershipInfoRepository;
 	private final MembershipPayRepository membershipPayRepository;
@@ -55,24 +52,24 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 아티스트 닉네임 수정
-	public ArtistDto modifyArtistNickname(String accessToken, String newNickname) throws Exception {
+	public ArtistDto modifyArtistNickname(String accessToken, ArtistDto newNickname) throws Exception {
 		int aid = jwtService.accessTokenToUserId(accessToken);
 		ArtistDto artist = artistRepository.findById(aid)
 			.orElseThrow(() -> new Exception("존재하지 않는 아티스트"));
 
-		artist.setNickname(newNickname);
+		artist.setNickname(newNickname.getNickname());
 		artistRepository.save(artist);
 		return artist;
 
 	}
 
 	// 아티스트 비밀번호 수정
-	public void modifyArtistPassword(String accessToken, String newPassword) throws Exception {
+	public void modifyArtistPassword(String accessToken, ArtistDto newPassword) throws Exception {
 		int aid = jwtService.accessTokenToUserId(accessToken);
 		ArtistDto artist = artistRepository.findById(aid)
 			.orElseThrow(() -> new Exception("존재하지 않는 아티스트"));
 
-		artist.setPassword(newPassword);
+		artist.setPassword(newPassword.getPassword());
 		artistRepository.save(artist);
 		return;
 	}
@@ -88,23 +85,23 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 팬 닉네임 수정
-	public FanDto modifyFanNickname(String accessToken, String newNickname) throws Exception {
+	public FanDto modifyFanNickname(String accessToken, FanDto newNickname) throws Exception {
 		int uid = jwtService.accessTokenToUserId(accessToken);
 		FanDto fan = fanRepository.findById(uid)
 			.orElseThrow(() -> new Exception("존재하지 않는 사용자"));
 
-		fan.setNickname(newNickname);
+		fan.setNickname(newNickname.getNickname());
 		fanRepository.save(fan);
 		return fan;
 	}
 
 	// 팬 비밀번호 수정
-	public void modifyFanPassword(String accessToken, String newPassword) throws Exception {
+	public void modifyFanPassword(String accessToken, FanDto newPassword) throws Exception {
 		int uid = jwtService.accessTokenToUserId(accessToken);
 		FanDto fan = fanRepository.findById(uid)
 			.orElseThrow(() -> new Exception("존재하지 않는 사용자"));
 
-		fan.setPassword(newPassword);
+		fan.setPassword(newPassword.getPassword());
 		fanRepository.save(fan);
 		return;
 	}
@@ -115,11 +112,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return user.map(fanUserDto -> billRepository.findByFanDto_Id(fanUserDto.getId())).orElse(null);
 	}
 
-	// 북마크 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String accessToken) {
-		Optional<FanDto> user = fanRepository.findById(jwtService.accessTokenToUserId(accessToken));
-		return bookMarkRepository.findByFanDto_Id(user.get().getId());
-	}
 
 	// 사용자가 가입한 전체 멤버십 구매 내역 가져오기
 	public List<UserMembershipInfoDto> getAllMembership(String accessToken) {

@@ -48,6 +48,8 @@ public class FanServiceImpl implements FanService {
 			.name(fanSignUpDto.getName())
 			.age(fanSignUpDto.getAge())
 			.tel(fanSignUpDto.getTel())
+			.birthday(fanSignUpDto.getBirthday())
+			.nickname(fanSignUpDto.getNickname())
 			.role(Role.USER)
 			.build();
 
@@ -79,9 +81,13 @@ public class FanServiceImpl implements FanService {
 		return subscribeGroupRepository.save(subscribeGroupDto);
 	}
 
-	public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
-		GroupDto groupDto = groupRepository.findByName(group);
-		return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
+	// public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
+	// 	GroupDto groupDto = groupRepository.findByName(group);
+	// 	return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
+	// }
+
+	public boolean nicknameDuplicateCheck(String nickname) throws Exception {
+		return fanRepository.existsByNickname(nickname);
 	}
 
 	// 아티스트가 글을 쓴 경우 해당 태널을 구독한 유저들에게 보낼 알림을 저장함
@@ -110,5 +116,11 @@ public class FanServiceImpl implements FanService {
 	public List<GroupDto> getNotSubscribeGroup(String userEmail) {
 		Optional<FanDto> userDto = fanRepository.findByEmail(userEmail);
 		return groupRepository.findAllWithNoRelatedSubstribeGroup(userDto.get().getId());
+	}
+
+	//id를 기준으로 fan유저 정보를 가져오는 것
+	public FanDto getFanInfo(int fanId){
+		Optional<FanDto> byId = fanRepository.findById(fanId);
+		return byId.get();
 	}
 }

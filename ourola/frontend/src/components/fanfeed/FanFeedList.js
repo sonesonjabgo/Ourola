@@ -4,8 +4,8 @@ import FanFeedItem from "./FanFeedItem"
 
 const FanFeedList = ({ Group, GroupFeed }) => {
     return (
-      <div className="GroupFeedList">
-        <section className="GroupFeedBoard">
+      <div className="groupFeedList">
+        <section className="groupFeedBoard">
           {GroupFeed ? GroupFeed.map((it) => (
             <FanFeedItem
               key={it.id}

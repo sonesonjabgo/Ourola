@@ -1,10 +1,10 @@
-.ShopDetail-content-container {
+.shopDetailContentContainer {
     position: absolute;
     margin-top: 185px;
     width: 95%;
 }
 
-.ShopDetail-basket-container {
+.shopDetailBasketContainer {
     display: flex;
     align-items: center;
     font-size: 25px;
@@ -13,19 +13,19 @@
     margin-bottom: 50px;
 }
 
-.ShopDetail-basket-button {
+.shopDetailBasketButton {
     display: flex;
     align-items: center;
 }
 
-.ShopDetail-basket-icon {
+.shopDetailBasketIcon {
     height: 50px;
     width: 50px;                                   
     margin-right: 20px;
     margin-top: -10px;
 }
 
-.ShopDetail-toListButton {
+.shopDetailToListButton {
     border: none;
     width: 100px;
     height: 60px;
