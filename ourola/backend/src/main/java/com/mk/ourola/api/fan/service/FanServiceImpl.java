@@ -81,9 +81,13 @@ public class FanServiceImpl implements FanService {
 		return subscribeGroupRepository.save(subscribeGroupDto);
 	}
 
-	public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
-		GroupDto groupDto = groupRepository.findByName(group);
-		return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
+	// public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
+	// 	GroupDto groupDto = groupRepository.findByName(group);
+	// 	return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
+	// }
+
+	public boolean nicknameDuplicateCheck(String nickname) throws Exception {
+		return fanRepository.existsByNickname(nickname);
 	}
 
 	// 아티스트가 글을 쓴 경우 해당 태널을 구독한 유저들에게 보낼 알림을 저장함
