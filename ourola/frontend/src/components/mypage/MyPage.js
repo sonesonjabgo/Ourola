@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MyPageProfile from "./profile/MyPageProfile";
 import axios from "axios";
+import "../../style/mypage/MyPage.css";
 
 const MyPage = () => {
   const [role, setRole] = useState("");
@@ -11,7 +12,7 @@ const MyPage = () => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDgxNTMzMCwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.Z78ThFn6YZYj7yI9CViNe-mWuLPmtq_2FdamK3rpKQxQu-M57EhS4IKG6s8a9YKB9hCBo7eRG13V0OOoWZMjsA",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzkxMCwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.PlGs16elzjOOy3Du96xWDb9__dqF58FSu6p06qliKIYPvfpOEXO7O4Xyxw2do-ezWKOnjfRS0K04Rme1zkZszA",
       "Content-Type": "application/json",
     },
   };
@@ -28,13 +29,13 @@ const MyPage = () => {
       axios
         .get(`${url}/user/userinfo`, config)
         .then((response) => {
-          //console.log(response.data.name);
+          //console.log(response.data);
           setUserInfo(response.data);
         })
         .catch("Error :: Failed to get fan info");
-    } else if (role === "Artist") {
+    } else if (role === "ARTIST") {
       axios
-        .get(`${url}/user/artist/userinfo`)
+        .get(`${url}/user/artist/userinfo`, config)
         .then((response) => {
           setUserInfo(response.data);
         })
@@ -44,13 +45,16 @@ const MyPage = () => {
 
   return (
     <div className="MyPageHome">
-      <div className="mypage-side-bar">
-        <div className="mypage-profile">
-          <MyPageProfile config={config} />
+      <div className="myPageSideBar">
+        <div className="myPageProfile">
+          <MyPageProfile
+            profile={userinfo.profileFileDto}
+            name={userinfo.name}
+          />
         </div>
-        <div className="mypage-menu"></div>
+        <div className="myPageMenu"></div>
       </div>
-      <div className="mypage-main"></div>
+      <div className="myPageMain"></div>
     </div>
   );
 };
