@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 
 const ArtistFeedItem = ({
+  id,
   artist,
   artistId,
   artistProfileId,
@@ -66,11 +67,15 @@ const ArtistFeedItem = ({
   const [prevPos, setPrevPos] = useState(-1);
 
   const scrollToCenter = (event) => {
-    const { clientY } = event;
-    setPrevPos(clientY);
+    const offsetFromTop = event.target.getBoundingClientRect().top;
     const scrollContainerHeight = window.innerHeight;
-    window.scrollTo(0, scrollContainerHeight / 2);
+    window.scrollTo(0, scrollContainerHeight / 4);
   };
+
+  const clickFunction = (event) => {
+    showModal();
+    // scrollToCenter(event);
+  }
 
   return (
     <div id="ArtistFeedItem" className="ArtistFeedItem">
@@ -109,13 +114,13 @@ const ArtistFeedItem = ({
       <div
         id="ArtistFeedContent"
         className="ArtistFeedContent"
-        onClick={showModal}
-        onClickCapture={scrollToCenter}
+        onClick={clickFunction}
       >
         {modalOpen && (
           <ArtistFeedDetail
             state={{
               setModalOpen,
+              id,
               artist,
               accessImg,
               artistName,
