@@ -1,4 +1,4 @@
-.FanFeedProfile-Group-container {
+.fanFeedProfileGroupContainer {
     display: flex;
     justify-content: center;
     align-items: end;
@@ -11,7 +11,7 @@
     margin-top: 15%;
 }
 
-.FanFeedProfile-Group-namespace {
+.fanFeedProfileGroupNamespace {
     color: white;
     font-size: 170%;
     height: 30%;
@@ -23,7 +23,7 @@
     border-bottom-right-radius: 15px;
 }
 
-.FanFeedProfile-user-container {
+.fanFeedProfileUserContainer {
     height: 200px;
     width: 300px;
     border-radius: 15px;
@@ -35,7 +35,7 @@
     font-size: 30px;
 }
 
-.FanFeedProfile-user-img {
+.fanFeedProfileUserImg {
     background-image: url('../../assets/images/sad_pepe.jpg');
     background-size: cover;
     width: 30%;
@@ -45,7 +45,7 @@
     margin: 6% 0;
 }
 
-.FanFeedProfile-user-underline {
+.fanFeedProfileUserUnderline {
     height: 3px;
     width: 80%;
     background-color: white;

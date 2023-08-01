@@ -1,4 +1,4 @@
-.feedcreate-inputspace {
+.feedcreateInputspace {
     position: relative;
     background-color: white;
     height: 500px;
@@ -14,15 +14,15 @@
     /* margin-top: 10px; */
 }
 
-.feedcreate-inputspace::-webkit-scrollbar {
+.feedcreateInputspace::-webkit-scrollbar {
     width: 10px;
   }
   
-.feedcreate-inputspace::-webkit-scrollbar-thumb {
+.feedcreateInputspace::-webkit-scrollbar-thumb {
 background-color: #7b68ee;
 border-radius: 10px;
 }
 
-.feedcreate-inputspace::placeholder{
+.feedcreateInputspace::placeholder{
     color: rgba(0, 0, 0, 0.3);
 }

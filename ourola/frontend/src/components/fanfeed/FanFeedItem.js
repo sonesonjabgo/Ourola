@@ -32,59 +32,56 @@ const FanFeedItem = ({
   const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
 
   return (
-    <div id="GroupFeedItem" className="GroupFeedItem">
-      <div id="GroupFeedHeader" className="AritstFeedHeader">
-        <div id="GroupFeedInfo" className="GroupFeedInfo">
+    <div className="groupFeedItem">
+      <div className="aritstFeedHeader">
+        <div className="groupFeedInfo">
           <img
-            id="GroupFeedProfile"
-            className="GroupFeedProfile"
+            className="groupFeedProfile"
             src={accessImg}
           ></img>
         </div>
-        <div id="GroupFeedInfo" className="GroupFeedInfo">
+        <div className="groupFeedInfo">
           <div
-            id="GroupFeedGroupNameWrapper"
-            className="GroupFeedGroupNameWrapper"
+            className="groupFeedGroupNameWrapper"
           >
-            <strong id="GroupFeedGroupName" className="GroupFeedGroupName">
+            <strong className="groupFeedGroupName">
               {GroupName}
             </strong>
           </div>
           <div
-            id="GroupFeedCreateTimeWrapper"
-            className="GroupFeedCreateTimeWrapper"
+            className="groupFeedCreateTimeWrapper"
           >
-            <span id="GroupFeedCreateTime" className="GroupFeedCreateTime">
+            <span className="groupFeedCreateTime">
               {formatTime}
             </span>
           </div>
         </div>
-        <div id="GroupFeedBlank" className="GroupFeedBlank">
-          <div id="GroupFeedBookmark" className="GroupFeedBookmark">
+        <div className="groupFeedBlank">
+          <div className="groupFeedBookmark">
             북마크 {/* 나중에 북마크 표시 추가 */}
           </div>
         </div>
       </div>
-      <div id="GroupFeedContent" className="GroupFeedContent">
-        <div id="GroupFeedContent" className="GroupFeedContent">
+      <div className="groupFeedContent">
+        <div className="groupFeedContent">
           {content}
         </div>
       </div>
-      <div id="GroupFeedFooter" className="GroupFeedFooter">
-        <div id="GroupFeedFeedInfo" className="GroupFeedFeedInfo">
-          <div id="GroupFeedLike" className="GroupFeedLike">
-            <div id="GroupFeedLikeImg" className="GroupFeedLikeImg">
+      <div className="groupFeedFooter">
+        <div className="groupFeedFeedInfo">
+          <div className="groupFeedLike">
+            <div className="groupFeedLikeImg">
               좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
             </div>
-            <div id="GroupFeedLikeCount" className="GroupFeedLikeCount">
+            <div className="groupFeedLikeCount">
               {like}
             </div>
           </div>
-          <div id="GroupFeedComment" className="GroupFeedComment">
-            <div id="GroupFeedCommentImg" className="GroupFeedCommentImg">
+          <div className="groupFeedComment">
+            <div className="groupFeedCommentImg">
               댓글 {/*  나중에 댓글 이미지로 수정필요 */}
             </div>
-            <div id="GroupFeedCommentCount" className="GroupFeedCommentCount">
+            <div className="groupFeedCommentCount">
               {like} {/*  나중에 댓글 갯수로 수정필요 */}
             </div>
           </div>

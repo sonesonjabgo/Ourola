@@ -12,19 +12,19 @@ import { useLocation } from "react-router-dom";
 function Fanfeed() {
   return (
     <>
-      <div className="Content-container">
-        <div className="Button-createfeed-container">
+      <div className="contentContainer">
+        <div className="buttonCreatefeedContainer">
           <CreateFeedButton />
         </div>
         <Link to="/announcement">
-          <div className="OnelineAnnouncement-container">
+          <div className="onelineAnnouncementContainer">
             <AnnouncementOneline />
           </div>
         </Link>
-        <div className="Fanfeed-profile-container">
+        <div className="fanfeedProfileContainer">
           <FanFeedProfile />
         </div>
-        <div className="Fanfeed-feed-container">
+        <div className="fanfeedFeedContainer">
           <FanFeedList />
         </div>
       </div>

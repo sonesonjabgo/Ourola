@@ -14,7 +14,7 @@ const OpenNotification = () => {
     <div>
       <img
         onClick={showModal}
-        className="notification-icon"
+        className="notificationIcon"
         src={NotificationIcon}
       />
       {modalOpen && (

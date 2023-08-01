@@ -29,24 +29,24 @@ const NotificationModal = (props) => {
     }, [setModalOpen]);
   
     return (
-      <div className="CreateFeed-background">
+      <div className="createFeedBackground">
         <button
-          className="CreateFeed-close"
+          className="createFeedClose"
           onClick={closeModal}
         >
           ×
         </button>
 
-        <div ref={modalRef} className="CreateFeed-detail">
+        <div ref={modalRef} className="createFeedDetail">
           <FeedCreateModalProfile />
-          <div className="FeedCreateInput-container">
-            <div className="FeedCreateInput">
+          <div className="feedCreateInputContainer">
+            <div className="feedCreateInput">
               <FeedCreateInput />
             </div>
           </div>
-          <div className="FeedCreate-button-container">
-                <img className="FeedCreate-button-uploadfile" src={FileUploadButton} />
-                <button className="FeedCreate-button-uploadfeed">등록</button>
+          <div className="feedCreateButtonContainer">
+                <img className="feedCreateButtonUploadfile" src={FileUploadButton} />
+                <button className="feedCreateButtonUploadfeed">등록</button>
           </div>
         </div>
       </div>
