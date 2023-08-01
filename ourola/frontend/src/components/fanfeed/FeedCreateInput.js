@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../style/fanfeed/FeedCreateInput.css'
 
-const FeedCreateInput = () => {
+const FeedCreateInput = ({content, setContent}) => {
 
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
@@ -19,7 +19,7 @@ const FeedCreateInput = () => {
             onBlur = {() => {
                 setInputspace(false);
             }}
-            placeholder={isInputspaceClicked === true ? "" : "피드를 입력하세요."}>
+            placeholder={isInputspaceClicked === true ? "" : "피드를 입력하세요."} value = {content} onChange={(event) => setContent(event.target.value)}>
         </textarea>
         </>
     )
