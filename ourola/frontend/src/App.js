@@ -3,8 +3,6 @@ import { Link, Router, Routes, Route } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
-// import HeaderNoLoggedIn from "./components/header/Header_noLoggedIn";
-// import HeaderLoggedIn from "./components/header/Header_LoggedIn";
 
 // artist 선언 방식 fix 필요
 function App() {
