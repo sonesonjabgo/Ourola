@@ -4,14 +4,26 @@ import AnnouncementIcon from "../../../assets/icons/announcement.png";
 
 function AnnouncementOneline() {
   return (
-    <>
-      <div className="OnelineAnnouncement">
-        <div className="OnelineAnnouncement-icon-container">
-          <img className="Announcement-icon" src={AnnouncementIcon} />
+    <div id="announcementOneline" className="announcementOneline">
+      <div id="oneLineAnnouncement" className="oneLineAnnouncement">
+        <div
+          id="oneLineAnnouncementIconContainer"
+          className="oneLineAnnouncementIconContainer"
+        >
+          <img
+            id="announcementIcon"
+            className="announcementIcon"
+            src={AnnouncementIcon}
+          />
         </div>
-        <div className="OnelineAnnouncement-content">[여기에 DB 입력]</div>
+        <div
+          id="oneLineAnnouncementContent"
+          className="oneLineAnnouncementContent"
+        >
+          [여기에 DB 입력]
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

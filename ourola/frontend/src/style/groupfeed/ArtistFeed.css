@@ -1,4 +1,4 @@
-.ArtistFeedList {
+.artistFeedList {
   display: block;
   padding: 22px 0 60px;
   max-width: 1000px;
@@ -12,13 +12,13 @@
   z-index: 1;
 }
 
-.ArtistFeedProfile {
+.artistFeedProfile {
   align-items: center;
   display: flex;
   min-width: 0;
 }
 
-.ArtistFeedBlank {
+.artistFeedBlank {
   align-items: center;
   display: flex;
   min-width: 0;
@@ -26,7 +26,7 @@
   margin-left: auto;
 }
 
-.ArtistFeedBookmark {
+.artistFeedBookmark {
   display: block;
   flex-shrink: 0;
   background: transparent;

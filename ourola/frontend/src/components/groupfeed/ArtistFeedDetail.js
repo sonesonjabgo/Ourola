@@ -1,4 +1,4 @@
-import "../../style/artistfeed/ArtistFeedDetail.css";
+import "../../style/groupfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
@@ -53,16 +53,13 @@ const ArtistFeedDetail = (props) => {
   const clickFunction = (event) => {
     closeModal();
     // scrollToOrigin();
-  }
+  };
 
   const [comment, setComment] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8000/${id}/comment`,
-        config
-      )
+      .get(`http://localhost:8000/${id}/comment`, config)
       .then((response) => {
         setComment(response.data);
       })
@@ -76,39 +73,39 @@ const ArtistFeedDetail = (props) => {
 
   return (
     <div>
-      <div id="ArtistFeedBackGround" className="ArtistFeedBackGround">
-        <div id="ArtistFeedModal" className="ArtistFeedModal">
+      <div id="artistFeedBackGround" className="artistFeedBackGround">
+        <div id="artistFeedModal" className="artistFeedModal">
           <div
-            id="ArtistFeedContent"
-            className="ArtistFeedContent"
+            id="artistFeedContent"
+            className="artistFeedContent"
             ref={modalRef}
           >
-            <div id="ArtistFeedView" className="ArtistFeedView">
+            <div id="artistFeedView" className="artistFeedView">
               <div
-                id="ArtistFeedInfoAndContent"
-                className="ArtistFeedInfoAndContent"
+                id="artistFeedInfoAndContent"
+                className="artistFeedInfoAndContent"
               >
-                <div id="ArtistFeedHeader" className="ArtistFeedHeader">
-                  <div id="ArtistFeedInfo" className="ArtistFeedInfo">
+                <div id="artistFeedHeader" className="artistFeedHeader">
+                  <div id="artistFeedInfo" className="artistFeedInfo">
                     <div
-                      id="ArtistFeedArtistInfo"
-                      className="ArtistFeedArtistInfo"
+                      id="artistFeedArtistInfo"
+                      className="artistFeedArtistInfo"
                     >
                       <div
-                        id="ArtistFeedArtistImg"
-                        className="ArtistFeedArtistImg"
+                        id="artistFeedArtistImg"
+                        className="artistFeedArtistImg"
                       >
                         <div
-                          id="ArtistFeedArtistCircleImg"
-                          className="ArtistFeedArtistCircleImg"
+                          id="artistFeedArtistCircleImg"
+                          className="artistFeedArtistCircleImg"
                         >
                           <div
-                            id="ArtistFeedArtistCompact"
-                            className="ArtistFeedArtistCompact"
+                            id="artistFeedArtistCompact"
+                            className="artistFeedArtistCompact"
                           >
                             <img
-                              id="ArtistImg"
-                              className="ArtistImg"
+                              id="artistImg"
+                              className="artistImg"
                               src={accessImg}
                               alt="이미지 없음"
                             ></img>
@@ -117,10 +114,10 @@ const ArtistFeedDetail = (props) => {
                       </div>
                     </div>
                     <div
-                      id="ArtistFeedArtistName"
-                      className="ArtistFeedArtistName"
+                      id="artistFeedArtistName"
+                      className="artistFeedArtistName"
                     >
-                      <strong id="ArtistName" className="ArtistName">
+                      <strong id="artistName" className="artistName">
                         {artistName}
                       </strong>
                       <span id="formatTime" className="formatTime">
@@ -130,36 +127,36 @@ const ArtistFeedDetail = (props) => {
                   </div>
                 </div>
                 <div
-                  id="ArtistFeedDetailContent"
-                  className="ArtistFeedDetailContent"
+                  id="artistFeedDetailContent"
+                  className="artistFeedDetailContent"
                 >
                   <div
-                    id="ArtistScrollStart"
-                    className="ArtistScrollStart"
+                    id="artistScrollStart"
+                    className="artistScrollStart"
                   ></div>
-                  <div id="ArtistScrollContent" className="ArtistScrollContent">
+                  <div id="artistScrollContent" className="artistScrollContent">
                     {content}
                   </div>
                 </div>
                 <div
-                  id="ArtistFeedDetailFooter"
-                  className="ArtistFeedDetailFooter"
+                  id="artistFeedDetailFooter"
+                  className="artistFeedDetailFooter"
                 >
-                  <div id="ArtistFeedLikeImg">
+                  <div id="artistFeedLikeImg" className="artistFeedLikeImg">
                     좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
                   </div>
-                  <div id="ArtistFeedLikeCount" className="ArtistFeedLikeCount">
+                  <div id="artistFeedLikeCount" className="artistFeedLikeCount">
                     {like}
                   </div>
                   <div
-                    id="ArtistFeedInBookmark"
-                    className="ArtistFeedInBookmark"
+                    id="artistFeedInBookmark"
+                    className="artistFeedInBookmark"
                   >
                     북마크 {/* 나중에 북마크 표시 추가 */}
                   </div>
                 </div>
               </div>
-              <div id="ArtistFeedCommentWrap" className="ArtistFeedCommentWrap">
+              <div id="artistFeedCommentWrap" className="artistFeedCommentWrap">
                 <button
                   id="backButton"
                   className="backButton"
@@ -168,56 +165,56 @@ const ArtistFeedDetail = (props) => {
                   ⇒
                 </button>
                 <div
-                  id="ArtistFeedCommentContainer"
-                  className="ArtistFeedCommentContainer"
+                  id="artistFeedCommentContainer"
+                  className="artistFeedCommentContainer"
                 >
                   <div
-                    id="ArtistFeedCommentView"
-                    className="ArtistFeedCommentView"
+                    id="artistFeedCommentView"
+                    className="artistFeedCommentView"
                   >
                     <div
-                      id="ArtistFeedCommentTitle"
-                      className="ArtistFeedCommentTitle"
+                      id="artistFeedCommentTitle"
+                      className="artistFeedCommentTitle"
                     >
                       <div
-                        id="ArtistFeedCommentCount"
-                        className="ArtistFeedCommentCount"
+                        id="artistFeedCommentCount"
+                        className="artistFeedCommentCount"
                       >
-                        <div id="CommentCount" className="CommentCount">
+                        <div id="commentCount" className="commentCount">
                           {commentCount}개의 댓글
                         </div>
                       </div>
                     </div>
                     <div
-                      id="ArtistFeedCommentList"
-                      className="ArtistFeedCommentList"
+                      id="artistFeedCommentList"
+                      className="artistFeedCommentList"
                     >
                       hi
                     </div>
                     <div
-                      id="ArtistFeedCommentFooter"
-                      className="ArtistFeedCommentFooter"
+                      id="artistFeedCommentFooter"
+                      className="artistFeedCommentFooter"
                     >
                       <div
-                        id="ArtistFeedCommentWriteWrap"
-                        className="ArtistFeedCommentWriteWrap"
+                        id="artistFeedCommentWriteWrap"
+                        className="artistFeedCommentWriteWrap"
                       >
                         <div
-                          id="ArtistFeedCommentWrite"
-                          className="ArtistFeedCommentWrite"
+                          id="artistFeedCommentWrite"
+                          className="artistFeedCommentWrite"
                         >
                           <div
-                            id="ArtistFeedCommentInput"
-                            className="ArtistFeedCommentInput"
+                            id="artistFeedCommentInput"
+                            className="artistFeedCommentInput"
                           >
                             <textarea
-                              id="ArtistFeedCommentInputSend"
-                              className="ArtistFeedCommentInputSend"
+                              id="artistFeedCommentInputSend"
+                              className="artistFeedCommentInputSend"
                             ></textarea>
                           </div>
                           <button
-                            id="ArtistFeedCommentInputButton"
-                            className="ArtistFeedCommentInputButton"
+                            id="artistFeedCommentInputButton"
+                            className="artistFeedCommentInputButton"
                           >
                             &gt;
                           </button>
