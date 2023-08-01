@@ -78,6 +78,8 @@ function LoginBasic({ setModalOpen, onLogin }) {
             </label>
         </div>
 
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a>
+
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
