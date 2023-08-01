@@ -19,6 +19,11 @@ public class GroupServiceImpl implements GroupService {
 	private final ArtistRepository artistRepository;
 
 	@Override
+	public List<GroupDto> getAllGroup() {
+		return groupRepository.findAll();
+	}
+
+	@Override
 	public List<GroupDto> searchGroup(String groupName) {
 		return groupRepository.findByNameContains(groupName);
 	}
@@ -29,5 +34,10 @@ public class GroupServiceImpl implements GroupService {
 		GroupDto groupDto = groupRepository.findByName(groupName);
 		System.out.println(groupDto);
 		return artistRepository.findByGroupDto_IdAndIsAdminIsFalse(groupDto.getId());
+	}
+
+	@Override
+	public GroupDto writeGroup(GroupDto groupDto) {
+		return groupRepository.save(groupDto);
 	}
 }
