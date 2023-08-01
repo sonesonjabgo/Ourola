@@ -87,10 +87,8 @@ public class FileServiceImpl implements FileService {
 		return "저장완료";
 	}
 
-	public byte[] getProfileImg(String email) throws IOException {
-		Optional<FanDto> userDto = fanRepository.findByEmail(email);
-		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(
-			userDto.get().getProfileFileDto().getId());
+	public byte[] getProfileImg(int id) throws IOException {
+		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(id);
 		String filePath = profileFileDto.get().getFilePath();
 		String fileExtension = profileFileDto.get().getFileExtension();
 		File file = new File(filePath);
