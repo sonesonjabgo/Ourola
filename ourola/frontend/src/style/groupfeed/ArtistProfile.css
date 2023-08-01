@@ -1,4 +1,4 @@
-.ArtistMemberProfile {
+.artistProfile {
   height: 140px;
   position: relative;
   width: 100%;
@@ -7,13 +7,13 @@
   cursor: pointer;
 }
 
-.ArtistMemberImgWrapper {
+.artistImgWrapper {
   overflow: hidden;
   border-radius: 50%;
   border: 4px solid #b9afed;
 }
 
-.ArtistMemberImg {
+.artistImg {
   object-fit: cover;
   width: 100%;
   border: 0;
@@ -23,11 +23,11 @@
   overflow: clip;
 }
 
-.ArtistMemberName {
+.artistName {
   position: absolute;
   display: inline-block;
   bottom: -30px;
-  left: 50%;
+  left: 15px;
   transform: translateX(-50%);
   color: #000;
   font-size: 20px;

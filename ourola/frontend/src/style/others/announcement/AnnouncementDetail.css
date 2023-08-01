@@ -1,4 +1,4 @@
-.AnnouncementBackGround {
+.announcementBackGround {
   z-index: 20000;
   align-items: center;
   bottom: 0;
@@ -13,7 +13,7 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.AnnouncementDetail {
+.announcementDetail {
   display: block;
   width: 770px;
   height: 910px;
@@ -33,27 +33,27 @@
   overflow-x: hidden;
 }
 
-.AnnouncementDetail::-webkit-scrollbar {
+.announcementDetail::-webkit-scrollbar {
   width: 10px;
 }
 
-.AnnouncementDetail::-webkit-scrollbar-thumb {
+.announcementDetail::-webkit-scrollbar-thumb {
   background-color: hsla(0, 0%, 40%, 0.4);
   border-radius: 10px;
 }
 
-.AnnouncementDetail::-webkit-scrollbar-button:vertical:start:decrement,
+.announcementDetail::-webkit-scrollbar-button:vertical:start:decrement,
 .sub-menu::-webkit-scrollbar-button:vertical:start:increment {
   display: block;
   height: 20px;
 }
 
-.AnnouncementDetail::-webkit-scrollbar-button:vertical:end:decrement {
+.announcementDetail::-webkit-scrollbar-button:vertical:end:decrement {
   display: block;
   height: 20px;
 }
 
-.AnnouncementDetailClose {
+.announcementDetailClose {
   z-index: 23000;
   height: 60px;
   position: absolute;
@@ -81,25 +81,25 @@
   color: #e4e6ea;
 }
 
-.AnnouncemenDetailHeader {
+.announcemenDetailHeader {
   padding: 15px 30px 20px;
   display: block;
 }
 
-.AnnouncementDetailTitle {
+.announcementDetailTitle {
   font-size: 28px;
   line-height: 1.25;
   font-weight: bold;
 }
 
-.AnnouncementDetailTime {
+.announcementDetailTime {
   display: block;
   color: #adb1b8;
   font-size: 14px;
   line-height: 17px;
 }
 
-.AnnouncementDetailContent {
+.announcementDetailContent {
   display: block;
   width: 100%;
   max-width: 750px;

@@ -1,18 +1,18 @@
-import "../../style/artistfeed/Artist.css";
+import "../../style/groupfeed/Group.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ArtistMemberList from "./ArtistMemberList";
+import ArtistList from "./ArtistList";
 import ArtistFeed from "./ArtistFeed";
 import { useLocation } from "react-router-dom";
 
-const Artist = () => {
+const Group = () => {
   const location = useLocation();
-  const artist = location.state;
+  const group = location.state;
   const backendPort = 8000;
 
   const [loadingMember, setLodingMember] = useState(true);
   const [loadingFeed, setLodingFeed] = useState(true);
-  const [artistMember, setartistMember] = useState([]);
+  const [artist, setArtist] = useState([]);
   const [artistFeed, setArtistFeed] = useState([]);
 
   const config = {
@@ -25,12 +25,9 @@ const Artist = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:${backendPort}/search/${artist}/memberlist`,
-        config
-      )
+      .get(`http://localhost:${backendPort}/search/${group}/memberlist`, config)
       .then((response) => {
-        setartistMember(response.data);
+        setArtist(response.data);
         setLodingMember(false);
       })
       .catch((error) => {
@@ -42,7 +39,7 @@ const Artist = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/${artist}/feed/artist`, config)
+      .get(`http://localhost:${backendPort}/${group}/feed/artist`, config)
       .then((response) => {
         setArtistFeed(response.data);
         setLodingFeed(false);
@@ -55,17 +52,17 @@ const Artist = () => {
   }, []);
 
   return (
-    <div id="Artist" className="Artist">
+    <div id="group" className="group">
       {loadingMember && loadingFeed ? (
         <div></div>
       ) : (
-        <div id="ArtistContent" className="ArtistContent">
-          <ArtistMemberList artist={artist} artistMember={artistMember} />
-          <ArtistFeed artist={artist} artistFeed={artistFeed} />
+        <div id="groupContent" className="groupContent">
+          <ArtistList group={group} artist={artist} />
+          <ArtistFeed group={group} artistFeed={artistFeed} />
         </div>
       )}
     </div>
   );
 };
 
-export default Artist;
+export default Group;

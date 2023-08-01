@@ -1,17 +1,17 @@
-import "../../style/artistfeed/ArtistFeed.css";
+import "../../style/groupfeed/ArtistFeed.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ArtistFeedItem from "./ArtistFeedItem";
 
-const ArtistFeed = ({ artist, artistFeed }) => {
+const ArtistFeed = ({ group, artistFeed }) => {
   return (
-    <div id="ArtistFeedList" className="ArtistFeedList">
-      <section id="ArtistFeedBoard" className="ArtistFeedBoard">
+    <div id="artistFeedList" className="artistFeedList">
+      <section id="artistFeedBoard" className="artistFeedBoard">
         {artistFeed.map((it) => (
           <ArtistFeedItem
             key={it.id}
             id={it.id}
-            artist={artist}
+            artist={group}
             artistId={it.artistDto.id}
             artistProfileId={it.artistDto.profileFileDto.id}
             artistName={it.artistDto.name}

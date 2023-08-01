@@ -41,9 +41,9 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
   getDate[1] = getDate[1].split(".", 1);
 
   return (
-    <div id="AnnouncementItem" className="AnnouncementItem">
+    <div id="announcementItem" className="announcementItem">
       <div>
-        <div id="Title" className="Title" onClick={showModal}>
+        <div id="title" className="title" onClick={showModal}>
           {title}
         </div>
         {modalOpen && (
@@ -52,7 +52,7 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
           ></AnnouncementDetail>
         )}
       </div>
-      <div id="Date" className="Date">
+      <div id="date" className="date">
         {currentDate === getDate[0] ? getDate[1] : getDate[0]}
       </div>
     </div>

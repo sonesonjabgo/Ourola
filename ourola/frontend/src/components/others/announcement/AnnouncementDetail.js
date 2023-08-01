@@ -30,34 +30,34 @@ const AnnouncementDetail = (props) => {
   }, [setModalOpen]);
 
   return (
-    <div id="AnnouncementBackGround" className="AnnouncementBackGround">
+    <div id="announcementBackGround" className="announcementBackGround">
       <button
-        id="AnnouncementDetailClose"
-        className="AnnouncementDetailClose"
+        id="announcementDetailClose"
+        className="announcementDetailClose"
         onClick={closeModal}
       >
         ×
       </button>
       <div
         ref={modalRef}
-        id="AnnouncementDetail"
-        className="AnnouncementDetail"
+        id="announcementDetail"
+        className="announcementDetail"
       >
-        <div id="AnnouncementDetailScroll" className="AnnouncementDetailScroll">
-          <div id="AnnouncemenDetailHeader" className="AnnouncemenDetailHeader">
+        <div id="announcementDetailScroll" className="announcementDetailScroll">
+          <div id="announcemenDetailHeader" className="announcemenDetailHeader">
             <h3
-              id="AnnouncementDetailTitle"
-              className="AnnouncementDetailTitle"
+              id="announcementDetailTitle"
+              className="announcementDetailTitle"
             >
               {title}
             </h3>
-            <div id="AnnouncementDetailTime" className="AnnouncementDetailTime">
+            <div id="announcementDetailTime" className="announcementDetailTime">
               {getDate[0]} {getDate[1]}
             </div>
           </div>
           <div
-            id="AnnouncementDetailContent"
-            className="AnnouncementDetailContent"
+            id="announcementDetailContent"
+            className="announcementDetailContent"
           >
             {content}
           </div>
