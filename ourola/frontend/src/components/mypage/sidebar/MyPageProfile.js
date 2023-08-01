@@ -3,7 +3,7 @@ const MyPageProfile = ({ profileId, nickName }) => {
   const url =
     `http://localhost:${backendPort}/file/getimg/profile?id=` + profileId;
 
-  console.log(url);
+  //console.log(url);
   return (
     <div>
       <img className="profileImg" src={url} alt=""></img>
