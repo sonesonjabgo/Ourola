@@ -69,6 +69,8 @@ public class ShopServiceImpl implements ShopService {
 			ArtistDto user = artistUserRepository.findByEmail(email).get();
 			if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
 				&& user.getIsAdmin()) {    // 관리자인지
+				GroupDto groupDto = groupRepository.findByName(artist);
+				onlineConcertDto.setGroupDto(groupDto);
 				return onlineConcertRepository.save(onlineConcertDto);
 			} else {
 				throw new Exception("ERROR :: 관리자 권한입니다.");
