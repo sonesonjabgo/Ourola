@@ -91,7 +91,9 @@ public class FeedController {
 			System.out.println(feedDto);
 			Optional<String> email = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get());
 			FeedDto fanFeedDtoResult = feedService.writeFeed(group, feedDto, email.get());
-			if (!files.isEmpty()) {
+			System.out.println(files);
+			if (!(files == null)) {
+				System.out.println("없다");
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
