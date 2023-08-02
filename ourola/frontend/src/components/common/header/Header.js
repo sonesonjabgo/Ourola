@@ -54,7 +54,8 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
             <Login onLogin={onLogin} />
           )}
           {isLoggedIn ? (
-            <button>my page</button>
+            // <button >my page</button>
+            <Link to="/mypage">마이페이지</Link>
           ) : (
             <Link to="/signup">회원가입</Link>
           )}

@@ -16,7 +16,7 @@ import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
 import Header from "./components/common/header/Header";
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
-import Signup from "./components/auth/Singup";
+import Signup from "./components/auth/SignUp";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -39,7 +39,10 @@ render(
         path="/seventeen/shop/bak/detail"
         element={<ShopItemDetail />}
       ></Route>
-      <Route path="/mypage" element={<MyPage />}></Route>
+      <Route
+        path="/mypage"
+        element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
+      ></Route>
       <Route path="/signup" element={<Signup />}></Route>
     </Routes>
   </BrowserRouter>,

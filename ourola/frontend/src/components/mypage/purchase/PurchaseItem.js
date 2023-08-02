@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
-//import "../../../style/common/cards/CardItem.css";
+import "../../../style/mypage/purchase/PurchaseItem.css";
 
 const PurchaseItem = ({ item }) => {
   const [purchaseDate, setPurchaseDate] = useState(
