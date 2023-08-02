@@ -8,8 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,27 +19,35 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "file")
+@Entity(name = "shop_file")
 @Getter
 @Setter
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedFileDto {
+public class ShopFileDto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "feed_id")
-	@JsonBackReference
-	private FeedDto feedDto;
+	@JoinColumn(name = "membership_pay_id")
+	private MembershipPayDto membershipPayDto;
+
+	@ManyToOne
+	@JoinColumn(name = "online_concert_id")
+	private OnlineConcertDto onlineConcertDto;
 
 	@Column(name = "file_path")
 	private String filePath;
 
-	@Column(name = "file_extension")
-	private String fileExtension;
+	@Column(name = "is_main")
+	private Boolean isMain;
+
+	public void setIsMain() {
+		this.isMain = true;
+	}
+
 }

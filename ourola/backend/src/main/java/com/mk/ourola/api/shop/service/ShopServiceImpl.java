@@ -11,6 +11,7 @@ import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.live.onlineconcert.repository.OnlineConcertRepository;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
@@ -94,6 +95,8 @@ public class ShopServiceImpl implements ShopService {
 			ArtistDto user = artistUserRepository.findByEmail(email).get();
 			if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
 				&& user.getIsAdmin()) {    // 관리자인지
+				GroupDto groupDto = groupRepository.findByName(artist);
+				membershipPayDto.setGroupDto(groupDto);
 				return membershipPayRepository.save(membershipPayDto);
 			} else {
 				throw new Exception("ERROR :: 관리자 권한입니다.");
@@ -101,6 +104,8 @@ public class ShopServiceImpl implements ShopService {
 		} else {    // 전체 관리자인지
 			FanDto user = fanUserRepository.findByEmail(email).get();
 			if (user.isAdmin()) {
+				GroupDto groupDto = groupRepository.findByName(artist);
+				membershipPayDto.setGroupDto(groupDto);
 				return membershipPayRepository.save(membershipPayDto);
 			} else {
 				throw new Exception("ERROR :: 관리자 권한입니다.");

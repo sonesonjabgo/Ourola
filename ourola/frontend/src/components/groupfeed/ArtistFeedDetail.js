@@ -4,8 +4,6 @@ import axios from "axios";
 import ArtistFeedComment from "./ArtistFeedComment";
 
 const ArtistFeedDetail = (props) => {
-  console.log(props);
-
   const setModalOpen = props.state.setModalOpen;
 
   const closeModal = () => {
@@ -14,12 +12,11 @@ const ArtistFeedDetail = (props) => {
 
   const {
     id,
+    group,
     accessImg,
     artistName,
     formatTime,
-    title,
     content,
-    like,
     commentCount,
   } = props.state;
 
@@ -27,6 +24,11 @@ const ArtistFeedDetail = (props) => {
   const setComment = props.state.setComment;
 
   const modalRef = useRef(null);
+
+  const thisFeedLike = props.state.thisFeedLike;
+  const setThisFeedLike = props.state.setThisFeedLike;
+  const feedLikeSum = props.state.feedLikeSum;
+  const setFeedLikeSum = props.state.setFeedLikeSum;
 
   // const scrollToOrigin = () => {
   //   window.scrollTo(0, props.state.prevPos);
@@ -46,10 +48,11 @@ const ArtistFeedDetail = (props) => {
     };
   }, [setModalOpen]);
 
+  const accessToken = localStorage.getItem("Authorization");
+
   const config = {
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MTAzNywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.hdL2-Y5JJazuFuYt3MAg4tPQ1nDDIsBMVTsqvHJx3GUAnKg0SqYzm9cn1NNeoUuSRMAcaKlgJ0htZ-pbtV9wUA",
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   };
@@ -76,15 +79,31 @@ const ArtistFeedDetail = (props) => {
     try {
       const result = await axios.post(`/${id}/comment`, commentData, config);
 
-      console.log(result.data);
-
       setComment([...comment, result.data]);
     } catch (error) {
       console.error("Error fetching data : ", error);
     }
   };
 
-  console.log("");
+  const wantLike = async () => {
+    await axios.put(`/${group}/feed/${id}/like`, ``, config);
+
+    const like = feedLikeSum + 1;
+    const feedLike = !thisFeedLike;
+
+    setThisFeedLike(feedLike);
+    setFeedLikeSum(like);
+  };
+
+  const wantLikeCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/like`, ``, config);
+
+    const like = feedLikeSum - 1;
+    const feedLike = !thisFeedLike;
+
+    setThisFeedLike(feedLike);
+    setFeedLikeSum(like);
+  };
 
   return (
     <div>
@@ -159,11 +178,25 @@ const ArtistFeedDetail = (props) => {
                   id="artistFeedDetailFooter"
                   className="artistFeedDetailFooter"
                 >
-                  <div id="artistFeedLikeImg" className="artistFeedLikeImg">
-                    좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-                  </div>
+                  {thisFeedLike ? (
+                    <div
+                      id="artistFeedLikeImg"
+                      className="artistFeedLikeImg"
+                      onClick={wantLikeCancle}
+                    >
+                      좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
+                    </div>
+                  ) : (
+                    <div
+                      id="artistFeedLikeImg"
+                      className="artistFeedLikeImg"
+                      onClick={wantLike}
+                    >
+                      좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
+                    </div>
+                  )}
                   <div id="artistFeedLikeCount" className="artistFeedLikeCount">
-                    {like}
+                    {feedLikeSum}
                   </div>
                   <div
                     id="artistFeedInBookmark"
@@ -214,6 +247,9 @@ const ArtistFeedDetail = (props) => {
                         {comment.map((it) => (
                           <ArtistFeedComment
                             key={it.id}
+                            comment={comment}
+                            setComment={setComment}
+                            feedId={id}
                             id={it.id}
                             artistDto={it.artistDto}
                             fanDto={it.fanDto}
