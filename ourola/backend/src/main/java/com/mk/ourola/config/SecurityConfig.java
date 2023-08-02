@@ -23,6 +23,9 @@ import com.mk.ourola.api.common.auth.filter.CustomJsonAuthenticationFilter;
 import com.mk.ourola.api.common.auth.filter.JwtAuthenticationProcessingFilter;
 import com.mk.ourola.api.common.auth.handler.LoginFailureHandler;
 import com.mk.ourola.api.common.auth.handler.LoginSuccessHandler;
+import com.mk.ourola.api.common.auth.handler.OAuth2LoginFailureHandler;
+import com.mk.ourola.api.common.auth.handler.OAuth2LoginSuccessHandler;
+import com.mk.ourola.api.common.auth.service.CustomOAuth2UserService;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.common.auth.service.LoginService;
 import com.mk.ourola.api.fan.repository.FanRepository;
@@ -40,6 +43,9 @@ public class SecurityConfig {
 	private final FanRepository fanRepository;
 	private final ArtistRepository artistRepository;
 	private final ObjectMapper objectMapper;
+	private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+	private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
+	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -76,13 +82,13 @@ public class SecurityConfig {
 			.antMatchers("/find/**")
 			.permitAll()	// 아이디(이메일), 비밀번호 찾기 접근 가능
 			.anyRequest()
-			.authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-		//                .and()
+			.authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+			.and()
 		//== 소셜 로그인 설정 ==//
-		//                .oauth2Login()
-		//                .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
-		//                .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
-		//                .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
+		    .oauth2Login()
+			.successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
+			.failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
+			.userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
 
 		// 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
 		// 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
