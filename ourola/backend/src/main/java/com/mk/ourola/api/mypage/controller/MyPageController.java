@@ -92,14 +92,14 @@ public class MyPageController {
 
 	// 팬 개인정보
 	// 팬 개인정보 불러오기
-	@GetMapping("/userinfo")
-	public ResponseEntity<FanDto> getFanUserInfo(@RequestHeader("Authorization") String accessToken) {
-		try {
-			return new ResponseEntity<FanDto>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @GetMapping("/userinfo")
+	// public ResponseEntity<FanDto> getFanUserInfo(@RequestHeader("Authorization") String accessToken) {
+	// 	try {
+	// 		return new ResponseEntity<FanDto>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 	// 팬 닉네임 수정
 	@PutMapping("/modify/nickname")
