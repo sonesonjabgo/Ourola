@@ -2,13 +2,8 @@ import React from "react";
 import "../../style/groupfeed/ArtistProfile.css";
 
 const ArtistProfile = ({ artist, id, profileId, name }) => {
-  const backendPort = 8000;
-
   const accessImg =
-    "http://localhost:" +
-    backendPort +
-    "/file/getimg/artist-profile?id=" +
-    profileId;
+    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + id;
 
   return (
     <div id="artistProfile" className="artistProfile">

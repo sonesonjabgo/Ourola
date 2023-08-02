@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 const Group = () => {
   const location = useLocation();
   const group = location.state;
-  const backendPort = 8000;
 
   const [loadingMember, setLodingMember] = useState(true);
   const [loadingFeed, setLodingFeed] = useState(true);
@@ -25,7 +24,7 @@ const Group = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/search/${group}/memberlist`, config)
+      .get(`/search/${group}/memberlist`, config)
       .then((response) => {
         setArtist(response.data);
         setLodingMember(false);
@@ -39,7 +38,7 @@ const Group = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/${group}/feed/artist`, config)
+      .get(`/${group}/feed/artist`, config)
       .then((response) => {
         setArtistFeed(response.data);
         setLodingFeed(false);
@@ -50,6 +49,8 @@ const Group = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // console.log(artist);
 
   return (
     <div id="group" className="group">

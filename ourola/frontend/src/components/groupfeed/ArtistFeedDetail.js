@@ -4,7 +4,7 @@ import axios from "axios";
 import ArtistFeedComment from "./ArtistFeedComment";
 
 const ArtistFeedDetail = (props) => {
-  const backendPort = 8000;
+  console.log(props);
 
   const setModalOpen = props.state.setModalOpen;
 
@@ -49,7 +49,7 @@ const ArtistFeedDetail = (props) => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDkxNDExMSwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.l-ZD6rb0gBXV45Zr03kladofDhRPSvvqUKItnlVTeTDY1IMH088QfwBP0bYXnydQcfrZpMfktcrwQqWYG52VQg",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MTAzNywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.hdL2-Y5JJazuFuYt3MAg4tPQ1nDDIsBMVTsqvHJx3GUAnKg0SqYzm9cn1NNeoUuSRMAcaKlgJ0htZ-pbtV9wUA",
       "Content-Type": "application/json",
     },
   };
@@ -74,17 +74,17 @@ const ArtistFeedDetail = (props) => {
     };
 
     try {
-      const result = await axios.post(
-        `http://localhost:8000/${id}/comment`,
-        commentData,
-        config
-      );
+      const result = await axios.post(`/${id}/comment`, commentData, config);
 
-      console.log(result);
+      console.log(result.data);
+
+      setComment([...comment, result.data]);
     } catch (error) {
       console.error("Error fetching data : ", error);
     }
   };
+
+  console.log("");
 
   return (
     <div>

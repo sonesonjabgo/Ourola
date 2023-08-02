@@ -9,14 +9,14 @@ import {
   useMatch,
 } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
-import Group from "./components/groupfeed/Group";
+import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
 import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
 import Header from "./components/common/header/Header";
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
-import Signup from "./components/auth/SignUp";
+import Signup from "./components/auth/Singup";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
