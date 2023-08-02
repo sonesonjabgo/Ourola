@@ -97,9 +97,8 @@ const ArtistFeedItem = ({
   // const [prevPos, setPrevPos] = useState(-1);
 
   // const scrollToCenter = (event) => {
-  //   const offsetFromTop = event.target.getBoundingClientRect().top;
-  //   const scrollContainerHeight = window.innerHeight;
-  //   window.scrollTo(0, scrollContainerHeight / 4);
+  //   console.log("a");
+  //   window.scrollTo(0, 1000);
   // };
 
   const openModalClickFunction = (event) => {

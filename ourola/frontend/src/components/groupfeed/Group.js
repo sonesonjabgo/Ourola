@@ -51,17 +51,19 @@ const Group = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log(artist);
-
   return (
     <div id="group" className="group">
-      {loadingMember && loadingFeed ? (
-        <div></div>
-      ) : (
+      {!loadingMember && !loadingFeed ? (
         <div id="groupContent" className="groupContent">
-          <ArtistList group={group} artist={artist} />
+          <ArtistList
+            group={group}
+            setArtistFeed={setArtistFeed}
+            artist={artist}
+          />
           <ArtistFeed group={group} artistFeed={artistFeed} />
         </div>
+      ) : (
+        <div></div>
       )}
     </div>
   );
