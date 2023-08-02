@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
@@ -76,7 +78,8 @@ public class ShopController {
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
 	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
+		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto, @RequestParam
+		MultipartFile file) {
 		try {
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
 			return new ResponseEntity<>(item, HttpStatus.OK);

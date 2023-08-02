@@ -24,14 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailController {
 	private final EmailService emailService;
 
-	@GetMapping("/confirm")
-	public ResponseEntity<?> confirmEmail(@RequestParam String token) {
-		try {
-			Boolean result = emailService.verifyEmail(token);
-			return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @GetMapping("/confirm")
+	// public ResponseEntity<?> confirmEmail(@RequestParam String token) {
+	// 	try {
+	// 		Boolean result = emailService.verifyEmail(token);
+	// 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 }

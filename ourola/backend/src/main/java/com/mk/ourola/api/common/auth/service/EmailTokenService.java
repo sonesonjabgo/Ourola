@@ -33,19 +33,20 @@ public class EmailTokenService {
 		// 이메일 전송
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(receiverEmail);
-		mailMessage.setSubject("회원가입 이메일 인증");
-		mailMessage.setText("http://[서버주소]/confirm-email?token=" + emailToken.getId());
+		mailMessage.setSubject("[ourola] 이메일 인증");
+		// mailMessage.setText("http://localhost:8000/confirm-email?token=" + emailToken.getId());
+		mailMessage.setText(emailToken.getId());
 		emailSenderService.sendEmail(mailMessage);
 
 		return emailToken.getId();    // 인증메일 전송 시 토큰 반환
 	}
 
 	// 유효한 토큰 가져오기
-	public EmailTokenDto findByIdAndExpirationDateAfterAndExpired(String emailTokenId) throws Exception {
+	public Optional<EmailTokenDto> findByIdAndExpirationDateAfterAndExpired(String emailTokenId) throws Exception {
 		Optional<EmailTokenDto> emailToken = emailTokenRepository
 			.findByIdAndExpirationDateAfterAndExpired(emailTokenId, LocalDateTime.now(), false);
 
 		// 토큰이 없다면 예외 발생
-		return emailToken.orElseThrow(() -> new Exception("토큰이 존재하지 않습니다."));
+		return emailToken;
 	}
 }
