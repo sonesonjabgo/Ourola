@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class ShopController {
 
 	private final ShopServiceImpl shopService;
+	private final FileServiceImpl fileService;
 
 	// TODO: 온콘과 멤버십은 아티스트당 보통 1개씩밖에 상품이 없다 -> 굿즈나 구매 콘텐츠를 대비해서 만들어는 놓는다.
 	// 상품 전체 목록 (온콘, 멤버십)
@@ -78,10 +80,17 @@ public class ShopController {
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
 	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto, @RequestParam
-		MultipartFile file) {
+		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
+			if(!files.isEmpty()) {
+				fileService.writeShopImages(files, item, null);
+			}
+			if(!mainFile.isEmpty()) {
+				fileService.writeShopMainImages(mainFile, item, null);
+			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -91,9 +100,18 @@ public class ShopController {
 
 	@PostMapping("/membership")
 	public ResponseEntity<?> writeMembership(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
+		@RequestHeader(name = "Authorization") String accessToken, MembershipPayDto membershipPayDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
+	) {
 		try {
 			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto);
+			if(!files.isEmpty()) {
+				fileService.writeShopImages(files, null, item);
+			}
+			if(!mainFile.isEmpty()) {
+				fileService.writeShopMainImages(mainFile, null, item);
+			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
