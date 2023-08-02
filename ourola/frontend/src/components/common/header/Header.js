@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
+import Singup from "../../auth/SignUp";
 
 import "../../../style/common/header/Header_noLoggedIn.css";
 
@@ -17,6 +18,7 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
 
     // 로컬스토리지에서 Authorization 제거
     localStorage.removeItem("Authorization");
+    localStorage.removeItem("UserEmail");
 
     // App에서 prop해온 onLogout 실행
     // isLoggedIn을 false로 만든다
@@ -46,6 +48,7 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
           </div>
         </ul>
         <div className="buttons">
+          {/* <Login onLogin={onLogin}/> */}
           {isLoggedIn ? (
             <button onClick={clickLogout}>로그아웃</button>
           ) : (
@@ -57,7 +60,6 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
             <Link to="/signup">회원가입</Link>
           )}
         </div>
-        
       </div>
     </nav>
   );
