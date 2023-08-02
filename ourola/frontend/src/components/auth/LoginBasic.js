@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
 import FindEmail from './FindEmail';
+import FindPassword from './FindPassword'
 
 
 function LoginBasic({ setModalOpen, onLogin }) {
@@ -9,6 +10,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const [password, setPassword] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
+  const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
  
   // 이메일 찾기 모달 열기
   const openFindEmailModal = () => {
@@ -19,6 +21,17 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const closeFindEmailModal = () => {
     setShowFindEmailModal(false);
   };
+
+  // 비밀번호 찾기 모달 열기
+  const openFindPasswordModal = () => {
+    setShowFindPasswordModal(true);
+  };
+
+  // 비밀번호 찾기 모달 닫기
+  const closeFindPasswordModal = () => {
+    setShowFindPasswordModal(false);
+  };
+
 
 
   // 모달 끄기
@@ -91,16 +104,20 @@ function LoginBasic({ setModalOpen, onLogin }) {
                 <input type="checkbox" name="option1" value="value1"/> 자동 로그인
             </label>
         </div>
-        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a>
+        <div>
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
+        </div>
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
       </form>
       <div>
-      <a href='#' onClick={openFindEmailModal}>아이디 찾기</a>
+      <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |
       {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
-      <a href='#' onClick={openFindEmailModal}>비밀번호 찾기</a>
-      {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
+      <a href='#' onClick={openFindPasswordModal}> 비밀번호 찾기</a>
+      {showFindPasswordModal && <FindPassword onClose={closeFindPasswordModal} />}
       </div>
     </div>
   );
