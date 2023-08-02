@@ -11,7 +11,7 @@ const ArtistFeed = ({ group, artistFeed }) => {
           <ArtistFeedItem
             key={it.id}
             id={it.id}
-            artist={group}
+            group={group}
             artistId={it.artistDto.id}
             artistProfileId={it.artistDto.profileFileDto.id}
             artistName={it.artistDto.name}

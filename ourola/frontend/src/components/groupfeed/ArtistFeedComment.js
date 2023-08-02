@@ -1,15 +1,29 @@
 import "../../style/groupfeed/ArtistFeedComment.css";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
-const ArtistFeedComment = ({ id, artistDto, fanDto, createDate, content }) => {
-  let accessImg = "/file/getimg";
+const ArtistFeedComment = ({
+  comment,
+  setComment,
+  feedId,
+  id,
+  artistDto,
+  fanDto,
+  createDate,
+  content,
+}) => {
+  let accessImg = "https://i9d204.p.ssafy.io:8001/file/getimg";
   let name = "";
+  let email = "";
 
   if (artistDto === null) {
     accessImg += "/profile?id=" + fanDto.profileFileDto.id;
     name = fanDto.name;
+    email = fanDto.email;
   } else {
     accessImg += "/artist-profile?id=" + artistDto.profileFileDto.id;
     name = artistDto.name;
+    email = artistDto.email;
   }
 
   const dateObj = new Date(createDate);
@@ -21,6 +35,27 @@ const ArtistFeedComment = ({ id, artistDto, fanDto, createDate, content }) => {
   const minute = dateObj.getMinutes().toString().padStart(2, "0");
 
   const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
+
+  const accessToken = localStorage.getItem("Authorization");
+
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const removeComment = (event) => {
+    axios
+      .delete(`/${feedId}/comment/${id}`, config)
+      .then((response) => {
+        const result = comment.filter((comment) => comment.id !== id);
+        setComment(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+  };
 
   return (
     <div id="artistFeedComment" className="artistFeedComment">
@@ -78,6 +113,17 @@ const ArtistFeedComment = ({ id, artistDto, fanDto, createDate, content }) => {
             </div>
           </div>
         </div>
+        {localStorage.getItem("UserEmail") === email ? (
+          <button
+            id="artistFeedCommentUserDelete"
+            className="artistFeedCommentUserDelete"
+            onClick={removeComment}
+          >
+            x
+          </button>
+        ) : (
+          <div></div>
+        )}
       </div>
       <div>
         <div
