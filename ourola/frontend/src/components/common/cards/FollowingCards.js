@@ -1,21 +1,18 @@
 import React from "react";
 import CardItem from "./CardItem";
 import "../../../style/common/cards/Cards.css";
-import Image1 from "../../../assets/images/seventeen_profile.jpg";
 
-function FollowingCards() {
-  const cardData = [
-    {
-      src: Image1,
-      text: "SEVENTEEN",
-      path: "/seventeen/feed",
-    },
-  ];
+function FollowingCards({subGroup}) {
 
+  if (!subGroup) {
+    return null
+  }
+
+  console.log(subGroup)
   return (
     <div className="cardsContainer">
-      {cardData.map((data, i) => (
-        <CardItem key={i} src={data.src} text={data.text} path={data.path} />
+      {subGroup.map((data, i) => (
+        <CardItem key={i} src={data.path} text={data.name} path={data.name} />
       ))}
     </div>
   );

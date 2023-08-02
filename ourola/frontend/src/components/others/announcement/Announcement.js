@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 const Announcement = () => {
   const location = useLocation();
   const group = location.state;
-  const backendPort = 8000;
 
   const [loading, setLoding] = useState(true);
   const [announcementList, setAnnouncementList] = useState([]);
@@ -21,7 +20,7 @@ const Announcement = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${backendPort}/${group}/announcement/list`, config)
+      .get(`/${group}/announcement/list`, config)
       .then((response) => {
         setAnnouncementList(response.data);
         setLoding(false);

@@ -14,13 +14,8 @@ const ArtistFeedItem = ({
   like,
   createDate,
 }) => {
-  const backendPort = 8000;
-
   const accessImg =
-    "http://localhost:" +
-    backendPort +
-    "/file/getimg/artist-profile?id=" +
-    artistProfileId;
+    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
 
   const dateObj = new Date(createDate);
 
@@ -67,7 +62,7 @@ const ArtistFeedItem = ({
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzExNSwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.n_EJyQY2fG-fYM1yGoRS0n1xSGqkJpWaL5NmapGgee61VcAWPB5VcrWya3ChVcg0ZJMtB5tMY1VlSmCjkQ7hSQ",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MTAzNywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.hdL2-Y5JJazuFuYt3MAg4tPQ1nDDIsBMVTsqvHJx3GUAnKg0SqYzm9cn1NNeoUuSRMAcaKlgJ0htZ-pbtV9wUA",
       "Content-Type": "application/json",
     },
   };
@@ -76,7 +71,7 @@ const ArtistFeedItem = ({
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/${id}/comment`, config)
+      .get(`/${id}/comment`, config)
       .then((response) => {
         setComment(response.data);
       })

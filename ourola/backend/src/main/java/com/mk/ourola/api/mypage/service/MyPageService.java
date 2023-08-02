@@ -35,12 +35,12 @@ public interface MyPageService {
 
 
 	// 사용자가 구매한 모든 멤버십 불러오기
-	public List<UserMembershipInfoDto> getAllMembership(String accessToken);
+	public List<UserMembershipInfoDto> getAllMembershipPurchase(String accessToken);
 
 	//사용자가 구매한 멤버십의 가격 정보 가져오기
 	public Optional<MembershipPayDto> getMembershipPay();
 
 	// 온라인콘서트 구매 내역 가져오기
-	public List<OnlineConcertDto> getAllOnlineConcert(String accessToken);
+	public List<OnlineConcertDto> getAllOnlineConcertPurchase(String accessToken);
 
 }

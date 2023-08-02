@@ -9,14 +9,14 @@ import {
   useMatch,
 } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
-import Group from "./components/groupfeed/Group";
+import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
 import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
 import Header from "./components/common/header/Header";
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
-import Signup from "./components/auth/SignUp";
+import Signup from "./components/auth/Singup";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -33,7 +33,7 @@ render(
       <Route path="/" element={<App />}></Route>
       <Route path="/announcement" element={<Announcement />}></Route>
       <Route path="/group" element={<Group />}></Route>
-      <Route path="/seventeen/feed" element={<FanFeed />}></Route>
+      <Route path="/seventeen" element={<FanFeed />}></Route>
       <Route path="/seventeen/shop" element={<Shop />}></Route>
       <Route
         path="/seventeen/shop/bak/detail"

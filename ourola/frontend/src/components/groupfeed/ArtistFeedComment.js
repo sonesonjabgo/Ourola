@@ -1,9 +1,7 @@
 import "../../style/groupfeed/ArtistFeedComment.css";
 
 const ArtistFeedComment = ({ id, artistDto, fanDto, createDate, content }) => {
-  const backendPort = 8000;
-
-  let accessImg = "http://localhost:" + backendPort + "/file/getimg";
+  let accessImg = "/file/getimg";
   let name = "";
 
   if (artistDto === null) {
