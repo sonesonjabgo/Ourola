@@ -52,6 +52,7 @@ function FindEmail({ onClose }) {
         <input
           type='username'
           placeholder='이름'
+          className={styles.inputbox}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -59,6 +60,7 @@ function FindEmail({ onClose }) {
         <input
           type='birthday'
           placeholder='생년월일 ex) 2000-01-01'
+          className={styles.inputbox}
           maxLength='10'
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
@@ -66,11 +68,12 @@ function FindEmail({ onClose }) {
         
         <input
           type='tel'
-          placeholder='이름'
+          placeholder='번호 ex)01011112222'
+          className={styles.inputbox}
           value={tel}
           onChange={(e) => setTel(e.target.value)}
         />
-        <button type='submit'>
+        <button type='submit' className={styles.loginsubmitbutton}>
           제출하기
         </button>
       </form>
