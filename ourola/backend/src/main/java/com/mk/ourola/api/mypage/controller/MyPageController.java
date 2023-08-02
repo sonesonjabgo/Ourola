@@ -32,6 +32,21 @@ public class MyPageController {
 
 	// 개인정보 확인
 	// FIXME : 유저 DTO 수정되는 대로 다시 건드리기
+	// 사용자 정보 불러오기
+	@GetMapping("/userinfo")
+	public ResponseEntity<Object> getUserInfo(@RequestHeader("Authorization") String accessToken) {
+		try {
+			String role = myPageService.getRole(accessToken);
+			if(role.equals("USER") || role.equals("GUEST")){
+				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
+			}
+		} catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 아티스트인지 유저인지 확인하기
 	@GetMapping("/role")
 	public ResponseEntity<String> getRole(@RequestHeader("Authorization") String accessToken) {

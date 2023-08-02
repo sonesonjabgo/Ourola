@@ -83,7 +83,7 @@ public class FeedController {
 	@PostMapping("/write")
 	public ResponseEntity<FeedDto> writeFeed(
 		@PathVariable String group,
-		@RequestParam List<MultipartFile> files,
+		@RequestParam(required = false) List<MultipartFile> files,
 		FeedDto feedDto,
 		@RequestHeader(name = "Authorization") String accessToken
 	) {
