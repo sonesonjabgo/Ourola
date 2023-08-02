@@ -9,6 +9,10 @@ function App() {
   const group = "BTS";
   const [isLoggedIn, setLoggedIn] = useState(false);
 
+  useEffect(() => {
+    document.title = '꿈과희망이넘치는오로라★'
+  })
+
   // 로그인 상태 변경 함수
   const handleLoginSuccess = () => {
     setLoggedIn(true);
