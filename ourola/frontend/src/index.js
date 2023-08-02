@@ -34,9 +34,10 @@ render(
       <Route path="/announcement" element={<Announcement />}></Route>
       <Route path="/group" element={<Group />}></Route>
       <Route path="/seventeen" element={<FanFeed />}></Route>
-      <Route path="/seventeen/shop" element={<Shop />}></Route>
+      <Route path="/seventeen/shop/" element={<Shop />}></Route>
+
       <Route
-        path="/seventeen/shop/bak/detail"
+        path="/seventeen/shop*"
         element={<ShopItemDetail />}
       ></Route>
       <Route

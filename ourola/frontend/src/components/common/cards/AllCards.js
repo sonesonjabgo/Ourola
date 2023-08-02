@@ -8,7 +8,6 @@ function NewCards({allGroup}) {
     return null
   }
 
-  console.log(allGroup)
   return (
     <div className="cardsContainer">
       {allGroup.map((data, i) => (
