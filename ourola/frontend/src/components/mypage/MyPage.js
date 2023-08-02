@@ -33,7 +33,7 @@ const MyPage = () => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDkxMDU5MSwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.Z8zmWzsdbGl171mD-tKcLcTnB8Hll9LcHkOuNcw0VSuRpzN6kRg8II5QIj64pXAT-bThin9kl9YDkujOxLYEMA",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MjAzOCwiZW1haWwiOiJ3b253b29AbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIifQ.K0kec3pfFLOfLWt9C1MfFrdXHM7rGNb8MVEQgfwbb2izaUkpvYmc-oFOv-9PKWrFE0ABmyF46qE1oqGwzFbpMg",
       "Content-Type": "application/json",
     },
   };

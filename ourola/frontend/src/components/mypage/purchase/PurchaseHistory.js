@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import PurchaseItem from "./PurchaseItem";
 
 const PurchaseHistory = ({ config }) => {
-  const [purchaseList, setPurchaseList] = useState([]);
-  const [onlineConcertList, setOnlineConcertList] = useState([]);
-  const [membershipList, setMembershipList] = useState([]);
+  const [list, setList] = useState([]);
   const [loadingPurchase, setLoadingPurchase] = useState(true);
 
   const url = "http://localhost:8000";
@@ -13,8 +12,8 @@ const PurchaseHistory = ({ config }) => {
     axios
       .get(`${url}/user/purchase`, config)
       .then((response) => {
-        console.log(response.data);
-        setPurchaseList(response.data);
+        //console.log(response.data);
+        setList(response.data);
         setLoadingPurchase(false);
       })
       .catch((error) => {
@@ -28,7 +27,9 @@ const PurchaseHistory = ({ config }) => {
       <div className="purchaseTitle">
         <span>구매 내역</span>
       </div>
-      {loadingPurchase ? <></> : <></>}
+      <div>
+        {loadingPurchase ? <></> : list.map((it) => <PurchaseItem item={it} />)}
+      </div>
     </div>
   );
 };
