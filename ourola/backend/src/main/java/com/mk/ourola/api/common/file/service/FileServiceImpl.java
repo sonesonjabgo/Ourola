@@ -19,12 +19,16 @@ import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.file.repository.FeedFileRepository;
 import com.mk.ourola.api.common.file.repository.ProfileFileRepository;
+import com.mk.ourola.api.common.file.repository.ShopFileRepository;
 import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
+import com.mk.ourola.api.common.file.repository.dto.ShopFileDto;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +40,7 @@ public class FileServiceImpl implements FileService {
 	private final FeedFileRepository feedFileRepository;
 	private final ArtistRepository artistRepository;
 	private final GroupRepository groupRepository;
+	private final ShopFileRepository shopFileRepository;
 
 	@Value("${spring.servlet.multipart.location}")
 	private String FILE_PATH;
@@ -85,6 +90,54 @@ public class FileServiceImpl implements FileService {
 				.filePath(feedfile_path)
 				.fileExtension(fileExtension).build();
 			FeedFileDto save = feedFileRepository.save(feedFileDto);
+		}
+		return "저장완료";
+	}
+
+	@Override
+	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+		NoSuchAlgorithmException,
+		IOException {
+		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
+		String hashName = generateUniqueFileName(fileName);
+		String shopfile_path = FILE_PATH + "/shopMainFile/" + hashName;
+		System.out.println(shopfile_path);
+		File dest = new File(shopfile_path);
+		mainFile.transferTo(dest);
+
+		ShopFileDto shopMainFileDto = ShopFileDto.builder()
+			.membershipPayDto(membershipPayDto)
+			.onlineConcertDto(onlineConcertDto)
+			.filePath(shopfile_path)
+			.isMain(true)
+			.build();
+		ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
+
+		return "저장완료";
+	}
+
+	@Override
+	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+		NoSuchAlgorithmException,
+		IOException {
+
+		for (MultipartFile file : files) {
+			System.out.println(file.getOriginalFilename());
+			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+			// String fileExtension = getFileExtension(file.getOriginalFilename());
+			String hashName = generateUniqueFileName(fileName);
+			String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
+			System.out.println(shopfile_path);
+			File dest = new File(shopfile_path);
+			file.transferTo(dest);
+
+			ShopFileDto shopFileDto = ShopFileDto.builder()
+				.membershipPayDto(membershipPayDto)
+				.onlineConcertDto(onlineConcertDto)
+				.filePath(shopfile_path)
+				.isMain(false)
+				.build();
+			ShopFileDto save = shopFileRepository.save(shopFileDto);
 		}
 		return "저장완료";
 	}
