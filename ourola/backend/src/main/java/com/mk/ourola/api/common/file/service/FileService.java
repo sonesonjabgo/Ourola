@@ -28,4 +28,6 @@ public interface FileService {
 	public Map<String, String> writeGroupImage(MultipartFile file) throws
 		NoSuchAlgorithmException,
 		IOException;
+
+	byte[] getFeedImg(int fileId) throws IOException;
 }

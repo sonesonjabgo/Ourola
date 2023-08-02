@@ -123,6 +123,13 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
+	public byte[] getFeedImg(int fileId) throws IOException {
+		Optional<FeedFileDto> feedImg = feedFileRepository.findById(fileId);
+		File file = new File(feedImg.get().getFilePath());
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {
 		Optional<ArtistDto> artistDto = artistRepository.findById(id);
 		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
