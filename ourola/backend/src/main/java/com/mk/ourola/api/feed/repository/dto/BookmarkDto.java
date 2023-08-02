@@ -1,4 +1,4 @@
-package com.mk.ourola.api.mypage.repository.dto;
+package com.mk.ourola.api.feed.repository.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,21 +8,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.mk.ourola.api.fan.repository.dto.FanDto;
-import com.mk.ourola.api.feed.repository.dto.FeedDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "bookmark")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class BookMarkDto {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Builder
+@AllArgsConstructor
+@Entity(name = "bookmark")
+public class BookmarkDto {
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne

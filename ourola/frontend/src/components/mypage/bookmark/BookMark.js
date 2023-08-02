@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 
-const BookMark = ({ config }) => {
-  useEffect(() => {
-    console.log(config);
-  });
+const BookMark = ({ accessToken }) => {
+  //useEffect(() => {});
   return <div></div>;
 };
 

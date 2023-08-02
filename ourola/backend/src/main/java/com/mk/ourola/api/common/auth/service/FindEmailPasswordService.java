@@ -5,5 +5,9 @@ import com.mk.ourola.api.common.auth.repository.FindEmailDto;
 public interface FindEmailPasswordService {
 	public String findEmail(FindEmailDto findEmailDto) throws Exception;
 
+	public void findPassword(String email) throws Exception;
 
+	public boolean verifyToken(String token) throws Exception;
+
+	public void modifyPassword(String email, String newPassword) throws Exception;
 }

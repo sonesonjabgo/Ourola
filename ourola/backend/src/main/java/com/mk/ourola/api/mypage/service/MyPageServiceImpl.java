@@ -13,11 +13,9 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.BillRepository;
-import com.mk.ourola.api.mypage.repository.BookMarkRepository;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
 import com.mk.ourola.api.mypage.repository.UserMembershipInfoRepository;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 
@@ -31,7 +29,6 @@ public class MyPageServiceImpl implements MyPageService {
 	private final ArtistRepository artistRepository;
 
 	private final BillRepository billRepository;
-	private final BookMarkRepository bookMarkRepository;
 
 	private final UserMembershipInfoRepository userMembershipInfoRepository;
 	private final MembershipPayRepository membershipPayRepository;
@@ -111,18 +108,12 @@ public class MyPageServiceImpl implements MyPageService {
 
 	// 전체 구매 내역 가져오기
 	public List<BillDto> getAllBill(String accessToken) {
-		Optional<FanDto> user = fanRepository.findById(jwtService.accessTokenToUserId(accessToken));
-		return user.map(fanUserDto -> billRepository.findByFanDto_Id(fanUserDto.getId())).orElse(null);
+		return billRepository.findByFanDto_Id(jwtService.accessTokenToUserId(accessToken));
 	}
 
-	// 북마크 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String accessToken) {
-		Optional<FanDto> user = fanRepository.findById(jwtService.accessTokenToUserId(accessToken));
-		return bookMarkRepository.findByFanDto_Id(user.get().getId());
-	}
 
 	// 사용자가 가입한 전체 멤버십 구매 내역 가져오기
-	public List<UserMembershipInfoDto> getAllMembership(String accessToken) {
+	public List<UserMembershipInfoDto> getAllMembershipPurchase(String accessToken) {
 		Optional<FanDto> user = fanRepository.findById(jwtService.accessTokenToUserId(accessToken));
 		return userMembershipInfoRepository.findByFanDto_Id(user.get().getId());
 	}
@@ -134,7 +125,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 사용자가 구매한 온라인콘서트 전체 내역 가져오기
-	public List<OnlineConcertDto> getAllOnlineConcert(String accessToken) {
+	public List<OnlineConcertDto> getAllOnlineConcertPurchase(String accessToken) {
 		int uid = jwtService.accessTokenToUserId(accessToken);
 		List<BillDto> onlineConcert = billRepository.findByFanDto_IdAndOnlineConcertDto_IdIsNotNull(uid);
 		if (!onlineConcert.isEmpty()) {

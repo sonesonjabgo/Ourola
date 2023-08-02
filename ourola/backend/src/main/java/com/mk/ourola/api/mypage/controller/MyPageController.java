@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
+import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 import com.mk.ourola.api.mypage.service.MyPageServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -109,22 +110,32 @@ public class MyPageController {
 		}
 	}
 
-	// 북마크 내역 불러오기
-	@GetMapping("/bookmark")
-	public ResponseEntity<List<BookMarkDto>> getAllBookMark() {
+	// 모든 구매 내역 불러옴
+	@GetMapping("/purchase")
+	public ResponseEntity<List<BillDto>> getAllBill(@RequestHeader("Authorization") String accessToken) {
 		try {
-			return new ResponseEntity<List<BookMarkDto>>(myPageService.getAllBookMark("김싸피"), HttpStatus.OK);
+			return new ResponseEntity<List<BillDto>>(myPageService.getAllBill(accessToken), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	// 모든 구매 내역 불러옴
-	@GetMapping("/contents")
-	public ResponseEntity<List<BillDto>> getAllBill() {
+	// 멤버십 구매 내역 불러음
+	@GetMapping("/purchase/membership")
+	public ResponseEntity<List<UserMembershipInfoDto>> getAllMembershipPurchase(@RequestHeader("Authorization") String accessToken) {
 		try {
-			return new ResponseEntity<List<BillDto>>(myPageService.getAllBill("김싸피"), HttpStatus.OK);
+			return new ResponseEntity<List<UserMembershipInfoDto>>(myPageService.getAllMembershipPurchase(accessToken), HttpStatus.OK);
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 온라인 콘서트 구매 내역 불러옴
+	@GetMapping("/purchase/online-concert")
+	public ResponseEntity<List<OnlineConcertDto>> getAllOnlineConcertPurchase(@RequestHeader("Authorization") String accessToken){
+		try {
+			return new ResponseEntity<List<OnlineConcertDto>>(myPageService.getAllOnlineConcertPurchase(accessToken), HttpStatus.OK);
+		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

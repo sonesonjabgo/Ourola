@@ -1,9 +1,10 @@
 import "../../style/groupfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import ArtistFeedComment from "./ArtistFeedComment";
 
 const ArtistFeedDetail = (props) => {
-  const backendPort = 8000;
+  console.log(props);
 
   const setModalOpen = props.state.setModalOpen;
 
@@ -21,6 +22,9 @@ const ArtistFeedDetail = (props) => {
     like,
     commentCount,
   } = props.state;
+
+  const comment = props.state.comment;
+  const setComment = props.state.setComment;
 
   const modalRef = useRef(null);
 
@@ -45,31 +49,42 @@ const ArtistFeedDetail = (props) => {
   const config = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDg4NzExNSwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.n_EJyQY2fG-fYM1yGoRS0n1xSGqkJpWaL5NmapGgee61VcAWPB5VcrWya3ChVcg0ZJMtB5tMY1VlSmCjkQ7hSQ",
+        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MTAzNywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.hdL2-Y5JJazuFuYt3MAg4tPQ1nDDIsBMVTsqvHJx3GUAnKg0SqYzm9cn1NNeoUuSRMAcaKlgJ0htZ-pbtV9wUA",
       "Content-Type": "application/json",
     },
   };
 
-  const clickFunction = (event) => {
+  const closeModalClickFunction = (event) => {
     closeModal();
     // scrollToOrigin();
   };
 
-  const [comment, setComment] = useState([]);
+  const [saveContent, setSaveContent] = useState("");
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/${id}/comment`, config)
-      .then((response) => {
-        setComment(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data : ", error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const contentValueChange = (event) => {
+    setSaveContent(event.target.value);
+  };
 
-  console.log(comment);
+  const commentPostFunction = async (event) => {
+    const commentData = {
+      feedDto: {
+        id: id,
+      },
+      content: saveContent,
+    };
+
+    try {
+      const result = await axios.post(`/${id}/comment`, commentData, config);
+
+      console.log(result.data);
+
+      setComment([...comment, result.data]);
+    } catch (error) {
+      console.error("Error fetching data : ", error);
+    }
+  };
+
+  console.log("");
 
   return (
     <div>
@@ -114,13 +129,19 @@ const ArtistFeedDetail = (props) => {
                       </div>
                     </div>
                     <div
-                      id="artistFeedArtistName"
-                      className="artistFeedArtistName"
+                      id="artistFeedArtistDetailName"
+                      className="artistFeedArtistDetailName"
                     >
-                      <strong id="artistName" className="artistName">
+                      <strong
+                        id="artistFeedArtistDetailNameInfo"
+                        className="artistFeedArtistDetailNameInfo"
+                      >
                         {artistName}
                       </strong>
-                      <span id="formatTime" className="formatTime">
+                      <span
+                        id="artistFeedArtistDetailFormatDateInfo"
+                        className="artistFeedArtistDetailFormatDateInfo"
+                      >
                         {formatTime}
                       </span>
                     </div>
@@ -130,10 +151,6 @@ const ArtistFeedDetail = (props) => {
                   id="artistFeedDetailContent"
                   className="artistFeedDetailContent"
                 >
-                  <div
-                    id="artistScrollStart"
-                    className="artistScrollStart"
-                  ></div>
                   <div id="artistScrollContent" className="artistScrollContent">
                     {content}
                   </div>
@@ -160,7 +177,7 @@ const ArtistFeedDetail = (props) => {
                 <button
                   id="backButton"
                   className="backButton"
-                  onMouseUp={clickFunction}
+                  onMouseUp={closeModalClickFunction}
                 >
                   ⇒
                 </button>
@@ -189,7 +206,22 @@ const ArtistFeedDetail = (props) => {
                       id="artistFeedCommentList"
                       className="artistFeedCommentList"
                     >
-                      hi
+                      <div
+                        id="artistFeedScrollStart"
+                        className="artistFeedScrollStart"
+                      ></div>
+                      <div id="aristFeedScrollCommentList">
+                        {comment.map((it) => (
+                          <ArtistFeedComment
+                            key={it.id}
+                            id={it.id}
+                            artistDto={it.artistDto}
+                            fanDto={it.fanDto}
+                            createDate={it.createDate}
+                            content={it.content}
+                          ></ArtistFeedComment>
+                        ))}
+                      </div>
                     </div>
                     <div
                       id="artistFeedCommentFooter"
@@ -210,11 +242,15 @@ const ArtistFeedDetail = (props) => {
                             <textarea
                               id="artistFeedCommentInputSend"
                               className="artistFeedCommentInputSend"
+                              value={saveContent}
+                              onChange={contentValueChange}
+                              placeholder="댓글을 입력하세요."
                             ></textarea>
                           </div>
                           <button
                             id="artistFeedCommentInputButton"
                             className="artistFeedCommentInputButton"
+                            onClick={commentPostFunction}
                           >
                             &gt;
                           </button>

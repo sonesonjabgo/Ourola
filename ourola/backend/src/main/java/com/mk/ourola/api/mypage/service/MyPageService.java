@@ -7,7 +7,6 @@ import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
-import com.mk.ourola.api.mypage.repository.dto.BookMarkDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 
@@ -34,16 +33,14 @@ public interface MyPageService {
 	// 사용자가 구매한 모든 구매내역 가져오기
 	public List<BillDto> getAllBill(String accessToken);
 
-	// 사용자가 북마크한 모든 내역 가져오기
-	public List<BookMarkDto> getAllBookMark(String accessToken);
 
 	// 사용자가 구매한 모든 멤버십 불러오기
-	public List<UserMembershipInfoDto> getAllMembership(String accessToken);
+	public List<UserMembershipInfoDto> getAllMembershipPurchase(String accessToken);
 
 	//사용자가 구매한 멤버십의 가격 정보 가져오기
 	public Optional<MembershipPayDto> getMembershipPay();
 
 	// 온라인콘서트 구매 내역 가져오기
-	public List<OnlineConcertDto> getAllOnlineConcert(String accessToken);
+	public List<OnlineConcertDto> getAllOnlineConcertPurchase(String accessToken);
 
 }
