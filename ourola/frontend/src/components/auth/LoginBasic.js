@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
+import FindEmail from './FindEmail';
+
 
 function LoginBasic({ setModalOpen, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showFindEmailModal, setShowFindEmailModal] = useState(false);
+ 
+  // 이메일 찾기 모달 열기
+  const openFindEmailModal = () => {
+    setShowFindEmailModal(true);
+  };
+
+  // 이메일 찾기 모달 닫기
+  const closeFindEmailModal = () => {
+    setShowFindEmailModal(false);
+  };
+
 
   // 모달 끄기
   const closeModal = () => {
@@ -77,13 +91,17 @@ function LoginBasic({ setModalOpen, onLogin }) {
                 <input type="checkbox" name="option1" value="value1"/> 자동 로그인
             </label>
         </div>
-
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a>
-
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
       </form>
+      <div>
+      <a href='#' onClick={openFindEmailModal}>아이디 찾기</a>
+      {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
+      <a href='#' onClick={openFindEmailModal}>비밀번호 찾기</a>
+      {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
+      </div>
     </div>
   );
 }

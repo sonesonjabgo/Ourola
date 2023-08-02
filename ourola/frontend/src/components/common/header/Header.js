@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
-import Singup from "../../auth/SignUp";
 
 import "../../../style/common/header/Header_noLoggedIn.css";
 
@@ -47,7 +46,6 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
           </div>
         </ul>
         <div className="buttons">
-          {/* <Login onLogin={onLogin}/> */}
           {isLoggedIn ? (
             <button onClick={clickLogout}>로그아웃</button>
           ) : (
@@ -59,6 +57,7 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
             <Link to="/signup">회원가입</Link>
           )}
         </div>
+        
       </div>
     </nav>
   );
