@@ -1,20 +1,16 @@
-import React from 'react'
-import '../../style/shop/ShopItem.css'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../style/shop/ShopItem.css";
 
-const ShopItem = ({path, src, text}) => {
-    return (
-        <>
-        <Link to={path} className="stuffDetailLink">
-        <div className="card">
-            <img src={src} alt={text} />
-            <div className="cardInfo">
-                <p className="text">{text}</p>
-            </div>
-        </div>
-        </Link>
-        </>
-    )
-}
+const ShopItem = ({ src, text, path }) => (
+  <Link to={path} className="groupLink">
+    <div className="card">
+      <img src={src} alt={text} />
+      <div className="cardInfo">
+        <p className="text">{text}</p>
+      </div>
+    </div>
+  </Link>
+);
 
-export default ShopItem
+export default ShopItem;

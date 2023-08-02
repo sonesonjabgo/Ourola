@@ -33,7 +33,7 @@ render(
       <Route path="/" element={<App />}></Route>
       <Route path="/announcement" element={<Announcement />}></Route>
       <Route path="/group" element={<Group />}></Route>
-      <Route path="/seventeen/feed" element={<FanFeed />}></Route>
+      <Route path="/seventeen" element={<FanFeed />}></Route>
       <Route path="/seventeen/shop" element={<Shop />}></Route>
       <Route
         path="/seventeen/shop/bak/detail"
