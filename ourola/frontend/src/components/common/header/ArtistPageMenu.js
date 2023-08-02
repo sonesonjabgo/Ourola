@@ -15,7 +15,7 @@ function GroupPageMenu() {
   const isGroupPageMatch = match("/seventeen/:subpath*");
   const isGroupPage = isGroupPageMatch(location.pathname);
 
-  const isFanFeed = location.pathname.startsWith("/seventeen/feed");
+  const isFanFeed = location.pathname.startsWith("/seventeen") && !location.pathname.startsWith("/seventeen/shop");
   const isShop = location.pathname.startsWith("/seventeen/shop");
 
   let [isSearchbarClicked, setSearchInput] = useState(false);
