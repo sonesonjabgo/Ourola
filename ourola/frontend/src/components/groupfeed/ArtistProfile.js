@@ -3,7 +3,7 @@ import "../../style/groupfeed/ArtistProfile.css";
 
 const ArtistProfile = ({ artist, id, profileId, name }) => {
   const accessImg =
-    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + id;
+    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + profileId;
 
   return (
     <div id="artistProfile" className="artistProfile">

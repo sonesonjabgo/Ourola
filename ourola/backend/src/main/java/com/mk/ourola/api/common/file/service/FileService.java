@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 public interface FileService {
 	public FanDto writeProfileImage(MultipartFile file, String email) throws
@@ -21,6 +23,14 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
+	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+		NoSuchAlgorithmException,
+		IOException;
+
+	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+		NoSuchAlgorithmException,
+		IOException;
+
 	public byte[] getArtistProfileImg(int id) throws IOException;
 
 	public byte[] getGroupImg(String filePath) throws IOException;
@@ -28,4 +38,6 @@ public interface FileService {
 	public Map<String, String> writeGroupImage(MultipartFile file) throws
 		NoSuchAlgorithmException,
 		IOException;
+
+	byte[] getFeedImg(int fileId) throws IOException;
 }

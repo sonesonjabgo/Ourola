@@ -39,7 +39,10 @@ render(
         path="/seventeen/shop/bak/detail"
         element={<ShopItemDetail />}
       ></Route>
-      <Route path="/mypage" element={<MyPage />}></Route>
+      <Route
+        path="/mypage"
+        element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
+      ></Route>
       <Route path="/signup" element={<Signup />}></Route>
     </Routes>
   </BrowserRouter>,

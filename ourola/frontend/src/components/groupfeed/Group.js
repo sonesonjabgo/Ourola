@@ -14,10 +14,11 @@ const Group = () => {
   const [artist, setArtist] = useState([]);
   const [artistFeed, setArtistFeed] = useState([]);
 
+  const accessToken = localStorage.getItem("Authorization");
+
   const config = {
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDgwNTU0NCwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.P8Owz0BvEbJWF6Fp06GLDbVWXLxWAGZ6fNp8nTnnL6O0jXda6El_SPKsqL5Z2vT8gIX4QOiSmjBCKmIN3bd4jw",
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   };

@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ArtistFeedItem = ({
   id,
-  artist,
+  group,
   artistId,
   artistProfileId,
   artistName,
@@ -33,36 +33,11 @@ const ArtistFeedItem = ({
     setModalOpen(true);
   };
 
-  // 좋아요 기능 수정 필요
-  // const [loading, setLoding] = useState(true);
-  // const [likeList, setLikeList] = useState(true);
-
-  // const config = {
-  //   headers: {
-  //     Authorization:
-  //       "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDc2MjgzNiwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.fNnUPvVsJPlOxollDYRcvneC9DW9-wa26OdcnfhLAjAYcJ_zSADfmubeZade8MRO5vDLGxb9_U5jXfIqaOlyNw",
-  //     "Content-Type": "application/json",
-  //   },
-  // };
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:${backendPort}/${artist}/feed/like/list`, config)
-  //     .then((response) => {
-  //       setLikeList(response.data);
-  //       setLoding(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data : ", error);
-  //       setLoding(false);
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const accessToken = localStorage.getItem("Authorization");
 
   const config = {
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDk3MTAzNywiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.hdL2-Y5JJazuFuYt3MAg4tPQ1nDDIsBMVTsqvHJx3GUAnKg0SqYzm9cn1NNeoUuSRMAcaKlgJ0htZ-pbtV9wUA",
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   };
@@ -82,6 +57,42 @@ const ArtistFeedItem = ({
   }, []);
 
   const commentCount = comment.length;
+
+  const [thisFeedLike, setThisFeedLike] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/feed/${id}/like`, config)
+      .then((response) => {
+        setThisFeedLike(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [feedLikeSum, setFeedLikeSum] = useState(like);
+
+  const wantLike = async () => {
+    await axios.put(`/${group}/feed/${id}/like`, ``, config);
+
+    const like = feedLikeSum + 1;
+    const feedLike = !thisFeedLike;
+
+    setThisFeedLike(feedLike);
+    setFeedLikeSum(like);
+  };
+
+  const wantLikeCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/like`, ``, config);
+
+    const like = feedLikeSum - 1;
+    const feedLike = !thisFeedLike;
+
+    setThisFeedLike(feedLike);
+    setFeedLikeSum(like);
+  };
 
   // const [prevPos, setPrevPos] = useState(-1);
 
@@ -140,14 +151,16 @@ const ArtistFeedItem = ({
             state={{
               setModalOpen,
               setComment,
+              setThisFeedLike,
+              setFeedLikeSum,
               id,
-              artist,
+              group,
               accessImg,
               artistName,
               formatTime,
-              title,
               content,
-              like,
+              thisFeedLike,
+              feedLikeSum,
               commentCount,
               // prevPos,
               comment,
@@ -161,11 +174,25 @@ const ArtistFeedItem = ({
       <div id="artistFeedFooter" className="artistFeedFooter">
         <div id="artistFeedFeedInfo" className="artistFeedFeedInfo">
           <div id="artistFeedLike" className="artistFeedLike">
-            <div id="artistFeedLikeImg" className="artistFeedLikeImg">
-              좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-            </div>
+            {thisFeedLike ? (
+              <div
+                id="artistFeedLikeImg"
+                className="artistFeedLikeImg"
+                onClick={wantLikeCancle}
+              >
+                좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
+              </div>
+            ) : (
+              <div
+                id="artistFeedLikeImg"
+                className="artistFeedLikeImg"
+                onClick={wantLike}
+              >
+                좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
+              </div>
+            )}
             <div id="artistFeedLikeCount" className="artistFeedLikeCount">
-              {like}
+              {feedLikeSum}
             </div>
           </div>
           <div id="artistFeedComment" className="artistFeedComment">

@@ -1,7 +1,9 @@
 package com.mk.ourola.api.feed.repository.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
@@ -71,4 +76,7 @@ public class FeedDto {
 	@Column(name = "comment_count")
 	private Integer commentCount;
 
+	@OneToMany(mappedBy = "feedDto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<FeedFileDto> files;
 }

@@ -1,7 +1,63 @@
-.MyPageHome {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  min-height: 500px;
+.myPageHome {
+  display: block;
+  position: absolute;
+  margin-top: 100px;
+  width: 100%;
+  background-color: #f5f7fa;
+}
+
+.myPageHeader {
+  background-color: #444;
+  display: block;
+  height: 120px;
+}
+
+.userNickName {
+  margin: 0;
+}
+
+.userEmail {
+  margin: 0;
+}
+
+.myPageBody {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  margin-top: 50px;
+  margin-left: 12%;
+  margin-right: 10%;
+}
+
+.myPageSideBar {
+  width: 330px;
+  height: 400px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.myPageProfile {
+  background-color: #eee7fb;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  border-radius: 30px;
+}
+
+.myPageMenu {
+  background-color: rgb(240, 240, 240);
+  border-radius: 30px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.myPageMain {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.myPageMainTitle {
+  margin-bottom: 20px;
+  font-size: 27px;
 }
