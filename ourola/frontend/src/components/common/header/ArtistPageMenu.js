@@ -27,7 +27,7 @@ function GroupPageMenu() {
           <div className="groupPageMenuSpacer"></div>
           <div className="groupPageMenuButtonContainer">
               <NavLink
-                to="/seventeen/feed"
+                to="/seventeen"
                 style={isFanFeed ? activeStyle : {}}
               >
                 팬 피드
