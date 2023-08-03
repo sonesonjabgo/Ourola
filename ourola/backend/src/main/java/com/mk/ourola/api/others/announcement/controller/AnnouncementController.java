@@ -1,5 +1,8 @@
-package com.mk.ourola.api.others.announcement.controller;
+package com.mk.ourola.api.others.controller;
 
+import java.util.List;
+
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
-import com.mk.ourola.api.others.announcement.service.AnnouncementServiceImpl;
+import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.service.AnnouncementServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
