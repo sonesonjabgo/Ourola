@@ -1,24 +1,20 @@
 import React from 'react'
 import '../../style/shop/ShopItemList.css'
-import Image1 from '../../assets/images/bak.png'
 import ShopItem from './ShopItem'
 
-const ShopItemList = () => {
-    const cardData = [
-        {
-          src: Image1,
-          text: 'Bak',
-          path: 'bak/detail/',
-        },
-      ];
+function ShopItemList({allStuff}) {
 
-    return (
-        <div className="cardsContainer">
-        {cardData.map((data, i) => (
-            <ShopItem key={i} src={data.src} text={data.text} path={data.path} />
-        ))}
-      </div>
-    )
+  if (!allStuff) {
+    return null
+  }
+
+  return (
+    <div className="cardsContainer">
+      {allStuff.map((data, i) => (
+        <ShopItem key={i} src={data.src} title={data.title} path={data.id} price={data.price} />
+      ))}
+    </div>
+  );
 }
 
-export default ShopItemList
+export default ShopItemList;

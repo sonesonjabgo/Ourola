@@ -8,7 +8,6 @@ function NotFollowingCards({notSubGroup}) {
     return null
   }
 
-  console.log(notSubGroup)
   return (
     <div className="cardsContainer">
       {notSubGroup.map((data, i) => (

@@ -75,6 +75,18 @@ public class FileController {
 		}
 	}
 
+	@GetMapping("/getimg/feed-img")
+	public ResponseEntity<?> getFeedImg(@RequestParam int id) {
+		try {
+			byte[] profileImg = fileService.getFeedImg(id);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	@GetMapping("/getimg/artist-profile")
 	public ResponseEntity<?> getArtistProfileImg(@RequestParam int id) {
 		try {

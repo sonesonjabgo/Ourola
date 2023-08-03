@@ -1,3 +1,4 @@
+import "../../../style/others/announcement/Announcement.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
@@ -8,29 +9,102 @@ const Announcement = () => {
   const group = location.state;
 
   const [loading, setLoding] = useState(true);
-  const [announcementList, setAnnouncementList] = useState([]);
+  const [announcementList, setAnnouncementList] = useState({});
+  const [announcementTotalPages, setAnnouncementTotalPages] = useState(0);
+  const [announcementStartIndex, setAnnouncementStartIndex] = useState(0);
+  const [announcementEnd, setAnnouncementEnd] = useState(false);
+  const accessToken = localStorage.getItem("Authorization");
 
   const config = {
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5MDgwNTU0NCwiZW1haWwiOiJKSU1JTkBuYXZlci5jb20iLCJyb2xlIjoiVVNFUiJ9.P8Owz0BvEbJWF6Fp06GLDbVWXLxWAGZ6fNp8nTnnL6O0jXda6El_SPKsqL5Z2vT8gIX4QOiSmjBCKmIN3bd4jw",
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   };
 
   useEffect(() => {
     axios
-      .get(`/${group}/announcement/list`, config)
+      .get(`/${group}/announcement/list?page=0`, config)
       .then((response) => {
-        setAnnouncementList(response.data);
+        setAnnouncementList(response.data.content);
+        setAnnouncementTotalPages(response.data.totalPages);
+        setAnnouncementStartIndex(
+          Number.toFixed((response.data.totalPages - 1) / 5)
+        );
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
         setLoding(false);
       })
       .catch((error) => {
         console.error("Error fetching data : ", error);
         setLoding(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(announcementList);
+  console.log(announcementTotalPages);
+  console.log(announcementStartIndex);
+  console.log(announcementEnd);
+
+  const prevClick = () => {
+    axios
+      .get(
+        `/${group}/announcement/list?page=${announcementStartIndex - 5}`,
+        config
+      )
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
+        setAnnouncementStartIndex(announcementStartIndex - 5);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
+
+  const numberClick = (page) => {
+    axios
+      .get(`/${group}/announcement/list?page=${page - 1}`, config)
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
+
+  const nextClick = () => {
+    axios
+      .get(
+        `/${group}/announcement/list?page=${announcementStartIndex + 5}`,
+        config
+      )
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
+        setAnnouncementStartIndex(announcementStartIndex + 5);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
 
   return (
     <div id="announcement" className="announcement">
@@ -38,7 +112,51 @@ const Announcement = () => {
         {loading ? (
           <div></div>
         ) : (
-          <AnnouncementList announcementList={announcementList} />
+          <div>
+            <AnnouncementList announcementList={announcementList} />
+            <div id="pagingWrapperParent" className="pagingWrapperParent">
+              <div id="pagingWrapper" className="pagingWrapper">
+                {announcementStartIndex > 0 && (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    onClick={prevClick}
+                  >
+                    &lt;
+                  </button>
+                )}
+
+                {Array.from(
+                  {
+                    length:
+                      (announcementTotalPages - announcementStartIndex) / 5 > 1
+                        ? 5
+                        : announcementTotalPages - announcementStartIndex,
+                  },
+                  (_, index) => announcementStartIndex + index + 1
+                ).map((page) => (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    key={page}
+                    onClick={() => numberClick(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                {announcementStartIndex + 5 < announcementTotalPages && (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    onClick={nextClick}
+                  >
+                    &gt;
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

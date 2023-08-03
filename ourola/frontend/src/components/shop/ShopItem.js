@@ -2,12 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../style/shop/ShopItem.css";
 
-const ShopItem = ({ src, text, path }) => (
-  <Link to={path} className="groupLink">
+const ShopItem = ({ src, title, path, price }) => (
+  <Link to={`/seventeen/shop/${path}`} className="groupLink">
     <div className="card">
-      <img src={src} alt={text} />
+      <img src={src} alt={title} />
       <div className="cardInfo">
-        <p className="text">{text}</p>
+        <p className="text">{title}</p>
+        <p className="text">￦{price}</p>
+
       </div>
     </div>
   </Link>

@@ -1,11 +1,38 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
+import FindEmail from './FindEmail';
+import FindPassword from './FindPassword'
+
 
 function LoginBasic({ setModalOpen, onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showFindEmailModal, setShowFindEmailModal] = useState(false);
+  const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
+ 
+  // 이메일 찾기 모달 열기
+  const openFindEmailModal = () => {
+    setShowFindEmailModal(true);
+  };
+
+  // 이메일 찾기 모달 닫기
+  const closeFindEmailModal = () => {
+    setShowFindEmailModal(false);
+  };
+
+  // 비밀번호 찾기 모달 열기
+  const openFindPasswordModal = () => {
+    setShowFindPasswordModal(true);
+  };
+
+  // 비밀번호 찾기 모달 닫기
+  const closeFindPasswordModal = () => {
+    setShowFindPasswordModal(false);
+  };
+
+
 
   // 모달 끄기
   const closeModal = () => {
@@ -22,25 +49,30 @@ function LoginBasic({ setModalOpen, onLogin }) {
       password: password,
     };
 
-    axios.post('/login', data)
-      .then(response => {
-       // 현재 백에서 토큰을 headers에 담아서 보내줘서 아래와 같이 작성해야 함.
-        const accessToken  = response.headers['authorization'];
+    axios
+      .post("/login", data)
+      .then((response) => {
+        // 현재 백에서 토큰을 headers에 담아서 보내줘서 아래와 같이 작성해야 함.
+        const accessToken = response.headers["authorization"];
 
-       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        axios.defaults.headers.common['Authorization'] = `Bearer ${ accessToken }`;
-        
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+
         // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
         onLogin();
 
         // 로컬 스토리지에 accessToken 저장
-        localStorage.setItem('Authorization', accessToken);
+        localStorage.setItem("UserEmail", email);
+        localStorage.setItem("Authorization", accessToken);
 
         return response.data;
-    }).catch((e) => {
+      })
+      .catch((e) => {
         console.log(e.response.data);
         setShowErrorMessage(true);
-    });
+      });
   };
 
   return (
@@ -52,38 +84,52 @@ function LoginBasic({ setModalOpen, onLogin }) {
       <p className={styles.logintitle}>로그인</p>
 
       {/* {showErrorMessage && <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p>} */}
-      {showErrorMessage ? <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p> : <p></p>}
-      
+      {showErrorMessage ? (
+        <p className={styles.errormessage}>
+          아이디 혹은 비밀번호를 잘못 입력 했습니다.
+        </p>
+      ) : (
+        <p></p>
+      )}
+
       <form onSubmit={handleSubmit}>
         <input
-          type='email'
+          type="email"
           className={styles.inputbox}
-          placeholder='email'
+          placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type='password'
+          type="password"
           className={styles.inputbox}
-          placeholder='password'
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className={styles.checkbox}>
-            <label>
-                <input type="checkbox" name="option1" value="value1"/> 아이디 저장
-            </label>
-            <label>
-                <input type="checkbox" name="option1" value="value1"/> 자동 로그인
-            </label>
+          <label>
+            <input type="checkbox" name="option1" value="value1" /> 아이디 저장
+          </label>
+          <label>
+            <input type="checkbox" name="option1" value="value1" /> 자동 로그인
+          </label>
         </div>
-
-        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a>
-
+        <div>
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
+        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
+        </div>
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
       </form>
+      <div>
+      <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |
+      {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
+      <a href='#' onClick={openFindPasswordModal}> 비밀번호 찾기</a>
+      {showFindPasswordModal && <FindPassword onClose={closeFindPasswordModal} />}
+      </div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ function MainLoggedIn() {
   const token = localStorage.getItem('Authorization')
   const headers = {Authorization: `Bearer ${token}`,}
 
-  // 구독 중dls 아티스트 불러오기
+  // 구독 중인 아티스트 불러오기
   const [subGroup, setSubGroup] = useState([])
 
   useEffect(() => {

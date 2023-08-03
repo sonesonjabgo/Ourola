@@ -8,11 +8,10 @@ function NewCards({allGroup}) {
     return null
   }
 
-  console.log(allGroup)
   return (
     <div className="cardsContainer">
       {allGroup.map((data, i) => (
-        <CardItem key={i} src={data.src} text={data.name} path={data.name} />
+        <CardItem key={i} src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${data.filePath}`} text={data.name} path={data.name} />
       ))}
     </div>
   );

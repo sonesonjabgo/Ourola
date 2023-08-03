@@ -1,0 +1,14 @@
+.menuItem {
+  text-align: center;
+}
+
+.menuTitle {
+  margin-top: 15px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: white;
+  border-radius: 10px;
+}
