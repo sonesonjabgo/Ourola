@@ -94,16 +94,13 @@ const ArtistFeedItem = ({
     setFeedLikeSum(like);
   };
 
-  // const [prevPos, setPrevPos] = useState(-1);
-
-  // const scrollToCenter = (event) => {
-  //   console.log("a");
-  //   window.scrollTo(0, 1000);
-  // };
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const openModalClickFunction = (event) => {
     showModal();
-    // scrollToCenter(event);
+    setScrollPosition(window.pageYOffset);
+    window.scrollTo(0, 120);
+    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -161,8 +158,8 @@ const ArtistFeedItem = ({
               thisFeedLike,
               feedLikeSum,
               commentCount,
-              // prevPos,
               comment,
+              scrollPosition,
             }}
           ></ArtistFeedDetail>
         )}
