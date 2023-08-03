@@ -32,9 +32,9 @@ import axios from "axios";
 import MyPage from "components/mypage/MyPage";
 
 // EC2 서버에 직접 보낼 때
-axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://localhost:8000";
 
 
 // axios.defaults.withCredentials = true;
