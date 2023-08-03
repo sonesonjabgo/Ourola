@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.controller;
+package com.mk.ourola.api.live.onlinecall.controller;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.live.repository.dto.OnlineCallDto;
-import com.mk.ourola.api.live.service.OnlineCallServiceImpl;
+import com.mk.ourola.api.live.onlinecall.repository.dto.OnlineCallDto;
+import com.mk.ourola.api.live.onlinecall.service.OnlineCallServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
