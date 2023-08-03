@@ -8,8 +8,10 @@ const Announcement = () => {
   const group = location.state;
 
   const [loading, setLoding] = useState(true);
-  const [announcementList, setAnnouncementList] = useState([]);
-
+  const [announcementList, setAnnouncementList] = useState({});
+  const [announcementTotalPages, setAnnouncementTotalPages] = useState(0);
+  const [announcementStartIndex, setAnnouncementStartIndex] = useState(0);
+  const [announcementEnd, setAnnouncementEnd] = useState(false);
   const accessToken = localStorage.getItem("Authorization");
 
   const config = {
@@ -21,17 +23,87 @@ const Announcement = () => {
 
   useEffect(() => {
     axios
-      .get(`/${group}/announcement/list`, config)
+      .get(`/${group}/announcement/list?page=0`, config)
       .then((response) => {
-        setAnnouncementList(response.data);
+        setAnnouncementList(response.data.content);
+        setAnnouncementTotalPages(response.data.totalPages);
+        setAnnouncementStartIndex(
+          Number.toFixed((response.data.totalPages - 1) / 5)
+        );
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
         setLoding(false);
       })
       .catch((error) => {
         console.error("Error fetching data : ", error);
         setLoding(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(announcementList);
+  console.log(announcementTotalPages);
+  console.log(announcementStartIndex);
+  console.log(announcementEnd);
+
+  const prevClick = () => {
+    axios
+      .get(
+        `/${group}/announcement/list?page=${announcementStartIndex - 5}`,
+        config
+      )
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
+        setAnnouncementStartIndex(announcementStartIndex - 5);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
+
+  const numberClick = (page) => {
+    axios
+      .get(`/${group}/announcement/list?page=${page - 1}`, config)
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
+
+  const nextClick = () => {
+    axios
+      .get(
+        `/${group}/announcement/list?page=${announcementStartIndex + 5}`,
+        config
+      )
+      .then((response) => {
+        setAnnouncementList(response.data.content);
+        if (response.data.content[0].id <= 35) {
+          setAnnouncementEnd(true);
+        } else {
+          setAnnouncementEnd(false);
+        }
+        setAnnouncementStartIndex(announcementStartIndex + 5);
+        setLoding(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLoding(false);
+      });
+  };
 
   return (
     <div id="announcement" className="announcement">
@@ -39,7 +111,32 @@ const Announcement = () => {
         {loading ? (
           <div></div>
         ) : (
-          <AnnouncementList announcementList={announcementList} />
+          <div>
+            <AnnouncementList announcementList={announcementList} />
+            <div>
+              {announcementStartIndex > 0 && (
+                <div onClick={prevClick}>&lt;</div>
+              )}
+
+              {Array.from(
+                {
+                  length:
+                    (announcementTotalPages - announcementStartIndex) / 5 > 1
+                      ? 5
+                      : announcementTotalPages - announcementStartIndex,
+                },
+                (_, index) => announcementStartIndex + index + 1
+              ).map((page) => (
+                <div key={page} onClick={() => numberClick(page)}>
+                  {page}
+                </div>
+              ))}
+
+              {announcementStartIndex + 5 < announcementTotalPages && (
+                <div onClick={nextClick}>&gt;</div>
+              )}
+            </div>
+          </div>
         )}
       </div>
     </div>

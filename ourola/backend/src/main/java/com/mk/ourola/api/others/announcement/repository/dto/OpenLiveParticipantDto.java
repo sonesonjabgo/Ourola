@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.announcement.repository.dto;
+package com.mk.ourola.api.others.repository.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

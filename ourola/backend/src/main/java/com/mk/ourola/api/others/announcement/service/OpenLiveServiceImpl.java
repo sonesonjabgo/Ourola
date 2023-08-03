@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.announcement.service;
+package com.mk.ourola.api.others.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +13,10 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
-import com.mk.ourola.api.others.announcement.repository.OpenLiveParticipantRepository;
-import com.mk.ourola.api.others.announcement.repository.OpenLiveRepository;
-import com.mk.ourola.api.others.announcement.repository.dto.OpenLiveDto;
-import com.mk.ourola.api.others.announcement.repository.dto.OpenLiveParticipantDto;
+import com.mk.ourola.api.others.repository.OpenLiveParticipantRepository;
+import com.mk.ourola.api.others.repository.OpenLiveRepository;
+import com.mk.ourola.api.others.repository.dto.OpenLiveDto;
+import com.mk.ourola.api.others.repository.dto.OpenLiveParticipantDto;
 
 import lombok.RequiredArgsConstructor;
 
