@@ -6,8 +6,8 @@ import ArtistFeed from "./ArtistFeed";
 import { useLocation } from "react-router-dom";
 
 const Group = () => {
-  const location = useLocation();
-  const group = location.state;
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
 
   const [loadingMember, setLodingMember] = useState(true);
   const [loadingFeed, setLodingFeed] = useState(true);

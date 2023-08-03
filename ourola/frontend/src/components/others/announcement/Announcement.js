@@ -5,8 +5,8 @@ import AnnouncementList from "./AnnouncementList";
 import { useLocation } from "react-router-dom";
 
 const Announcement = () => {
-  const location = useLocation();
-  const group = location.state;
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
 
   const [loading, setLoding] = useState(true);
   const [announcementList, setAnnouncementList] = useState({});
@@ -43,11 +43,6 @@ const Announcement = () => {
         setLoding(false);
       });
   }, []);
-
-  console.log(announcementList);
-  console.log(announcementTotalPages);
-  console.log(announcementStartIndex);
-  console.log(announcementEnd);
 
   const prevClick = () => {
     axios
