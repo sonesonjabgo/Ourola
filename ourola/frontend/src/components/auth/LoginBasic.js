@@ -1,21 +1,14 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
 import FindEmail from './FindEmail';
 import FindPassword from './FindPassword'
 
-=======
-import React, { useState } from "react";
-import axios from "axios";
-import styles from "../../style/auth/loginmodal.module.css";
->>>>>>> cb72226716b2f0486e626f6c76bd6af3a62caeda
 
 function LoginBasic({ setModalOpen, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-<<<<<<< HEAD
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
   const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
  
@@ -40,8 +33,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
   };
 
 
-=======
->>>>>>> cb72226716b2f0486e626f6c76bd6af3a62caeda
 
   // 모달 끄기
   const closeModal = () => {
@@ -124,7 +115,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
             <input type="checkbox" name="option1" value="value1" /> 자동 로그인
           </label>
         </div>
-<<<<<<< HEAD
         <div>
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
@@ -140,17 +130,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
       <a href='#' onClick={openFindPasswordModal}> 비밀번호 찾기</a>
       {showFindPasswordModal && <FindPassword onClose={closeFindPasswordModal} />}
       </div>
-=======
-
-        <a href="https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao">
-          카카오
-        </a>
-
-        <button type="submit" className={styles.loginsubmitbutton}>
-          로그인
-        </button>
-      </form>
->>>>>>> cb72226716b2f0486e626f6c76bd6af3a62caeda
     </div>
   );
 }
