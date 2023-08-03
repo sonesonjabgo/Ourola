@@ -64,13 +64,21 @@ public class ShopServiceImpl implements ShopService {
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 		log.info("email: " + email + ", role: " + role);
+		System.out.println("=======================");
+		System.out.println(Role.ARTIST.getKey());
+
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
-		if (role.equals(Role.ARTIST.getKey())) {    // 채널(소속사) 관리자인지 확인
+		if (role.equals(Role.CHANNEL_ADMIN.getKey())) {    // 채널(소속사) 관리자인지 확인
+			System.out.println("=======================");
 			ArtistDto user = artistUserRepository.findByEmail(email).get();
+			System.out.println(user);
 			if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
 				&& user.getIsAdmin()) {    // 관리자인지
+				System.out.println(artist);
 				GroupDto groupDto = groupRepository.findByName(artist);
+				System.out.println(groupDto);
 				onlineConcertDto.setGroupDto(groupDto);
+				System.out.println(onlineConcertDto);
 				return onlineConcertRepository.save(onlineConcertDto);
 			} else {
 				throw new Exception("ERROR :: 관리자 권한입니다.");
