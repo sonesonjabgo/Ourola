@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
 public interface OpenLiveParticipantRepository extends JpaRepository<OpenLiveParticipantDto, Integer> {
 	List<OpenLiveParticipantDto> findByFanDto_Id(int id);
 
