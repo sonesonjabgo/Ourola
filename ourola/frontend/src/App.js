@@ -3,6 +3,7 @@ import { Link, Router, Routes, Route } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
+import registerServiceWorker from "./components/live/onlineconcert/openvidu/registerServiceWorker";
 
 // artist 선언 방식 fix 필요
 function App() {
@@ -10,8 +11,8 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    document.title = 'CSS의 무덤'
-  })
+    document.title = "CSS의 무덤";
+  });
 
   // 로그인 상태 변경 함수
   const handleLoginSuccess = () => {
@@ -34,6 +35,7 @@ function App() {
       setLoggedIn(false);
     }
   }, []);
+  registerServiceWorker();
 
   return (
     <div id="App" className="App">
@@ -46,7 +48,6 @@ function App() {
       <div className="main">
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
-
       {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}
       <Link to="/announcement" state={group}>
         공지사항
@@ -56,6 +57,8 @@ function App() {
         아티스트
       </Link>
       {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
+      <br />
+      <Link to="/live">라이브</Link>
     </div>
   );
 }
