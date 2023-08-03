@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.controller;
+package com.mk.ourola.api.live;
 
 import java.util.Map;
 

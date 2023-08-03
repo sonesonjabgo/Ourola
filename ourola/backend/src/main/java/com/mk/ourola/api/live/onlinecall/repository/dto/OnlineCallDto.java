@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.repository.dto;
+package com.mk.ourola.api.live.onlinecall.repository.dto;
 
 import java.util.Date;
 
