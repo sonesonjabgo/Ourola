@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,7 +50,7 @@ public class OnlineConcertController {
 	}
 
 	@PostMapping("/api/sessions")
-	public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params) {
+	public ResponseEntity<String> initializeSession(@RequestHeader("Authorization") String accessToken, @RequestBody(required = false) Map<String, Object> params) {
 		try {
 			return new ResponseEntity<String>(openViduService.initializeSession(params), HttpStatus.OK);
 		} catch (Exception e){
@@ -58,7 +59,7 @@ public class OnlineConcertController {
 	}
 
 	@PostMapping("/api/sessions/{sessionId}/connections")
-	public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
+	public ResponseEntity<String> createConnection(@RequestHeader("Authorization") String accessToken, @PathVariable("sessionId") String sessionId,
 		@RequestBody(required = false) Map<String, Object> params) {
 		try {
 			String connection = openViduService.createConnection(sessionId, params);
