@@ -18,9 +18,14 @@ function FindPassword({ onClose }) {
             email: email,
         }
 
+        if (data.email === "") {
+            alert('아이디를 입력 해주세요.')
+            return;
+        } 
+
         axios.post('/find/password', data)
-            .then((response) => {
-                console.log(response.data)
+            .then(() => {
+                alert('인증번호가 메일로 전송됐습니다.')
             })
             .catch(() => {
                 alert('일치하는 아이디가 없습니다.')
@@ -35,14 +40,25 @@ function FindPassword({ onClose }) {
         const data = {
             token: certification,
         }
+            
+        if (data.token === "") {
+            alert('인증번호를 입력 해주세요.')
+            return;
+        } 
 
         axios.post('/find/verify-token', data)
-            .then(() => {
-                sessionStorage.setItem('ToChangePasswordEmail', email)
-                setShowChangePasswordModal(true);
+            .then((res) => {
+                // 요청의 값으로 true / false 가 전해짐
+                if (res.data === true) {
+                    sessionStorage.setItem('ToChangeToken', certification)
+                    setShowChangePasswordModal(true);
+                } else {
+                    alert('인증번호가 일치하지 않습니다.')
+                }
+
             })
-            .catch(() => {
-                alert('인증번호가 일치하지 않습니다.')
+            .catch((err) => {
+                console.log(err)
             })
     }
 
@@ -82,12 +98,12 @@ function FindPassword({ onClose }) {
                 value={certification}
                 onChange={(e) => setCertification(e.target.value)}
                 />
-                <button type='submit' className={styles.loginsubmitbutton} onClick={blockEnterChangePassword}>
+                <button type='submit' className={styles.loginsubmitbutton}>
                     인증번호 확인
                 </button>
             </form>
             {showChangePasswordModal && (
-            <ChangePassword onClose={onClose}/>
+            <ChangePassword onClose={blockEnterChangePassword}/>
       )}
         </div>
     )        
