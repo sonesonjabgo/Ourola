@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentDto> getCommentList(int feedId) {
-		return commentRepository.findByFeedDto_Id(feedId);
+		return commentRepository.findByFeedDto_IdOrderByCreateDateDesc(feedId);
 	}
 
 	@Override
