@@ -61,7 +61,7 @@ public class FindEmailPasswordController {
 	@PostMapping("/modify-password")
 	public ResponseEntity<?> modifyPassword(@RequestBody Map<String, String> map) {
 		try {
-			findEmailPasswordService.modifyPassword(map.get("email"), map.get("newPassword"));
+			findEmailPasswordService.modifyPassword(map.get("token"), map.get("newPassword"));
 			return new ResponseEntity<>("비밀번호 변경 성공", HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
