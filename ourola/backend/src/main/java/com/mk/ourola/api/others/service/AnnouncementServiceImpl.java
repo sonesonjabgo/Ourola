@@ -2,6 +2,10 @@ package com.mk.ourola.api.others.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.artist.repository.ArtistRepository;
@@ -23,10 +27,11 @@ public class AnnouncementServiceImpl implements Announcement {
 	private final JwtService jwtService;
 
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
-	public List<AnnouncementDto> getAllAnnouncement(String groupName) throws Exception {
+	@Transactional()
+	public Page<AnnouncementDto> getAllAnnouncement(String groupName, Pageable pageable) throws Exception {
 		GroupDto groupChannelDto = groupRepository.findByName(groupName);
 
-		return announcementRepository.findByGroupDto_IdOrderByCreateTimeDesc(groupChannelDto.getId());
+		return announcementRepository.findByGroupDto_IdOrderByCreateTimeDesc(groupChannelDto.getId(), pageable);
 	}
 
 	// 선택된 하나의 공지의 정보를 보내는 메서드
