@@ -9,5 +9,5 @@ public interface FindEmailPasswordService {
 
 	public boolean verifyToken(String token) throws Exception;
 
-	public void modifyPassword(String email, String newPassword) throws Exception;
+	public void modifyPassword(String token, String newPassword) throws Exception;
 }
