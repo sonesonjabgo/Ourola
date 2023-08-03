@@ -80,7 +80,7 @@ public class ShopController {
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
 	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
+		@RequestHeader(name = "Authorization") String accessToken,OnlineConcertDto onlineConcertDto,
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {

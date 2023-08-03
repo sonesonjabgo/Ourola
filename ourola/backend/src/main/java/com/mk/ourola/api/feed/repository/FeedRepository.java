@@ -16,7 +16,7 @@ public interface FeedRepository extends JpaRepository<FeedDto, Integer> {
 
 	List<FeedDto> findByGroupDto_Id(int id);
 
-	List<FeedDto> findByGroupDto_IdAndTypeIs(int id, int type);
+	List<FeedDto> findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(int id, int type);
 
 	List<FeedDto> findByArtistDto_Id(int id);
 }
