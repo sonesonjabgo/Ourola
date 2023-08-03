@@ -84,11 +84,14 @@ public class ShopController {
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
+			System.out.println(onlineConcertDto);
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
-			if(!files.isEmpty()) {
+
+			System.out.println(item);
+			if(!(files == null)) {
 				fileService.writeShopImages(files, item, null);
 			}
-			if(!mainFile.isEmpty()) {
+			if(!(mainFile == null)) {
 				fileService.writeShopMainImages(mainFile, item, null);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);

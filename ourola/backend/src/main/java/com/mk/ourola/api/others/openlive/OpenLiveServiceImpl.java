@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.service;
+package com.mk.ourola.api.others.openlive;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +13,6 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
-import com.mk.ourola.api.others.repository.OpenLiveParticipantRepository;
-import com.mk.ourola.api.others.repository.OpenLiveRepository;
-import com.mk.ourola.api.others.repository.dto.OpenLiveDto;
-import com.mk.ourola.api.others.repository.dto.OpenLiveParticipantDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,22 +39,23 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 	}
 
 	@Override
-	public OpenLiveDto writeOpenLive(String artist, String header, OpenLiveDto openLiveDto) throws Exception {
+	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto) throws Exception {
 		String accessToken = jwtService.headerStringToAccessToken(header).get();
 
 		System.out.println(openLiveDto);
 		String role = jwtService.extractRole(accessToken).get();
-		if(role.equals("USER") || role.equals("ARTIST")){
+		GroupDto groupDto = groupRepository.findByName(group);
+		openLiveDto.setGroupDto(groupDto);
+		if(role.equals("USER") || role.equals("ARTIST") || !groupDto.getName().equals(group)){
 			throw new AuthenticationException("관리자 권한입니다.");
 		}
-		GroupDto groupDto = groupRepository.findByName(artist);
-		openLiveDto.setGroupDto(groupDto);
 		openLiveDto.setCurParticipant(0);
 		return openLiveRepository.save(openLiveDto);
 	}
 
 	@Override
-	public OpenLiveParticipantDto writeOpenLiveParticipant(String artist, String accessToken, int id) throws Exception {
+	public OpenLiveParticipantDto writeOpenLiveParticipate(String artist, String header, int id) throws Exception {
+		String accessToken = jwtService.headerStringToAccessToken(header).get();
 		FanDto fanDto = fanRepository.findByEmail(jwtService.extractEmail(accessToken).get()).get();
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 

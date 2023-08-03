@@ -20,7 +20,13 @@ import Signup from "./components/auth/SignUp";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
+
+// EC2 서버에 직접 보낼 때
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// 로컬
+// axios.defaults.baseURL = "http://localhost:8000";
+
+
 // axios.defaults.withCredentials = true;
 
 const container = document.getElementById("root");
@@ -37,10 +43,7 @@ render(
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
 
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
-      <Route
-        path="/mypage"
-        element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
-      ></Route>
+      <Route path="/mypage" element={<MyPage />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
     </Routes>
   </BrowserRouter>,

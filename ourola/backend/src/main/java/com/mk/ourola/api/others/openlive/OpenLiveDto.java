@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.repository.dto;
+package com.mk.ourola.api.others.openlive;
 
 import java.util.Date;
 
@@ -15,6 +15,8 @@ import org.hibernate.annotations.DynamicInsert;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +27,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @DynamicInsert
 public class OpenLiveDto {
 	@Id

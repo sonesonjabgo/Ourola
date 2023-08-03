@@ -66,4 +66,7 @@ public class OnlineConcertDto {
 	@Column(name = "file_extension")
 	private String fileExtension;
 
+	@Column(name = "session_id")
+	private String sessionId;
+
 }

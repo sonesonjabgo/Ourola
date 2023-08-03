@@ -25,6 +25,8 @@ public class ArtistServiceImpl implements ArtistService {
 			throw new Exception("이미 존재하는 이메일입니다.");
 		}
 
+		System.out.println(artistSignUpDto);
+
 		ArtistDto user = ArtistDto.builder()
 			.groupDto(groupRepository.findById(artistSignUpDto.getGroupId()).get())
 			.email(artistSignUpDto.getEmail())
