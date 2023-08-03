@@ -9,18 +9,7 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
     setModalOpen(true);
   };
 
-  let currentYear = new Date().getFullYear();
-
-  let currentMonth = new Date().getMonth() + 1;
-  if (currentMonth.toString().length === 1) {
-    currentMonth = "0" + currentMonth;
-  }
-
-  let currentDay = new Date().getDate();
-
-  const [currentDate, setCurrentDate] = useState(
-    currentYear + "-" + currentMonth + "-" + currentDay
-  );
+  const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
     let currentYear = new Date().getFullYear();
@@ -31,6 +20,9 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
     }
 
     let currentDay = new Date().getDate();
+    if (currentDay.toString().length === 1) {
+      currentDay = "0" + currentDay;
+    }
 
     setCurrentDate(currentYear + "-" + currentMonth + "-" + currentDay);
 
@@ -53,7 +45,7 @@ const AnnouncementItem = ({ id, title, content, createTime }) => {
         )}
       </div>
       <div id="date" className="date">
-        {currentDate === getDate[0] ? getDate[1] : getDate[0]}
+        {currentDate === getDate[0] ? getDate[1][0] : getDate[0]}
       </div>
     </div>
   );

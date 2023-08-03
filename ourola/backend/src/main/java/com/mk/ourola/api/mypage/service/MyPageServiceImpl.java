@@ -138,4 +138,11 @@ public class MyPageServiceImpl implements MyPageService {
 			return null;
 		}
 	}
+
+	@Override
+	public boolean isMembership(String accessToken, String groupName) {
+		Optional<UserMembershipInfoDto> membershipInfo = userMembershipInfoRepository.findByFanDto_IdAndGroupName(
+			jwtService.accessTokenToUserId(accessToken), groupName);
+		return membershipInfo.isPresent();
+	}
 }

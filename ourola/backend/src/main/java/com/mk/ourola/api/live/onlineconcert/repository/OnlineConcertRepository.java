@@ -11,4 +11,6 @@ public interface OnlineConcertRepository extends JpaRepository<OnlineConcertDto,
 
 	List<OnlineConcertDto> findByGroupDto_Id(int groupId);
 
+	OnlineConcertDto findBySessionId(String sessionId);
+
 }

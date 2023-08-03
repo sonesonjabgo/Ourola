@@ -43,4 +43,7 @@ public interface MyPageService {
 	// 온라인콘서트 구매 내역 가져오기
 	public List<OnlineConcertDto> getAllOnlineConcertPurchase(String accessToken);
 
+	// 사용자가 해당 그룹의 멤버십에 가입이 되어있는지 확인
+	public boolean isMembership(String accessToken, String groupName);
+
 }

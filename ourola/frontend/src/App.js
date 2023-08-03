@@ -10,7 +10,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    document.title = '꿈과희망이넘치는오로라★'
+    document.title = 'CSS의 무덤'
   })
 
   // 로그인 상태 변경 함수
