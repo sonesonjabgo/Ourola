@@ -72,8 +72,8 @@ public class FeedController {
 	@GetMapping("/artist")
 	public ResponseEntity<List<FeedDto>> getAllArtistFeed(@PathVariable String group) {
 		try {
-			List<FeedDto> fanFeedList = feedService.getAllArtistFeed(group);
-			return new ResponseEntity<>(fanFeedList, HttpStatus.OK);
+			List<FeedDto> artistFeedList = feedService.getAllArtistFeed(group);
+			return new ResponseEntity<>(artistFeedList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
