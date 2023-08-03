@@ -1,3 +1,7 @@
+.announcement {
+  padding-top: 60px;
+}
+
 .pagingWrapperParent {
   display: flex;
   justify-content: center;
@@ -6,7 +10,6 @@
 
 .pagingWrapper {
   position: absolute;
-  margin-bottom: 55px;
   display: inline-flex;
   justify-content: center;
 }

@@ -3,8 +3,7 @@
   width: 100%;
   max-width: 750px;
   margin: 0 auto;
-  padding-bottom: 80px;
-  min-height: 65vh;
+  padding-bottom: 40px;
   box-sizing: border-box;
   overflow: hidden;
 }
