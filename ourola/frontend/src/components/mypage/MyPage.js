@@ -7,7 +7,9 @@ import PurchaseHistory from "./purchase/PurchaseHistory";
 
 import "../../style/mypage/MyPage.css";
 
-const MyPage = ({ accessToken }) => {
+const MyPage = () => {
+  const accessToken = localStorage.getItem("Authorization");
+  console.log(accessToken);
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,

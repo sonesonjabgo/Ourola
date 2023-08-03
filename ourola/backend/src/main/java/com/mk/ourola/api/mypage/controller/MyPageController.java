@@ -6,6 +6,7 @@ import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -37,12 +38,12 @@ public class MyPageController {
 	public ResponseEntity<Object> getUserInfo(@RequestHeader("Authorization") String accessToken) {
 		try {
 			String role = myPageService.getRole(accessToken);
-			if(role.equals("USER") || role.equals("GUEST")){
+			if (role.equals("USER") || role.equals("GUEST")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
 			}
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -52,7 +53,7 @@ public class MyPageController {
 	public ResponseEntity<String> getRole(@RequestHeader("Authorization") String accessToken) {
 		try {
 			return new ResponseEntity<String>(myPageService.getRole(accessToken), HttpStatus.OK);
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -115,7 +116,8 @@ public class MyPageController {
 	}
 
 	@PutMapping("/modify/password")
-	public HttpStatus modifyFanPassword(@RequestHeader("Authorization") String accessToken, @RequestBody FanDto newPassword) {
+	public HttpStatus modifyFanPassword(@RequestHeader("Authorization") String accessToken,
+		@RequestBody FanDto newPassword) {
 		try {
 			System.out.println(newPassword);
 			myPageService.modifyFanPassword(accessToken, newPassword);
@@ -137,9 +139,11 @@ public class MyPageController {
 
 	// 멤버십 구매 내역 불러음
 	@GetMapping("/purchase/membership")
-	public ResponseEntity<List<UserMembershipInfoDto>> getAllMembershipPurchase(@RequestHeader("Authorization") String accessToken) {
+	public ResponseEntity<List<UserMembershipInfoDto>> getAllMembershipPurchase(
+		@RequestHeader("Authorization") String accessToken) {
 		try {
-			return new ResponseEntity<List<UserMembershipInfoDto>>(myPageService.getAllMembershipPurchase(accessToken), HttpStatus.OK);
+			return new ResponseEntity<List<UserMembershipInfoDto>>(myPageService.getAllMembershipPurchase(accessToken),
+				HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -147,10 +151,23 @@ public class MyPageController {
 
 	// 온라인 콘서트 구매 내역 불러옴
 	@GetMapping("/purchase/online-concert")
-	public ResponseEntity<List<OnlineConcertDto>> getAllOnlineConcertPurchase(@RequestHeader("Authorization") String accessToken){
+	public ResponseEntity<List<OnlineConcertDto>> getAllOnlineConcertPurchase(
+		@RequestHeader("Authorization") String accessToken) {
 		try {
-			return new ResponseEntity<List<OnlineConcertDto>>(myPageService.getAllOnlineConcertPurchase(accessToken), HttpStatus.OK);
-		} catch (Exception e){
+			return new ResponseEntity<List<OnlineConcertDto>>(myPageService.getAllOnlineConcertPurchase(accessToken),
+				HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 그룹 채널의 멤버십 구매 여부를 알려줌
+	@GetMapping("/{group}/membership")
+	public ResponseEntity<Boolean> isMembership(@RequestHeader("Authorization") String accessToken,
+		@PathVariable String group) {
+		try {
+			return new ResponseEntity<Boolean>(myPageService.isMembership(accessToken, group), HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
