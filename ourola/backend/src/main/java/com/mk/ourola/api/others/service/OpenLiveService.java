@@ -10,7 +10,7 @@ public interface OpenLiveService {
 
 	public OpenLiveDto getOpenLive(String artist, int id);
 
-	public OpenLiveDto writeOpenLive(String artist, String accessToken, OpenLiveDto openLiveDto) throws Exception;
+	public OpenLiveDto writeOpenLive(String artist, String header, OpenLiveDto openLiveDto) throws Exception;
 
 	public OpenLiveParticipantDto writeOpenLiveParticipant(String artist, String accessToken, int id) throws Exception;
 }

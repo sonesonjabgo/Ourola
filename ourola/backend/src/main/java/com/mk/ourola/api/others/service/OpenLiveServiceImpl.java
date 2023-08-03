@@ -25,12 +25,12 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class OpenLiveServiceImpl implements OpenLiveService{
 
-	OpenLiveRepository openLiveRepository;
-	GroupRepository groupRepository;
-	FanRepository fanRepository;
-	OpenLiveParticipantRepository openLiveParticipantRepository;
+	private final OpenLiveRepository openLiveRepository;
+	private final GroupRepository groupRepository;
+	private final FanRepository fanRepository;
+	private final OpenLiveParticipantRepository openLiveParticipantRepository;
 
-	JwtService jwtService;
+	private final JwtService jwtService;
 	@Override
 	public List<OpenLiveDto> getOpenLiveList(String artist) {
 		GroupDto groupDto = groupRepository.findByName(artist);
@@ -43,11 +43,17 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 	}
 
 	@Override
-	public OpenLiveDto writeOpenLive(String artist, String accessToken, OpenLiveDto openLiveDto) throws Exception {
+	public OpenLiveDto writeOpenLive(String artist, String header, OpenLiveDto openLiveDto) throws Exception {
+		String accessToken = jwtService.headerStringToAccessToken(header).get();
+
+		System.out.println(openLiveDto);
 		String role = jwtService.extractRole(accessToken).get();
 		if(role.equals("USER") || role.equals("ARTIST")){
 			throw new AuthenticationException("관리자 권한입니다.");
 		}
+		GroupDto groupDto = groupRepository.findByName(artist);
+		openLiveDto.setGroupDto(groupDto);
+		openLiveDto.setCurParticipant(0);
 		return openLiveRepository.save(openLiveDto);
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.others.repository.dto.OpenLiveDto;
 import com.mk.ourola.api.others.service.OpenLiveService;
+import com.mk.ourola.api.others.service.OpenLiveServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class OpenLiveController {
-	private final OpenLiveService openLiveService;
+	private final OpenLiveServiceImpl openLiveService;
 
 	// 그룹 채널별 공개방송 리스트 조회
 	@GetMapping("/list")
@@ -48,7 +49,7 @@ public class OpenLiveController {
 	}
 
 	// 공개방송 등록
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<?> writeOpenLive(@PathVariable String group, @RequestHeader("Authorization") String header, @RequestBody OpenLiveDto openLiveDto) {
 		try {
 			return new ResponseEntity<>(openLiveService.writeOpenLive(group, header, openLiveDto), HttpStatus.OK);

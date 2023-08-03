@@ -42,6 +42,9 @@ public class OpenLiveDto {
 	@Column(name = "start_date")
 	private Date startDate;
 
+	@Column(name = "ticketing_date")
+	private Date ticketingDate;
+
 	@Column(name = "file_path")
 	private String filePath;
 
