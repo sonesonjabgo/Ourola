@@ -1,22 +1,16 @@
-package com.mk.ourola.api.live.onlinecall.controller;
+package com.mk.ourola.api.live.controller;
 
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mk.ourola.api.live.onlinecall.repository.dto.OnlineCallDto;
-import com.mk.ourola.api.live.onlinecall.service.OnlineCallServiceImpl;
 
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.ConnectionProperties;
@@ -27,12 +21,9 @@ import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
-public class OnlineCallController {
-
-	private final OnlineCallServiceImpl onlineCallService;
+public class OpenviduController {
 
 	@Value("${OPENVIDU_URL}")
 	private String OPENVIDU_URL;
@@ -45,39 +36,6 @@ public class OnlineCallController {
 	@PostConstruct
 	public void init() {
 		this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
-	}
-
-	/**
-	 * @writeOnlineCall 영상통화 정보를 저장하는 메서드
-	 * @param OnlineCallDto 테이블에 저장되는 정보
-	 * @return 저장된 Dto 객체
-	 */
-	@PostMapping("/onlinecall/write")
-	public ResponseEntity<?> writeOnlineCall(@RequestBody OnlineCallDto onlineCallDto) {
-		try {
-			UUID sessionId = UUID.randomUUID();
-			onlineCallDto.setSessionId(sessionId.toString());
-			OnlineCallDto saved = onlineCallService.writeOnlineCall(onlineCallDto);
-			return new ResponseEntity<>(saved, HttpStatus.OK);
-
-		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	/**
-	 * @getOnlineCall 영상통화 정보를 저장하는 메서드
-	 * @return 영상통화 목록 Dto 리스트
-	 */
-	@PostMapping("/onlinecall/list")
-	public ResponseEntity<?> getOnlineCall() {
-		try {
-			List<OnlineCallDto> onlineCallDtoList = onlineCallService.getOnlineCall();
-			return new ResponseEntity<>(onlineCallDtoList, HttpStatus.OK);
-
-		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 	}
 
 	/**
