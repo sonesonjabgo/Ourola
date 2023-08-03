@@ -3,8 +3,6 @@ package com.mk.ourola.api.fan.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.*;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +71,9 @@ public class FanServiceImpl implements FanService {
 		String email = jwtService.extractEmail(accessToken).get();
 		FanDto fanDto = fanRepository.findByEmail(email).get();
 		GroupDto groupDto = groupRepository.findByName(group);
+		if(! subscribeGroupRepository.existsByFanDto_IdAndGroupDto_id(fanDto.getId(), groupDto.getId())) {
+			throw new Exception("이미 구독중인 채널입니다.");
+		}
 		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
 			.fanDto(fanDto)
 			.groupDto(groupDto)
@@ -115,7 +116,7 @@ public class FanServiceImpl implements FanService {
 
 	public List<GroupDto> getNotSubscribeGroup(String userEmail) {
 		Optional<FanDto> userDto = fanRepository.findByEmail(userEmail);
-		return groupRepository.findAllWithNoRelatedSubstribeGroup(userDto.get().getId());
+		return groupRepository.findAllWithNoRelatedSubscribeGroup(userDto.get().getId());
 	}
 
 	//id를 기준으로 fan유저 정보를 가져오는 것
