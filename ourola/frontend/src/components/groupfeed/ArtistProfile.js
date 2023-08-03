@@ -52,8 +52,6 @@ const ArtistProfile = ({
     }
   };
 
-  console.log(artistSelect);
-
   return (
     <div id="artistProfile" className="artistProfile">
       <div

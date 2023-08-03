@@ -30,23 +30,22 @@ const ArtistFeedDetail = (props) => {
   const feedLikeSum = props.state.feedLikeSum;
   const setFeedLikeSum = props.state.setFeedLikeSum;
 
-  // const scrollToOrigin = () => {
-  //   window.scrollTo(0, props.state.prevPos);
-  // };
+  const scrollPosition = props.state.scrollPosition;
 
   useEffect(() => {
-    const handler = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setModalOpen(false);
+    const handleEscKey = (event) => {
+      if (event.keyCode === 27) {
+        closeModal();
+        window.scrollTo(0, scrollPosition);
       }
     };
 
-    document.addEventListener("mousedown", handler);
+    document.addEventListener("keydown", handleEscKey);
 
     return () => {
-      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", handleEscKey);
     };
-  }, [setModalOpen]);
+  }, [closeModal, scrollPosition]);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -59,7 +58,12 @@ const ArtistFeedDetail = (props) => {
 
   const closeModalClickFunction = (event) => {
     closeModal();
-    // scrollToOrigin();
+    window.scrollTo(0, scrollPosition);
+    document.body.style.overflow = "auto";
+  };
+
+  const handleModalClick = (event) => {
+    event.stopPropagation();
   };
 
   const [saveContent, setSaveContent] = useState("");
@@ -107,12 +111,17 @@ const ArtistFeedDetail = (props) => {
 
   return (
     <div>
-      <div id="artistFeedBackGround" className="artistFeedBackGround">
+      <div
+        id="artistFeedBackGround"
+        className="artistFeedBackGround"
+        onMouseUp={closeModalClickFunction}
+      >
         <div id="artistFeedModal" className="artistFeedModal">
           <div
             id="artistFeedContent"
             className="artistFeedContent"
             ref={modalRef}
+            onMouseUp={handleModalClick}
           >
             <div id="artistFeedView" className="artistFeedView">
               <div

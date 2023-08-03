@@ -1,7 +1,6 @@
 .artistList {
   margin: 180px auto 20px;
-  max-width: 1102px;
-  min-width: 707px;
+  min-width: 1102px;
   position: relative;
   transform: translate(0px);
   justify-content: center;
@@ -20,4 +19,16 @@
   -webkit-user-drag: none;
   touch-action: pan-y;
   position: relative;
+}
+
+.prevButton,
+.nextButton {
+  padding-bottom: 90px;
+  font-size: 4rem;
+  font-weight: 100;
+  color: #7b68ee;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
 }
