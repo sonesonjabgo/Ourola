@@ -1,3 +1,4 @@
+import "../../../style/others/announcement/Announcement.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
@@ -113,28 +114,47 @@ const Announcement = () => {
         ) : (
           <div>
             <AnnouncementList announcementList={announcementList} />
-            <div>
-              {announcementStartIndex > 0 && (
-                <div onClick={prevClick}>&lt;</div>
-              )}
+            <div id="pagingWrapperParent" className="pagingWrapperParent">
+              <div id="pagingWrapper" className="pagingWrapper">
+                {announcementStartIndex > 0 && (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    onClick={prevClick}
+                  >
+                    &lt;
+                  </button>
+                )}
 
-              {Array.from(
-                {
-                  length:
-                    (announcementTotalPages - announcementStartIndex) / 5 > 1
-                      ? 5
-                      : announcementTotalPages - announcementStartIndex,
-                },
-                (_, index) => announcementStartIndex + index + 1
-              ).map((page) => (
-                <div key={page} onClick={() => numberClick(page)}>
-                  {page}
-                </div>
-              ))}
+                {Array.from(
+                  {
+                    length:
+                      (announcementTotalPages - announcementStartIndex) / 5 > 1
+                        ? 5
+                        : announcementTotalPages - announcementStartIndex,
+                  },
+                  (_, index) => announcementStartIndex + index + 1
+                ).map((page) => (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    key={page}
+                    onClick={() => numberClick(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
 
-              {announcementStartIndex + 5 < announcementTotalPages && (
-                <div onClick={nextClick}>&gt;</div>
-              )}
+                {announcementStartIndex + 5 < announcementTotalPages && (
+                  <button
+                    id="pagingInnerButton"
+                    className="pagingInnerButton"
+                    onClick={nextClick}
+                  >
+                    &gt;
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
