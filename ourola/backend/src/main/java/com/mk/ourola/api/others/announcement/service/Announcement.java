@@ -1,12 +1,13 @@
-package com.mk.ourola.api.others.service;
+package com.mk.ourola.api.others.announcement.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
 
 public interface Announcement {
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
-	public List<AnnouncementDto> getAllAnnouncement(String groupName) throws Exception;
+	public Page<AnnouncementDto> getAllAnnouncement(String groupName, Pageable pageable) throws Exception;
 
 	// 선택된 하나의 공지의 정보를 보내는 메서드
 	public AnnouncementDto getAnnouncement(String groupName, int announcementId) throws Exception;

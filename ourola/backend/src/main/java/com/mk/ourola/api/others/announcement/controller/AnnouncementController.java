@@ -1,7 +1,9 @@
-package com.mk.ourola.api.others.controller;
+package com.mk.ourola.api.others.announcement.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
-import com.mk.ourola.api.others.service.AnnouncementServiceImpl;
+
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.announcement.service.AnnouncementServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,10 +31,10 @@ public class AnnouncementController {
 
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
 	@GetMapping("/list")
-	public ResponseEntity<List<AnnouncementDto>> getAllAnnouncement(@PathVariable("group") String groupName) {
+	public ResponseEntity<?> getAllAnnouncement(@PathVariable("group") String groupName, @PageableDefault(size=7, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
 		try {
-			return new ResponseEntity<List<AnnouncementDto>>(announcementService.getAllAnnouncement(groupName),
-				HttpStatus.OK);
+			Page<AnnouncementDto> announcements = announcementService.getAllAnnouncement(groupName, pageable);
+			return new ResponseEntity<>(announcements, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.repository.dto;
+package com.mk.ourola.api.others.announcement.repository.dto;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.DynamicInsert;
 
-import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.Getter;
@@ -20,28 +20,50 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "announcement")
+@Entity(name = "open_live")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @DynamicInsert
-public class AnnouncementDto {
+public class OpenLiveDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "group_id")
 	private GroupDto groupDto;
 
-	@ManyToOne
-	@JoinColumn(name = "artist_id")
-	private ArtistDto artistDto;
-
 	private String title;
+
 	private String content;
 
-	@Column(name = "create_time")
-	private Date createTime;
+	@Column(name = "start_date")
+	private Date startDate;
+
+	@Column(name = "file_path")
+	private String filePath;
+
+	@Column(name = "file_extension")
+	private String fileExtension;
+
+	@Column(name = "cur_participant")
+	private Integer curParticipant;
+
+	@Column(name = "max_participant")
+	private Integer maxParticipant;
+
+	public void participate() {
+		this.curParticipant++;
+	}
+
+	public void cancel() {
+		this.curParticipant--;
+	}
+
+	public Boolean isFull() {
+		return curParticipant >= maxParticipant;
+	}
+
 }

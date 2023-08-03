@@ -46,6 +46,11 @@ function FindPassword({ onClose }) {
             })
     }
 
+    const blockEnterChangePassword = () => {
+        setShowChangePasswordModal(false);
+    }
+
+
 
     return (
         <div className={styles.container}>
@@ -77,7 +82,7 @@ function FindPassword({ onClose }) {
                 value={certification}
                 onChange={(e) => setCertification(e.target.value)}
                 />
-                <button type='submit' className={styles.loginsubmitbutton}>
+                <button type='submit' className={styles.loginsubmitbutton} onClick={blockEnterChangePassword}>
                     인증번호 확인
                 </button>
             </form>
