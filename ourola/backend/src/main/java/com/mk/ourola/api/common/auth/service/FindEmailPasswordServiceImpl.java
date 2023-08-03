@@ -77,14 +77,16 @@ public class FindEmailPasswordServiceImpl implements FindEmailPasswordService {
 	}
 
 	@Override
-	public void modifyPassword(String email, String newPassword) throws Exception {
-		FanDto fan = fanRepository.findByEmail(email).get();
+	public void modifyPassword(String token, String newPassword) throws Exception {
+		Optional<EmailTokenDto> emailTokenDto = emailTokenRepository.findById(token);
+		// FanDto fan = fanRepository.findByEmail(email).get();
 		// 	.orElseThrow(() -> new Exception("존재하지 않는 사용자"));
 		//
-		Optional<EmailTokenDto> emailTokenDto = emailTokenRepository.findByFanIdAndExpirationDateAfterAndExpired(fan.getId(), LocalDateTime.now(), true);
+		// Optional<EmailTokenDto> emailTokenDto = emailTokenRepository.findByFanIdAndExpirationDateAfterAndExpired(fan.getId(), LocalDateTime.now(), true);
 
 		if(emailTokenDto.isPresent()) {
-			// EmailTokenDto emailToken = emailTokenDto.get();
+			EmailTokenDto emailToken = emailTokenDto.get();
+			FanDto fan = fanRepository.findById(emailToken.getFanId()).get();
 			fan.setPassword(newPassword);
 			fan.passwordEncode(passwordEncoder);
 			fanRepository.save(fan);
