@@ -11,7 +11,7 @@ const ChangePassword = ({ onClose }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-    const email = sessionStorage.getItem('ToChangePasswordEmail')
+    const token = sessionStorage.getItem('ToChangeToken')
     
     // 비밀번호 입력 이벤트 처리
     const handlePasswordChange = (e) => {
@@ -36,8 +36,8 @@ const ChangePassword = ({ onClose }) => {
             alert('비밀번호가 일치하지 않습니다.')
         } else {
             const data = {
-                'email' : email,
-                'new-password' : password,
+                'token' : token,
+                'newPassword' : password,
             }
             axios.post('/find/modify-password', data)
             .then((res) => {
