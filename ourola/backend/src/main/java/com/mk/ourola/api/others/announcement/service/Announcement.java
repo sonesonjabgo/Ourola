@@ -1,11 +1,9 @@
-package com.mk.ourola.api.others.service;
-
-import java.util.List;
+package com.mk.ourola.api.others.announcement.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
 
 public interface Announcement {
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드

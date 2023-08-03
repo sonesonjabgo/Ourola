@@ -1,7 +1,8 @@
 .myPageHome {
   display: block;
-  position: absolute;
-  margin-top: 100px;
+  /* position: absolute; */
+  position: relative;
+  padding-top: 100px;
   width: 100%;
   background-color: #f5f7fa;
 }
@@ -30,7 +31,7 @@
 
 .myPageSideBar {
   width: 330px;
-  height: 400px;
+  /* height: 400px; */
   padding-left: 30px;
   padding-right: 30px;
 }
