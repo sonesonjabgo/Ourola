@@ -85,10 +85,10 @@ public class ShopController {
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
-			if(!files.isEmpty()) {
+			if(files != null) {
 				fileService.writeShopImages(files, item, null);
 			}
-			if(!mainFile.isEmpty()) {
+			if(mainFile != null) {
 				fileService.writeShopMainImages(mainFile, item, null);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
