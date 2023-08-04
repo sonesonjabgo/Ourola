@@ -78,5 +78,5 @@ public class FeedDto {
 
 	@OneToMany(mappedBy = "feedDto", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	private List<FeedFileDto> files;
+	private List<FeedFileDto> fileList;
 }
