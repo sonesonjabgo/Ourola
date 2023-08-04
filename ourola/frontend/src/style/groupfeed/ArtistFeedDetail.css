@@ -24,6 +24,7 @@
 }
 
 .artistFeedContent {
+  margin-top: 6px;
   border-radius: 20px;
   background-color: #fff;
   display: flex;
@@ -90,6 +91,7 @@
 }
 
 .artistFeedCommentList {
+  max-height: 510px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -188,6 +190,8 @@
 }
 
 .artistFeedCommentInputButton {
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   font-size: 40px;
   background-color: #fff;
@@ -262,6 +266,7 @@
 }
 
 .artistFeedArtistDetailNameInfo {
+  position: absolute;
   display: block;
   font-size: 15px;
   line-height: 18px;
@@ -274,13 +279,14 @@
 }
 
 .artistFeedArtistDetailFormatDateInfo {
-  display: block;
+  position: absolute;
+  display: inline-block;
   color: #8e8e8e;
   flex-shrink: 0;
   font-size: 12px;
   line-height: 14px;
-  margin-left: -26px;
-  margin-top: -26px;
+  margin-left: 57px;
+  margin-top: -24px;
 }
 
 .artistFeedDetailContent {
@@ -297,10 +303,10 @@
   box-sizing: border-box;
   min-height: 75px;
   right: 332px;
-  column-gap: 10px;
+  column-gap: 8px;
   display: flex;
   left: 0;
-  padding: 27px 20px 26px;
+  padding: 15px 20px 26px;
 }
 
 .artistFeedHeader {
@@ -322,35 +328,27 @@
 }
 
 .artistFeedInBookmark {
-  display: block;
-  flex-shrink: 0;
-  background: transparent;
-  color: inherit;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  padding-left: 510px;
+  margin-left: 530px;
+  margin-top: 10px;
 }
 
 .backButton {
-  height: 20px;
-  width: 50px;
-  appearance: auto;
-  text-rendering: auto;
-  letter-spacing: normal;
-  word-spacing: normal;
-  line-height: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-  text-align: center;
-  vertical-align: top;
-  color: inherit;
-  background: transparent;
-  border: none;
+  height: 40px;
+  width: 40px;
   padding: 0;
   margin-left: 335px;
   cursor: pointer;
   font-size: 30px;
-  color: #000;
   margin-bottom: 5px;
+}
+
+.artistFeedInLike {
+  cursor: pointer;
+}
+
+.artistFeedInLikeCount {
+  padding-top: 15px;
 }

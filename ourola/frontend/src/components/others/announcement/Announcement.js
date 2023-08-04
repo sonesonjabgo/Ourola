@@ -59,7 +59,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex - 5);
-        setActiveButton(activeButton - 5);
+        setActiveButton(announcementStartIndex - 4);
         setLoding(false);
       })
       .catch((error) => {
@@ -96,7 +96,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex + 5);
-        setActiveButton(activeButton + 5);
+        setActiveButton(announcementStartIndex + 6);
         setLoding(false);
       })
       .catch((error) => {

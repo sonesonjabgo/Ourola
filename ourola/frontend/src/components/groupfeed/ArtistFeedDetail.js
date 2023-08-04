@@ -2,6 +2,12 @@ import "../../style/groupfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ArtistFeedComment from "./ArtistFeedComment";
+import downarrow from "../../assets/icons/downarrow.png";
+import send from "../../assets/icons/send.png";
+import inbookmark from "../../assets/icons/inbookmark.png";
+import likeclick from "../../assets/icons/like.png";
+import notlikeclick from "../../assets/icons/notlike.png";
+import commentclick from "../../assets/icons/comment.png";
 
 const ArtistFeedDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
@@ -188,41 +194,44 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailFooter"
                 >
                   {thisFeedLike ? (
-                    <div
-                      id="artistFeedLikeImg"
-                      className="artistFeedLikeImg"
+                    <img
+                      src={likeclick}
+                      alt="이미지가 없습니다."
+                      id="artistFeedInLikeImg"
+                      className="artistFeedInLikeImg"
                       onClick={wantLikeCancle}
-                    >
-                      좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
-                    </div>
+                    ></img>
                   ) : (
-                    <div
-                      id="artistFeedLikeImg"
-                      className="artistFeedLikeImg"
+                    <img
+                      src={notlikeclick}
+                      alt="이미지가 없습니다."
+                      id="artistFeedInLikeImg"
+                      className="artistFeedInLikeImg"
                       onClick={wantLike}
-                    >
-                      좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-                    </div>
+                    ></img>
                   )}
-                  <div id="artistFeedLikeCount" className="artistFeedLikeCount">
+                  <div
+                    id="artistFeedInLikeCount"
+                    className="artistFeedInLikeCount"
+                  >
                     {feedLikeSum}
                   </div>
-                  <div
+                  <img
+                    src={inbookmark}
+                    alt="이미지가 없습니다."
                     id="artistFeedInBookmark"
                     className="artistFeedInBookmark"
-                  >
-                    북마크 {/* 나중에 북마크 표시 추가 */}
-                  </div>
+                  ></img>
                 </div>
               </div>
               <div id="artistFeedCommentWrap" className="artistFeedCommentWrap">
-                <button
+                <img
+                  src={downarrow}
+                  alt="사진이 없습니다."
                   id="backButton"
                   className="backButton"
                   onMouseUp={closeModalClickFunction}
-                >
-                  ⇒
-                </button>
+                ></img>
                 <div
                   id="artistFeedCommentContainer"
                   className="artistFeedCommentContainer"
@@ -292,13 +301,13 @@ const ArtistFeedDetail = (props) => {
                               placeholder="댓글을 입력하세요."
                             ></textarea>
                           </div>
-                          <button
+                          <img
+                            src={send}
+                            alt="사진이 없습니다."
                             id="artistFeedCommentInputButton"
                             className="artistFeedCommentInputButton"
                             onClick={commentPostFunction}
-                          >
-                            &gt;
-                          </button>
+                          ></img>
                         </div>
                       </div>
                     </div>

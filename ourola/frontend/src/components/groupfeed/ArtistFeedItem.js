@@ -2,6 +2,10 @@ import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 import axios from "axios";
+import bookmark from "../../assets/icons/bookmark.png";
+import likeclick from "../../assets/icons/like.png";
+import notlikeclick from "../../assets/icons/notlike.png";
+import commentclick from "../../assets/icons/comment.png";
 
 const ArtistFeedItem = ({
   id,
@@ -132,9 +136,12 @@ const ArtistFeedItem = ({
           </div>
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
-          <div id="artistFeedBookmark" className="artistFeedBookmark">
-            북마크 {/* 나중에 북마크 표시 추가 */}
-          </div>
+          <img
+            src={bookmark}
+            alt="이미지가 없습니다."
+            id="artistFeedBookmark"
+            className="artistFeedBookmark"
+          ></img>
         </div>
       </div>
       <div
@@ -171,30 +178,33 @@ const ArtistFeedItem = ({
         <div id="artistFeedFeedInfo" className="artistFeedFeedInfo">
           <div id="artistFeedLike" className="artistFeedLike">
             {thisFeedLike ? (
-              <div
+              <img
+                src={likeclick}
+                alt="이미지가 없습니다."
                 id="artistFeedLikeImg"
                 className="artistFeedLikeImg"
                 onClick={wantLikeCancle}
-              >
-                좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
-              </div>
+              ></img>
             ) : (
-              <div
+              <img
+                src={notlikeclick}
+                alt="이미지가 없습니다."
                 id="artistFeedLikeImg"
                 className="artistFeedLikeImg"
                 onClick={wantLike}
-              >
-                좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-              </div>
+              ></img>
             )}
             <div id="artistFeedLikeCount" className="artistFeedLikeCount">
               {feedLikeSum}
             </div>
           </div>
           <div id="artistFeedComment" className="artistFeedComment">
-            <div id="artistFeedCommentImg" className="artistFeedCommentImg">
-              댓글 {/*  나중에 댓글 이미지로 수정필요 */}
-            </div>
+            <img
+              src={commentclick}
+              alt="이미지가 없습니다."
+              id="artistFeedCommentImg"
+              className="artistFeedCommentImg"
+            ></img>
             <div
               id="artistFeedCommentRealCount"
               className="artistFeedCommentRealCount"
