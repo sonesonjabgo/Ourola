@@ -22,7 +22,7 @@ public interface ShopService {
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
 		OnlineConcertDto onlineConcertDto, MultipartFile mainFile) throws Exception;
 
-	public MembershipPayDto writeMembership(String artist, String accessToken, MembershipPayDto membershipPayDto) throws
+	public MembershipPayDto writeMembership(String artist, String accessToken, MembershipPayDto membershipPayDto, MultipartFile mainFile) throws
 		Exception;
 
 	// 상품 수정 (소속사만 가능)

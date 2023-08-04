@@ -22,10 +22,12 @@ import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/shop/{artist}")
 @RequiredArgsConstructor
+@Slf4j
 public class ShopController {
 
 	private final ShopServiceImpl shopService;
@@ -84,10 +86,10 @@ public class ShopController {
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
-			System.out.println(onlineConcertDto);
+			// System.out.println(onlineConcertDto);
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
 
-			System.out.println(item);
+			// System.out.println(item);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, item, null);
 			}
@@ -105,8 +107,9 @@ public class ShopController {
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
 	) {
 		try {
-			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto);
-			if(!files.isEmpty()) {
+			System.out.println(membershipPayDto);
+			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto, mainFile);
+			if(!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
 			// if(!mainFile.isEmpty()) {
@@ -114,6 +117,7 @@ public class ShopController {
 			// }
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

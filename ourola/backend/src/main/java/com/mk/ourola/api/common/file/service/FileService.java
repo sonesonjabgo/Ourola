@@ -23,7 +23,7 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public String writeShopMainImage(MultipartFile mainFile) throws
+	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException;
 

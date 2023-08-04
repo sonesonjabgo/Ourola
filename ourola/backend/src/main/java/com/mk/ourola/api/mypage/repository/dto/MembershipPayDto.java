@@ -46,4 +46,7 @@ public class MembershipPayDto {
 
 	@Column(name = "expiration_date")
 	private String expirationDate;
+
+	@Column(name = "file_path")
+	private String filePath;
 }

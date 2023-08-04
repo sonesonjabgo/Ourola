@@ -96,7 +96,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public String writeShopMainImage(MultipartFile mainFile) throws
+	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException {
 		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
