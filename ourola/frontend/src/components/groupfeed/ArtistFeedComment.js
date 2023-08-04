@@ -26,15 +26,7 @@ const ArtistFeedComment = ({
     email = artistDto.email;
   }
 
-  const dateObj = new Date(createDate);
-
-  const year = dateObj.getFullYear().toString().substr(-2);
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateObj.getDate().toString().padStart(2, "0");
-  const hour = dateObj.getHours().toString().padStart(2, "0");
-  const minute = dateObj.getMinutes().toString().padStart(2, "0");
-
-  const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
+  const formatTime = createDate;
 
   const accessToken = localStorage.getItem("Authorization");
 
