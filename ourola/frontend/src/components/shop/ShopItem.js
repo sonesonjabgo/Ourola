@@ -7,7 +7,7 @@ const ShopItem = ({ src, title, path, price }) => (
     <div className="card">
       <img src={src} alt={title} />
       <div className="cardInfo">
-        <p className="text">{title}</p>
+        <h3 className="text">{title}</h3>
         <p className="text">￦{price}</p>
 
       </div>
