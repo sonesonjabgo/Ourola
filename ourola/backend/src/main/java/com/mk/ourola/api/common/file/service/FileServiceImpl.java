@@ -113,7 +113,7 @@ public class FileServiceImpl implements FileService {
 		// 	.build();
 		// ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
 
-		return shopfile_path;
+		return hashName;
 	}
 
 	@Override
@@ -182,6 +182,13 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
+	public byte[] getArtistProfileImg(int id) throws IOException {
+		Optional<ArtistDto> artistDto = artistRepository.findById(id);
+		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
 	public byte[] getOnlineConcertMainImgList(String group) throws Exception {
 		GroupDto groupDto = groupRepository.findByName(group);
 		List<ShopFileDto> shopFileDto = shopFileRepository.findByOnlineConcertDto_GroupDto_Id(groupDto.getId());
@@ -189,9 +196,8 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public byte[] getArtistProfileImg(int id) throws IOException {
-		Optional<ArtistDto> artistDto = artistRepository.findById(id);
-		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
+	public byte[] getShopMainImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/shopMainFile/" + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

@@ -111,10 +111,12 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getimg/shop-main")
-	public ResponseEntity<?> getShopMainImg(@RequestParam String group) throws Exception {
+	// 상품의 메인이미지(썸네일)을 불러온다.
+	// filePath : 온콘/멤버십 dto 안에 filePath
+	@GetMapping("/getimg/shop-main/{filePath}")
+	public ResponseEntity<?> getShopMainImg(@RequestParam String group, @PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
-			byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
+			byte[] artistProfileImg = fileService.getShopMainImg(group);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);

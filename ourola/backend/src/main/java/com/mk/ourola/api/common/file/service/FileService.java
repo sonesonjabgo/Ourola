@@ -31,6 +31,8 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
+	public byte[] getShopMainImg(String filePath) throws IOException;
+
 	public byte[] getArtistProfileImg(int id) throws IOException;
 
 	public byte[] getGroupImg(String filePath) throws IOException;
