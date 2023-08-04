@@ -121,22 +121,25 @@ public class FileServiceImpl implements FileService {
 		NoSuchAlgorithmException,
 		IOException {
 
-		for (MultipartFile file : files) {
-			System.out.println(file.getOriginalFilename());
-			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
-			// String fileExtension = getFileExtension(file.getOriginalFilename());
-			String hashName = generateUniqueFileName(fileName);
-			String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
-			System.out.println(shopfile_path);
-			File dest = new File(shopfile_path);
-			file.transferTo(dest);
+		if(files != null) {
+			for (MultipartFile file : files) {
+				if(file.isEmpty())	continue;
+				System.out.println(file.getOriginalFilename());
+				String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+				String fileExtension = getFileExtension(file.getOriginalFilename());
+				String hashName = generateUniqueFileName(fileName);
+				String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
+				System.out.println(shopfile_path);
+				File dest = new File(shopfile_path);
+				file.transferTo(dest);
 
-			ShopFileDto shopFileDto = ShopFileDto.builder()
-				.membershipPayDto(membershipPayDto)
-				.onlineConcertDto(onlineConcertDto)
-				.filePath(shopfile_path)
-				.build();
-			ShopFileDto save = shopFileRepository.save(shopFileDto);
+				ShopFileDto shopFileDto = ShopFileDto.builder()
+					.membershipPayDto(membershipPayDto)
+					.onlineConcertDto(onlineConcertDto)
+					.filePath(shopfile_path)
+					.build();
+				ShopFileDto save = shopFileRepository.save(shopFileDto);
+			}
 		}
 		return "저장완료";
 	}

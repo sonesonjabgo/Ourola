@@ -2,6 +2,8 @@ package com.mk.ourola.api.shop.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +11,7 @@ import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.common.file.repository.ShopFileRepository;
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
@@ -25,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class ShopServiceImpl implements ShopService {
 
 	private final OnlineConcertRepository onlineConcertRepository;
@@ -34,6 +38,7 @@ public class ShopServiceImpl implements ShopService {
 	private final ArtistRepository artistUserRepository;
 	private final FanRepository fanUserRepository;
 	private final FileServiceImpl fileService;
+	private final ShopFileRepository shopFileRepository;
 
 	@Override
 	public List<OnlineConcertDto> getAllOnlineConcertItems(String artist) {
@@ -82,30 +87,6 @@ public class ShopServiceImpl implements ShopService {
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
 		}
-		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
-		// if (role.equals(Role.CHANNEL_ADMIN.getKey())) {    // 채널(소속사) 관리자인지 확인
-		// 	ArtistDto user = artistUserRepository.findByEmail(email).get();
-		// 	if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
-		// 		&& user.getIsAdmin()) {    // 관리자인지
-		// 		GroupDto groupDto = groupRepository.findByName(artist);
-		// 		onlineConcertDto.setGroupDto(groupDto);
-		// 		onlineConcertDto.setFilePath(filePath);
-		// 		return onlineConcertRepository.save(onlineConcertDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// } else {    // 전체 관리자인지
-		// 	FanDto user = fanUserRepository.findByEmail(email).get();
-		// 	if (user.isAdmin()) {
-		// 		GroupDto groupDto = groupRepository.findByName(artist);
-		// 		onlineConcertDto.setGroupDto(groupDto);
-		// 		onlineConcertDto.setFilePath(filePath);
-		// 		return onlineConcertRepository.save(onlineConcertDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// }
-		// return onlineConcertRepository.save(onlineConcertDto);
 	}
 
 	@Override
@@ -132,28 +113,6 @@ public class ShopServiceImpl implements ShopService {
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
 		}
-		// if (role.equals(Role.CHANNEL_ADMIN.getKey())) {    // 채널(소속사) 관리자인지 확인
-		// 	ArtistDto user = artistUserRepository.findByEmail(email).get();
-		// 	if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
-		// 		&& user.getIsAdmin()) {    // 관리자인지
-		// 		GroupDto groupDto = groupRepository.findByName(artist);
-		// 		membershipPayDto.setGroupDto(groupDto);
-		// 		membershipPayDto.setFilePath(filePath);
-		// 		return membershipPayRepository.save(membershipPayDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// } else {    // 전체 관리자인지
-		// 	FanDto user = fanUserRepository.findByEmail(email).get();
-		// 	if (user.isAdmin()) {
-		// 		GroupDto groupDto = groupRepository.findByName(artist);
-		// 		membershipPayDto.setGroupDto(groupDto);
-		// 		return membershipPayRepository.save(membershipPayDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// }
-		// return membershipPayRepository.save(membershipPayDto);
 	}
 
 	@Override
@@ -171,31 +130,26 @@ public class ShopServiceImpl implements ShopService {
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
 				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
-			GroupDto groupDto = groupRepository.findByName(artist);
-			onlineConcertDto.setGroupDto(groupDto);
+			OnlineConcertDto oldDto = onlineConcertRepository.findById(onlineConcertDto.getId());
+			// GroupDto groupDto = groupRepository.findByName(artist);
+			// onlineConcertDto.setGroupDto(groupDto);
+			// System.out.println("before clear");
+			// System.out.println(oldDto);
+			// System.out.println(onlineConcertDto);
+			// oldDto.getFileList().clear();
+
+			shopFileRepository.deleteByOnlineConcertDto_Id(onlineConcertDto.getId());
+
+			// System.out.println("after clear");
+			// oldDto.getFileList().addAll(onlineConcertDto.getFileList());
+			// log.info(oldDto.toString());
+			// log.info(onlineConcertDto.toString());
 			onlineConcertDto.setFilePath(filePath);
+
 			return onlineConcertRepository.save(onlineConcertDto);
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
 		}
-		// if (role.equals(Role.ARTIST.getKey())) {    // 채널(소속사) 관리자인지 확인
-		// 	ArtistDto user = artistUserRepository.findByEmail(email).get();
-		// 	if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
-		// 		&& user.getIsAdmin()) {    // 관리자인지
-		// 		log.info(onlineConcertDto.toString());
-		// 		return onlineConcertRepository.save(onlineConcertDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// } else {    // 전체 관리자인지
-		// 	FanDto user = fanUserRepository.findByEmail(email).get();
-		// 	if (user.isAdmin()) {
-		// 		return onlineConcertRepository.save(onlineConcertDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// }
-		// return onlineConcertRepository.save(onlineConcertDto);
 	}
 
 	@Override
@@ -225,24 +179,6 @@ public class ShopServiceImpl implements ShopService {
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
 		}
-		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
-		// if (role.equals(Role.ARTIST.getKey())) {    // 채널(소속사) 관리자인지 확인
-		// 	ArtistDto user = artistUserRepository.findByEmail(email).get();
-		// 	if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
-		// 		&& user.getIsAdmin()) {    // 관리자인지
-		// 		return membershipPayRepository.save(membershipPayDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// } else {    // 전체 관리자인지
-		// 	FanDto user = fanUserRepository.findByEmail(email).get();
-		// 	if (user.isAdmin()) {
-		// 		return membershipPayRepository.save(membershipPayDto);
-		// 	} else {
-		// 		throw new Exception("ERROR :: 관리자 권한입니다.");
-		// 	}
-		// }
-		// return membershipPayRepository.save(membershipPayDto);
 	}
 
 	@Override

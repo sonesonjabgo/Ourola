@@ -1,5 +1,6 @@
 package com.mk.ourola.api.live.onlineconcert.repository.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
@@ -75,8 +77,20 @@ public class OnlineConcertDto {
 	@Column(name = "session_id")
 	private String sessionId;
 
-	@OneToMany(mappedBy = "onlineConcertDto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "onlineConcertDto", cascade = CascadeType.ALL)
 	@JsonManagedReference
-	private List<ShopFileDto> files;
+	private List<ShopFileDto> fileList;
+
+	// private void setFileList(List<ShopFileDto> fileList) {
+	// 	this.getFileList().clear();
+	// 	this.getFileList().addAll(fileList);
+	// 	// this.fileList = fileList;
+	// }
+	// public void addFileList(ShopFileDto file) {
+	// 	fileList.add(file);
+	// }
+	// public void removeFileList(ShopFileDto file) {
+	// 	fileList.remove(file);
+	// }
 
 }

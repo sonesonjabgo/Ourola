@@ -2,6 +2,8 @@ package com.mk.ourola.api.shop.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -83,18 +85,18 @@ public class ShopController {
 	@PostMapping("/online-concert")
 	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
 		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
-		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "files", required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
-			// System.out.println(onlineConcertDto);
+			System.out.println(onlineConcertDto);
 			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
 
-			// System.out.println(item);
+			System.out.println(item);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, item, null);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
-		} catch (Exception e) {
+		} catch ( Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -125,6 +127,7 @@ public class ShopController {
 	// 상품 수정 (소속사만 가능)
 	// 수정 시 DTO에 상품 아이디 필수
 	@PutMapping("/online-concert/{id}")
+	@Transactional
 	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
 		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
 		@RequestParam(required = false) List<MultipartFile> files,
@@ -132,9 +135,7 @@ public class ShopController {
 	){
 		try {
 			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
-			if(!(files == null)) {
-				fileService.writeShopImages(files, item, null);
-			}
+			fileService.writeShopImages(files, item, null);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());

@@ -1,17 +1,23 @@
 package com.mk.ourola.api.mypage.repository.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
+import com.mk.ourola.api.common.file.repository.dto.ShopFileDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.Getter;
@@ -49,4 +55,8 @@ public class MembershipPayDto {
 
 	@Column(name = "file_path")
 	private String filePath;
+
+	@OneToMany(mappedBy = "membershipPayDto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<ShopFileDto> fileList;
 }
