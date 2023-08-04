@@ -31,10 +31,10 @@ import axios from "axios";
 import MyPage from "components/mypage/MyPage";
 import OnlineConcertView from "components/live/onlineconcert/OnlineConcertView";
 
-// EC2 서버에 직접 보낼 때
+// EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-//axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
@@ -58,6 +58,7 @@ render(
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
       <Route path="/live" element={<OnlineConcertView />}></Route>
+      <Route path="shop:itemId" element={<ShopItemDetail />} />
     </Routes>
   </BrowserRouter>,
   container
