@@ -30,7 +30,7 @@ import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
-import OnlineConcertView from "components/live/onlineconcert/OnlineConcertView";
+import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";

@@ -2,7 +2,7 @@ package com.mk.ourola.api.shop.service;
 
 import java.util.List;
 
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 public interface ShopService {

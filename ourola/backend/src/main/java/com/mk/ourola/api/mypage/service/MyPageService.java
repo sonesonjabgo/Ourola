@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;

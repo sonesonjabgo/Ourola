@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.ovenvidu.service;
+package com.mk.ourola.api.common.ovenvidu.service;
 
 import java.util.Map;
 
