@@ -123,7 +123,7 @@ public class ShopController {
 
 	// 상품 수정 (소속사만 가능)
 	// 수정 시 DTO에 상품 아이디 필수
-	@PutMapping("/online-concert")
+	@PutMapping("/online-concert/{id}")
 	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
 		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
 		try {
@@ -134,7 +134,7 @@ public class ShopController {
 		}
 	}
 
-	@PutMapping("/membership")
+	@PutMapping("/membership/{id}")
 	public ResponseEntity<?> modifyMembership(@PathVariable String artist,
 		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
 		try {

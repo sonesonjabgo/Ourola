@@ -40,4 +40,6 @@ public interface FileService {
 		IOException;
 
 	byte[] getFeedImg(int fileId) throws IOException;
+
+	// byte[] getShopMainImgList(String group) throws Exception;
 }
