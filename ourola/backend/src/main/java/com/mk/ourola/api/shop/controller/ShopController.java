@@ -132,8 +132,12 @@ public class ShopController {
 	){
 		try {
 			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
+			if(!(files == null)) {
+				fileService.writeShopImages(files, item, null);
+			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -146,8 +150,12 @@ public class ShopController {
 	) {
 		try {
 			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto, mainFile);
+			if(!(files == null)) {
+				fileService.writeShopImages(files, null, item);
+			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

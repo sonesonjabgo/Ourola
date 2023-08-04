@@ -66,12 +66,15 @@ public class ShopServiceImpl implements ShopService {
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 
-		String filePath = fileService.ShopMainImageToPath(mainFile);
+		String filePath = null;
+		if(!(mainFile == null)) {
+			filePath = fileService.ShopMainImageToPath(mainFile);
+		}
 
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
-				artistUserRepository.findByEmail(email).get().getName().equals(artist))) {
+				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			onlineConcertDto.setGroupDto(groupDto);
 			onlineConcertDto.setFilePath(filePath);
@@ -112,13 +115,16 @@ public class ShopServiceImpl implements ShopService {
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 
-		String filePath = fileService.ShopMainImageToPath(mainFile);
+		String filePath = null;
+		if(!(mainFile == null)) {
+			filePath = fileService.ShopMainImageToPath(mainFile);
+		}
 
 		log.info("filePath: "+filePath);
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
-				artistUserRepository.findByEmail(email).get().getName().equals(artist))) {
+				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			membershipPayDto.setGroupDto(groupDto);
 			membershipPayDto.setFilePath(filePath);
@@ -157,11 +163,14 @@ public class ShopServiceImpl implements ShopService {
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 
-		String filePath = fileService.ShopMainImageToPath(mainFile);
+		String filePath = null;
+		if(!(mainFile == null)) {
+			filePath = fileService.ShopMainImageToPath(mainFile);
+		}
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
-				artistUserRepository.findByEmail(email).get().getName().equals(artist))) {
+				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			onlineConcertDto.setGroupDto(groupDto);
 			onlineConcertDto.setFilePath(filePath);
@@ -196,13 +205,19 @@ public class ShopServiceImpl implements ShopService {
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 
-		String filePath = fileService.ShopMainImageToPath(mainFile);
+		String filePath = null;
+		if(!(mainFile == null)) {
+			filePath = fileService.ShopMainImageToPath(mainFile);
+		}
+
+		log.info(role+" "+email);
+		log.info(artistUserRepository.findByEmail(email).get().getGroupDto().getName());
 
 		log.info("filePath: "+filePath);
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
-				artistUserRepository.findByEmail(email).get().getName().equals(artist))) {
+				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			membershipPayDto.setGroupDto(groupDto);
 			membershipPayDto.setFilePath(filePath);
