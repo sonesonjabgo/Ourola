@@ -99,15 +99,29 @@ public class FileController {
 		}
 	}
 
-	// @GetMapping("/getimg/shop-main/list")
-	// public ResponseEntity<?> getShopMainImgList(@RequestParam String group) {
-	// 	try {
-	// 		byte[] artistProfileImg = fileService.getShopMainImgList(group);
-	// 		HttpHeaders headers = new HttpHeaders();
-	// 		headers.setContentType(MediaType.IMAGE_JPEG);
-	// 		return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
-	// 	} catch (IOException e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
+	@GetMapping("/getimg/shop-main/list")
+	public ResponseEntity<?> getShopMainImgList(@RequestParam String group) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 상품의 메인이미지(썸네일)을 불러온다.
+	// filePath : 온콘/멤버십 dto 안에 filePath
+	@GetMapping("/getimg/shop-main/{filePath}")
+	public ResponseEntity<?> getShopMainImg(@RequestParam String group, @PathVariable(name = "filePath") String filePath) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getShopMainImg(group);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

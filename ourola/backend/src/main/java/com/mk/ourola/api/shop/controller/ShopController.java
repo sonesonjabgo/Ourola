@@ -2,6 +2,8 @@ package com.mk.ourola.api.shop.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,10 +24,12 @@ import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/shop/{artist}")
 @RequiredArgsConstructor
+@Slf4j
 public class ShopController {
 
 	private final ShopServiceImpl shopService;
@@ -80,22 +84,19 @@ public class ShopController {
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
 	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken,OnlineConcertDto onlineConcertDto,
-		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
+		@RequestParam(name = "files", required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
 			System.out.println(onlineConcertDto);
-			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
+			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
 
 			System.out.println(item);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, item, null);
 			}
-			if(!(mainFile == null)) {
-				fileService.writeShopMainImages(mainFile, item, null);
-			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
-		} catch (Exception e) {
+		} catch ( Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -108,15 +109,17 @@ public class ShopController {
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
 	) {
 		try {
-			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto);
-			if(!files.isEmpty()) {
+			System.out.println(membershipPayDto);
+			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto, mainFile);
+			if(!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
-			if(!mainFile.isEmpty()) {
-				fileService.writeShopMainImages(mainFile, null, item);
-			}
+			// if(!mainFile.isEmpty()) {
+			// 	fileService.writeShopMainImage(mainFile, null, item);
+			// }
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -124,23 +127,36 @@ public class ShopController {
 	// 상품 수정 (소속사만 가능)
 	// 수정 시 DTO에 상품 아이디 필수
 	@PutMapping("/online-concert/{id}")
+	@Transactional
 	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
+		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
+	){
 		try {
-			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto);
+			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
+			fileService.writeShopImages(files, item, null);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/membership/{id}")
 	public ResponseEntity<?> modifyMembership(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
+		@RequestHeader(name = "Authorization") String accessToken, MembershipPayDto membershipPayDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
+	) {
 		try {
-			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto);
+			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto, mainFile);
+			if(!(files == null)) {
+				fileService.writeShopImages(files, null, item);
+			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

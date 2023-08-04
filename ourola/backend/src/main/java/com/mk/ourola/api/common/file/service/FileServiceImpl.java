@@ -95,7 +95,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException {
 		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
@@ -105,15 +105,14 @@ public class FileServiceImpl implements FileService {
 		File dest = new File(shopfile_path);
 		mainFile.transferTo(dest);
 
-		ShopFileDto shopMainFileDto = ShopFileDto.builder()
-			.membershipPayDto(membershipPayDto)
-			.onlineConcertDto(onlineConcertDto)
-			.filePath(shopfile_path)
-			.isMain(true)
-			.build();
-		ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
+		// ShopFileDto shopMainFileDto = ShopFileDto.builder()
+		// 	.membershipPayDto(membershipPayDto)
+		// 	.onlineConcertDto(onlineConcertDto)
+		// 	.filePath(shopfile_path)
+		// 	.build();
+		// ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
 
-		return "저장완료";
+		return hashName;
 	}
 
 	@Override
@@ -121,23 +120,25 @@ public class FileServiceImpl implements FileService {
 		NoSuchAlgorithmException,
 		IOException {
 
-		for (MultipartFile file : files) {
-			System.out.println(file.getOriginalFilename());
-			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
-			// String fileExtension = getFileExtension(file.getOriginalFilename());
-			String hashName = generateUniqueFileName(fileName);
-			String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
-			System.out.println(shopfile_path);
-			File dest = new File(shopfile_path);
-			file.transferTo(dest);
+		if(files != null) {
+			for (MultipartFile file : files) {
+				if(file.isEmpty())	continue;
+				System.out.println(file.getOriginalFilename());
+				String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+				String fileExtension = getFileExtension(file.getOriginalFilename());
+				String hashName = generateUniqueFileName(fileName);
+				String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
+				System.out.println(shopfile_path);
+				File dest = new File(shopfile_path);
+				file.transferTo(dest);
 
-			ShopFileDto shopFileDto = ShopFileDto.builder()
-				.membershipPayDto(membershipPayDto)
-				.onlineConcertDto(onlineConcertDto)
-				.filePath(shopfile_path)
-				.isMain(false)
-				.build();
-			ShopFileDto save = shopFileRepository.save(shopFileDto);
+				ShopFileDto shopFileDto = ShopFileDto.builder()
+					.membershipPayDto(membershipPayDto)
+					.onlineConcertDto(onlineConcertDto)
+					.filePath(shopfile_path)
+					.build();
+				ShopFileDto save = shopFileRepository.save(shopFileDto);
+			}
 		}
 		return "저장완료";
 	}
@@ -182,16 +183,23 @@ public class FileServiceImpl implements FileService {
 		return FileUtil.readAsByteArray(file);
 	}
 
-	// @Override
-	// public byte[] getShopMainImgList(String group) throws Exception {
-	// 	GroupDto groupDto = groupRepository.findByName(group);
-	//
-	// }
-
 	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {
 		Optional<ArtistDto> artistDto = artistRepository.findById(id);
 		File file = new File(artistDto.get().getProfileFileDto().getFilePath());
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getOnlineConcertMainImgList(String group) throws Exception {
+		GroupDto groupDto = groupRepository.findByName(group);
+		List<ShopFileDto> shopFileDto = shopFileRepository.findByOnlineConcertDto_GroupDto_Id(groupDto.getId());
+		return null;
+	}
+
+	@Override
+	public byte[] getShopMainImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/shopMainFile/" + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

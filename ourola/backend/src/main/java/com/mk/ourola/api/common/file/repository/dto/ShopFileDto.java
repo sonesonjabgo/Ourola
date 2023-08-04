@@ -1,5 +1,6 @@
 package com.mk.ourola.api.common.file.repository.dto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 import lombok.AllArgsConstructor;
@@ -33,20 +37,15 @@ public class ShopFileDto {
 
 	@ManyToOne
 	@JoinColumn(name = "membership_pay_id")
+	@JsonBackReference
 	private MembershipPayDto membershipPayDto;
 
 	@ManyToOne
 	@JoinColumn(name = "online_concert_id")
+	@JsonBackReference
 	private OnlineConcertDto onlineConcertDto;
 
 	@Column(name = "file_path")
 	private String filePath;
-
-	@Column(name = "is_main")
-	private Boolean isMain;
-
-	public void setIsMain() {
-		this.isMain = true;
-	}
 
 }

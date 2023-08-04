@@ -23,13 +23,15 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException;
 
 	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
 		NoSuchAlgorithmException,
 		IOException;
+
+	public byte[] getShopMainImg(String filePath) throws IOException;
 
 	public byte[] getArtistProfileImg(int id) throws IOException;
 
@@ -41,5 +43,5 @@ public interface FileService {
 
 	byte[] getFeedImg(int fileId) throws IOException;
 
-	// byte[] getShopMainImgList(String group) throws Exception;
+	byte[] getOnlineConcertMainImgList(String group) throws Exception;
 }

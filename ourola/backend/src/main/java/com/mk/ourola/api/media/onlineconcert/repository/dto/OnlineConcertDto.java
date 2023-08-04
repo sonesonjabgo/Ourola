@@ -1,7 +1,10 @@
 package com.mk.ourola.api.media.onlineconcert.repository.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
+import com.mk.ourola.api.common.file.repository.dto.ShopFileDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.Getter;
@@ -68,5 +76,21 @@ public class OnlineConcertDto {
 
 	@Column(name = "session_id")
 	private String sessionId;
+
+	@OneToMany(mappedBy = "onlineConcertDto", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<ShopFileDto> fileList;
+
+	// private void setFileList(List<ShopFileDto> fileList) {
+	// 	this.getFileList().clear();
+	// 	this.getFileList().addAll(fileList);
+	// 	// this.fileList = fileList;
+	// }
+	// public void addFileList(ShopFileDto file) {
+	// 	fileList.add(file);
+	// }
+	// public void removeFileList(ShopFileDto file) {
+	// 	fileList.remove(file);
+	// }
 
 }
