@@ -1,0 +1,2 @@
+- Shop 페이지 물품 Create, Update, Delete 프론트 코드 구현
+- Shop 페이지 물품 Create, Update BE와 연결
