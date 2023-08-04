@@ -1,9 +1,13 @@
 // 세븐틴 들어가는 부분에 `{artist}` 가 들어가도록 수정해야 함.
 
-import React, { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { match } from "path-to-regexp";
 import "../../../style/common/header/GroupPageMenu.css";
+
+import MediaSubNav from "./MediaSubNav"
+import OthersSubNav from "./OthersSubNav"
+
 
 function GroupPageMenu() {
   // 클릭이 되면 상태변화를 시켜 active class를 추가시킴
@@ -25,6 +29,8 @@ function GroupPageMenu() {
   const isGroupPageMatch = match("/seventeen/:subpath*");
   const isGroupPage = isGroupPageMatch(location.pathname);
   
+  useEffect(() => {setClickedTab("fanFeed");
+  }, []);
 
   if (isGroupPage) {
     return (
@@ -48,7 +54,13 @@ function GroupPageMenu() {
                 아티스트 피드
               </Link>
 
-              <div className="groupPageMenuButton">라이브</div>
+              <Link
+                to="/live"
+                className={isTabActive("live") ? "active" : ""}
+                onClick={() => handleTabClick("live")}
+              >
+              라이브
+              </Link>
 
               <Link
                 to="/seventeen/fanSigning"
@@ -76,6 +88,9 @@ function GroupPageMenu() {
           </div>
           <div className="groupPageMenuSpacer"></div>
         </div>
+         {/* 서브 네비게이션 바 */}
+         {isTabActive("media") && <MediaSubNav />}
+         {isTabActive("others") && <OthersSubNav />}
       </>
     );
   } else {

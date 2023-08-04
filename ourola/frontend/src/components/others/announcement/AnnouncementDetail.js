@@ -8,7 +8,7 @@ const AnnouncementDetail = (props) => {
     setModalOpen(false);
   };
 
-  const { id, title, content, createTime } = props.state;
+  const { title, content, createTime } = props.state;
 
   let getDate = createTime.split("T", 2);
   getDate[1] = getDate[1].split(".", 1);

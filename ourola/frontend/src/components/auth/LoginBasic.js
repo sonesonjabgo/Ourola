@@ -107,14 +107,14 @@ function LoginBasic({ setModalOpen, onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className={styles.checkbox}>
+        {/* <div className={styles.checkbox}>
           <label>
             <input type="checkbox" name="option1" value="value1" /> 아이디 저장
           </label>
           <label>
             <input type="checkbox" name="option1" value="value1" /> 자동 로그인
           </label>
-        </div>
+        </div> */}
         <div>
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
