@@ -1,11 +1,11 @@
-package com.mk.ourola.api.live.onlinecall.service;
+package com.mk.ourola.api.media.onlinecall.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mk.ourola.api.live.onlinecall.repository.OnlineCallRepository;
-import com.mk.ourola.api.live.onlinecall.repository.dto.OnlineCallDto;
+import com.mk.ourola.api.media.onlinecall.repository.OnlineCallRepository;
+import com.mk.ourola.api.media.onlinecall.repository.dto.OnlineCallDto;
 
 import lombok.RequiredArgsConstructor;
 
