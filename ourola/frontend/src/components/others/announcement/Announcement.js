@@ -13,6 +13,7 @@ const Announcement = () => {
   const [announcementTotalPages, setAnnouncementTotalPages] = useState(0);
   const [announcementStartIndex, setAnnouncementStartIndex] = useState(0);
   const [announcementEnd, setAnnouncementEnd] = useState(false);
+  const [activeButton, setActiveButton] = useState(1);
   const accessToken = localStorage.getItem("Authorization");
 
   const config = {
@@ -58,6 +59,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex - 5);
+        setActiveButton(activeButton - 5);
         setLoding(false);
       })
       .catch((error) => {
@@ -71,6 +73,7 @@ const Announcement = () => {
       .get(`/${group}/announcement/list?page=${page - 1}`, config)
       .then((response) => {
         setAnnouncementList(response.data.content);
+        setActiveButton(page);
         setLoding(false);
       })
       .catch((error) => {
@@ -93,6 +96,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex + 5);
+        setActiveButton(activeButton + 5);
         setLoding(false);
       })
       .catch((error) => {
@@ -131,9 +135,10 @@ const Announcement = () => {
                   (_, index) => announcementStartIndex + index + 1
                 ).map((page) => (
                   <button
-                    id="pagingInnerButton"
-                    className="pagingInnerButton"
                     key={page}
+                    className={`pagingInnerButton ${
+                      activeButton === page ? "pagingActive" : ""
+                    }`}
                     onClick={() => numberClick(page)}
                   >
                     {page}

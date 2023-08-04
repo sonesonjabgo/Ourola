@@ -8,7 +8,8 @@
   align-items: center;
 }
 
-.pagingWrapper {
+.pagingWrapper,
+.pagingInnerButtonActive {
   position: absolute;
   display: inline-flex;
   justify-content: center;
@@ -22,4 +23,11 @@
   border: 0;
   outline: 0;
   cursor: pointer;
+}
+
+.pagingInnerButton:hover,
+.pagingInnerButton.pagingActive {
+  color: #7b68ee;
+  font-weight: 600;
+  text-decoration: underline;
 }

@@ -27,6 +27,7 @@ import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
@@ -181,6 +182,12 @@ public class FileServiceImpl implements FileService {
 		File file = new File(feedImg.get().getFilePath());
 		return FileUtil.readAsByteArray(file);
 	}
+
+	// @Override
+	// public byte[] getShopMainImgList(String group) throws Exception {
+	// 	GroupDto groupDto = groupRepository.findByName(group);
+	//
+	// }
 
 	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {
