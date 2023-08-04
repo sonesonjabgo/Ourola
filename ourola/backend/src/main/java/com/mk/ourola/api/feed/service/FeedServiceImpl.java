@@ -165,7 +165,7 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
-		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_IdOrderByCreateDate(artistId);
+		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_IdOrderByCreateDateDesc(artistId);
 
 		List<FeedDto> onlyArtistFeed = new ArrayList<>();
 
