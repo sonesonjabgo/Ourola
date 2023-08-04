@@ -58,7 +58,7 @@ render(
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
       <Route path="/live" element={<OnlineConcertView />}></Route>
-      <Route path="shop:itemId" element={<ShopItemDetail />} />
+      <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
     </Routes>
   </BrowserRouter>,
   container

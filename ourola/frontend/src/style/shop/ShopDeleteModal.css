@@ -1,4 +1,4 @@
-.shopCreateBackground {
+.shopDeleteBackground {
     z-index: 999;
     align-items: center;
     bottom: 0;
@@ -13,7 +13,7 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
   
-  .shopCreateDetail {
+  .shopDeleteDetail {
     display: block;
     width: 40%;
     height: 80%;
@@ -34,16 +34,16 @@
 
   }
   
-  .shopCreateDetail::-webkit-scrollbar {
+  .shopDeleteDetail::-webkit-scrollbar {
     width: 10px;
   }
   
-  .shopCreateDetail::-webkit-scrollbar-thumb {
+  .shopDeleteDetail::-webkit-scrollbar-thumb {
     background-color: #7b68ee;
     border-radius: 10px;
   }
   
-  .shopCreateDetail::-webkit-scrollbar-button:vertical:start:decrement,
+  .shopDeleteDetail::-webkit-scrollbar-button:vertical:start:decrement,
   .subMenu::-webkit-scrollbar-button:vertical:start:increment {
     display: block;
     height: 20px;
@@ -54,7 +54,7 @@
     height: 20px;
   }
   
-  .shopCreateClose {
+  .shopDeleteClose {
     height: 60px;
     position: absolute;
     top: 70px;
@@ -81,7 +81,7 @@
     color: #e4e6ea;
   }
   
-  .shopCreateDetailContent {
+  .shopDeleteDetailContent {
     display: block;
     width: 100%;
     max-width: 750px;
@@ -100,46 +100,27 @@
     margin-top: 95px;
   }
 
-  .shopCreateIcon {
+  .shopDeleteIcon {
     height: 30px;
     margin-right: 40px;
     cursor: pointer;
   }
 
-  .shopCreateHeader {
+  .shopDeleteHeader {
     position: fixed;
     width: 100%;
-    font-size: 45px;
-    text-align: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    border-bottom: 3px solid #e4e6ea;
   }
 
   .inputValueContainer {
-    height: 80%;
+    height: 90%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-top: 50px;
+
+    justify-content: center;
+    align-items: center;
   }
 
   .inputValue {
     margin: 20px 0px;
-  }
-
-  .inputValue input {
-    height: 50px;
-    width: 200px;
-    margin-left: 300px;
-  }
-
-  .OpenCreateModalButton {
-    border: none;
-    width: 150px;
-    height: 50px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 20px;
   }
