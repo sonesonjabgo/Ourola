@@ -1,0 +1,32 @@
+.membershipOnlyContainer {
+    /* display: flex; */
+    margin: 230px auto 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개의 열을 생성 */
+    grid-gap: 20px; /* 요소들 사이의 간격 설정 */
+}
+
+.contentCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.modalContainer {
+    position: fixed;
+    width: 1200px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); */
+    z-index: 1000;
+  }

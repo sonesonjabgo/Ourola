@@ -13,8 +13,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  useLocation,
-  useMatch,
 } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
@@ -26,15 +24,18 @@ import Header from "./components/common/header/Header";
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
 import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
+import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
+
+
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
 import OnlineConcertView from "components/live/onlineconcert/OnlineConcertView";
 
 // EC2 서버에 직접 보낼 때
-// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
@@ -54,6 +55,7 @@ render(
       <Route path="/seventeen" element={<FanFeed />}></Route>
       <Route path="/seventeen/group" element={<Group />}></Route>
       <Route path="/seventeen/announcement" element={<Announcement />}></Route>
+      <Route path="/seventeen/membershipOnly" element={<MembershipOnly/>}></Route>
       <Route path="/seventeen/fanSigning" element={<FanSigning />}></Route>
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
