@@ -2,17 +2,17 @@ import "../../../style/others/announcement/Announcement.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
-import { useLocation } from "react-router-dom";
 
 const Announcement = () => {
-  const location = useLocation();
-  const group = location.state;
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
 
   const [loading, setLoding] = useState(true);
   const [announcementList, setAnnouncementList] = useState({});
   const [announcementTotalPages, setAnnouncementTotalPages] = useState(0);
   const [announcementStartIndex, setAnnouncementStartIndex] = useState(0);
   const [announcementEnd, setAnnouncementEnd] = useState(false);
+  const [activeButton, setActiveButton] = useState(1);
   const accessToken = localStorage.getItem("Authorization");
 
   const config = {
@@ -44,11 +44,6 @@ const Announcement = () => {
       });
   }, []);
 
-  console.log(announcementList);
-  console.log(announcementTotalPages);
-  console.log(announcementStartIndex);
-  console.log(announcementEnd);
-
   const prevClick = () => {
     axios
       .get(
@@ -63,6 +58,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex - 5);
+        setActiveButton(announcementStartIndex - 4);
         setLoding(false);
       })
       .catch((error) => {
@@ -76,6 +72,7 @@ const Announcement = () => {
       .get(`/${group}/announcement/list?page=${page - 1}`, config)
       .then((response) => {
         setAnnouncementList(response.data.content);
+        setActiveButton(page);
         setLoding(false);
       })
       .catch((error) => {
@@ -98,6 +95,7 @@ const Announcement = () => {
           setAnnouncementEnd(false);
         }
         setAnnouncementStartIndex(announcementStartIndex + 5);
+        setActiveButton(announcementStartIndex + 6);
         setLoding(false);
       })
       .catch((error) => {
@@ -136,9 +134,10 @@ const Announcement = () => {
                   (_, index) => announcementStartIndex + index + 1
                 ).map((page) => (
                   <button
-                    id="pagingInnerButton"
-                    className="pagingInnerButton"
                     key={page}
+                    className={`pagingInnerButton ${
+                      activeButton === page ? "pagingActive" : ""
+                    }`}
                     onClick={() => numberClick(page)}
                   >
                     {page}

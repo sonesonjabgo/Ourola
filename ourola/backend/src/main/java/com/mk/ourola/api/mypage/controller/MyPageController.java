@@ -2,7 +2,6 @@ package com.mk.ourola.api.mypage.controller;
 
 import java.util.List;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
 import com.mk.ourola.api.mypage.service.MyPageServiceImpl;

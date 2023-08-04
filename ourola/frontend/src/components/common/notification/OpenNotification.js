@@ -16,6 +16,7 @@ const OpenNotification = () => {
         onClick={showModal}
         className="notificationIcon"
         src={NotificationIcon}
+        alt=""
       />
       {modalOpen && (
         <NotificationModal state={{ setModalOpen }}></NotificationModal>

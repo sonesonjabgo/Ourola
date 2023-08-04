@@ -50,14 +50,14 @@ public class FeedServiceImpl implements FeedService {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return feedRepository.findByGroupDto_IdAndTypeIs(groupId, 1);
+		return feedRepository.findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(groupId, 1);
 	}
 
 	public List<FeedDto> getAllArtistFeed(String artist) {
 		System.out.println(artist + "서비스");
 		int groupId = groupRepository.findByName(artist).getId();
 		System.out.println(groupId);
-		return feedRepository.findByGroupDto_IdAndTypeIs(groupId, 2);
+		return feedRepository.findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(groupId, 2);
 	}
 
 	public FeedDto getFeed(String artist, int id) {
@@ -165,7 +165,7 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
-		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_Id(artistId);
+		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_IdOrderByCreateDateDesc(artistId);
 
 		List<FeedDto> onlyArtistFeed = new ArrayList<>();
 

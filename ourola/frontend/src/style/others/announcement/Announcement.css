@@ -1,12 +1,16 @@
+.announcement {
+  padding-top: 60px;
+}
+
 .pagingWrapperParent {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.pagingWrapper {
+.pagingWrapper,
+.pagingInnerButtonActive {
   position: absolute;
-  margin-bottom: 55px;
   display: inline-flex;
   justify-content: center;
 }
@@ -19,4 +23,11 @@
   border: 0;
   outline: 0;
   cursor: pointer;
+}
+
+.pagingInnerButton:hover,
+.pagingInnerButton.pagingActive {
+  color: #7b68ee;
+  font-weight: 600;
+  text-decoration: underline;
 }

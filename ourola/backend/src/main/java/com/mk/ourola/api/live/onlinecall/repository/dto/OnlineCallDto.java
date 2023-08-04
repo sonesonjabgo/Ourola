@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
-import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
 import lombok.AllArgsConstructor;
@@ -41,10 +40,6 @@ public class OnlineCallDto {
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
 	private ArtistDto artistDto;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private FanDto fanDto;
 
 	private String title;
 

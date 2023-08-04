@@ -118,82 +118,77 @@ const Signup = () => {
 
   return (
     <div className='container'>
-        <div className="signupHeader">
-            <Link to='/' className='navbar-logo'>
-                <img className = 'mainLogo' src={mainLogo} alt='OurolaLogo' />
-                Ourola
-            </Link>
-            <h2>회원가입</h2>
+      <div className='signupContainer'>
+      <div>
+          <label>이름</label> <br/>
+          <input
+            className="inputBox"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="이름 입력"
+          />
+      </div>
+        <div>
+          <label>아이디 (이메일)</label> <br/>
+          <input
+            className = "inputBox"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일 입력"
+          />
+          <button onClick={checkDuplicateUsername}>중복 확인</button>
         </div>
-      <div>
-        <label>이름</label> <br/>
-        <input
-          className="inputBox"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="이름 입력"
-        />
-      </div>
-      <div>
-        <label>아이디 (이메일)</label> <br/>
-        <input
-          className = "inputBox"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일 입력"
-        />
-        <button onClick={checkDuplicateUsername}>중복 확인</button>
-      </div>
-      <div>
-        <label>닉네임</label> <br/>
-        <input
-          className = "inputBox"
-          type="text"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          placeholder="닉네임 입력"
-        />
-        <button onClick={checkDuplicateNickname}>중복 확인</button>
-      </div>
-      <div>
-        <label>비밀번호</label> <br/>
-        <input
-          className = "inputBox"
-          type="password"
-          value={password}
-          maxLength = {20}
-          onChange={handlePasswordChange}
-          placeholder="영문, 숫자, 특수문자를 포함한 6 ~ 20자"
-        />
-      </div>
-      <div>
-        <label>비밀번호 확인</label> <br/>
-        <input
-          className = "inputBox"
-          type="password"
-          value={confirmPassword}
-          maxLength = {20}
-          onChange={handleConfirmPasswordChange}
-        />
-      </div>
-      <div>
-        <label>생년월일</label> <br/>
-        <input
-          className="inputBox"
-          type="date"
-          value={birthdate}
-          onChange={handleBirthdateChange}
-        />
-      </div>
-      
+        <div>
+          <label>닉네임</label> <br/>
+          <input
+            className = "inputBox"
+            type="text"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="닉네임 입력"
+          />
+          <button onClick={checkDuplicateNickname}>중복 확인</button>
+        </div>
+        <div>
+          <label>비밀번호</label> <br/>
+          <input
+            className = "inputBox"
+            type="password"
+            value={password}
+            maxLength = {20}
+            onChange={handlePasswordChange}
+            placeholder="영문, 숫자, 특수문자를 포함한 6 ~ 20자"
+          />
+        </div>
+        <div>
+          <label>비밀번호 확인</label> <br/>
+          <input
+            className = "inputBox"
+            type="password"
+            value={confirmPassword}
+            maxLength = {20}
+            onChange={handleConfirmPasswordChange}
+          />
+        </div>
+        <div>
+          <label>생년월일</label> <br/>
+          <input
+            className="inputBox"
+            type="date"
+            value={birthdate}
+            onChange={handleBirthdateChange}
+          />
+        </div>
+        
 
 
-      {!passwordsMatch && <p style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</p>}
+        {!passwordsMatch && <p style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</p>}
 
-      <button onClick={handleSignup}>회원가입</button>
-    </div>
+        <button onClick={handleSignup}>회원가입</button>
+      </div>
+  </div>
   );
 };
 

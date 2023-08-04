@@ -26,3 +26,7 @@
 .groupPageMenuSpacer {
     width: 200px;
 }
+
+.active {
+    color: white;
+}

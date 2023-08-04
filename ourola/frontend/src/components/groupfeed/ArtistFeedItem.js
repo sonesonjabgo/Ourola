@@ -1,7 +1,12 @@
 import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 import axios from "axios";
+import bookmark from "../../assets/icons/bookmark.png";
+import likeclick from "../../assets/icons/like.png";
+import notlikeclick from "../../assets/icons/notlike.png";
+import commentclick from "../../assets/icons/comment.png";
 
 const ArtistFeedItem = ({
   id,
@@ -17,15 +22,13 @@ const ArtistFeedItem = ({
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
 
-  const dateObj = new Date(createDate);
+  let getDate = createDate.split("T", 2);
+  getDate[1] = getDate[1].split(".", 1);
 
-  const year = dateObj.getFullYear().toString().substr(-2);
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateObj.getDate().toString().padStart(2, "0");
-  const hour = dateObj.getHours().toString().padStart(2, "0");
-  const minute = dateObj.getMinutes().toString().padStart(2, "0");
+  const [year, month, day] = getDate[0].split("-");
+  const [hour, minute] = getDate[1][0].split(":");
 
-  const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
+  const formatTime = `${year.slice(2)}.${month}.${day} ${hour}:${minute}`;
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -48,7 +51,24 @@ const ArtistFeedItem = ({
     axios
       .get(`/${id}/comment`, config)
       .then((response) => {
-        setComment(response.data);
+        const modifiedData = response.data.map((it) => {
+          const getDate = it.createDate.split("T", 2);
+          getDate[1] = getDate[1].split(".", 1);
+
+          const [year, month, day] = getDate[0].split("-");
+          const [hour, minute] = getDate[1][0].split(":");
+
+          const formatTime = `${year.slice(
+            2
+          )}.${month}.${day} ${hour}:${minute}`;
+
+          return {
+            ...it,
+            createDate: formatTime,
+          };
+        });
+
+        setComment(modifiedData);
       })
       .catch((error) => {
         console.error("Error fetching data : ", error);
@@ -94,16 +114,13 @@ const ArtistFeedItem = ({
     setFeedLikeSum(like);
   };
 
-  // const [prevPos, setPrevPos] = useState(-1);
-
-  // const scrollToCenter = (event) => {
-  //   console.log("a");
-  //   window.scrollTo(0, 1000);
-  // };
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const openModalClickFunction = (event) => {
     showModal();
-    // scrollToCenter(event);
+    setScrollPosition(window.pageYOffset);
+    window.scrollTo(0, 120);
+    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -135,9 +152,12 @@ const ArtistFeedItem = ({
           </div>
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
-          <div id="artistFeedBookmark" className="artistFeedBookmark">
-            북마크 {/* 나중에 북마크 표시 추가 */}
-          </div>
+          <img
+            src={bookmark}
+            alt="이미지가 없습니다."
+            id="artistFeedBookmark"
+            className="artistFeedBookmark"
+          ></img>
         </div>
       </div>
       <div
@@ -161,8 +181,8 @@ const ArtistFeedItem = ({
               thisFeedLike,
               feedLikeSum,
               commentCount,
-              // prevPos,
               comment,
+              scrollPosition,
             }}
           ></ArtistFeedDetail>
         )}
@@ -174,30 +194,33 @@ const ArtistFeedItem = ({
         <div id="artistFeedFeedInfo" className="artistFeedFeedInfo">
           <div id="artistFeedLike" className="artistFeedLike">
             {thisFeedLike ? (
-              <div
+              <img
+                src={likeclick}
+                alt="이미지가 없습니다."
                 id="artistFeedLikeImg"
                 className="artistFeedLikeImg"
                 onClick={wantLikeCancle}
-              >
-                좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
-              </div>
+              ></img>
             ) : (
-              <div
+              <img
+                src={notlikeclick}
+                alt="이미지가 없습니다."
                 id="artistFeedLikeImg"
                 className="artistFeedLikeImg"
                 onClick={wantLike}
-              >
-                좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-              </div>
+              ></img>
             )}
             <div id="artistFeedLikeCount" className="artistFeedLikeCount">
               {feedLikeSum}
             </div>
           </div>
           <div id="artistFeedComment" className="artistFeedComment">
-            <div id="artistFeedCommentImg" className="artistFeedCommentImg">
-              댓글 {/*  나중에 댓글 이미지로 수정필요 */}
-            </div>
+            <img
+              src={commentclick}
+              alt="이미지가 없습니다."
+              id="artistFeedCommentImg"
+              className="artistFeedCommentImg"
+            ></img>
             <div
               id="artistFeedCommentRealCount"
               className="artistFeedCommentRealCount"

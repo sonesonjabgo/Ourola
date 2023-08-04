@@ -3,24 +3,31 @@ import { Link, Router, Routes, Route } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
+import registerServiceWorker from "./components/media/onlineconcert/openvidu/registerServiceWorker";
 
 // artist 선언 방식 fix 필요
 function App() {
   const group = "BTS";
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [groupList, setGroupList] = useState([]);
+  const [subscribeList, setSubscribeList] = useState([]);
 
   useEffect(() => {
-    document.title = 'CSS의 무덤'
-  })
+    document.title = "CSS의 무덤";
+  });
 
   // 로그인 상태 변경 함수
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = ({ groupList, subscribeList }) => {
     setLoggedIn(true);
+    setGroupList(groupList);
+    setSubscribeList(subscribeList);
   };
 
   // 로그아웃 상태 변경 함수
-  const handleLogout = () => {
+  const handleLogout = ({ groupList, subscribeList }) => {
     setLoggedIn(false);
+    setGroupList(groupList);
+    setSubscribeList(subscribeList);
   };
 
   useEffect(() => {
@@ -34,6 +41,7 @@ function App() {
       setLoggedIn(false);
     }
   }, []);
+  registerServiceWorker();
 
   return (
     <div id="App" className="App">
@@ -46,16 +54,9 @@ function App() {
       <div className="main">
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
-
-      {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}
-      <Link to="/announcement" state={group}>
-        공지사항
-      </Link>
-      <br></br>
-      <Link to="/group" state={group}>
-        아티스트
-      </Link>
       {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
+      <br />
+      <Link to="/live">라이브</Link>
     </div>
   );
 }
