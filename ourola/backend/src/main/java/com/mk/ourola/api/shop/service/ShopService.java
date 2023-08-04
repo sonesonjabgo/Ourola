@@ -27,10 +27,10 @@ public interface ShopService {
 
 	// 상품 수정 (소속사만 가능)
 	public OnlineConcertDto modifyOnlineConcert(String artist, String accessToken,
-		OnlineConcertDto onlineConcertDto) throws Exception;
+		OnlineConcertDto onlineConcertDto, MultipartFile mainFile) throws Exception;
 
 	public MembershipPayDto modifyMembership(String artist, String accessToken,
-		MembershipPayDto membershipPayDto) throws Exception;
+		MembershipPayDto membershipPayDto, MultipartFile mainFile) throws Exception;
 
 	// 상품 삭제 (소속사만 가능)
 	public void deleteOnlineConcert(String artist, String accessToken, int id) throws Exception;

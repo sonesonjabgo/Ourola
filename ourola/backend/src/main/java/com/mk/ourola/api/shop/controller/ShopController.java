@@ -126,9 +126,12 @@ public class ShopController {
 	// 수정 시 DTO에 상품 아이디 필수
 	@PutMapping("/online-concert/{id}")
 	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody OnlineConcertDto onlineConcertDto) {
+		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
+	){
 		try {
-			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto);
+			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -137,9 +140,12 @@ public class ShopController {
 
 	@PutMapping("/membership/{id}")
 	public ResponseEntity<?> modifyMembership(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @RequestBody MembershipPayDto membershipPayDto) {
+		@RequestHeader(name = "Authorization") String accessToken, MembershipPayDto membershipPayDto,
+		@RequestParam(required = false) List<MultipartFile> files,
+		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
+	) {
 		try {
-			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto);
+			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto, mainFile);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
