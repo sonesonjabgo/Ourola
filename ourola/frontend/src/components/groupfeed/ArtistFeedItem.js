@@ -1,5 +1,6 @@
 import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 import axios from "axios";
 import bookmark from "../../assets/icons/bookmark.png";
@@ -21,15 +22,13 @@ const ArtistFeedItem = ({
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
 
-  const dateObj = new Date(createDate);
+  let getDate = createDate.split("T", 2);
+  getDate[1] = getDate[1].split(".", 1);
 
-  const year = dateObj.getFullYear().toString().substr(-2);
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateObj.getDate().toString().padStart(2, "0");
-  const hour = dateObj.getHours().toString().padStart(2, "0");
-  const minute = dateObj.getMinutes().toString().padStart(2, "0");
+  const [year, month, day] = getDate[0].split("-");
+  const [hour, minute] = getDate[1][0].split(":");
 
-  const formatTime = `${year}.${month}.${day} ${hour}:${minute}`;
+  const formatTime = `${year.slice(2)}.${month}.${day} ${hour}:${minute}`;
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -52,7 +51,24 @@ const ArtistFeedItem = ({
     axios
       .get(`/${id}/comment`, config)
       .then((response) => {
-        setComment(response.data);
+        const modifiedData = response.data.map((it) => {
+          const getDate = it.createDate.split("T", 2);
+          getDate[1] = getDate[1].split(".", 1);
+
+          const [year, month, day] = getDate[0].split("-");
+          const [hour, minute] = getDate[1][0].split(":");
+
+          const formatTime = `${year.slice(
+            2
+          )}.${month}.${day} ${hour}:${minute}`;
+
+          return {
+            ...it,
+            createDate: formatTime,
+          };
+        });
+
+        setComment(modifiedData);
       })
       .catch((error) => {
         console.error("Error fetching data : ", error);
