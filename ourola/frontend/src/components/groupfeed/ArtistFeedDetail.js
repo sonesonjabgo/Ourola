@@ -2,6 +2,12 @@ import "../../style/groupfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ArtistFeedComment from "./ArtistFeedComment";
+import downarrow from "../../assets/icons/downarrow.png";
+import send from "../../assets/icons/send.png";
+import inbookmark from "../../assets/icons/inbookmark.png";
+import likeclick from "../../assets/icons/like.png";
+import notlikeclick from "../../assets/icons/notlike.png";
+import commentclick from "../../assets/icons/comment.png";
 
 const ArtistFeedDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
@@ -30,23 +36,22 @@ const ArtistFeedDetail = (props) => {
   const feedLikeSum = props.state.feedLikeSum;
   const setFeedLikeSum = props.state.setFeedLikeSum;
 
-  // const scrollToOrigin = () => {
-  //   window.scrollTo(0, props.state.prevPos);
-  // };
+  const scrollPosition = props.state.scrollPosition;
 
   useEffect(() => {
-    const handler = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setModalOpen(false);
+    const handleEscKey = (event) => {
+      if (event.keyCode === 27) {
+        closeModal();
+        window.scrollTo(0, scrollPosition);
       }
     };
 
-    document.addEventListener("mousedown", handler);
+    document.addEventListener("keydown", handleEscKey);
 
     return () => {
-      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", handleEscKey);
     };
-  }, [setModalOpen]);
+  }, [closeModal, scrollPosition]);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -59,7 +64,12 @@ const ArtistFeedDetail = (props) => {
 
   const closeModalClickFunction = (event) => {
     closeModal();
-    // scrollToOrigin();
+    window.scrollTo(0, scrollPosition);
+    document.body.style.overflow = "auto";
+  };
+
+  const handleModalClick = (event) => {
+    event.stopPropagation();
   };
 
   const [saveContent, setSaveContent] = useState("");
@@ -107,12 +117,17 @@ const ArtistFeedDetail = (props) => {
 
   return (
     <div>
-      <div id="artistFeedBackGround" className="artistFeedBackGround">
+      <div
+        id="artistFeedBackGround"
+        className="artistFeedBackGround"
+        onMouseUp={closeModalClickFunction}
+      >
         <div id="artistFeedModal" className="artistFeedModal">
           <div
             id="artistFeedContent"
             className="artistFeedContent"
             ref={modalRef}
+            onMouseUp={handleModalClick}
           >
             <div id="artistFeedView" className="artistFeedView">
               <div
@@ -179,41 +194,44 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailFooter"
                 >
                   {thisFeedLike ? (
-                    <div
-                      id="artistFeedLikeImg"
-                      className="artistFeedLikeImg"
+                    <img
+                      src={likeclick}
+                      alt="이미지가 없습니다."
+                      id="artistFeedInLikeImg"
+                      className="artistFeedInLikeImg"
                       onClick={wantLikeCancle}
-                    >
-                      좋아요 취소{/*  나중에 좋아요 이미지로 수정필요 */}
-                    </div>
+                    ></img>
                   ) : (
-                    <div
-                      id="artistFeedLikeImg"
-                      className="artistFeedLikeImg"
+                    <img
+                      src={notlikeclick}
+                      alt="이미지가 없습니다."
+                      id="artistFeedInLikeImg"
+                      className="artistFeedInLikeImg"
                       onClick={wantLike}
-                    >
-                      좋아요 {/*  나중에 좋아요 이미지로 수정필요 */}
-                    </div>
+                    ></img>
                   )}
-                  <div id="artistFeedLikeCount" className="artistFeedLikeCount">
+                  <div
+                    id="artistFeedInLikeCount"
+                    className="artistFeedInLikeCount"
+                  >
                     {feedLikeSum}
                   </div>
-                  <div
+                  <img
+                    src={inbookmark}
+                    alt="이미지가 없습니다."
                     id="artistFeedInBookmark"
                     className="artistFeedInBookmark"
-                  >
-                    북마크 {/* 나중에 북마크 표시 추가 */}
-                  </div>
+                  ></img>
                 </div>
               </div>
               <div id="artistFeedCommentWrap" className="artistFeedCommentWrap">
-                <button
+                <img
+                  src={downarrow}
+                  alt="사진이 없습니다."
                   id="backButton"
                   className="backButton"
                   onMouseUp={closeModalClickFunction}
-                >
-                  ⇒
-                </button>
+                ></img>
                 <div
                   id="artistFeedCommentContainer"
                   className="artistFeedCommentContainer"
@@ -283,13 +301,13 @@ const ArtistFeedDetail = (props) => {
                               placeholder="댓글을 입력하세요."
                             ></textarea>
                           </div>
-                          <button
+                          <img
+                            src={send}
+                            alt="사진이 없습니다."
                             id="artistFeedCommentInputButton"
                             className="artistFeedCommentInputButton"
                             onClick={commentPostFunction}
-                          >
-                            &gt;
-                          </button>
+                          ></img>
                         </div>
                       </div>
                     </div>
