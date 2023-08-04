@@ -9,8 +9,8 @@
   position: absolute;
   right: 0;
   top: -300px;
-  width: 1905px;
-  height: 1200px;
+  width: 1922px;
+  height: 1000px;
   overflow-y: hidden;
   background-color: rgba(0, 0, 0, 0.75);
 }
@@ -37,7 +37,7 @@
   flex-direction: row;
   flex-grow: 1;
   width: 1100px;
-  height: 883px;
+  height: 700px;
   min-height: 540px;
   overflow: hidden;
   cursor: default;
@@ -288,7 +288,7 @@
   overflow-y: auto;
   position: relative;
   word-break: break-word;
-  min-height: 694px;
+  min-height: 510px;
 }
 
 .artistFeedDetailFooter {
