@@ -17,4 +17,6 @@ public interface SubscribeGroupRepository extends JpaRepository<SubscribeGroupDt
 
 	boolean existsByGroupDto_IdAndNickname(int id, String nickname);
 
+	boolean existsByFanDto_IdAndGroupDto_id(int fanId, int groupId);
+
 }

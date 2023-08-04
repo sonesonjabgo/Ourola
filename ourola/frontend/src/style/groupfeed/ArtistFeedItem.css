@@ -1,7 +1,7 @@
 .artistFeedItem {
   display: block;
   border-bottom: 2px solid #000;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   padding-top: 25px;
   min-width: 1000px;
 }
@@ -92,12 +92,12 @@
 }
 
 .artistFeedLikeImg {
-  display: inline-block;
-  margin-right: 5px;
   cursor: pointer;
 }
 
 .artistFeedLikeCount {
+  position: absolute;
+  padding-top: 15px;
   display: inline-block;
 }
 
@@ -110,9 +110,21 @@
 
 .artistFeedCommentImg {
   display: inline-block;
-  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+  margin-top: 8px;
+  margin-left: 5px;
+  margin-right: 15px;
 }
 
 .artistFeedCommentRealCount {
+  position: absolute;
+  padding-top: 15px;
   display: inline-block;
+}
+
+.artistFeedBookmark {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }

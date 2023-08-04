@@ -29,17 +29,8 @@
   border: 1px solid black;
   border-radius: 20px;
 
-  overflow-y: scroll;
   overflow-x: hidden;
-}
-
-.announcementDetail::-webkit-scrollbar {
-  width: 10px;
-}
-
-.announcementDetail::-webkit-scrollbar-thumb {
-  background-color: hsla(0, 0%, 40%, 0.4);
-  border-radius: 10px;
+  overflow-y: scroll;
 }
 
 .announcementDetail::-webkit-scrollbar-button:vertical:start:decrement,
@@ -56,9 +47,9 @@
 .announcementDetailClose {
   z-index: 23000;
   height: 60px;
-  position: absolute;
+  position: fixed;
   top: 15px;
-  right: 510px;
+  right: 505px;
   width: 50px;
   appearance: auto;
   text-rendering: auto;

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mk.ourola.api.others.openlive.redis.RedisUtil;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class OpenLiveController {
+
 	private final OpenLiveServiceImpl openLiveService;
+	private final RedisUtil redisUtil;
 
 	// 그룹 채널별 공개방송 리스트 조회
 	@GetMapping("/list")
@@ -45,7 +49,8 @@ public class OpenLiveController {
 
 	// 공개방송 등록
 	@PostMapping("")
-	public ResponseEntity<?> writeOpenLive(@PathVariable String group, @RequestHeader("Authorization") String header, @RequestBody OpenLiveDto openLiveDto) {
+	public ResponseEntity<?> writeOpenLive(@PathVariable String group, @RequestHeader("Authorization") String header,
+		@RequestBody OpenLiveDto openLiveDto) {
 		try {
 			return new ResponseEntity<>(openLiveService.writeOpenLive(group, header, openLiveDto), HttpStatus.OK);
 		} catch (Exception e) {
@@ -56,10 +61,15 @@ public class OpenLiveController {
 
 	// 공개방송에 신청
 	@PutMapping("/participate/{id}")
-	public ResponseEntity<?> writeOpenLiveParticipate(@PathVariable("group") String group, @RequestHeader("Authorization") String header, @PathVariable("id") int id) {
+	public ResponseEntity<?> writeOpenLiveParticipate(@PathVariable("group") String group,
+		@RequestHeader("Authorization") String header, @PathVariable("id") int id) {
 		log.info("participate controller");
 		try {
-			return new ResponseEntity<>(openLiveService.writeOpenLiveParticipate(group, header, id), HttpStatus.OK);
+			OpenLiveParticipantDto openLiveParticipantDto = redisUtil.saveLock(group, header, id);
+			if (openLiveParticipantDto == null) {
+				throw new Exception("수강신청에 실패하였습니다.");
+			}
+			return new ResponseEntity<>(openLiveParticipantDto, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

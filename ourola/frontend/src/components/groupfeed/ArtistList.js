@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../style/groupfeed/ArtistList.css";
 import ArtistProfile from "./ArtistProfile";
+import leftarrow from "../../assets/icons/leftarrow.png";
+import rightarrow from "../../assets/icons/rightarrow.png";
 
 const ArtistList = ({ setArtistFeed, group, artist }) => {
   const lengthResult = artist.map((it) => ({
@@ -62,9 +64,13 @@ const ArtistList = ({ setArtistFeed, group, artist }) => {
     <div id="artistList" className="artistList">
       <section id="artistBoard" className="artistBoard">
         {currentStartpage !== 1 && (
-          <button id="prevButton" className="prevButton" onClick={prevPage}>
-            &lt;
-          </button>
+          <img
+            src={leftarrow}
+            alt="이미지가 없습니다."
+            id="prevButton"
+            className="prevButton"
+            onClick={prevPage}
+          ></img>
         )}
         {sliceArtist.map((it) => (
           <ArtistProfile
@@ -79,9 +85,13 @@ const ArtistList = ({ setArtistFeed, group, artist }) => {
           ></ArtistProfile>
         ))}
         {currentStartpage !== totalPages && (
-          <button id="nextButton" className="nextButton" onClick={nextPage}>
-            &gt;
-          </button>
+          <img
+            src={rightarrow}
+            alt="이미지가 없습니다."
+            id="nextButton"
+            className="nextButton"
+            onClick={nextPage}
+          ></img>
         )}
       </section>
     </div>

@@ -17,7 +17,7 @@ public interface GroupRepository extends JpaRepository<GroupDto, Integer> {
 
 	// @Query("SELECT c FROM group_channel c LEFT JOIN (select gs from group_subscribe gs where user_id= :fanUserId) s on s.group_id = c.id WHERE s.group_id IS NULL;")
 	// @Query("SELECT s FROM group_subscribe s RIGHT JOIN s.groupChannelDto c WHERE c.id IS NULL AND s.fanUserDto.id = :id")
-	@Query(value = "SELECT c.id, c.name, c.file_path, c.file_extension FROM (select * from group_subscribe gs where gs.user_id=1) s RIGHT JOIN group_channel c on s.group_id = c.id WHERE s.group_id IS NULL",
+	@Query(value = "SELECT c.id, c.name, c.file_path, c.file_extension FROM (select * from group_subscribe gs where gs.user_id= ?) s RIGHT JOIN group_channel c on s.group_id = c.id WHERE s.group_id IS NULL",
 		nativeQuery = true)
-	List<GroupDto> findAllWithNoRelatedSubstribeGroup(@Param("id") int fanUserId);
+	List<GroupDto> findAllWithNoRelatedSubscribeGroup(int fanUserId);
 }
