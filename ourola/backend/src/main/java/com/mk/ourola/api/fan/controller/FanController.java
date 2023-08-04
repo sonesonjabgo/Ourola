@@ -110,6 +110,7 @@ public class FanController {
 		try {
 			String accessToken = jwtService.headerStringToAccessToken(header).get();
 			String userEmail = jwtService.extractEmail(accessToken).get();
+			System.out.println("컨트롤러 들어옴");
 			List<GroupDto> subscribeGroupList = fanService.getNotSubscribeGroup(userEmail);
 			return new ResponseEntity<>(subscribeGroupList, HttpStatus.OK);
 		} catch (Exception e) {
