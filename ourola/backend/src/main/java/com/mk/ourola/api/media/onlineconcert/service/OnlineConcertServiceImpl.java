@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.onlineconcert.service;
+package com.mk.ourola.api.media.onlineconcert.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
-import com.mk.ourola.api.live.onlineconcert.repository.OnlineConcertRepository;
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.OnlineConcertRepository;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 
 import lombok.RequiredArgsConstructor;
 

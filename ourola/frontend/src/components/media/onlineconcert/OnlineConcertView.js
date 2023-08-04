@@ -3,23 +3,27 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 // import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
+import OnlineConcertEnter from "./OnlineConcertEnter";
+import OnlineConcertVideo from "./OnlineConcertVideo";
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "https://i9d204.p.ssafy.io/BTS/online-concert";
+    : "http://localhost:8000/BTS/online-concert";
 
-const OnlineConcertView = () => {
+const OnlineConcertView = ({ userName }) => {
   const accessToken = localStorage.getItem("Authorization");
-  //   console.log(accessToken);
 
-  const [mySessionId, setMySessionId] = useState("");
-  const [myUserName, setMyUserName] = useState("");
+  const [sessionId, setSessionId] = useState("");
 
   const [session, setSession] = useState(undefined);
+  // 화면
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
+  // 스트리머
   const [publisher, setPublisher] = useState(undefined);
+  // 참가자
   const [subscribers, setSubscribers] = useState([]);
+  // ...?
   const [currentVideoDevice, setCurrentVideoDevice] = useState({});
 
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
@@ -33,14 +37,6 @@ const OnlineConcertView = () => {
 
   const onbeforeunload = (event) => {
     leaveSession();
-  };
-
-  const handleChangeSessionId = (e) => {
-    setMySessionId(e.target.value);
-  };
-
-  const handleChangeUserName = (e) => {
-    setMyUserName(e.target.value);
   };
 
   const handleMainVideoStream = (stream) => {
@@ -83,7 +79,7 @@ const OnlineConcertView = () => {
     // --- 4) Connect to the session with a valid user token ---
     try {
       const token = await getToken();
-      await mySession.connect(token, { clientData: myUserName });
+      await mySession.connect(token, { clientData: userName });
 
       // --- 5) Get your own camera stream ---
       const publisher = await OV.initPublisherAsync(undefined, {
@@ -116,8 +112,9 @@ const OnlineConcertView = () => {
       setMainStreamManager(publisher);
       setPublisher(publisher);
       setSubscribers([]);
-      setMySessionId("SessionA");
-      setMyUserName("Participant" + Math.floor(Math.random() * 100));
+      // setMySessionId("SessionA");
+      // setMyUserName("Participant" + Math.floor(Math.random() * 100));
+      setSessionId("");
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",
@@ -128,15 +125,13 @@ const OnlineConcertView = () => {
   };
 
   const leaveSession = () => {
-    const mySession = session;
-    if (mySession) {
-      mySession.disconnect();
+    if (session) {
+      session.disconnect();
     }
 
     setSession(undefined);
     setSubscribers([]);
-    setMySessionId("");
-    setMyUserName("");
+    setSessionId("");
     setMainStreamManager(undefined);
     setPublisher(undefined);
   };
@@ -175,7 +170,7 @@ const OnlineConcertView = () => {
   };
 
   const getToken = async () => {
-    const sessionId = await createSession(mySessionId);
+    const sessionId = await createSession(sessionId);
     return await createToken(sessionId);
   };
 
@@ -186,12 +181,13 @@ const OnlineConcertView = () => {
       {
         headers: {
           Authorization: "Bearer " + accessToken,
-          Origin: "http://localhost:3000/",
           "Content-Type": "application/json",
         },
       }
     );
 
+    console.log("createSession");
+    console.log(response.data);
     return response.data; // the sessionId
   };
 
@@ -202,7 +198,6 @@ const OnlineConcertView = () => {
       {
         headers: {
           Authorization: "Bearer " + accessToken,
-          Origin: "http://localhost:3000/",
           "Content-Type": "application/json",
         },
       }
@@ -211,100 +206,32 @@ const OnlineConcertView = () => {
     return response.data;
   };
 
+  const onJoinSession = ({ userName, sessionId }) => {
+    setSessionId(sessionId);
+    joinSession();
+  };
+
+  const onLeaveSession = () => {
+    leaveSession();
+  };
+
+  const onSwitchCamera = () => {
+    switchCamera();
+  };
+
   return (
     <div className="container">
       {session === undefined ? (
-        <div id="join">
-          <div id="img-div">
-            <img
-              src="resources/images/openvidu_grey_bg_transp_cropped.png"
-              alt="OpenVidu logo"
-            />
-          </div>
-          <div id="join-dialog" className="jumbotron vertical-center">
-            <h1> Join a video session </h1>
-            <form className="form-group" onSubmit={joinSession}>
-              <p>
-                <label>Participant: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="userName"
-                  value={myUserName}
-                  onChange={handleChangeUserName}
-                  required
-                />
-              </p>
-              <p>
-                <label> Session: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="sessionId"
-                  value={mySessionId}
-                  onChange={handleChangeSessionId}
-                  required
-                />
-              </p>
-              <p className="text-center">
-                <input
-                  className="btn btn-lg btn-success"
-                  name="commit"
-                  type="submit"
-                  value="JOIN"
-                />
-              </p>
-            </form>
-          </div>
-        </div>
+        <OnlineConcertEnter onJoinSession={onJoinSession} />
       ) : null}
 
       {session !== undefined ? (
-        <div id="session">
-          <div id="session-header">
-            <h1 id="session-title">{mySessionId}</h1>
-            <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={leaveSession}
-              value="Leave session"
-            />
-            <input
-              className="btn btn-large btn-success"
-              type="button"
-              id="buttonSwitchCamera"
-              onClick={switchCamera}
-              value="Switch Camera"
-            />
-          </div>
-
-          {mainStreamManager !== undefined ? (
-            <div id="main-video" className="col-md-6">
-              <UserVideoComponent streamManager={mainStreamManager} />
-            </div>
-          ) : null}
-          <div id="video-container" className="col-md-6">
-            {publisher !== undefined ? (
-              <div
-                className="stream-container col-md-6 col-xs-6"
-                onClick={() => handleMainVideoStream(publisher)}
-              >
-                <UserVideoComponent streamManager={publisher} />
-              </div>
-            ) : null}
-            {subscribers.map((sub, i) => (
-              <div
-                key={sub.id}
-                className="stream-container col-md-6 col-xs-6"
-                onClick={() => handleMainVideoStream(sub)}
-              >
-                <span>{sub.id}</span>
-                <UserVideoComponent streamManager={sub} />
-              </div>
-            ))}
-          </div>
-        </div>
+        <OnlineConcertVideo
+          sessionId={sessionId}
+          mainStreamManager={mainStreamManager}
+          onLeaveSession={onLeaveSession}
+          onSwitchCamera={onSwitchCamera}
+        />
       ) : null}
     </div>
   );

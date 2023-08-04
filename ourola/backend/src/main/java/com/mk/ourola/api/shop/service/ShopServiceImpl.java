@@ -12,8 +12,8 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
-import com.mk.ourola.api.live.onlineconcert.repository.OnlineConcertRepository;
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.OnlineConcertRepository;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 

@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.ovenvidu.controller;
+package com.mk.ourola.api.common.ovenvidu.controller;
 
 import java.util.Map;
 

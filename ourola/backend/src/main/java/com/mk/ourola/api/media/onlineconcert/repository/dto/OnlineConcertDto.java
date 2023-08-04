@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.onlineconcert.repository.dto;
+package com.mk.ourola.api.media.onlineconcert.repository.dto;
 
 import java.util.Date;
 

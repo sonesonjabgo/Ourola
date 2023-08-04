@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.mk.ourola.api.fan.repository.dto.FanDto;
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
