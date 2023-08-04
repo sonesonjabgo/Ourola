@@ -27,6 +27,7 @@ import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
@@ -116,13 +117,15 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto,
+		MembershipPayDto membershipPayDto) throws
 		NoSuchAlgorithmException,
 		IOException {
 
-		if(files != null) {
+		if (files != null) {
 			for (MultipartFile file : files) {
-				if(file.isEmpty())	continue;
+				if (file.isEmpty())
+					continue;
 				System.out.println(file.getOriginalFilename());
 				String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 				String fileExtension = getFileExtension(file.getOriginalFilename());

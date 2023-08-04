@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 public interface ShopService {
@@ -22,7 +22,8 @@ public interface ShopService {
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
 		OnlineConcertDto onlineConcertDto, MultipartFile mainFile) throws Exception;
 
-	public MembershipPayDto writeMembership(String artist, String accessToken, MembershipPayDto membershipPayDto, MultipartFile mainFile) throws
+	public MembershipPayDto writeMembership(String artist, String accessToken, MembershipPayDto membershipPayDto,
+		MultipartFile mainFile) throws
 		Exception;
 
 	// 상품 수정 (소속사만 가능)
