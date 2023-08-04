@@ -86,11 +86,7 @@ const ArtistFeedDetail = (props) => {
     };
 
     try {
-      await axios.post(
-        `http://localhost:8000/${id}/comment`,
-        commentData,
-        config
-      );
+      await axios.post(`/${id}/comment`, commentData, config);
 
       const newResult = await axios.get(`/${id}/comment`, config);
 
