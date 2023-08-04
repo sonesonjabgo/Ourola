@@ -85,14 +85,11 @@ public class ShopController {
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
 			System.out.println(onlineConcertDto);
-			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto);
+			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
 
 			System.out.println(item);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, item, null);
-			}
-			if(!(mainFile == null)) {
-				fileService.writeShopMainImages(mainFile, item, null);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
@@ -112,9 +109,9 @@ public class ShopController {
 			if(!files.isEmpty()) {
 				fileService.writeShopImages(files, null, item);
 			}
-			if(!mainFile.isEmpty()) {
-				fileService.writeShopMainImages(mainFile, null, item);
-			}
+			// if(!mainFile.isEmpty()) {
+			// 	fileService.writeShopMainImage(mainFile, null, item);
+			// }
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

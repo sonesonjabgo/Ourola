@@ -2,6 +2,8 @@ package com.mk.ourola.api.shop.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.mk.ourola.api.live.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
@@ -18,7 +20,7 @@ public interface ShopService {
 
 	// 상품 등록 (소속사만 가능)
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
-		OnlineConcertDto onlineConcertDto) throws Exception;
+		OnlineConcertDto onlineConcertDto, MultipartFile mainFile) throws Exception;
 
 	public MembershipPayDto writeMembership(String artist, String accessToken, MembershipPayDto membershipPayDto) throws
 		Exception;

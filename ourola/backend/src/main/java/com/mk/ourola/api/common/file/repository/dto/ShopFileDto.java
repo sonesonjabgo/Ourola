@@ -43,11 +43,4 @@ public class ShopFileDto {
 	@Column(name = "file_path")
 	private String filePath;
 
-	@Column(name = "is_main")
-	private Boolean isMain;
-
-	public void setIsMain() {
-		this.isMain = true;
-	}
-
 }

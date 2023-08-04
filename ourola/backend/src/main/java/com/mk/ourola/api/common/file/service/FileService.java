@@ -23,7 +23,7 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String writeShopMainImage(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException;
 
@@ -41,5 +41,5 @@ public interface FileService {
 
 	byte[] getFeedImg(int fileId) throws IOException;
 
-	// byte[] getShopMainImgList(String group) throws Exception;
+	byte[] getOnlineConcertMainImgList(String group) throws Exception;
 }

@@ -99,15 +99,27 @@ public class FileController {
 		}
 	}
 
-	// @GetMapping("/getimg/shop-main/list")
-	// public ResponseEntity<?> getShopMainImgList(@RequestParam String group) {
-	// 	try {
-	// 		byte[] artistProfileImg = fileService.getShopMainImgList(group);
-	// 		HttpHeaders headers = new HttpHeaders();
-	// 		headers.setContentType(MediaType.IMAGE_JPEG);
-	// 		return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
-	// 	} catch (IOException e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
+	@GetMapping("/getimg/shop-main/list")
+	public ResponseEntity<?> getShopMainImgList(@RequestParam String group) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/getimg/shop-main")
+	public ResponseEntity<?> getShopMainImg(@RequestParam String group) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

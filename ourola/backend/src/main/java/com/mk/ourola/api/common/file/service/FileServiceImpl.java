@@ -96,7 +96,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public String writeShopMainImages(MultipartFile mainFile, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String writeShopMainImage(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException {
 		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
@@ -106,15 +106,14 @@ public class FileServiceImpl implements FileService {
 		File dest = new File(shopfile_path);
 		mainFile.transferTo(dest);
 
-		ShopFileDto shopMainFileDto = ShopFileDto.builder()
-			.membershipPayDto(membershipPayDto)
-			.onlineConcertDto(onlineConcertDto)
-			.filePath(shopfile_path)
-			.isMain(true)
-			.build();
-		ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
+		// ShopFileDto shopMainFileDto = ShopFileDto.builder()
+		// 	.membershipPayDto(membershipPayDto)
+		// 	.onlineConcertDto(onlineConcertDto)
+		// 	.filePath(shopfile_path)
+		// 	.build();
+		// ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
 
-		return "저장완료";
+		return shopfile_path;
 	}
 
 	@Override
@@ -136,7 +135,6 @@ public class FileServiceImpl implements FileService {
 				.membershipPayDto(membershipPayDto)
 				.onlineConcertDto(onlineConcertDto)
 				.filePath(shopfile_path)
-				.isMain(false)
 				.build();
 			ShopFileDto save = shopFileRepository.save(shopFileDto);
 		}
@@ -183,11 +181,12 @@ public class FileServiceImpl implements FileService {
 		return FileUtil.readAsByteArray(file);
 	}
 
-	// @Override
-	// public byte[] getShopMainImgList(String group) throws Exception {
-	// 	GroupDto groupDto = groupRepository.findByName(group);
-	//
-	// }
+	@Override
+	public byte[] getOnlineConcertMainImgList(String group) throws Exception {
+		GroupDto groupDto = groupRepository.findByName(group);
+		List<ShopFileDto> shopFileDto = shopFileRepository.findByOnlineConcertDto_GroupDto_Id(groupDto.getId());
+		return null;
+	}
 
 	@Override
 	public byte[] getArtistProfileImg(int id) throws IOException {

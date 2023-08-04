@@ -3,11 +3,13 @@ package com.mk.ourola.api.shop.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
@@ -31,6 +33,7 @@ public class ShopServiceImpl implements ShopService {
 	private final JwtService jwtService;
 	private final ArtistRepository artistUserRepository;
 	private final FanRepository fanUserRepository;
+	private final FileServiceImpl fileService;
 
 	@Override
 	public List<OnlineConcertDto> getAllOnlineConcertItems(String artist) {
@@ -58,27 +61,21 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
-		OnlineConcertDto onlineConcertDto) throws Exception {
-		log.info("writeOnlineConcert");
+		OnlineConcertDto onlineConcertDto, MultipartFile mainFile) throws Exception {
 		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
 		String role = jwtService.extractRole(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
-		log.info("email: " + email + ", role: " + role);
-		System.out.println("=======================");
-		System.out.println(Role.ARTIST.getKey());
+
+		String filePath = fileService.writeShopMainImage(mainFile);
 
 		// 시도하는 사용자가 해당 채널(소속사) 관리자인지 확인
 		if (role.equals(Role.CHANNEL_ADMIN.getKey())) {    // 채널(소속사) 관리자인지 확인
-			System.out.println("=======================");
 			ArtistDto user = artistUserRepository.findByEmail(email).get();
-			System.out.println(user);
 			if (user.getGroupDto().getName().equals(artist)    // 해당 채널 소속인지
 				&& user.getIsAdmin()) {    // 관리자인지
-				System.out.println(artist);
 				GroupDto groupDto = groupRepository.findByName(artist);
-				System.out.println(groupDto);
 				onlineConcertDto.setGroupDto(groupDto);
-				System.out.println(onlineConcertDto);
+				onlineConcertDto.setFilePath(filePath);
 				return onlineConcertRepository.save(onlineConcertDto);
 			} else {
 				throw new Exception("ERROR :: 관리자 권한입니다.");
