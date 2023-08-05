@@ -15,7 +15,7 @@ const ArtistList = ({ setArtistFeed, group, artist }) => {
   const [currentStartpage, setCurrentStartPage] = useState(1);
   const [sliceArtist, setSliceArtist] = useState([]);
 
-  const sliceLength = 6;
+  const sliceLength = 5;
   const artists = artist.length;
   const totalPages = Math.ceil(artists / sliceLength);
 

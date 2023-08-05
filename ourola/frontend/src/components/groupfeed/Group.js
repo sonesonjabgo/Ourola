@@ -60,7 +60,11 @@ const Group = () => {
             setArtistFeed={setArtistFeed}
             artist={artist}
           />
-          <ArtistFeed group={group} artistFeed={artistFeed} />
+          <ArtistFeed
+            group={group}
+            setArtistFeed={setArtistFeed}
+            artistFeed={artistFeed}
+          />
         </div>
       ) : (
         <div></div>
