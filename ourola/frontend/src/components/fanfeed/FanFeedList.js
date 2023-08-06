@@ -1,29 +1,32 @@
-import React from 'react'
-import "../../style/fanfeed/FanFeedList.css";
-import FanFeedItem from "./FanFeedItem"
+import "../../style/groupfeed/ArtistFeed.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import FanFeedItem from "./FanFeedItem";
 
-const FanFeedList = ({ Group, GroupFeed }) => {
-    return (
-      <div className="groupFeedList">
-        <section className="groupFeedBoard">
-          {GroupFeed ? GroupFeed.map((it) => (
-            <FanFeedItem
-              key={it.id}
-              id={it.id}
-              Group={Group}
-              GroupId={it.GroupUserDto.id}
-              GroupProfileId={it.GroupUserDto.profileFileDto.id}
-              GroupName={it.GroupUserDto.name}
-              title={it.title}
-              content={it.content}
-              like={it.like}
-              createDate={it.createDate}
-            ></FanFeedItem>
-          )) : "왜없"}
-        </section>
-      </div>
-    );
-  };
-  
-  export default FanFeedList;
-  
+const FanFeedList = ({ group, fanFeed }) => {
+
+  console.log(fanFeed)
+
+  return (
+    <div id="artistFeedList" className="artistFeedList">
+      <section id="artistFeedBoard" className="artistFeedBoard">
+        {fanFeed.map((it) => (
+          <FanFeedItem
+            key={it.id}
+            id={it.id}
+            group={group}
+            groupId={it.groupDto.id}
+            // fanId={it.fanDto.id}
+            title={it.title}
+            content={it.content}
+            like={it.like}
+            commentCount={it.commentCount}
+            createDate={it.createDate}
+          ></FanFeedItem>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+export default FanFeedList;

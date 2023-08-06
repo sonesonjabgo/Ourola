@@ -7,14 +7,14 @@ import axios from "axios";
 function MainLoggedIn() {
   // 로그인된 유저의 토큰을 받고 헤더로 지정
   const token = localStorage.getItem("Authorization");
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = { "Authorization": `Bearer ${token}` };
 
   // 구독 중인 아티스트 불러오기
   const [subGroup, setSubGroup] = useState([]);
 
   useEffect(() => {
     axios
-      .get("fan/subscribe", { headers })
+      .get("fan/subscribe", { headers: headers })
       .then((response) => {
         // 구독 중인 그룹 목록은 현재 로그인 중인 유저에 대한 데이터도 포함되어 있음
         // 반복문을 통해 그룹 데이터만 가져올 수 있도록 함
@@ -30,7 +30,7 @@ function MainLoggedIn() {
 
   useEffect(() => {
     axios
-      .get("fan/notsubscribe", { headers })
+      .get("fan/notsubscribe", { headers: headers })
       .then((response) => {
         setNotSubGroup(response.data);
       })
