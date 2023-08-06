@@ -31,6 +31,8 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
+	public String removeFeedImage(int feedId);
+
 	public byte[] getShopMainImg(String filePath) throws IOException;
 
 	public byte[] getArtistProfileImg(int id) throws IOException;

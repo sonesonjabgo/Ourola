@@ -111,6 +111,8 @@ public class FeedController {
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<String> removeFeed(@PathVariable String group, @PathVariable Integer id) {
 		try {
+			String fileRemoveResult = fileService.removeFeedImage(id);
+			System.out.println(fileRemoveResult);
 			feedService.removeFeed(id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
@@ -137,11 +139,14 @@ public class FeedController {
 	public ResponseEntity<FeedDto> modifyFeed(
 		@PathVariable String group,
 		@PathVariable int id,
-		@RequestBody FeedDto FeedDto
+		@RequestParam List<MultipartFile> files,
+		FeedDto FeedDto
 	) {
 		try {
+			fileService.removeFeedImage(id);
 			FeedDto.setId(id);
 			FeedDto modifiedFeed = feedService.modifyFeed(FeedDto);
+			fileService.writeFeedImages(files, modifiedFeed);
 			return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

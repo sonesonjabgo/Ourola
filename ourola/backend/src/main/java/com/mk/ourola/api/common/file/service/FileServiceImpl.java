@@ -95,6 +95,21 @@ public class FileServiceImpl implements FileService {
 		return "저장완료";
 	}
 
+	public String removeFeedImage(int feedId) {
+		List<FeedFileDto> fileList = feedFileRepository.findByFeedDto_Id(feedId);
+
+		for (FeedFileDto file : fileList) {
+			String filePath = file.getFilePath();
+			File feedFile = new File(filePath);
+			if (feedFile.delete()) {
+				System.out.println("파일 삭제 완료");
+			} else {
+				System.out.println("파일 삭제 실패");
+			}
+		}
+		return "이미지 삭제 성공";
+	}
+
 	@Override
 	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
