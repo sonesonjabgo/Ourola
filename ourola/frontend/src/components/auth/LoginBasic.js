@@ -12,6 +12,19 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
   const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
  
+  // 카카오 로그인
+  const kakaoLogin = () => {
+
+    axios.post("/oauth2/authorization/kakao")
+    .then((res)=>{
+      console.log('카카오 컴온')
+      console.log(res)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+  }
+
   // 이메일 찾기 모달 열기
   const openFindEmailModal = () => {
     setShowFindEmailModal(true);
@@ -117,6 +130,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
         </div> */}
         <div>
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
+        <button onClick={kakaoLogin}>카카오</button>
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
         <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
         </div>
