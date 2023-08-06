@@ -124,13 +124,11 @@
   display: flex;
   flex: 0 0 109px;
   flex-direction: column;
-  border-left: 1px solid #f0f0f0;
   border-top: 1px solid #f0f0f0;
 }
 
 .artistFeedCommentWriteWrap {
   display: block;
-  border-top: 1px solid #f0f0f0;
   padding-top: 14px;
   padding-left: 14px;
   padding-right: 4px;
@@ -327,14 +325,6 @@
   margin-left: 30px;
 }
 
-.artistFeedInBookmark {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  margin-left: 530px;
-  margin-top: 10px;
-}
-
 .backButton {
   height: 40px;
   width: 40px;
@@ -351,4 +341,15 @@
 
 .artistFeedInLikeCount {
   padding-top: 15px;
+}
+
+.artistFeedInBookmarkImg {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.artistFeedBookmarkImgWrap {
+  margin-top: 8px;
+  margin-left: 535px;
 }
