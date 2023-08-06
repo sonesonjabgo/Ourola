@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
@@ -51,6 +53,7 @@ public class ArtistDto {
 
 	private String email;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	private String name;
