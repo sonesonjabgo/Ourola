@@ -47,24 +47,18 @@ public class FeedServiceImpl implements FeedService {
 
 	private final JwtService jwtService;
 
-	public List<FeedDto> getAllFeed(String artist) {
-		System.out.println(artist + "서비스");
-		int groupId = groupRepository.findByName(artist).getId();
-		System.out.println(groupId);
+	public List<FeedDto> getAllFeed(String group) {
+		int groupId = groupRepository.findByName(group).getId();
 		return feedRepository.findByGroupDto_Id(groupId);
 	}
 
-	public List<FeedDto> getAllFanFeed(String artist) {
-		System.out.println(artist + "서비스");
-		int groupId = groupRepository.findByName(artist).getId();
-		System.out.println(groupId);
+	public List<FeedDto> getAllFanFeed(String group) {
+		int groupId = groupRepository.findByName(group).getId();
 		return feedRepository.findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(groupId, 1);
 	}
 
-	public List<FeedDto> getAllArtistFeed(String artist) {
-		System.out.println(artist + "서비스");
-		int groupId = groupRepository.findByName(artist).getId();
-		System.out.println(groupId);
+	public List<FeedDto> getAllArtistFeed(String group) {
+		int groupId = groupRepository.findByName(group).getId();
 		return feedRepository.findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(groupId, 2);
 	}
 
@@ -187,10 +181,11 @@ public class FeedServiceImpl implements FeedService {
 		return onlyArtistFeed;
 	}
 
-		@Override
-		public List<FeedDto> getSpecificDateFeed(Date startDate, Date endDate) throws Exception {
-			long oneDayInMillis = 24 * 60 * 60 * 1000;
-			Date nextDay = new Date(endDate.getTime() + oneDayInMillis);
-			return feedRepository.findByCreateDateBetween(startDate, nextDay);
-		}
+	@Override
+	public List<FeedDto> getSpecificDateFeed(String group, Date startDate, Date endDate) throws Exception {
+		int groupId = groupRepository.findByName(group).getId();
+		long oneDayInMillis = 24 * 60 * 60 * 1000;
+		Date nextDay = new Date(endDate.getTime() + oneDayInMillis);
+		return feedRepository.findByGroupDto_IdAndTypeIsAndCreateDateBetweenOrderByCreateDateDesc(groupId, 2, startDate, nextDay);
+	}
 }

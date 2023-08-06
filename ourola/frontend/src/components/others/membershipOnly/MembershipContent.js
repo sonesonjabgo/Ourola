@@ -14,8 +14,8 @@ const MembershipContent = ({ title, subtitle }) => {
       };
 
     return (
-        <div className="contentCard" onClick={showModal}>
-            <img src={imageUrl} alt="Placeholder"/>
+        <div className="contentCard" >
+            <img src={imageUrl} alt="Placeholder" onClick={showModal}/>
             <p>{title}</p>
             <p>{subtitle}</p>
             {modalOpen && <MembershipContentBasic title={subtitle} closeModal={closeModal}/>}

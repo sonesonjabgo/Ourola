@@ -4,7 +4,7 @@ import axios from "axios";
 import FanFeedComment from "./FanFeedComment";
 import downarrow from "../../assets/icons/downarrow.png";
 import send from "../../assets/icons/send.png";
-import bookmark from "../../assets/icons/bookmark.png";
+import bookmarkempty from "../../assets/icons/bookmarkempty.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 
@@ -240,7 +240,7 @@ const ArtistFeedDetail = (props) => {
                     {feedLikeSum}
                   </div>
                   <img
-                    src={bookmark}
+                    src={bookmarkempty}
                     alt="이미지가 없습니다."
                     id="artistFeedInBookmark"
                     className="artistFeedInBookmark"

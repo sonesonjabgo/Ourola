@@ -13,6 +13,7 @@ const Group = () => {
   const [loadingFeed, setLodingFeed] = useState(true);
   const [artist, setArtist] = useState([]);
   const [artistFeed, setArtistFeed] = useState([]);
+  const [artistFilter, setArtistFilter] = useState(-1);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -57,12 +58,15 @@ const Group = () => {
         <div id="groupContent" className="groupContent">
           <ArtistList
             group={group}
+            setArtistFilter={setArtistFilter}
+            artistFilter={artistFilter}
             setArtistFeed={setArtistFeed}
             artist={artist}
           />
           <ArtistFeed
             group={group}
             setArtistFeed={setArtistFeed}
+            artistFilter={artistFilter}
             artistFeed={artistFeed}
           />
         </div>

@@ -25,7 +25,7 @@ const CustomDatePickerHeader = ({ date, decreaseMonth, increaseMonth }) => {
   );
 };
 
-const ArtistFeed = ({ setArtistFeed, group, artistFeed }) => {
+const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [initStartDate, setInitStartDate] = useState(new Date());
@@ -100,7 +100,15 @@ const ArtistFeed = ({ setArtistFeed, group, artistFeed }) => {
       `/${group}/feed/filter/date?startDate=${formatStartDate}&endDate=${formatEndDate}`
     );
 
-    setArtistFeed(result.data);
+    if (artistFilter !== -1) {
+      const artistFilterData = result.data.filter(
+        (it) => it.artistDto.id === artistFilter
+      );
+
+      setArtistFeed(artistFilterData);
+    } else {
+      setArtistFeed(result.data);
+    }
   };
 
   return (

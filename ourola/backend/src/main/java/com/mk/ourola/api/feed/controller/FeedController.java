@@ -200,11 +200,10 @@ public class FeedController {
 
 	// 시작 날짜, 끝 날자를 받아 그 아티스트의 게시물들만 보내는 메서드
 	@GetMapping("/filter/date")
-	public ResponseEntity<List<FeedDto>> getSpecificDateFeed(@RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyyMMdd") Date startDate,
+	public ResponseEntity<List<FeedDto>> getSpecificDateFeed(@PathVariable("group") String group, @RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyyMMdd") Date startDate,
 		@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyyMMdd") Date endDate) {
 		try {
-			System.out.println(feedService.getSpecificDateFeed(startDate, endDate));
-			return new ResponseEntity<>(feedService.getSpecificDateFeed(startDate, endDate), HttpStatus.OK);
+			return new ResponseEntity<>(feedService.getSpecificDateFeed(group, startDate, endDate), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
