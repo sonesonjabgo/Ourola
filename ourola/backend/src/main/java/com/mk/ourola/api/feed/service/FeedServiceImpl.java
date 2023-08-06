@@ -1,8 +1,13 @@
 package com.mk.ourola.api.feed.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +18,7 @@ import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.feed.repository.BookmarkRepository;
 import com.mk.ourola.api.feed.repository.FeedRepository;
 import com.mk.ourola.api.feed.repository.LikeRepository;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
@@ -36,6 +42,8 @@ public class FeedServiceImpl implements FeedService {
 	private final LikeRepository likeRepository;
 
 	private final FanRepository fanRepository;
+
+	private final BookmarkRepository bookmarkRepository;
 
 	private final JwtService jwtService;
 
@@ -164,6 +172,7 @@ public class FeedServiceImpl implements FeedService {
 		}
 	}
 
+	@Override
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception {
 		List<FeedDto> specificArtistFeed = feedRepository.findByArtistDto_IdOrderByCreateDateDesc(artistId);
 
@@ -177,4 +186,11 @@ public class FeedServiceImpl implements FeedService {
 
 		return onlyArtistFeed;
 	}
+
+		@Override
+		public List<FeedDto> getSpecificDateFeed(Date startDate, Date endDate) throws Exception {
+			long oneDayInMillis = 24 * 60 * 60 * 1000;
+			Date nextDay = new Date(endDate.getTime() + oneDayInMillis);
+			return feedRepository.findByCreateDateBetween(startDate, nextDay);
+		}
 }

@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 import axios from "axios";
-import bookmark from "../../assets/icons/bookmark.png";
+import bookmarkempty from "../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 import commentclick from "../../assets/icons/comment.png";
@@ -21,6 +22,8 @@ const ArtistFeedItem = ({
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
+
+  const localHost = "http://localhost:8000";
 
   let getDate = createDate.split("T", 2);
   getDate[1] = getDate[1].split(".", 1);
@@ -92,6 +95,36 @@ const ArtistFeedItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [thisFeedBookmark, setThisFeedBookmark] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/feed/${id}/bookmark`, config)
+      .then((response) => {
+        setThisFeedBookmark(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wantBookmark = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  const wantBookmarkCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
   const [feedLikeSum, setFeedLikeSum] = useState(like);
 
   const wantLike = async () => {
@@ -152,12 +185,23 @@ const ArtistFeedItem = ({
           </div>
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
-          <img
-            src={bookmark}
-            alt="이미지가 없습니다."
-            id="artistFeedBookmark"
-            className="artistFeedBookmark"
-          ></img>
+          {thisFeedBookmark ? (
+            <img
+              src={bookmarkfill}
+              alt="이미지가 없습니다."
+              id="artistFeedBookmarkImg"
+              className="artistFeedBookmarkImg"
+              onClick={wantBookmarkCancle}
+            ></img>
+          ) : (
+            <img
+              src={bookmarkempty}
+              alt="이미지가 없습니다."
+              id="artistFeedBookmarkImg"
+              className="artistFeedBookmarkImg"
+              onClick={wantBookmark}
+            ></img>
+          )}
         </div>
       </div>
       <div
@@ -172,6 +216,7 @@ const ArtistFeedItem = ({
               setComment,
               setThisFeedLike,
               setFeedLikeSum,
+              setThisFeedBookmark,
               id,
               group,
               accessImg,
@@ -179,6 +224,7 @@ const ArtistFeedItem = ({
               formatTime,
               content,
               thisFeedLike,
+              thisFeedBookmark,
               feedLikeSum,
               commentCount,
               comment,

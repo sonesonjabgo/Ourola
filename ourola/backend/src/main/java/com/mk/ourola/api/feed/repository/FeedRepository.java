@@ -1,6 +1,12 @@
 package com.mk.ourola.api.feed.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,4 +25,8 @@ public interface FeedRepository extends JpaRepository<FeedDto, Integer> {
 	List<FeedDto> findByGroupDto_IdAndTypeIsOrderByCreateDateDesc(int id, int type);
 
 	List<FeedDto> findByArtistDto_IdOrderByCreateDateDesc(int id);
+
+	List<FeedDto> findByCreateDateBetween(Date startDate, Date endDate);
+
+
 }

@@ -1,5 +1,8 @@
 package com.mk.ourola.api.feed.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,4 +32,6 @@ public interface FeedService {
 	public boolean getLike(Integer id, String accessToken) throws Exception;
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception;
+
+	public List<FeedDto> getSpecificDateFeed(Date startDate, Date endDate) throws Exception;
 }
