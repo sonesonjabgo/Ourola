@@ -33,5 +33,5 @@ public interface FeedService {
 
 	public List<FeedDto> getAllSpecificArtistFeed(int artistId) throws Exception;
 
-	public List<FeedDto> getSpecificDateFeed(Date startDate, Date endDate) throws Exception;
+	public List<FeedDto> getSpecificDateFeed(String group, Date startDate, Date endDate) throws Exception;
 }
