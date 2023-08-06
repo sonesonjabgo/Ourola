@@ -70,7 +70,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
         return response.data;
       })
       .catch((e) => {
-        console.log(e.response.data);
+        // console.log(e.response.data);
         setShowErrorMessage(true);
       });
   };
