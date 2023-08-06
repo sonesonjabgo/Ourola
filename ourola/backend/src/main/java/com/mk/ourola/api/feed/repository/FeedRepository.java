@@ -26,7 +26,7 @@ public interface FeedRepository extends JpaRepository<FeedDto, Integer> {
 
 	List<FeedDto> findByArtistDto_IdOrderByCreateDateDesc(int id);
 
-	List<FeedDto> findByCreateDateBetween(Date startDate, Date endDate);
+	List<FeedDto> findByGroupDto_IdAndCreateDateBetween(int id, Date startDate, Date endDate);
 
 
 }
