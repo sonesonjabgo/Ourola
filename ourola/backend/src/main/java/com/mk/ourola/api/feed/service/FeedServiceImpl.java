@@ -186,6 +186,6 @@ public class FeedServiceImpl implements FeedService {
 		int groupId = groupRepository.findByName(group).getId();
 		long oneDayInMillis = 24 * 60 * 60 * 1000;
 		Date nextDay = new Date(endDate.getTime() + oneDayInMillis);
-		return feedRepository.findByGroupDto_IdAndCreateDateBetween(groupId, startDate, nextDay);
+		return feedRepository.findByGroupDto_IdAndTypeIsAndCreateDateBetweenOrderByCreateDateDesc(groupId, 2, startDate, nextDay);
 	}
 }
