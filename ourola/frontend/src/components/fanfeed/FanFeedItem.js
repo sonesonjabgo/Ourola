@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import FanFeedDetail from "./FanFeedDetail";
 import axios from "axios";
-import bookmark from "../../assets/icons/bookmark.png";
+import bookmarkempty from "../../assets/icons/bookmarkempty.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 import commentclick from "../../assets/icons/comment.png";
@@ -136,8 +136,7 @@ const FanFeedItem = ({
           <div
             id="artistFeedArtistNameWrapper"
             className="artistFeedArtistNameWrapper"
-          >
-          </div>
+          ></div>
           <div
             id="artistFeedCreateTimeWrapper"
             className="artistFeedCreateTimeWrapper"
@@ -149,7 +148,7 @@ const FanFeedItem = ({
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
           <img
-            src={bookmark}
+            src={bookmarkempty}
             alt="이미지가 없습니다."
             id="artistFeedBookmark"
             className="artistFeedBookmark"
