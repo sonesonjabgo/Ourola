@@ -1,0 +1,16 @@
+#publisher {
+    width: 300px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+  
+#subscribers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+#subscribers video {
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+  }

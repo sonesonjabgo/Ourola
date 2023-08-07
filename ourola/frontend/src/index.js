@@ -25,7 +25,7 @@ import ArtistHeader from "./components/common/header/ArtistPageMenu";
 import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
-
+import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
 
 
 import axios from "axios";
@@ -61,6 +61,7 @@ render(
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
       <Route path="/live" element={<OnlineConcertView />}></Route>
       <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
+      <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />}/>
     </Routes>
   </BrowserRouter>,
   container

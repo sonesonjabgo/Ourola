@@ -26,7 +26,7 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
+      <div className="navbarContainer">
         <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
           <img className="mainLogo" src={mainLogo} alt="OurolaLogo" />
           Ourola
