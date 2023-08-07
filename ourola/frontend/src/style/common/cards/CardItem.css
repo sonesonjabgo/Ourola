@@ -1,3 +1,8 @@
 .groupLink {
     text-decoration: none;
 }
+
+.text {
+    text-transform: uppercase;
+    margin-top: 30px;
+}
