@@ -10,7 +10,6 @@ import "../../style/fanfeed/FanFeed.css";
 import { useLocation } from "react-router-dom";
 
 function Fanfeed() {
-
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
 
@@ -63,20 +62,16 @@ if (groupInfo) {
         <div className="buttonCreatefeedContainer">
           <CreateFeedButton />
         </div>
-        <Link to="/announcement">
-          <div className="onelineAnnouncementContainer">
-            <AnnouncementOneline />
-          </div>
-        </Link>
-        <div className="fanfeedProfileContainer">
-          <FanFeedProfile groupInfo={groupInfo}/>
+        <div className="onelineAnnouncementContainer">
+          <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
+            <AnnouncementOneline group={group} />
+          </Link>
         </div>
-        <div id="group" className="fanfeedFeedContainer">
-          {!loadingFeed ? (
-              <FanFeedList group={group} fanFeed={fanFeed}/>
-          ) : (
-            <div></div>
-          )}
+        <div className="fanfeedProfileContainer">
+          <FanFeedProfile />
+        </div>
+        <div className="fanfeedFeedContainer">
+          <FanFeedList />
         </div>
       </div>
     </>

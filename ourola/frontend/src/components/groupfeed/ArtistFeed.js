@@ -25,7 +25,13 @@ const CustomDatePickerHeader = ({ date, decreaseMonth, increaseMonth }) => {
   );
 };
 
-const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
+const ArtistFeed = ({
+  setArtistFeed,
+  scrollY,
+  artistFilter,
+  group,
+  artistFeed,
+}) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [initStartDate, setInitStartDate] = useState(new Date());
@@ -131,7 +137,10 @@ const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
   };
 
   return (
-    <div id="artistFeedList" className="artistFeedList">
+    <div
+      id="artistFeedList"
+      className={`artistFeedList ${scrollY > 275 ? "sticky" : ""}`}
+    >
       {artistFeed.length === 0 ? (
         <div></div>
       ) : (

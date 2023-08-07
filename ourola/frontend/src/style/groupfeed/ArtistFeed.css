@@ -1,6 +1,6 @@
 .artistFeedList {
-  padding: 0 0 60px;
-  max-width: 1000px;
+  margin-top: 30px;
+  max-width: 1100px;
   justify-content: center;
   display: flex;
   flex-direction: column;
@@ -11,8 +11,14 @@
   z-index: 1;
 }
 
+@media (min-height: 275px) {
+  .artistFeedList.sticky {
+    margin-left: 492px;
+  }
+}
+
 .artistDateFilterWarp {
-  padding: 0 100px;
+  padding: 0 200px;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #000;
