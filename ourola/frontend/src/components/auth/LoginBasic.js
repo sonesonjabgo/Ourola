@@ -11,19 +11,12 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
   const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
- 
-  // 카카오 로그인
-  const kakaoLogin = () => {
 
-    axios.post("/oauth2/authorization/kakao")
-    .then((res)=>{
-      console.log('카카오 컴온')
-      console.log(res)
-    })
-    .catch((e) => {
-      console.log(e)
-    })
-  }
+  // 카카오
+  const CLIENT_ID = 'bb2a4299b463355d7954dd1c29bc4e90'
+  const REDIRECT_URI= 'http://localhost:3000/login/oauth2/code/kakao'
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   // 이메일 찾기 모달 열기
   const openFindEmailModal = () => {
@@ -62,12 +55,14 @@ function LoginBasic({ setModalOpen, onLogin }) {
       password: password,
     };
 
+    console.log(data)
+
     axios
       .post("/login", data)
       .then((response) => {
         // 현재 백에서 토큰을 headers에 담아서 보내줘서 아래와 같이 작성해야 함.
         const accessToken = response.headers["authorization"];
-
+        
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common[
           "Authorization"
@@ -83,8 +78,8 @@ function LoginBasic({ setModalOpen, onLogin }) {
         return response.data;
       })
       .catch((e) => {
-        // console.log(e.response.data);
-        setShowErrorMessage(true);
+        console.log(e);
+        // setShowErrorMessage(true);
       });
   };
 
@@ -128,16 +123,15 @@ function LoginBasic({ setModalOpen, onLogin }) {
             <input type="checkbox" name="option1" value="value1" /> 자동 로그인
           </label>
         </div> */}
-        <div>
-        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'>카카오</a> |
-        <button onClick={kakaoLogin}>카카오</button>
-        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
-        <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
-        </div>
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
       </form>
+      <div>
+          <a href={KAKAO_AUTH_URL}>카카오</a> |
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
+        </div>
       <div>
       <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |
       {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
