@@ -28,6 +28,7 @@ const OnlineConcertView = ({ userName }) => {
 
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
 
+  // 페이지를 벗어날 때 onbeforeunload 함수 실행되도록 이벤트 리스너 설정
   useEffect(() => {
     window.addEventListener("beforeunload", onbeforeunload);
     return () => {
