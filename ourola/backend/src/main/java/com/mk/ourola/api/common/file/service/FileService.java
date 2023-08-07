@@ -27,13 +27,16 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto,
+		MembershipPayDto membershipPayDto) throws
 		NoSuchAlgorithmException,
 		IOException;
 
 	public String removeFeedImage(int feedId);
 
 	public byte[] getShopMainImg(String filePath) throws IOException;
+
+	byte[] getShopDetailImg(String filePath) throws IOException;
 
 	public byte[] getArtistProfileImg(int id) throws IOException;
 

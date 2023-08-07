@@ -55,6 +55,7 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public OnlineConcertDto getOnlineConcertItem(String artist, int id) {
 		// int groupId = groupRepository.findByName(artist).getId();
+		log.info("online concert 조회 :: "+onlineConcertRepository.findById(id));
 		return onlineConcertRepository.findById(id);
 	}
 
@@ -83,6 +84,7 @@ public class ShopServiceImpl implements ShopService {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			onlineConcertDto.setGroupDto(groupDto);
 			onlineConcertDto.setFilePath(filePath);
+			log.info("writed onlineConcert :: "+onlineConcertDto);
 			return onlineConcertRepository.save(onlineConcertDto);
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
@@ -131,8 +133,8 @@ public class ShopServiceImpl implements ShopService {
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
 				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
 			OnlineConcertDto oldDto = onlineConcertRepository.findById(onlineConcertDto.getId());
-			// GroupDto groupDto = groupRepository.findByName(artist);
-			// onlineConcertDto.setGroupDto(groupDto);
+			GroupDto groupDto = groupRepository.findByName(artist);
+			onlineConcertDto.setGroupDto(groupDto);
 			// System.out.println("before clear");
 			// System.out.println(oldDto);
 			// System.out.println(onlineConcertDto);
@@ -145,8 +147,9 @@ public class ShopServiceImpl implements ShopService {
 			// log.info(oldDto.toString());
 			// log.info(onlineConcertDto.toString());
 			onlineConcertDto.setFilePath(filePath);
-
-			return onlineConcertRepository.save(onlineConcertDto);
+			OnlineConcertDto modified = onlineConcertRepository.save(onlineConcertDto);
+			log.info("onlineConcertDto modify :: "+modified);
+			return modified;
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
 		}

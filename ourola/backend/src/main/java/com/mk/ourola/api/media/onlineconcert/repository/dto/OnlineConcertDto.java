@@ -62,7 +62,7 @@ public class OnlineConcertDto {
 	@Column(name = "ticketing_time")
 	private Date ticketingTime;
 
-	@CreationTimestamp
+	// @CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 

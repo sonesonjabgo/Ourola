@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OpenLiveServiceImpl implements OpenLiveService{
+public class OpenLiveServiceImpl implements OpenLiveService {
 
 	private final OpenLiveRepository openLiveRepository;
 	private final GroupRepository groupRepository;
@@ -27,6 +27,7 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 	private final OpenLiveParticipantRepository openLiveParticipantRepository;
 
 	private final JwtService jwtService;
+
 	@Override
 	public List<OpenLiveDto> getOpenLiveList(String artist) {
 		GroupDto groupDto = groupRepository.findByName(artist);
@@ -46,7 +47,7 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 		String role = jwtService.extractRole(accessToken).get();
 		GroupDto groupDto = groupRepository.findByName(group);
 		openLiveDto.setGroupDto(groupDto);
-		if(role.equals("USER") || role.equals("ARTIST") || !groupDto.getName().equals(group)){
+		if (role.equals("USER") || role.equals("ARTIST") || !groupDto.getName().equals(group)) {
 			throw new AuthenticationException("관리자 권한입니다.");
 		}
 		openLiveDto.setCurParticipant(0);
@@ -59,10 +60,12 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 		FanDto fanDto = fanRepository.findByEmail(jwtService.extractEmail(accessToken).get()).get();
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 
-		if(openLiveDto.isFull())	throw new Exception("인원 모집이 마감되었습니다.");
+		if (openLiveDto.isFull())
+			throw new Exception("인원 모집이 마감되었습니다.");
 
-		Optional<OpenLiveParticipantDto> any = openLiveParticipantRepository.findByFanDto_IdAndOpenLiveDto_Id(fanDto.getId(), id);
-		if(any.isPresent()){
+		Optional<OpenLiveParticipantDto> any = openLiveParticipantRepository.findByFanDto_IdAndOpenLiveDto_Id(
+			fanDto.getId(), id);
+		if (any.isPresent()) {
 			throw new Exception("이미 신청한 항목입니다.");
 		}
 
@@ -75,6 +78,15 @@ public class OpenLiveServiceImpl implements OpenLiveService{
 		openLiveDto.participate();
 
 		return openLiveParticipantDto;
+	}
+
+	@Override
+	public OpenLiveParticipantDto cancelOpenLiveParticipate(Integer userId, int id) {
+		OpenLiveParticipantDto deletedParticipateDto = openLiveParticipantRepository.deleteByOpenLiveDto_IdAndFanDto_Id(
+			id, userId);
+		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
+		openLiveDto.cancel();
+		return deletedParticipateDto;
 	}
 
 }
