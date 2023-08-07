@@ -57,11 +57,17 @@ render(
       <Route path="/seventeen/fanSigning" element={<FanSigning />}></Route>
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
-      <Route path="/live" element={<OnlineConcertView />}></Route>
+
+      {/* 온라인콘서트 */}
       <Route
-        path="/seventeen/live/list"
+        path="/:group/online-concert/list"
         element={<OnlineConcertList />}
       ></Route>
+      <Route
+        path="/:group/online-concert/enter"
+        element={<OnlineConcertView />}
+      ></Route>
+
       <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
     </Routes>
   </BrowserRouter>,
