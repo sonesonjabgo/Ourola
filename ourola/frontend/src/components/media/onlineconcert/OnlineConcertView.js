@@ -9,7 +9,7 @@ import OnlineConcertVideo from "./OnlineConcertVideo";
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://localhost:8000/BTS/online-concert";
+    : "http://localhost:8000/seventeen/online-concert";
 
 const OnlineConcertView = ({ userName }) => {
   const accessToken = localStorage.getItem("Authorization");
@@ -114,7 +114,7 @@ const OnlineConcertView = ({ userName }) => {
       setSubscribers([]);
       // setMySessionId("SessionA");
       // setMyUserName("Participant" + Math.floor(Math.random() * 100));
-      setSessionId("");
+      setSessionId(sessionId);
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",

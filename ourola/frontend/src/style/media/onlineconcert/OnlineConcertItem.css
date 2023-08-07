@@ -1,0 +1,11 @@
+.onlineConcertItem {
+  /* position: sticky; */
+  margin-bottom: 20px;
+  width: 270px;
+  height: 150px;
+  background-color: #d2cdf0;
+  line-height: 30px;
+  /* color: white; */
+  border-radius: 30px;
+  text-align: center;
+}
