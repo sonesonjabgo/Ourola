@@ -32,9 +32,11 @@ import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FileServiceImpl implements FileService {
 	private final ProfileFileRepository profileFileRepository;
 	private final FanRepository fanRepository;
@@ -114,6 +116,7 @@ public class FileServiceImpl implements FileService {
 	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
 		IOException {
+		log.info("main image 저장 시도");
 		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
 		String hashName = generateUniqueFileName(fileName);
 		String shopfile_path = FILE_PATH + "/shopMainFile/" + hashName;
@@ -210,8 +213,8 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public byte[] getOnlineConcertMainImgList(String group) throws Exception {
-		GroupDto groupDto = groupRepository.findByName(group);
-		List<ShopFileDto> shopFileDto = shopFileRepository.findByOnlineConcertDto_GroupDto_Id(groupDto.getId());
+		// GroupDto groupDto = groupRepository.findByName(group);
+		// List<ShopFileDto> shopFileDto = shopFileRepository.findByOnlineConcertDto_GroupDto_Id(groupDto.getId());
 		return null;
 	}
 
