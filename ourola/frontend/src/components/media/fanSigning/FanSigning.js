@@ -17,7 +17,7 @@ const FanSigning = () => {
         const session = OV.initSession();
 
         // 세션에 연결
-        await session.connect('YOUR_OPENVIDU_SECRET');
+        await session.connect('https://i9d204.p.ssafy.io/');
 
         setSession(session);
 
