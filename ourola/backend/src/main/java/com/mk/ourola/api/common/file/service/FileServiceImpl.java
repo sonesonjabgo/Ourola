@@ -27,7 +27,6 @@ import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
-import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
@@ -48,6 +47,21 @@ public class FileServiceImpl implements FileService {
 	@Value("${spring.servlet.multipart.location}")
 	private String FILE_PATH;
 
+	@Value("${file.Feed}")
+	private String FEED_FOLDER;
+
+	@Value("${file.group}")
+	private String GROUP_FOLDER;
+
+	@Value("${file.profile}")
+	private String PROFILE_FOLDER;
+
+	@Value("${file.shopFile}")
+	private String SHOP_FOLDER;
+
+	@Value("${file.shopMainFile}")
+	private String SHOP_MAIN_FOLDER;
+
 	public FanDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException {
@@ -56,7 +70,7 @@ public class FileServiceImpl implements FileService {
 		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 		String fileExtension = getFileExtension(file.getOriginalFilename());
 		String hashName = generateUniqueFileName(fileName);
-		String profile_path = FILE_PATH + "/profileImg/" + hashName;
+		String profile_path = FILE_PATH + PROFILE_FOLDER + hashName;
 		System.out.println(profile_path);
 		File dest = new File(profile_path);
 		file.transferTo(dest);
@@ -83,7 +97,7 @@ public class FileServiceImpl implements FileService {
 			String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 			String fileExtension = getFileExtension(file.getOriginalFilename());
 			String hashName = generateUniqueFileName(fileName);
-			String feedfile_path = FILE_PATH + "/feedFile/" + hashName;
+			String feedfile_path = FILE_PATH + FEED_FOLDER + hashName;
 			System.out.println(feedfile_path);
 			File dest = new File(feedfile_path);
 			file.transferTo(dest);
@@ -119,7 +133,7 @@ public class FileServiceImpl implements FileService {
 		log.info("main image 저장 시도");
 		String fileName = getFileNameWithoutExtension(mainFile.getOriginalFilename());
 		String hashName = generateUniqueFileName(fileName);
-		String shopfile_path = FILE_PATH + "/shopMainFile/" + hashName;
+		String shopfile_path = FILE_PATH + SHOP_MAIN_FOLDER + hashName;
 		System.out.println(shopfile_path);
 		File dest = new File(shopfile_path);
 		mainFile.transferTo(dest);
@@ -148,7 +162,7 @@ public class FileServiceImpl implements FileService {
 				String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 				String fileExtension = getFileExtension(file.getOriginalFilename());
 				String hashName = generateUniqueFileName(fileName);
-				String shopfile_path = FILE_PATH + "/shopFile/" + hashName;
+				String shopfile_path = FILE_PATH + SHOP_FOLDER + hashName;
 				System.out.println(shopfile_path);
 				File dest = new File(shopfile_path);
 				file.transferTo(dest);
@@ -174,7 +188,7 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public byte[] getGroupImg(String filePath) throws IOException {
-		File file = new File(FILE_PATH + "/groupImg/" + filePath);
+		File file = new File(FILE_PATH + GROUP_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 
@@ -187,7 +201,7 @@ public class FileServiceImpl implements FileService {
 		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 		String fileExtension = getFileExtension(file.getOriginalFilename());
 		String hashName = generateUniqueFileName(fileName);
-		String groupFile_path = FILE_PATH + "/groupImg/" + hashName;
+		String groupFile_path = FILE_PATH + GROUP_FOLDER + hashName;
 		System.out.println(groupFile_path);
 		File dest = new File(groupFile_path);
 		file.transferTo(dest);
@@ -220,13 +234,13 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public byte[] getShopMainImg(String filePath) throws IOException {
-		File file = new File(FILE_PATH + "/shopMainFile/" + filePath);
+		File file = new File(FILE_PATH + SHOP_MAIN_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 
 	@Override
 	public byte[] getShopDetailImg(String filePath) throws IOException {
-		File file = new File(FILE_PATH + "/shopFile/" + filePath);
+		File file = new File(FILE_PATH + SHOP_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

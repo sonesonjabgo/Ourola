@@ -11,8 +11,10 @@ const APPLICATION_SERVER_URL =
     ? ""
     : "http://localhost:8000/seventeen/online-concert";
 
-const OnlineConcertView = ({ userName }) => {
+const OnlineConcertView = () => {
   const accessToken = localStorage.getItem("Authorization");
+
+  const [nickname, setNickname] = useState("");
 
   const [sessionId, setSessionId] = useState("");
 
@@ -25,6 +27,8 @@ const OnlineConcertView = ({ userName }) => {
   const [subscribers, setSubscribers] = useState([]);
   // ...?
   const [currentVideoDevice, setCurrentVideoDevice] = useState({});
+
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
 
@@ -80,42 +84,44 @@ const OnlineConcertView = ({ userName }) => {
     // --- 4) Connect to the session with a valid user token ---
     try {
       const token = await getToken();
-      await mySession.connect(token, { clientData: userName });
+      await mySession.connect(token, { clientData: nickname });
 
-      // --- 5) Get your own camera stream ---
-      const publisher = await OV.initPublisherAsync(undefined, {
-        audioSource: undefined,
-        videoSource: undefined,
-        publishAudio: true,
-        publishVideo: true,
-        resolution: "640x480",
-        frameRate: 30,
-        insertMode: "APPEND",
-        mirror: false,
-      });
+      if (isAdmin) {
+        // --- 5) Get your own camera stream ---
+        const publisher = await OV.initPublisherAsync(undefined, {
+          audioSource: undefined,
+          videoSource: undefined,
+          publishAudio: true,
+          publishVideo: true,
+          resolution: "640x480",
+          frameRate: 30,
+          insertMode: "APPEND",
+          mirror: false,
+        });
 
-      // --- 6) Publish your stream ---
-      mySession.publish(publisher);
+        // --- 6) Publish your stream ---
+        mySession.publish(publisher);
 
-      const devices = await OV.getDevices();
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      const currentVideoDeviceId = publisher.stream
-        .getMediaStream()
-        .getVideoTracks()[0]
-        .getSettings().deviceId;
-      const currentVideoDevice = videoDevices.find(
-        (device) => device.deviceId === currentVideoDeviceId
-      );
+        const devices = await OV.getDevices();
+        const videoDevices = devices.filter(
+          (device) => device.kind === "videoinput"
+        );
+        const currentVideoDeviceId = publisher.stream
+          .getMediaStream()
+          .getVideoTracks()[0]
+          .getSettings().deviceId;
+        const currentVideoDevice = videoDevices.find(
+          (device) => device.deviceId === currentVideoDeviceId
+        );
 
-      // Set the main video in the page to display our webcam and store our Publisher
-      setMainStreamManager(publisher);
-      setPublisher(publisher);
-      setSubscribers([]);
-      // setMySessionId("SessionA");
-      // setMyUserName("Participant" + Math.floor(Math.random() * 100));
-      setSessionId(sessionId);
+        // Set the main video in the page to display our webcam and store our Publisher
+        setMainStreamManager(publisher);
+        setPublisher(publisher);
+        setSubscribers([]);
+        setNickname(nickname);
+        setSessionId(sessionId);
+      } else {
+      }
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",
@@ -171,8 +177,8 @@ const OnlineConcertView = ({ userName }) => {
   };
 
   const getToken = async () => {
-    const sessionId = await createSession(sessionId);
-    return await createToken(sessionId);
+    const sid = await createSession(sessionId);
+    return await createToken(sid);
   };
 
   const createSession = async (sessionId) => {
@@ -207,8 +213,10 @@ const OnlineConcertView = ({ userName }) => {
     return response.data;
   };
 
-  const onJoinSession = ({ userName, sessionId }) => {
+  const onJoinSession = ({ nickname, sessionId, isAdmin }) => {
+    setNickname(nickname);
     setSessionId(sessionId);
+    setIsAdmin(isAdmin);
     joinSession();
   };
 

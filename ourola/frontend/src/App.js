@@ -43,7 +43,7 @@ function App() {
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
 
-      <Link to="/seventeen/live/list">라이브</Link>
+      <Link to="/seventeen/online-concert/list">라이브</Link>
     </div>
   );
 }

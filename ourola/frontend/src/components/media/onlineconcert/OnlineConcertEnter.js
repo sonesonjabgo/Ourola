@@ -1,8 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const OnlineConcertEnter = ({ onJoinSession }) => {
-  const group = "seventeen";
+  const location = useLocation();
+  const group = location.state.group;
+  const sessionId = location.state.sessionId;
+  const nickname = location.state.nickname;
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const accessToken = localStorage.getItem("Authorization");
   const config = {
     headers: {
@@ -12,12 +18,11 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
   };
 
   const [state, setState] = useState({
-    userName: "",
-    sessionId: "",
+    userName: nickname,
+    sessionId: sessionId,
   });
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
+  // 닉네임 바뀌었을 때
   const handleChangeState = (e) => {
     setState({
       ...state,
@@ -25,9 +30,10 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
     });
   };
 
+  // 세션에 입장했을 때
   const handleSubmit = () => {
-    onJoinSession(state.userName, state.sessionId);
-    setState({ userName: "", sessionId: "" });
+    onJoinSession(state.userName, state.sessionId, isAdmin);
+    setState({ userName: nickname, sessionId: sessionId });
   };
 
   useEffect(() => {
@@ -40,12 +46,6 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
         console.log("isAdmin 호출 오류 :: ", error);
       });
   }, []);
-
-  if (isAdmin) {
-    console.log("관리자");
-  } else {
-    console.log("유저");
-  }
 
   return (
     <div id="join">
@@ -84,7 +84,7 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
           <p className="text-center">
             <input
               className="btn btn-lg btn-success"
-              name="commit"
+              name="입장하기"
               type="submit"
               value="JOIN"
             />
