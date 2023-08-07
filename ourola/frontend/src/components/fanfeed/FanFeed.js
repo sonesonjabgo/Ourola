@@ -10,6 +10,36 @@ import "../../style/fanfeed/FanFeed.css";
 import { useLocation } from "react-router-dom";
 
 function Fanfeed() {
+
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
+
+  const [loadingFeed, setLodingFeed] = useState(true);
+  const [fanFeed, setFanFeed] = useState([]);
+
+  const accessToken = localStorage.getItem("Authorization");
+
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/feed`, config)
+      .then((response) => {
+        setFanFeed(response.data);
+        setLodingFeed(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setLodingFeed(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className="contentContainer">
@@ -24,8 +54,12 @@ function Fanfeed() {
         <div className="fanfeedProfileContainer">
           <FanFeedProfile />
         </div>
-        <div className="fanfeedFeedContainer">
-          <FanFeedList />
+        <div id="group" className="fanfeedFeedContainer">
+          {!loadingFeed ? (
+              <FanFeedList group={group} fanFeed={fanFeed}/>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </>

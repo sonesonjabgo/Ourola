@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.repository.SocialType;
 
@@ -46,6 +47,7 @@ public class FanDto {
 
 	private String email;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	private String name;

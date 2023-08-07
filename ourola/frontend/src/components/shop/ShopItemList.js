@@ -9,9 +9,9 @@ function ShopItemList({allStuff}) {
   }
 
   return (
-    <div className="cardsContainer">
+    <div className="shopCardsContainer">
       {allStuff.map((data, i) => (
-        <ShopItem key={i} src={data.src} title={data.title} path={data.id} price={data.price} />
+        <ShopItem key={i} src={data.src} title={data.title} path={data.id} price={data.price} content={data.content} groupId={data.groupId}/>
       ))}
     </div>
   );

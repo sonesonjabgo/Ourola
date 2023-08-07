@@ -1,4 +1,4 @@
-package com.mk.ourola.api.live.onlinecall.repository.dto;
+package com.mk.ourola.api.media.onlinecall.repository.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

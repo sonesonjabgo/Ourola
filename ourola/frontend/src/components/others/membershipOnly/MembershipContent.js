@@ -9,14 +9,16 @@ const MembershipContent = ({ title, subtitle }) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     const showModal = () => {setModalOpen(true)}
-    
+    const closeModal = () => {
+        setModalOpen(false);
+      };
 
     return (
-        <div className="contentCard" onClick={showModal}>
-            <img src={imageUrl} alt="Placeholder"/>
+        <div className="contentCard" >
+            <img src={imageUrl} alt="Placeholder" onClick={showModal}/>
             <p>{title}</p>
             <p>{subtitle}</p>
-            {modalOpen && <MembershipContentBasic setModalOpen={setModalOpen}/>}
+            {modalOpen && <MembershipContentBasic title={subtitle} closeModal={closeModal}/>}
         </div>
     )
 }

@@ -4,6 +4,7 @@ import "../../style/groupfeed/ArtistProfile.css";
 
 const ArtistProfile = ({
   setArtistFeed,
+  setArtistFilter,
   setArtistFirstState,
   artistFirstState,
   group,
@@ -32,6 +33,7 @@ const ArtistProfile = ({
         value: it.id === id,
       }));
 
+      setArtistFilter(id);
       setArtistFirstState(selectResult);
     } else {
       await axios
@@ -48,6 +50,7 @@ const ArtistProfile = ({
         value: false,
       }));
 
+      setArtistFilter(-1);
       setArtistFirstState(selectResult);
     }
   };

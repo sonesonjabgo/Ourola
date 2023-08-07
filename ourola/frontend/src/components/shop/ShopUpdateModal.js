@@ -85,16 +85,19 @@ const ShopUpdateModal = (props) => {
         formData.append('price', parseInt(inputValue.price, 10))
         formData.append('startTime', selectedOpenDate)
         formData.append('ticketingTime', selectedTicketingDate)
+        formData.append('group_id', path.group_id)
 
         // 콘솔 출력용
         for (var pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-        
-        axios.put(`shop/seventeen/online-concert/${path.id}`, formData, { headers: headers })
+
+        axios.put(`shop/seventeen/online-concert/${props.path.path}`, formData, { headers: headers })
             .then((response) => {
                 setResponse(response.data)
                 alert('수정 완료')
+                closeModal()
+                window.location.reload()
             })
             .catch((error) => {
                 console.error('자수정', error)

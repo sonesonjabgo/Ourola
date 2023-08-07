@@ -14,7 +14,7 @@ function MainLoggedIn() {
 
   useEffect(() => {
     axios
-      .get("fan/subscribe", { headers })
+      .get("fan/subscribe", { headers: headers })
       .then((response) => {
         // 구독 중인 그룹 목록은 현재 로그인 중인 유저에 대한 데이터도 포함되어 있음
         // 반복문을 통해 그룹 데이터만 가져올 수 있도록 함
@@ -30,7 +30,7 @@ function MainLoggedIn() {
 
   useEffect(() => {
     axios
-      .get("fan/notsubscribe", { headers })
+      .get("fan/notsubscribe", { headers: headers })
       .then((response) => {
         setNotSubGroup(response.data);
       })

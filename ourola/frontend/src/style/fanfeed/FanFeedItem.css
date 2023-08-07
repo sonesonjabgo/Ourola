@@ -1,22 +1,23 @@
-.groupFeedItem {
+.artistFeedItem {
   display: block;
   border-bottom: 2px solid #000;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   padding-top: 25px;
+  min-width: 1000px;
 }
 
-.groupFeedHeader {
+.aritstFeedHeader {
   display: flex;
   align-items: flex-start;
 }
 
-.groupFeedInfo {
+.artistFeedInfo {
   display: flex;
   align-items: center;
   min-width: 0;
 }
 
-.groupFeedProfile {
+.artistFeedProfile {
   flex-shrink: 0;
   width: 36px;
   height: 36px;
@@ -24,18 +25,18 @@
   position: relative;
 }
 
-.groupFeedInfo {
+.artistFeedInfo {
   display: block;
   margin-left: 8px;
   /* overflow: hidden; */
 }
 
-.groupFeedGroupNameWrapper {
+.artistFeedArtistNameWrapper {
   align-items: center;
   display: flex;
 }
 
-.groupFeedGroupName {
+.artistFeedArtistName {
   font-size: 14px;
   line-height: 17px;
   /* overflow: hidden; */
@@ -44,20 +45,20 @@
   font-weight: bold;
 }
 
-.groupFeedCreateTimeWrapper {
+.artistFeedCreateTimeWrapper {
   align-items: center;
   display: flex;
   margin-top: 2px;
 }
 
-.groupFeedCreateTime {
+.artistFeedCreateTime {
   color: #8e8e8e;
   flex-shrink: 0;
   font-size: 12px;
   line-height: 14px;
 }
 
-.groupFeedContent {
+.artistFeedContent {
   padding-left: 5px;
   display: block;
   padding-top: 15px;
@@ -69,7 +70,7 @@
   line-height: 21px;
 }
 
-.groupFeedFooter {
+.artistFeedFooter {
   padding-left: 10px;
   align-items: center;
   display: flex;
@@ -77,12 +78,12 @@
   z-index: 1;
 }
 
-.groupFeedFeedInfo {
+.artistFeedFeedInfo {
   display: flex;
   flex-shrink: 0;
 }
 
-.groupFeedLike {
+.artistFeedLike {
   margin-top: 25px;
   display: block;
   width: 26;
@@ -90,27 +91,40 @@
   margin-right: 30px;
 }
 
-.groupFeedLikeImg {
-  display: inline-block;
-  margin-right: 5px;
+.artistFeedLikeImg {
+  cursor: pointer;
 }
 
-.groupFeedLikeCount {
+.artistFeedLikeCount {
+  position: absolute;
+  padding-top: 15px;
   display: inline-block;
 }
 
-.groupFeedComment {
+.artistFeedComment {
   margin-top: 25px;
   display: block;
-  width: 26;
+  width: 20;
   height: 26;
 }
 
-.groupFeedCommentImg {
+.artistFeedCommentImg {
   display: inline-block;
-  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+  margin-top: 8px;
+  margin-left: 5px;
+  margin-right: 15px;
 }
 
-.groupFeedCommentCount {
+.artistFeedCommentRealCount {
+  position: absolute;
+  padding-top: 15px;
   display: inline-block;
+}
+
+.artistFeedBookmark {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }

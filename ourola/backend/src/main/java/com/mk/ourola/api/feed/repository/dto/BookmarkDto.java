@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +32,10 @@ public class BookmarkDto {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private FanDto fanDto;
+
+	@ManyToOne
+	@JoinColumn(name = "artist_id")
+	private ArtistDto artistDto;
 
 	@ManyToOne
 	@JoinColumn(name = "feed_id")

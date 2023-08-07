@@ -27,6 +27,7 @@ import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.fan.repository.dto.ProfileFileDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
+import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
@@ -96,6 +97,21 @@ public class FileServiceImpl implements FileService {
 		return "저장완료";
 	}
 
+	public String removeFeedImage(int feedId) {
+		List<FeedFileDto> fileList = feedFileRepository.findByFeedDto_Id(feedId);
+
+		for (FeedFileDto file : fileList) {
+			String filePath = file.getFilePath();
+			File feedFile = new File(filePath);
+			if (feedFile.delete()) {
+				System.out.println("파일 삭제 완료");
+			} else {
+				System.out.println("파일 삭제 실패");
+			}
+		}
+		return "이미지 삭제 성공";
+	}
+
 	@Override
 	public String ShopMainImageToPath(MultipartFile mainFile) throws
 		NoSuchAlgorithmException,
@@ -119,13 +135,15 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto, MembershipPayDto membershipPayDto) throws
+	public String writeShopImages(List<MultipartFile> files, OnlineConcertDto onlineConcertDto,
+		MembershipPayDto membershipPayDto) throws
 		NoSuchAlgorithmException,
 		IOException {
 
-		if(files != null) {
+		if (files != null) {
 			for (MultipartFile file : files) {
-				if(file.isEmpty())	continue;
+				if (file.isEmpty())
+					continue;
 				System.out.println(file.getOriginalFilename());
 				String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 				String fileExtension = getFileExtension(file.getOriginalFilename());
@@ -138,7 +156,7 @@ public class FileServiceImpl implements FileService {
 				ShopFileDto shopFileDto = ShopFileDto.builder()
 					.membershipPayDto(membershipPayDto)
 					.onlineConcertDto(onlineConcertDto)
-					.filePath(shopfile_path)
+					.filePath(hashName)
 					.build();
 				ShopFileDto save = shopFileRepository.save(shopFileDto);
 			}
@@ -203,6 +221,12 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public byte[] getShopMainImg(String filePath) throws IOException {
 		File file = new File(FILE_PATH + "/shopMainFile/" + filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getShopDetailImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/shopFile/" + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

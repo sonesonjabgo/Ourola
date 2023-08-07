@@ -109,18 +109,37 @@
   .shopCreateHeader {
     position: fixed;
     width: 100%;
+    font-size: 45px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #e4e6ea;
   }
 
   .inputValueContainer {
-    height: 90%;
+    height: 80%;
     width: 100%;
     display: flex;
     flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
   }
 
   .inputValue {
     margin: 20px 0px;
+  }
+
+  .inputValue input {
+    height: 50px;
+    width: 200px;
+    margin-left: 300px;
+  }
+
+  .OpenCreateModalButton {
+    border: none;
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 20px;
   }

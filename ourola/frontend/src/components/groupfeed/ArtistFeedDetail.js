@@ -4,12 +4,15 @@ import axios from "axios";
 import ArtistFeedComment from "./ArtistFeedComment";
 import downarrow from "../../assets/icons/downarrow.png";
 import send from "../../assets/icons/send.png";
-import bookmark from "../../assets/icons/bookmark.png";
+import bookmarkempty from "../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 
 const ArtistFeedDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
+
+  const localHost = "http://localhost:8000";
 
   const closeModal = () => {
     setModalOpen(false);
@@ -34,6 +37,9 @@ const ArtistFeedDetail = (props) => {
   const setThisFeedLike = props.state.setThisFeedLike;
   const feedLikeSum = props.state.feedLikeSum;
   const setFeedLikeSum = props.state.setFeedLikeSum;
+
+  const thisFeedBookmark = props.state.thisFeedBookmark;
+  const setThisFeedBookmark = props.state.setThisFeedBookmark;
 
   const scrollPosition = props.state.scrollPosition;
 
@@ -86,11 +92,7 @@ const ArtistFeedDetail = (props) => {
     };
 
     try {
-      await axios.post(
-        `http://localhost:8000/${id}/comment`,
-        commentData,
-        config
-      );
+      await axios.post(`/${id}/comment`, commentData, config);
 
       const newResult = await axios.get(`/${id}/comment`, config);
 
@@ -134,6 +136,22 @@ const ArtistFeedDetail = (props) => {
 
     setThisFeedLike(feedLike);
     setFeedLikeSum(like);
+  };
+
+  const wantBookmark = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  const wantBookmarkCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
   };
 
   const enterKeyPress = (event) => {
@@ -243,12 +261,28 @@ const ArtistFeedDetail = (props) => {
                   >
                     {feedLikeSum}
                   </div>
-                  <img
-                    src={bookmark}
-                    alt="이미지가 없습니다."
-                    id="artistFeedInBookmark"
-                    className="artistFeedInBookmark"
-                  ></img>
+                  <div
+                    id="artistFeedInBookmarkImgWrap"
+                    className="artistFeedBookmarkImgWrap"
+                  >
+                    {thisFeedBookmark ? (
+                      <img
+                        src={bookmarkfill}
+                        alt="이미지가 없습니다."
+                        id="artistFeedInBookmarkImg"
+                        className="artistFeedInBookmarkImg"
+                        onClick={wantBookmarkCancle}
+                      ></img>
+                    ) : (
+                      <img
+                        src={bookmarkempty}
+                        alt="이미지가 없습니다."
+                        id="artistFeedInBookmarkImg"
+                        className="artistFeedInBookmarkImg"
+                        onClick={wantBookmark}
+                      ></img>
+                    )}
+                  </div>
                 </div>
               </div>
               <div id="artistFeedCommentWrap" className="artistFeedCommentWrap">

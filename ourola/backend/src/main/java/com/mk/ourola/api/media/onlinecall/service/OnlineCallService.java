@@ -1,8 +1,8 @@
-package com.mk.ourola.api.live.onlinecall.service;
+package com.mk.ourola.api.media.onlinecall.service;
 
 import java.util.List;
 
-import com.mk.ourola.api.live.onlinecall.repository.dto.OnlineCallDto;
+import com.mk.ourola.api.media.onlinecall.repository.dto.OnlineCallDto;
 
 public interface OnlineCallService {
 

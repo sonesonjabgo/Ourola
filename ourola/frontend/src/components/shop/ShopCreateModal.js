@@ -85,6 +85,8 @@ const ShopCreateModal = (props) => {
         axios.post('shop/seventeen/online-concert', formData, {headers: headers})
             .then((response) => {
                 setResponse(response.data)
+                closeModal()
+                window.location.reload()
             })
             .catch((error) => {
                 console.error('하하 또 망했지', error)

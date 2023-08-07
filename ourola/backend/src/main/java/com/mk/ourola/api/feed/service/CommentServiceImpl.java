@@ -1,5 +1,6 @@
 package com.mk.ourola.api.feed.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -72,6 +73,7 @@ public class CommentServiceImpl implements CommentService {
 		FeedDto feedDto = feedRepository.findById(newComment.getFeedDto().getId());
 		feedDto.setCommentCount(feedDto.getCommentCount() + 1);
 		feedRepository.save(feedDto);
+
 		return newComment;
 	}
 
