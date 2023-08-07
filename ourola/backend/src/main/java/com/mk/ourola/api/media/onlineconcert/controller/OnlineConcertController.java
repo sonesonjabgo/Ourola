@@ -59,7 +59,8 @@ public class OnlineConcertController {
 	public ResponseEntity<Boolean> isGroupAdmin(@RequestHeader("Authorization") String accessToken,
 		@PathVariable String group) {
 		try {
-			String role = jwtService.extractRole(accessToken).orElse(null);
+			String role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get()).orElse(null);
+			System.out.println(role);
 			if (role == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else if (role.equals("CHANNEL_ADMIN") && artistService.isAdmin(accessToken, group)) {    // 해당 그룹 채널관리자이면

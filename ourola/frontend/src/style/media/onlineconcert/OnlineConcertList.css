@@ -1,0 +1,11 @@
+.onlineConcertListMain {
+  padding-top: 300px;
+}
+
+.onlineConcertList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-left: 30px;
+  padding-right: 30px;
+  place-items: center;
+}

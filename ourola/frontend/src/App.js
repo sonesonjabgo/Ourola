@@ -3,31 +3,20 @@ import { Link, Router, Routes, Route } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
-import registerServiceWorker from "./components/media/onlineconcert/openvidu/registerServiceWorker";
 
 // artist 선언 방식 fix 필요
 function App() {
-  const group = "BTS";
+  const artist = "BTS";
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [groupList, setGroupList] = useState([]);
-  const [subscribeList, setSubscribeList] = useState([]);
-
-  useEffect(() => {
-    document.title = "CSS의 무덤";
-  });
 
   // 로그인 상태 변경 함수
-  const onLogin = ({ groupList, subscribeList }) => {
+  const handleLoginSuccess = () => {
     setLoggedIn(true);
-    setGroupList(groupList);
-    setSubscribeList(subscribeList);
   };
 
   // 로그아웃 상태 변경 함수
-  const onLogout = ({ groupList, subscribeList }) => {
+  const handleLogout = () => {
     setLoggedIn(false);
-    setGroupList(groupList);
-    setSubscribeList(subscribeList);
   };
 
   useEffect(() => {
@@ -41,18 +30,20 @@ function App() {
       setLoggedIn(false);
     }
   }, []);
-  registerServiceWorker();
 
   return (
     <div id="App" className="App">
-      <Header isLoggedIn={isLoggedIn} onLogin={onLogin} onLogout={onLogout} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        onLogin={handleLoginSuccess}
+        onLogout={handleLogout}
+      />
       <div className="main"></div>
       <div className="main">
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
-      {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
-      <br />
-      <Link to="/live">라이브</Link>
+
+      <Link to="/seventeen/live/list">라이브</Link>
     </div>
   );
 }

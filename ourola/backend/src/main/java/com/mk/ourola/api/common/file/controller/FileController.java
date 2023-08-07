@@ -114,9 +114,24 @@ public class FileController {
 	// 상품의 메인이미지(썸네일)을 불러온다.
 	// filePath : 온콘/멤버십 dto 안에 filePath
 	@GetMapping("/getimg/shop-main/{filePath}")
-	public ResponseEntity<?> getShopMainImg(@RequestParam String group, @PathVariable(name = "filePath") String filePath) throws Exception {
+	public ResponseEntity<?> getShopMainImg(@RequestParam String group,
+		@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
-			byte[] artistProfileImg = fileService.getShopMainImg(group);
+			byte[] artistProfileImg = fileService.getShopMainImg(filePath);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 상품의 상세이미지(설명)을 불러온다.
+	// filePath : 온콘/멤버십 dto 안의 fileList 안의 filePath
+	@GetMapping("/getimg/shop-detail/{filePath}")
+	public ResponseEntity<?> getShopDetailImg(@PathVariable(name = "filePath") String filePath) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getShopDetailImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
