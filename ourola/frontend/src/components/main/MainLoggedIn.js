@@ -11,8 +11,6 @@ function MainLoggedIn() {
 
   // 구독 중인 아티스트 불러오기
   const [subGroup, setSubGroup] = useState([]);
-  // 구독 중이 아닌 아티스트 불러오기
-  const [notSubGroup, setNotSubGroup] = useState([]);
 
   useEffect(() => {
     axios
@@ -26,6 +24,9 @@ function MainLoggedIn() {
         console.error("하하 망했지", error);
       });
   }, []);
+
+  // 구독 중이 아닌 아티스트 불러오기
+  const [notSubGroup, setNotSubGroup] = useState([]);
 
   useEffect(() => {
     axios
