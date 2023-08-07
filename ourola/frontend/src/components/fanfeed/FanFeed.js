@@ -71,7 +71,7 @@ if (groupInfo) {
           <FanFeedProfile groupInfo = {groupInfo}/>
         </div>
         <div className="fanfeedFeedContainer">
-          <FanFeedList />
+          <FanFeedList fanFeed={fanFeed}/>
         </div>
       </div>
     </>
