@@ -93,4 +93,17 @@ public class OpenLiveController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/{id}/rank")
+	public ResponseEntity<?> getParticipateRank(@RequestHeader("Authorization") String header,
+		@PathVariable(name = "id") int openLiveId) {
+		try {
+			Integer userId = jwtService.accessTokenToUserId(header);
+			int rank = openLiveService.getParticipateRank(userId, openLiveId);
+			return new ResponseEntity<>(rank, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error(e.toString());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
