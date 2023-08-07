@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { OpenVidu } from 'openvidu-browser';
-import "../../../style/media/FanSigning.css"
 
 const FanSigning = () => {
   const [session, setSession] = useState(null);
   const [publisher, setPublisher] = useState(null);
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [videoEnabled, setVideoEnabled] = useState(true);
 
   useEffect(() => {
     const initializeOpenVidu = async () => {
@@ -16,7 +17,7 @@ const FanSigning = () => {
         const session = OV.initSession();
 
         // 세션에 연결
-        await session.connect('YOUR_OPENVIDU_SECRET');
+        await session.connect('https://i9d204.p.ssafy.io/');
 
         setSession(session);
 
@@ -24,8 +25,8 @@ const FanSigning = () => {
         const publisher = OV.initPublisher('publisher', {
           audioSource: undefined,
           videoSource: undefined,
-          publishAudio: true,
-          publishVideo: true,
+          publishAudio: audioEnabled,
+          publishVideo: videoEnabled,
           resolution: '640x480',
           frameRate: 30,
           insertMode: 'APPEND',
@@ -40,22 +41,28 @@ const FanSigning = () => {
     };
 
     initializeOpenVidu();
-  }, []);
+  }, [audioEnabled, videoEnabled]);
 
-  useEffect(() => {
-    if (session) {
-      // 세션 이벤트 리스너 정의 (예: 새 참가자 입장)
-      session.on('streamCreated', (event) => {
-        // 새로운 원격 스트림 구독
-        session.subscribe(event.stream, 'subscribers', {
-          insertMode: 'APPEND',
-        });
-      });
-    }
-  }, [session]);
+  const toggleAudio = () => {
+    publisher && publisher.publishAudio(!audioEnabled);
+    setAudioEnabled(!audioEnabled);
+  };
+
+  const toggleVideo = () => {
+    publisher && publisher.publishVideo(!videoEnabled);
+    setVideoEnabled(!videoEnabled);
+  };
 
   return (
     <div>
+      <div>
+        <button onClick={toggleAudio}>
+          {audioEnabled ? '음소거 해제' : '음소거'}
+        </button>
+        <button onClick={toggleVideo}>
+          {videoEnabled ? '카메라 끄기' : '카메라 켜기'}
+        </button>
+      </div>
       <div id="publisher">{publisher && publisher.getVideoElement()}</div>
       <div id="subscribers"></div>
     </div>
