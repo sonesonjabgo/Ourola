@@ -21,6 +21,7 @@
     line-height: 350%;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    text-transform: uppercase;
 }
 
 .fanFeedProfileUserContainer {

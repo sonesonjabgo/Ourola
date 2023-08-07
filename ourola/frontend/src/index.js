@@ -47,7 +47,7 @@ render(
         path="/mypage"
         element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
       ></Route>
-      <Route path="/seventeen" element={<FanFeed />}></Route>
+      <Route path="/:group" element={<FanFeed />}></Route>
       <Route path="/seventeen/group" element={<Group />}></Route>
       <Route path="/seventeen/announcement" element={<Announcement />}></Route>
       <Route

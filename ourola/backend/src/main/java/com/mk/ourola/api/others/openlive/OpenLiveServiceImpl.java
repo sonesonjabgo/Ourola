@@ -89,4 +89,11 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 		return deletedParticipateDto;
 	}
 
+	@Override
+	public int getParticipateRank(Integer userId, int openLiveId) {
+		int ranking = openLiveParticipantRepository.findByOpenLiveDto_IdAndFanDto_IdOverRank(
+			userId, openLiveId);
+		return ranking;
+	}
+
 }

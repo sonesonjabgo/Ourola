@@ -26,7 +26,7 @@ function GroupPageMenu() {
   };
 
   const location = useLocation();
-  const isGroupPageMatch = match("/seventeen/:subpath*");
+  const isGroupPageMatch = match("/:subpath");
   const isGroupPage = isGroupPageMatch(location.pathname);
   
   useEffect(() => {setClickedTab("fanFeed");
