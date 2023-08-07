@@ -16,7 +16,8 @@ function Fanfeed() {
 
   const [loadingFeed, setLodingFeed] = useState(true);
   const [fanFeed, setFanFeed] = useState([]);
-  const [groupInfo, setGroupInfo] = useState();
+  const [groupInfo, setGroupInfo] = useState(null);
+
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -31,14 +32,15 @@ function Fanfeed() {
     axios
       .get(`search/${group}`, config)
       .then((response) => {
-        setGroupInfo(response.data.groupInfo);
-        console.log(response.data)
+        setGroupInfo(response.data);
       })
       .catch((error) => {
         console.error("현재 접속 중인 페이지의 그룹 정보를 불러올 수 없어 이 글을 보고 계십니다", error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(groupInfo)
 
   useEffect(() => {
     axios
@@ -54,6 +56,7 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+if (groupInfo) {
   return (
     <>
       <div className="contentContainer">
@@ -78,6 +81,8 @@ function Fanfeed() {
       </div>
     </>
   );
-}
+} else {
+  return null
+}}
 
 export default Fanfeed;
