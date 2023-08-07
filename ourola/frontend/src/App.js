@@ -43,17 +43,7 @@ function App() {
         {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
       </div>
 
-      {/* <Aside></Aside> 팬 피드, 아티스트 피트 페이지는 다 필요한 듯 */}
-      <Link to="/announcement" state={artist}>
-        공지사항
-      </Link>
-      <br></br>
-      <Link to="/artist" state={artist}>
-        아티스트
-      </Link>
-      {/* <Footer></Footer> 아마 전체 페이지에 다 들어가지 않을까?*/}
-      <br />
-      <Link to="/mypage">마이페이지</Link>
+      <Link to="/seventeen/live/list">라이브</Link>
     </div>
   );
 }

@@ -9,11 +9,7 @@
 import React from "react";
 import App from "./App";
 import { render } from "react-dom";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
@@ -26,11 +22,10 @@ import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 
-
-
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
+import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -55,11 +50,18 @@ render(
       <Route path="/seventeen" element={<FanFeed />}></Route>
       <Route path="/seventeen/group" element={<Group />}></Route>
       <Route path="/seventeen/announcement" element={<Announcement />}></Route>
-      <Route path="/seventeen/membershipOnly" element={<MembershipOnly/>}></Route>
+      <Route
+        path="/seventeen/membershipOnly"
+        element={<MembershipOnly />}
+      ></Route>
       <Route path="/seventeen/fanSigning" element={<FanSigning />}></Route>
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
       <Route path="/live" element={<OnlineConcertView />}></Route>
+      <Route
+        path="/seventeen/live/list"
+        element={<OnlineConcertList />}
+      ></Route>
       <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
     </Routes>
   </BrowserRouter>,
