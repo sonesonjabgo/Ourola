@@ -4,7 +4,8 @@ import OnlineConcertItem from "./OnlineConcertItem";
 import "../../../style/media/onlineconcert/OnlineConcertList.css";
 
 const OnlineConcertList = () => {
-  const group = "seventeen";
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
   const [concertList, setConcertList] = useState([]);
 
   useEffect(() => {
