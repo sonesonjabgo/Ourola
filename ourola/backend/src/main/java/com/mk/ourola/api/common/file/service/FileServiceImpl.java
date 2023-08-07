@@ -153,7 +153,7 @@ public class FileServiceImpl implements FileService {
 				ShopFileDto shopFileDto = ShopFileDto.builder()
 					.membershipPayDto(membershipPayDto)
 					.onlineConcertDto(onlineConcertDto)
-					.filePath(shopfile_path)
+					.filePath(hashName)
 					.build();
 				ShopFileDto save = shopFileRepository.save(shopFileDto);
 			}
@@ -218,6 +218,12 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public byte[] getShopMainImg(String filePath) throws IOException {
 		File file = new File(FILE_PATH + "/shopMainFile/" + filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getShopDetailImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + "/shopFile/" + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 
