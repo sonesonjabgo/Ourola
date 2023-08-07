@@ -109,6 +109,7 @@ const OnlineConcertView = () => {
           .getMediaStream()
           .getVideoTracks()[0]
           .getSettings().deviceId;
+
         const currentVideoDevice = videoDevices.find(
           (device) => device.deviceId === currentVideoDeviceId
         );
