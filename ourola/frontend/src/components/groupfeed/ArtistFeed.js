@@ -47,24 +47,6 @@ const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
         }
       }
 
-      setStartDate(
-        new Date(
-          Date.UTC(
-            initialMinDate.getUTCFullYear(),
-            initialMinDate.getUTCMonth(),
-            initialMinDate.getUTCDate()
-          )
-        )
-      );
-      setEndDate(
-        new Date(
-          Date.UTC(
-            initialMaxDate.getUTCFullYear(),
-            initialMaxDate.getUTCMonth(),
-            initialMaxDate.getUTCDate()
-          )
-        )
-      );
       setInitStartDate(
         new Date(
           Date.UTC(
@@ -75,6 +57,43 @@ const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
         )
       );
       setInitEndDate(
+        new Date(
+          Date.UTC(
+            initialMaxDate.getUTCFullYear(),
+            initialMaxDate.getUTCMonth(),
+            initialMaxDate.getUTCDate()
+          )
+        )
+      );
+    }
+  }, [artistFilter]);
+
+  useEffect(() => {
+    if (artistFeed.length > 0) {
+      let initialMinDate = new Date(artistFeed[0].createDate);
+      let initialMaxDate = new Date(artistFeed[0].createDate);
+
+      for (const feedItem of artistFeed) {
+        const feedDate = new Date(feedItem.createDate);
+
+        if (feedDate < initialMinDate) {
+          initialMinDate = feedDate;
+        }
+        if (feedDate > initialMaxDate) {
+          initialMaxDate = feedDate;
+        }
+      }
+
+      setStartDate(
+        new Date(
+          Date.UTC(
+            initialMinDate.getUTCFullYear(),
+            initialMinDate.getUTCMonth(),
+            initialMinDate.getUTCDate()
+          )
+        )
+      );
+      setEndDate(
         new Date(
           Date.UTC(
             initialMaxDate.getUTCFullYear(),
@@ -113,53 +132,58 @@ const ArtistFeed = ({ setArtistFeed, artistFilter, group, artistFeed }) => {
 
   return (
     <div id="artistFeedList" className="artistFeedList">
-      <div id="artistDateFilterWarp" className="artistDateFilterWarp">
-        <div id="artistDateWarp" className="artistDateWarp">
-          <div id="artistStartDate" className="artistStartDate">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              customInput={<CustomInput />}
-              dateFormat="yyyy.MM.dd"
-              minDate={initStartDate}
-              maxDate={initEndDate}
-              renderCustomHeader={(props) => (
-                <CustomDatePickerHeader {...props} />
-              )}
-              locale={ko}
-            />
-          </div>
-          <div id="artistStartBetween" className="artistStartBetween">
-            -
-          </div>
-          <div id="artistEndDate" className="artistEndDate">
-            <DatePicker
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              customInput={<CustomInput />}
-              dateFormat="yyyy.MM.dd"
-              minDate={initStartDate}
-              maxDate={initEndDate}
-              renderCustomHeader={(props) => (
-                <CustomDatePickerHeader {...props} />
-              )}
-              locale={ko}
-            />
-          </div>
-          <div
-            id="artistDateFilterButtonWarp"
-            className="artistDateFilterButtonWarp"
-          >
-            <button
-              id="artistDateFilterButton"
-              className="artistDateFilterButton"
-              onClick={onClickDateFilter}
+      {artistFeed.length === 0 ? (
+        <div></div>
+      ) : (
+        <div id="artistDateFilterWarp" className="artistDateFilterWarp">
+          <div id="artistDateWarp" className="artistDateWarp">
+            <div id="artistStartDate" className="artistStartDate">
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                customInput={<CustomInput />}
+                dateFormat="yyyy.MM.dd"
+                minDate={initStartDate}
+                maxDate={initEndDate}
+                renderCustomHeader={(props) => (
+                  <CustomDatePickerHeader {...props} />
+                )}
+                locale={ko}
+              />
+            </div>
+            <div id="artistStartBetween" className="artistStartBetween">
+              -
+            </div>
+            <div id="artistEndDate" className="artistEndDate">
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                customInput={<CustomInput />}
+                dateFormat="yyyy.MM.dd"
+                minDate={initStartDate}
+                maxDate={initEndDate}
+                renderCustomHeader={(props) => (
+                  <CustomDatePickerHeader {...props} />
+                )}
+                locale={ko}
+              />
+            </div>
+            <div
+              id="artistDateFilterButtonWarp"
+              className="artistDateFilterButtonWarp"
             >
-              조회
-            </button>
+              <button
+                id="artistDateFilterButton"
+                className="artistDateFilterButton"
+                onClick={onClickDateFilter}
+              >
+                조회
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
       <section id="artistFeedBoard" className="artistFeedBoard">
         {artistFeed.map((it) => (
           <ArtistFeedItem
