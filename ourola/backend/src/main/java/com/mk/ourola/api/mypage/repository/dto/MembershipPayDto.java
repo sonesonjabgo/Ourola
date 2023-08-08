@@ -52,13 +52,13 @@ public class MembershipPayDto {
 	@Column(name = "create_date", updatable = false)
 	private Date createDate;
 
-	@Column(name = "expiration_date")
+	@Column(name = "expiration_date", updatable = false)
 	private String expirationDate;
 
 	@Column(name = "file_path")
 	private String filePath;
 
-	@OneToMany(mappedBy = "membershipPayDto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "membershipPayDto", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<ShopFileDto> fileList;
 }

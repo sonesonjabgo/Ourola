@@ -14,4 +14,5 @@ public interface MembershipPayRepository extends JpaRepository<MembershipPayDto,
 	Optional<MembershipPayDto> findById(int id);
 
 	Optional<MembershipPayDto> findByGroupDto_Id(int groupId);
+
 }
