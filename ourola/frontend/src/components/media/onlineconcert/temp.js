@@ -30,6 +30,8 @@ const OnlineConcertView = () => {
   const sessionId = location.state.sessionId;
   const isAdmin = location.state.isAdmin;
 
+  const [OV, setOV] = useState(null);
+
   const [session, setSession] = useState(undefined);
   // 화면
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
@@ -72,20 +74,14 @@ const OnlineConcertView = () => {
   };
 
   const joinSession = async () => {
-    const OV = new OpenVidu();
+    setOV((ov) => {
+      return new OpenVidu();
+    });
     OV.enableProdMode();
     OVRef.current = OV; // OV 인스턴스를 useRef에 저장
 
     const mySession = OV.initSession();
     setSession(mySession);
-    // setNickname((nickname) => {
-    //   return nick;
-    // });
-    // setSessionId((sessionId) => {
-    //   return sid;
-    // });
-
-    // console.log(sessionId);
 
     // --- 3) Specify the actions when events take place in the session ---
     mySession.on("streamCreated", (event) => {
@@ -142,10 +138,7 @@ const OnlineConcertView = () => {
         setMainStreamManager(publisher);
         setPublisher(publisher);
         setSubscribers([]);
-        // setNickname(nickname);
-        // setSessionId(sessionId);
       } else {
-        console.log("aaaa");
       }
     } catch (error) {
       console.log(
@@ -161,6 +154,7 @@ const OnlineConcertView = () => {
       session.disconnect();
     }
 
+    setOV(null);
     setSession(undefined);
     setSubscribers([]);
     // setSessionId("");

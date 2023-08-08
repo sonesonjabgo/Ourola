@@ -25,8 +25,10 @@ import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
-import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
+import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnter";
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
+import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
+import Temp from "components/media/onlineconcert/temp";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -65,9 +67,14 @@ render(
         element={<OnlineConcertList />}
       ></Route>
       <Route
+        path="/:group/online-concert/enter"
+        element={<OnlineConcertEnter />}
+      ></Route>
+      {/* <Route
         path="/:group/online-concert/view"
         element={<OnlineConcertView />}
-      ></Route>
+      ></Route> */}
+      <Route path="/:group/online-concert/view" element={<Temp />}></Route>
 
       <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
