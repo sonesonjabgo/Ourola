@@ -25,6 +25,7 @@ const OnlineConcertList = () => {
       <div className="onlineConcertList">
         {concertList.map((it) => (
           <OnlineConcertItem
+            key={it.id}
             text={it.title}
             group={group}
             sessionId={it.sessionId}
