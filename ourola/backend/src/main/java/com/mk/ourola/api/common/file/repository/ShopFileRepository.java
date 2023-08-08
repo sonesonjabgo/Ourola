@@ -11,4 +11,6 @@ public interface ShopFileRepository extends JpaRepository<ShopFileDto, Integer> 
 	List<ShopFileDto> findByOnlineConcertDto_GroupDto_Id(int id);
 
 	void deleteByOnlineConcertDto_Id(int id);
+
+	void deleteByMembershipPayDto_Id(int id);
 }
