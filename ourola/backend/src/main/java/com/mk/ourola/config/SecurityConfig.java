@@ -22,6 +22,7 @@ import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.filter.CustomJsonAuthenticationFilter;
 import com.mk.ourola.api.common.auth.filter.JwtAuthenticationProcessingFilter;
+import com.mk.ourola.api.common.auth.filter.OAuth2AccessTokenAuthenticationFilter;
 import com.mk.ourola.api.common.auth.handler.LoginFailureHandler;
 import com.mk.ourola.api.common.auth.handler.LoginSuccessHandler;
 import com.mk.ourola.api.common.auth.handler.OAuth2LoginFailureHandler;
@@ -80,12 +81,17 @@ public class SecurityConfig {
 			.permitAll()
 			.antMatchers("/fan/sign-up", "/artist/sign-up")
 			.permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함
+			// .antMatchers("/login/oauth2/**")
+			// .permitAll()
 			.antMatchers("/find/**")
 			.permitAll()	// 아이디(이메일), 비밀번호 찾기 접근 가능
 			.antMatchers("/admin").hasRole(Role.ADMIN.toString())	// 회원 관리 기능은 admin만 접근 가능
 			.anyRequest()
 			.authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 			.and()
+				// .oauth2ResourceServer(oauth2ResourceServer -> {
+				// 	oauth2ResourceServer.opaqueToken(token -> token.introspectionUri())
+				// });
 		//== 소셜 로그인 설정 ==//
 		    .oauth2Login()
 			.successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
@@ -98,6 +104,7 @@ public class SecurityConfig {
 		http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
 		// http.addFilterAfter()
 		http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonAuthenticationFilter.class);
+		// http.addFilterBefore(oAuth2AccessTokenAuthenticationFilter(), JwtAuthenticationProcessingFilter.class);
 
 		return http.build();
 	}
@@ -138,12 +145,36 @@ public class SecurityConfig {
 		return new ProviderManager(provider);
 	}
 
+	// @Bean
+	// public AuthenticationManager accessTokenAuthenticationProvider() {
+	// 	DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+	// 	provider.setPasswordEncoder(passwordEncoder());
+	// 	provider.setUserDetailsService(loginService);
+	// 	return new ProviderManager(provider);
+	// }
+
 	/**
 	 * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
 	 */
 	@Bean
 	public LoginSuccessHandler loginSuccessHandler() {
 		return new LoginSuccessHandler(jwtService, fanRepository, artistRepository);
+	}
+
+	/**
+	 * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+	 */
+	@Bean
+	public OAuth2LoginFailureHandler oAuth2LoginFailureHandler() {
+		return new OAuth2LoginFailureHandler();
+	}
+
+	/**
+	 * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+	 */
+	@Bean
+	public OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler() {
+		return new OAuth2LoginSuccessHandler(jwtService, fanRepository);
 	}
 
 	/**
@@ -168,6 +199,16 @@ public class SecurityConfig {
 		customJsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
 		customJsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
 		return customJsonUsernamePasswordLoginFilter;
+	}
+
+	@Bean
+	public OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter() {
+		OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter
+			= new OAuth2AccessTokenAuthenticationFilter(objectMapper);
+		oAuth2AccessTokenAuthenticationFilter.setAuthenticationManager(authenticationManager());
+		oAuth2AccessTokenAuthenticationFilter.setAuthenticationSuccessHandler(oAuth2LoginSuccessHandler());
+		oAuth2AccessTokenAuthenticationFilter.setAuthenticationFailureHandler(oAuth2LoginFailureHandler());
+		return oAuth2AccessTokenAuthenticationFilter;
 	}
 
 	@Bean
