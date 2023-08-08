@@ -130,7 +130,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
       </form>
       <div>
           <a href={KAKAO_AUTH_URL}>카카오</a> |
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 카카오</a> |
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> 카카오</a> |
           <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
           <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
         </div>
