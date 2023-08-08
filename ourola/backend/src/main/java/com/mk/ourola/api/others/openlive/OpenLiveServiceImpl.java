@@ -81,12 +81,12 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	}
 
 	@Override
-	public OpenLiveParticipantDto cancelOpenLiveParticipate(Integer userId, int id) {
-		OpenLiveParticipantDto deletedParticipateDto = openLiveParticipantRepository.deleteByOpenLiveDto_IdAndFanDto_Id(
+	public Integer cancelOpenLiveParticipate(Integer userId, int id) {
+		Integer deleteCnt = openLiveParticipantRepository.deleteByOpenLiveDto_IdAndFanDto_Id(
 			id, userId);
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 		openLiveDto.cancel();
-		return deletedParticipateDto;
+		return deleteCnt;
 	}
 
 	@Override
