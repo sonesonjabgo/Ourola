@@ -12,13 +12,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
   const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
 
-  // 카카오
-  const CLIENT_ID = 'bb2a4299b463355d7954dd1c29bc4e90'
-  const REDIRECT_URI= 'http://localhost:3000/login/oauth2/code/kakao'
-
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const KAKAO_AUTH_URL = 'http://localhost:8000/oauth2/authorization/kakao'
-
   // 이메일 찾기 모달 열기
   const openFindEmailModal = () => {
     setShowFindEmailModal(true);
@@ -38,8 +31,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const closeFindPasswordModal = () => {
     setShowFindPasswordModal(false);
   };
-
-
 
   // 모달 끄기
   const closeModal = () => {
@@ -79,8 +70,8 @@ function LoginBasic({ setModalOpen, onLogin }) {
         return response.data;
       })
       .catch((e) => {
-        console.log(e);
-        // setShowErrorMessage(true);
+        // console.log(e);
+        setShowErrorMessage(true);
       });
   };
 
@@ -129,7 +120,6 @@ function LoginBasic({ setModalOpen, onLogin }) {
         </button>
       </form>
       <div>
-          <a href={KAKAO_AUTH_URL}>카카오</a> |
           <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> 카카오</a> |
           <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
           <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
