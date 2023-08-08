@@ -13,13 +13,35 @@ const FanFeedItem = ({
   group,
   groupId,
   fanId,
+  artistId,
   title,
   content,
   like,
   createDate,
 }) => {
-  const accessImg =
-    "https://i9d204.p.ssafy.io:8001/file/getimg/fan-profile?id=" + id;
+
+  const [accessImg, setAccessImg] = useState();
+
+  // artistId가 없을 때 accessImg 설정에 fanId를 이용하도록 유도
+  const getFanPic = () => {
+    const getFanImg = "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + fanId;
+    setAccessImg(getFanImg)
+  }
+
+  // artistId가 있을 때 accessImg 설정에 artistId를 이용하도록 유도
+  const getArtistPic = () => {
+    const getArtistImg = "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
+    setAccessImg(getArtistImg)
+  }
+
+  // artistId 존재 여부에 따라 실행할 함수 결정
+  useEffect(() => {
+    if (!artistId) {
+      getFanPic()
+    } else {
+      getArtistPic()
+    }
+  }, [])
 
   // let getDate = createDate.split("T", 2);
   // getDate[1] = getDate[1].split(".", 1);

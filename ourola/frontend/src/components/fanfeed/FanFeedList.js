@@ -16,7 +16,8 @@ const FanFeedList = ({ group, fanFeed }) => {
             id={it.id}
             group={group}
             groupId={it.groupDto.id}
-            // fanId={it.fanDto.id}
+            artistId={it.artistDto?.id}
+            fanId={it.fanDto?.id}
             title={it.title}
             content={it.content}
             like={it.like}
