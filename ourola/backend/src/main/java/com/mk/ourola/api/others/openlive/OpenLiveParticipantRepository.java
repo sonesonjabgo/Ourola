@@ -11,7 +11,7 @@ public interface OpenLiveParticipantRepository extends JpaRepository<OpenLivePar
 
 	Optional<OpenLiveParticipantDto> findByFanDto_IdAndOpenLiveDto_Id(int fanId, int openLiveId);
 
-	OpenLiveParticipantDto deleteByOpenLiveDto_IdAndFanDto_Id(Integer id, Integer userId);
+	Integer deleteByOpenLiveDto_IdAndFanDto_Id(int id, Integer userId);
 
 	@Query(value = "SELECT `rank` from (select *, RANK() OVER (PARTITION BY open_live_id ORDER BY id) as `rank` FROM open_live_participant) as r WHERE open_live_id = :openLiveId AND fan_id = :userId",
 		nativeQuery = true)
