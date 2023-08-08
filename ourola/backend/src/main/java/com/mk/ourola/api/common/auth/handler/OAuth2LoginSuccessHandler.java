@@ -69,7 +69,8 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		response.sendRedirect(UriComponentsBuilder.fromUriString(REDIRECT_LOCATION)
 			.queryParam("accessToken", accessToken)
-			.queryParam("refreshToken",refreshToken)
+			.queryParam("refreshToken", refreshToken)
+			.queryParam("email", oAuth2User.getEmail())
 			.build()
 			.encode(StandardCharsets.UTF_8)
 			.toUriString());
