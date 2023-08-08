@@ -2,6 +2,9 @@ package com.mk.ourola.api.common.auth.repository;
 
 import java.util.Map;
 
+import lombok.ToString;
+
+@ToString
 public abstract class OAuth2UserInfo {
 
 	protected Map<String, Object> attributes;
