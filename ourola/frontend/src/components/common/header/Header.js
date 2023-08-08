@@ -17,8 +17,9 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
     // ...
 
     // 로컬스토리지에서 Authorization 제거
+    localStorage.removeItem("UserEmail");
     localStorage.removeItem("Authorization");
-
+    
     // App에서 prop해온 onLogout 실행
     // isLoggedIn을 false로 만든다
     onLogout();

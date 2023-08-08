@@ -29,6 +29,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	private static final String NAVER = "naver";
 	private static final String KAKAO = "kakao";
 
+	// public CustomOAuth2UserService(FanRepository fanRepository) {
+	// 	this.fanRepository = fanRepository;
+	// }
+
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		log.info("CustomOAuth2UserService.loadUser() 실행 - OAuth2 로그인 요청 진입");
@@ -56,8 +60,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		// socialType에 따라 유저 정보를 통해 OAuthAttributes 객체 생성
 		OAuthAttributes extractAttributes = OAuthAttributes.of(socialType, userNameAttributeName, attributes);
 
+		log.info("socialType :: "+socialType);
 		FanDto createdUser = getUser(extractAttributes, socialType); // getUser() 메소드로 User 객체 생성 후 반환
 
+		// log.info("");
 		// DefaultOAuth2User를 구현한 CustomOAuth2User 객체를 생성해서 반환
 		return new CustomOAuth2User(
 			Collections.singleton(new SimpleGrantedAuthority(createdUser.getRole().getKey())),
@@ -83,9 +89,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	 * 만약 찾은 회원이 있다면, 그대로 반환하고 없다면 saveUser()를 호출하여 회원을 저장한다.
 	 */
 	private FanDto getUser(OAuthAttributes attributes, SocialType socialType) {
+		log.info("attribute :: "+attributes.getOauth2UserInfo());
+		log.info("attribute id :: "+attributes.getOauth2UserInfo().getId());
 		FanDto findUser = fanRepository.findBySocialTypeAndSocialId(socialType,
 			attributes.getOauth2UserInfo().getId()).orElse(null);
 
+		log.info("FanDto :: "+findUser);
 		if(findUser == null) {
 			return saveUser(attributes, socialType);
 		}

@@ -2,7 +2,6 @@ package com.mk.ourola.api.live.chatting.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +50,7 @@ public class ChatService {
 	private ChatRoom createRoom(String name) {
 
 		//Builder를 사용하여 ChatRoom 을 Build
-		ChatRoom room = ChatRoom.builder()
-			.name(name)
-			.sessions(new HashSet<>())
-			.build();
+		ChatRoom room = new ChatRoom(name);
 
 		chatRooms.put(name, room);//랜덤 아이디와 room 정보를 Map 에 저장
 
