@@ -29,7 +29,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 	private final JwtService jwtService;
 	private final FanRepository userRepository;
 
-	private String REDIRECT_LOCATION = "http://localhost:3000/login/oauth2/code/kakao";
+	private String REDIRECT_LOCATION = "https://i9d204.p.ssafy.io/login/oauth2/code/kakao";
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws
