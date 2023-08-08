@@ -4,6 +4,7 @@ import "../../style/groupfeed/ArtistProfile.css";
 
 const ArtistProfile = ({
   setArtistFeed,
+  setArtistFilter,
   setArtistFirstState,
   artistFirstState,
   group,
@@ -32,7 +33,16 @@ const ArtistProfile = ({
         value: it.id === id,
       }));
 
+      setArtistFilter(id);
       setArtistFirstState(selectResult);
+
+      document
+        .getElementById(`artistProfileImgWrapper-${id}`)
+        .classList.add("selected");
+
+      document
+        .getElementById(`artistProfileImg-${id}`)
+        .classList.add("selected");
     } else {
       await axios
         .get(`/${group}/feed/artist`)
@@ -48,32 +58,38 @@ const ArtistProfile = ({
         value: false,
       }));
 
+      setArtistFilter(-1);
       setArtistFirstState(selectResult);
+      document
+        .getElementById(`artistProfileImgWrapper-${id}`)
+        .classList.remove("selected");
+
+      document
+        .getElementById(`artistProfileImg-${id}`)
+        .classList.remove("selected");
     }
   };
 
   return (
-    <div id="artistProfile" className="artistProfile">
+    <div id={`artistProfile`} className={`artistProfile`}>
       <div
-        id="artistProfileImgWrapper"
-        className="artistProfileImgWrapper"
+        id={`artistProfileImgWrapper-${id}`}
+        className={`artistProfileImgWrapper ${artistSelect ? "selected" : ""}`}
         onClick={clickArtist}
       >
         <img
-          id="artistProfileImg"
-          className="artistProfileImg"
+          id={`artistProfileImg-${id}`}
+          className={`artistProfileImg ${artistSelect ? "selected" : ""}`}
           src={accessImg}
           alt={"안되네요."} /* 나중에 컨벤션으로 수정 필요 */
         ></img>
       </div>
-      <div id="artistProfileName" className="artistProfileName">
+      <div
+        id={`artistProfileName-${id}`}
+        className={`artistProfileName ${artistSelect ? "selected" : ""}`}
+      >
         {name}
       </div>
-      {artistSelect === true ? (
-        <hr id="artistSelectLine" className="artistSelectLine"></hr>
-      ) : (
-        <div></div>
-      )}
     </div>
   );
 };

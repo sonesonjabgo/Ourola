@@ -166,6 +166,7 @@ public class ShopController {
 	public ResponseEntity<?> deleteOnlineConcert(@PathVariable String artist,
 		@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
 		try {
+			log.info("online concert delete");
 			shopService.deleteOnlineConcert(artist, accessToken, id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {

@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.auth.oauth2.PasswordUtil;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
@@ -124,7 +125,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 			.ifPresent(accessToken -> jwtService.extractEmail(accessToken)
 				.ifPresent(email -> fanRepository.findByEmail(email)
 					.ifPresent(this::saveAuthentication)));
-		log.info("아티스트 인증 저장 시도");
+		// log.info("아티스트 인증 저장 시도");
 		jwtService.extractAccessToken(request)
 			.filter(jwtService::isTokenValid)
 			.ifPresent(accessToken -> jwtService.extractEmail(accessToken)
@@ -151,9 +152,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 	 */
 	public void saveAuthentication(FanDto myUser) {
 		String password = myUser.getPassword();
-		//        if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
-		//            password = PasswordUtil.generateRandomPassword();
-		//        }
+		       if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
+		           password = PasswordUtil.generateRandomPassword();
+		       }
 
 		UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
 			.username(myUser.getEmail())
@@ -170,9 +171,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
 	public void saveArtistAuthentication(ArtistDto myUser) {
 		String password = myUser.getPassword();
-		//        if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
-		//            password = PasswordUtil.generateRandomPassword();
-		//        }
+		       if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
+		           password = PasswordUtil.generateRandomPassword();
+		       }
 
 		UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
 			.username(myUser.getEmail())

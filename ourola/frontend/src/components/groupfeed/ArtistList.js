@@ -4,7 +4,7 @@ import ArtistProfile from "./ArtistProfile";
 import leftarrow from "../../assets/icons/leftarrow.png";
 import rightarrow from "../../assets/icons/rightarrow.png";
 
-const ArtistList = ({ setArtistFeed, group, artist }) => {
+const ArtistList = ({ setArtistFeed, setArtistFilter, group, artist }) => {
   const lengthResult = artist.map((it) => ({
     id: it.id,
     value: false,
@@ -78,6 +78,7 @@ const ArtistList = ({ setArtistFeed, group, artist }) => {
             setArtistFirstState={setArtistFirstState}
             artistFirstState={artistFirstState}
             setArtistFeed={setArtistFeed}
+            setArtistFilter={setArtistFilter}
             group={group}
             id={it.id}
             profileId={it.profileFileDto.id}

@@ -85,6 +85,7 @@ const ShopUpdateModal = (props) => {
         formData.append('price', parseInt(inputValue.price, 10))
         formData.append('startTime', selectedOpenDate)
         formData.append('ticketingTime', selectedTicketingDate)
+        formData.append('group_id', path.group_id)
 
         // 콘솔 출력용
         for (var pair of formData.entries()) {

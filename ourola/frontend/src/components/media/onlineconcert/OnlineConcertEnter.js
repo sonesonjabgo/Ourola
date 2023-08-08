@@ -1,22 +1,60 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const OnlineConcertEnter = ({ onJoinSession }) => {
-  const [state, setState] = useState({
-    userName: "",
-    sessionId: "",
-  });
+const OnlineConcertEnter = () => {
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  const [nickname, setNickname] = useState("");
+  const [sessionId, setSessionId] = useState("");
+
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem("Authorization");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
+
+  // sessionId 바뀌었을 때
   const handleChangeState = (e) => {
-    setState({
-      ...state,
-      [e.target.id]: e.target.value,
-    });
+    setSessionId(e.target.value);
   };
 
+  // 세션에 입장했을 때
   const handleSubmit = () => {
-    onJoinSession(state.userName, state.sessionId);
-    setState({ userName: "", sessionId: "" });
+    setNickname("");
+    setSessionId("");
+    navigate(`/${group}/online-concert/view`, {
+      state: { nickname: nickname, sessionId: sessionId, isAdmin: isAdmin },
+    });
+    // onJoinSession(nickname, sessionId, isAdmin);
   };
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/online-concert/isAdmin`, config)
+      .then((response) => {
+        setIsAdmin(response.data);
+      })
+      .catch((error) => {
+        console.log("isAdmin 호출 오류 :: ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/user/userinfo", config)
+      .then((response) => {
+        setNickname(response.data.nickname);
+      })
+      .catch((error) => {
+        console.log("사용자 정보 호출 오류 :: ", error);
+      });
+  }, []);
 
   return (
     <div id="join">
@@ -29,32 +67,36 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
       <div id="join-dialog" className="jumbotron vertical-center">
         <h1> Join a video session </h1>
         <form className="form-group" onSubmit={handleSubmit}>
+          {isAdmin ? (
+            <p>
+              <label> Session: </label>
+              <input
+                className="form-control"
+                type="text"
+                id="sessionId"
+                value={sessionId}
+                onChange={handleChangeState}
+                required
+              />
+            </p>
+          ) : null}
+
           <p>
             <label>Participant: </label>
             <input
               className="form-control"
               type="text"
               id="userName"
-              value={state.userName}
+              value={nickname}
               onChange={handleChangeState}
               required
             />
           </p>
-          <p>
-            <label> Session: </label>
-            <input
-              className="form-control"
-              type="text"
-              id="sessionId"
-              value={state.sessionId}
-              onChange={handleChangeState}
-              required
-            />
-          </p>
+
           <p className="text-center">
             <input
               className="btn btn-lg btn-success"
-              name="commit"
+              name="입장하기"
               type="submit"
               value="JOIN"
             />

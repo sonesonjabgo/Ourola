@@ -1,8 +1,12 @@
 package com.mk.ourola.api.feed.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -107,6 +111,8 @@ public class FeedController {
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<String> removeFeed(@PathVariable String group, @PathVariable Integer id) {
 		try {
+			String fileRemoveResult = fileService.removeFeedImage(id);
+			System.out.println(fileRemoveResult);
 			feedService.removeFeed(id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
@@ -133,11 +139,14 @@ public class FeedController {
 	public ResponseEntity<FeedDto> modifyFeed(
 		@PathVariable String group,
 		@PathVariable int id,
-		@RequestBody FeedDto FeedDto
+		@RequestParam List<MultipartFile> files,
+		FeedDto FeedDto
 	) {
 		try {
+			fileService.removeFeedImage(id);
 			FeedDto.setId(id);
 			FeedDto modifiedFeed = feedService.modifyFeed(FeedDto);
+			fileService.writeFeedImages(files, modifiedFeed);
 			return new ResponseEntity<>(modifiedFeed, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -179,7 +188,6 @@ public class FeedController {
 			Boolean isLike = feedService.getLike(id, accessToken);
 			return new ResponseEntity<>(isLike, HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -195,20 +203,40 @@ public class FeedController {
 		}
 	}
 
-	// 해당 게시글을 북마크 등록하는 메서드
-	@PostMapping("/writeBookmark")
-	public ResponseEntity<?> writeBookmark(@RequestHeader(name = "Authorization") String accessToken,
-		@RequestBody int feedId){
-		try{
-			FeedDto feed = feedService.getFeed("", feedId);
-			Integer fanId = jwtService.accessTokenToUserId(accessToken);
-			FanDto fanInfo = fanService.getFanInfo(fanId);
-			BookmarkDto bookmarkDto = bookmarkService.writeBookmark(fanInfo, feed);
-			System.out.println(bookmarkDto);
-			return new ResponseEntity<>(bookmarkDto, HttpStatus.OK);
-		}catch (Exception e){
-			System.out.println(e.getMessage());
+	// 시작 날짜, 끝 날자를 받아 그 아티스트의 게시물들만 보내는 메서드
+	@GetMapping("/filter/date")
+	public ResponseEntity<List<FeedDto>> getSpecificDateFeed(@PathVariable("group") String group, @RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyyMMdd") Date startDate,
+		@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyyMMdd") Date endDate) {
+		try {
+			return new ResponseEntity<>(feedService.getSpecificDateFeed(group, startDate, endDate), HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	// 해당 피드와 사용자의 북마크 여부
+	// id는 feedid
+	@GetMapping("{id}/bookmark")
+	public ResponseEntity<?> getBookmark(@RequestHeader(name = "Authorization") String accessToken,
+		@PathVariable("group") String group, @PathVariable("id") int id) {
+		try {
+			Boolean isBookmark = bookmarkService.getBookmark(id, accessToken);
+			return new ResponseEntity<>(isBookmark, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 해당 피드의 북마크를 토글하는 함수
+	// id는 feedid
+	@PutMapping("{id}/bookmark")
+	public ResponseEntity<?> modifyBookmark(@RequestHeader(name = "Authorization") String accessToken,
+		@PathVariable("group") String group, @PathVariable("id") int id) {
+		try {
+			Boolean isBookmark = bookmarkService.modifyBookmark(id, accessToken);
+			return new ResponseEntity<>(isBookmark, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

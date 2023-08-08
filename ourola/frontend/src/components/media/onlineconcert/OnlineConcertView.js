@@ -5,16 +5,30 @@ import React, { useState, useEffect, useRef } from "react";
 import UserVideoComponent from "./UserVideoComponent";
 import OnlineConcertEnter from "./OnlineConcertEnter";
 import OnlineConcertVideo from "./OnlineConcertVideo";
+import { useLocation } from "react-router-dom";
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://localhost:8000/BTS/online-concert";
+    : "http://localhost:8000/seventeen/online-concert";
 
-const OnlineConcertView = ({ userName }) => {
+const OnlineConcertView = () => {
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
+
+  const location = useLocation();
+
   const accessToken = localStorage.getItem("Authorization");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
 
-  const [sessionId, setSessionId] = useState("");
+  const nickname = location.state.nickname;
+  const sessionId = location.state.sessionId;
+  const isAdmin = location.state.isAdmin;
 
   const [session, setSession] = useState(undefined);
   // 화면
@@ -28,11 +42,16 @@ const OnlineConcertView = ({ userName }) => {
 
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
 
+  // 페이지를 벗어날 때 onbeforeunload 함수 실행되도록 이벤트 리스너 설정
   useEffect(() => {
     window.addEventListener("beforeunload", onbeforeunload);
     return () => {
       window.removeEventListener("beforeunload", onbeforeunload);
     };
+  }, []);
+
+  useEffect(() => {
+    joinSession();
   }, []);
 
   const onbeforeunload = (event) => {
@@ -54,10 +73,19 @@ const OnlineConcertView = ({ userName }) => {
 
   const joinSession = async () => {
     const OV = new OpenVidu();
+    OV.enableProdMode();
     OVRef.current = OV; // OV 인스턴스를 useRef에 저장
 
     const mySession = OV.initSession();
     setSession(mySession);
+    // setNickname((nickname) => {
+    //   return nick;
+    // });
+    // setSessionId((sessionId) => {
+    //   return sid;
+    // });
+
+    // console.log(sessionId);
 
     // --- 3) Specify the actions when events take place in the session ---
     mySession.on("streamCreated", (event) => {
@@ -78,43 +106,47 @@ const OnlineConcertView = ({ userName }) => {
 
     // --- 4) Connect to the session with a valid user token ---
     try {
-      const token = await getToken();
-      await mySession.connect(token, { clientData: userName });
+      const token = await getToken(sessionId);
+      await mySession.connect(token, { clientData: nickname });
 
-      // --- 5) Get your own camera stream ---
-      const publisher = await OV.initPublisherAsync(undefined, {
-        audioSource: undefined,
-        videoSource: undefined,
-        publishAudio: true,
-        publishVideo: true,
-        resolution: "640x480",
-        frameRate: 30,
-        insertMode: "APPEND",
-        mirror: false,
-      });
+      if (isAdmin) {
+        // --- 5) Get your own camera stream ---
+        const publisher = await OV.initPublisherAsync(undefined, {
+          audioSource: undefined,
+          videoSource: undefined,
+          publishAudio: true,
+          publishVideo: true,
+          resolution: "640x480",
+          frameRate: 30,
+          insertMode: "APPEND",
+          mirror: false,
+        });
 
-      // --- 6) Publish your stream ---
-      mySession.publish(publisher);
+        // --- 6) Publish your stream ---
+        mySession.publish(publisher);
 
-      const devices = await OV.getDevices();
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      const currentVideoDeviceId = publisher.stream
-        .getMediaStream()
-        .getVideoTracks()[0]
-        .getSettings().deviceId;
-      const currentVideoDevice = videoDevices.find(
-        (device) => device.deviceId === currentVideoDeviceId
-      );
+        const devices = await OV.getDevices();
+        const videoDevices = devices.filter(
+          (device) => device.kind === "videoinput"
+        );
+        const currentVideoDeviceId = publisher.stream
+          .getMediaStream()
+          .getVideoTracks()[0]
+          .getSettings().deviceId;
 
-      // Set the main video in the page to display our webcam and store our Publisher
-      setMainStreamManager(publisher);
-      setPublisher(publisher);
-      setSubscribers([]);
-      // setMySessionId("SessionA");
-      // setMyUserName("Participant" + Math.floor(Math.random() * 100));
-      setSessionId("");
+        const currentVideoDevice = videoDevices.find(
+          (device) => device.deviceId === currentVideoDeviceId
+        );
+
+        // Set the main video in the page to display our webcam and store our Publisher
+        setMainStreamManager(publisher);
+        setPublisher(publisher);
+        setSubscribers([]);
+        // setNickname(nickname);
+        // setSessionId(sessionId);
+      } else {
+        console.log("aaaa");
+      }
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",
@@ -131,7 +163,7 @@ const OnlineConcertView = ({ userName }) => {
 
     setSession(undefined);
     setSubscribers([]);
-    setSessionId("");
+    // setSessionId("");
     setMainStreamManager(undefined);
     setPublisher(undefined);
   };
@@ -169,9 +201,9 @@ const OnlineConcertView = ({ userName }) => {
     }
   };
 
-  const getToken = async () => {
-    const sessionId = await createSession(sessionId);
-    return await createToken(sessionId);
+  const getToken = async (sessionId) => {
+    const sid = await createSession(sessionId);
+    return await createToken(sid);
   };
 
   const createSession = async (sessionId) => {
@@ -186,8 +218,6 @@ const OnlineConcertView = ({ userName }) => {
       }
     );
 
-    console.log("createSession");
-    console.log(response.data);
     return response.data; // the sessionId
   };
 
@@ -206,9 +236,8 @@ const OnlineConcertView = ({ userName }) => {
     return response.data;
   };
 
-  const onJoinSession = ({ userName, sessionId }) => {
-    setSessionId(sessionId);
-    joinSession();
+  const onJoinSession = (nick, sid, isAdmin) => {
+    joinSession(nick, sid, isAdmin);
   };
 
   const onLeaveSession = () => {

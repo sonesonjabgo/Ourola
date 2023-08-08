@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ArtistList from "./ArtistList";
 import ArtistFeed from "./ArtistFeed";
+import AnnouncementOneline from "components/others/announcement/AnnouncementOneline";
+import { Link } from "react-router-dom";
+import FanFeedProfile from "components/fanfeed/FanFeedProfile";
 import { useLocation } from "react-router-dom";
 
 const Group = () => {
@@ -13,6 +16,7 @@ const Group = () => {
   const [loadingFeed, setLodingFeed] = useState(true);
   const [artist, setArtist] = useState([]);
   const [artistFeed, setArtistFeed] = useState([]);
+  const [artistFilter, setArtistFilter] = useState(-1);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -48,7 +52,21 @@ const Group = () => {
         console.error("Error fetching data : ", error);
         setLodingFeed(false);
       });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -57,10 +75,31 @@ const Group = () => {
         <div id="groupContent" className="groupContent">
           <ArtistList
             group={group}
+            setArtistFilter={setArtistFilter}
+            artistFilter={artistFilter}
             setArtistFeed={setArtistFeed}
             artist={artist}
           />
-          <ArtistFeed group={group} artistFeed={artistFeed} />
+          <div className="onelineAnnouncementContainer">
+            <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
+              <AnnouncementOneline group={group} />
+            </Link>
+          </div>
+          <div id="feedContent" className="feedContent">
+            <div
+              id="fanFeedProfile"
+              className={`fanFeedProfile ${scrollY > 275 ? "sticky" : ""}`}
+            >
+              <FanFeedProfile />
+            </div>
+            <ArtistFeed
+              group={group}
+              setArtistFeed={setArtistFeed}
+              scrollY={scrollY}
+              artistFilter={artistFilter}
+              artistFeed={artistFeed}
+            />
+          </div>
         </div>
       ) : (
         <div></div>

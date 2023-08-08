@@ -63,7 +63,7 @@ public class OnlineConcertDto {
 	private Date ticketingTime;
 
 	@CreationTimestamp
-	@Column(name = "create_date")
+	@Column(name = "create_date", updatable = false)
 	private Date createDate;
 
 	private Integer price;

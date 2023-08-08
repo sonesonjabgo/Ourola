@@ -1,27 +1,29 @@
 /* 헤더 아래 컨텐츠들 들어갈 부분 */
 .contentContainer {
-    position: absolute;
-    margin-top: 150px;
-    width: 95%;
-    height: 100%;
+  position: absolute;
+  margin-top: 150px;
+  width: 95%;
+  height: 100%;
 }
 
 .onelineAnnouncementContainer {
-    margin-top: 2%;
-    display: flex;
-    justify-content: center;
+  margin-top: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 50px;
+  align-items: center;
 }
 
 .fanfeedProfileContainer {
-    width: 30%;
-    float: left;
-    margin-top: 2%;
-    margin-left: 3%;
+  width: 30%;
+  float: left;
+  margin-top: 2%;
+  margin-left: 3%;
 }
 
 .fanfeedFeedContainer {
-    width: 67%;
-    float: left;
-    margin-top: 2%;
-    background-color: red;
+  width: 67%;
+  float: left;
+  margin-top: 2%;
 }

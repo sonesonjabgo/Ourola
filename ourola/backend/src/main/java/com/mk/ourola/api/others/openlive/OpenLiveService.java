@@ -10,4 +10,8 @@ public interface OpenLiveService {
 	public OpenLiveDto writeOpenLive(String artist, String header, OpenLiveDto openLiveDto) throws Exception;
 
 	public OpenLiveParticipantDto writeOpenLiveParticipate(String artist, String accessToken, int id) throws Exception;
+
+	Integer cancelOpenLiveParticipate(Integer userId, int id);
+
+	int getParticipateRank(Integer userId, int openLiveId);
 }
