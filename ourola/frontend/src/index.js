@@ -30,9 +30,9 @@ import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView"
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 
 // EC2 서버
-axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
@@ -51,7 +51,7 @@ render(
       ></Route>
       <Route path="/:group" element={<FanFeed />}></Route>
       <Route path="/seventeen/group" element={<Group />}></Route>
-      <Route path="/seventeen/announcement" element={<Announcement />}></Route>
+      <Route path="/:group*/announcement" element={<Announcement />}></Route>
       <Route
         path="/seventeen/membershipOnly"
         element={<MembershipOnly />}

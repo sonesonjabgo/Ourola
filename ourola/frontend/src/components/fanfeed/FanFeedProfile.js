@@ -2,11 +2,7 @@ import React from 'react'
 import '../../style/fanfeed/FanFeedProfile.css'
 
 function FanFeedProfile (groupInfo) {
-
-    const user = {
-        name: 'PePe'
-    }
-
+    console.log(groupInfo)
 
     return (
         <>
@@ -19,7 +15,7 @@ function FanFeedProfile (groupInfo) {
         {/* 마이페이지 구현 후 연결 필요 */}
         <div className='fanFeedProfileUserContainer'>
             <div className='fanFeedProfileUserImg'></div>
-            {user.name}
+
             <div className='fanFeedProfileUserUnderline'></div>
         </div>
         </>

@@ -40,6 +40,7 @@ public class MyPageController {
 			if (role.equals("USER") || role.equals("GUEST")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
+				System.out.println("aaa");
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
 			}
 		} catch (Exception e) {
