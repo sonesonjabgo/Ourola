@@ -34,6 +34,7 @@ public class OpenViduServiceImpl implements OpenViduService {
 	public String initializeSession(Map<String, Object> params) throws Exception {
 		SessionProperties properties = SessionProperties.fromJson(params).build();
 		Session session = openvidu.createSession(properties);
+		System.out.println(params);
 		return session.getSessionId();
 	}
 
