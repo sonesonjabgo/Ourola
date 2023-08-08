@@ -52,7 +52,7 @@ public class MembershipPayDto {
 	@Column(name = "create_date", updatable = false)
 	private Date createDate;
 
-	@Column(name = "expiration_date")
+	@Column(name = "expiration_date", updatable = false)
 	private String expirationDate;
 
 	@Column(name = "file_path")
