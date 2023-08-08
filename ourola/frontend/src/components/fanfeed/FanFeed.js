@@ -15,6 +15,7 @@ function Fanfeed() {
 
   const [loadingFeed, setLodingFeed] = useState(true);
   const [fanFeed, setFanFeed] = useState([]);
+  const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
 
 
@@ -27,9 +28,24 @@ function Fanfeed() {
     },
   };
 
+  // 현재 접속 중인 사용자의 정보 불러오기
   useEffect(() => {
     axios
-      .get(`search/${group}`, config)
+      .get(`user/userinfo`, config)
+      .then((response) => {
+        setUserInfo(response.data);
+      })
+      .catch((error) => {
+        console.error("현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  // 현재 접속 중인 페이지의 그룹 정보 불러오기
+  useEffect(() => {
+    axios
+      .get(`search/${group}`)
       .then((response) => {
         setGroupInfo(response.data);
       })
@@ -39,11 +55,10 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(groupInfo)
-
+  // 현재 접속 중인 페이지의 그룹 전체 피드 불러오기
   useEffect(() => {
     axios
-      .get(`/${group}/feed`, config)
+      .get(`/${group}/feed`)
       .then((response) => {
         setFanFeed(response.data);
         setLodingFeed(false);
@@ -55,12 +70,14 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(userInfo)
+
 if (groupInfo) {
   return (
     <>
       <div className="contentContainer">
         <div className="buttonCreatefeedContainer">
-          <CreateFeedButton />
+          <CreateFeedButton groupInfo = {groupInfo}/>
         </div>
         <div className="onelineAnnouncementContainer">
           <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>

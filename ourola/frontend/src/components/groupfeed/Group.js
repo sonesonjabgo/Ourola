@@ -90,7 +90,7 @@ const Group = () => {
               id="fanFeedProfile"
               className={`fanFeedProfile ${scrollY > 275 ? "sticky" : ""}`}
             >
-              <FanFeedProfile></FanFeedProfile>
+              <FanFeedProfile />
             </div>
             <ArtistFeed
               group={group}
