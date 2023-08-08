@@ -22,7 +22,6 @@ import com.mk.ourola.api.artist.repository.ArtistRepository;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.filter.CustomJsonAuthenticationFilter;
 import com.mk.ourola.api.common.auth.filter.JwtAuthenticationProcessingFilter;
-import com.mk.ourola.api.common.auth.filter.OAuth2AccessTokenAuthenticationFilter;
 import com.mk.ourola.api.common.auth.handler.LoginFailureHandler;
 import com.mk.ourola.api.common.auth.handler.LoginSuccessHandler;
 import com.mk.ourola.api.common.auth.handler.OAuth2LoginFailureHandler;
@@ -201,15 +200,15 @@ public class SecurityConfig {
 		return customJsonUsernamePasswordLoginFilter;
 	}
 
-	@Bean
-	public OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter() {
-		OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter
-			= new OAuth2AccessTokenAuthenticationFilter(objectMapper);
-		oAuth2AccessTokenAuthenticationFilter.setAuthenticationManager(authenticationManager());
-		oAuth2AccessTokenAuthenticationFilter.setAuthenticationSuccessHandler(oAuth2LoginSuccessHandler());
-		oAuth2AccessTokenAuthenticationFilter.setAuthenticationFailureHandler(oAuth2LoginFailureHandler());
-		return oAuth2AccessTokenAuthenticationFilter;
-	}
+	// @Bean
+	// public OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter() {
+	// 	OAuth2AccessTokenAuthenticationFilter oAuth2AccessTokenAuthenticationFilter
+	// 		= new OAuth2AccessTokenAuthenticationFilter(objectMapper);
+	// 	oAuth2AccessTokenAuthenticationFilter.setAuthenticationManager(authenticationManager());
+	// 	oAuth2AccessTokenAuthenticationFilter.setAuthenticationSuccessHandler(oAuth2LoginSuccessHandler());
+	// 	oAuth2AccessTokenAuthenticationFilter.setAuthenticationFailureHandler(oAuth2LoginFailureHandler());
+	// 	return oAuth2AccessTokenAuthenticationFilter;
+	// }
 
 	@Bean
 	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
