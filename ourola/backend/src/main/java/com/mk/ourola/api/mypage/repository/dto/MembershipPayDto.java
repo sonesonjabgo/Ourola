@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,7 +48,8 @@ public class MembershipPayDto {
 
 	private String detail;
 
-	@Column(name = "create_date")
+	@CreationTimestamp
+	@Column(name = "create_date", updatable = false)
 	private Date createDate;
 
 	@Column(name = "expiration_date")
