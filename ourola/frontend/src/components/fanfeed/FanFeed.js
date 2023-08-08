@@ -70,9 +70,7 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(userInfo)
-
-if (groupInfo) {
+if (userInfo) {
   return (
     <>
       <div className="contentContainer">
@@ -85,7 +83,7 @@ if (groupInfo) {
           </Link>
         </div>
         <div className="fanfeedProfileContainer">
-          <FanFeedProfile groupInfo = {groupInfo}/>
+          <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
         </div>
         <div className="fanfeedFeedContainer">
           <FanFeedList fanFeed={fanFeed}/>
