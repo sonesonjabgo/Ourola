@@ -18,7 +18,6 @@ function Fanfeed() {
   const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
 
-
   const accessToken = localStorage.getItem("Authorization");
 
   const config = {
@@ -75,7 +74,7 @@ if (userInfo) {
     <>
       <div className="contentContainer">
         <div className="buttonCreatefeedContainer">
-          <CreateFeedButton groupInfo = {groupInfo}/>
+          <CreateFeedButton groupInfo = {groupInfo} userInfo = {userInfo} userRole = {userInfo.role}/>
         </div>
         <div className="onelineAnnouncementContainer">
           <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>

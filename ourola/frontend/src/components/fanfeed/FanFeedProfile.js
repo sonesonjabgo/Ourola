@@ -2,9 +2,7 @@ import React from 'react'
 import '../../style/fanfeed/FanFeedProfile.css'
 
 function FanFeedProfile ({groupInfo, userInfo}) {
-    console.log(groupInfo)
-    console.log(userInfo)
-    if (groupInfo) {
+
     return (
         <>
         <div className='fanFeedProfileGroupContainer'>
@@ -23,6 +21,6 @@ function FanFeedProfile ({groupInfo, userInfo}) {
         </div>
         </>
     )
-}}
+}
 
 export default FanFeedProfile;
