@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const OnlineConcertEnter = ({ onJoinSession }) => {
-  const location = useLocation();
+  //const location = useLocation();
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
   // const sessionId = location.state.sessionId;
@@ -35,7 +35,7 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
 
   useEffect(() => {
     axios
-      .get(`${group}/online-concert/isAdmin`, config)
+      .get(`/${group}/online-concert/isAdmin`, config)
       .then((response) => {
         setIsAdmin(response.data);
       })
