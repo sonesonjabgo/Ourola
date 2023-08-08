@@ -16,8 +16,9 @@ const KakaoLoginHandler = () => {
       // const accessToken = searchParams.get('Access')
       
       // console.log(code)
-      console.log(accessToken, refreshToken);
-      navigate('/');
+      // console.log(accessToken, refreshToken);
+      localStorage.setItem("Authorization", accessToken);
+      setTimeout(navigate('/'), 3000);
     })
 
 
