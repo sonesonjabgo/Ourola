@@ -9,13 +9,21 @@ import OnlineConcertVideo from "./OnlineConcertVideo";
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://localhost:8000/seventeen/online-concert";
+    : "http://i9d204.p.ssafy.io/seventeen/online-concert";
 
 const OnlineConcertView = () => {
+  const pathname = window.location.pathname;
+  const group = pathname.split("/")[1];
+
   const accessToken = localStorage.getItem("Authorization");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
 
   const [nickname, setNickname] = useState("");
-
   const [sessionId, setSessionId] = useState("");
 
   const [session, setSession] = useState(undefined);
@@ -28,13 +36,12 @@ const OnlineConcertView = () => {
   // ...?
   const [currentVideoDevice, setCurrentVideoDevice] = useState({});
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
 
   // 페이지를 벗어날 때 onbeforeunload 함수 실행되도록 이벤트 리스너 설정
   useEffect(() => {
     window.addEventListener("beforeunload", onbeforeunload);
+
     return () => {
       window.removeEventListener("beforeunload", onbeforeunload);
     };
@@ -57,12 +64,21 @@ const OnlineConcertView = () => {
     setSubscribers(updatedSubscribers);
   };
 
-  const joinSession = async () => {
+  const joinSession = async (nick, sid, isAdmin) => {
     const OV = new OpenVidu();
+    OV.enableProdMode();
     OVRef.current = OV; // OV 인스턴스를 useRef에 저장
 
     const mySession = OV.initSession();
     setSession(mySession);
+    setNickname((nickname) => {
+      return nick;
+    });
+    setSessionId((sessionId) => {
+      return sid;
+    });
+
+    console.log(sessionId);
 
     // --- 3) Specify the actions when events take place in the session ---
     mySession.on("streamCreated", (event) => {
@@ -83,9 +99,9 @@ const OnlineConcertView = () => {
 
     // --- 4) Connect to the session with a valid user token ---
     try {
-      const token = await getToken();
-      await mySession.connect(token, { clientData: nickname });
-
+      const token = await getToken(sid);
+      await mySession.connect(token, { clientData: nick });
+      console.log("aaaa " + isAdmin);
       if (isAdmin) {
         // --- 5) Get your own camera stream ---
         const publisher = await OV.initPublisherAsync(undefined, {
@@ -122,6 +138,7 @@ const OnlineConcertView = () => {
         setNickname(nickname);
         setSessionId(sessionId);
       } else {
+        console.log("aaaa");
       }
     } catch (error) {
       console.log(
@@ -177,7 +194,7 @@ const OnlineConcertView = () => {
     }
   };
 
-  const getToken = async () => {
+  const getToken = async (sessionId) => {
     const sid = await createSession(sessionId);
     return await createToken(sid);
   };
@@ -194,8 +211,6 @@ const OnlineConcertView = () => {
       }
     );
 
-    console.log("createSession");
-    console.log(response.data);
     return response.data; // the sessionId
   };
 
@@ -214,11 +229,8 @@ const OnlineConcertView = () => {
     return response.data;
   };
 
-  const onJoinSession = ({ nickname, sessionId, isAdmin }) => {
-    setNickname(nickname);
-    setSessionId(sessionId);
-    setIsAdmin(isAdmin);
-    joinSession();
+  const onJoinSession = (nick, sid, isAdmin) => {
+    joinSession(nick, sid, isAdmin);
   };
 
   const onLeaveSession = () => {
