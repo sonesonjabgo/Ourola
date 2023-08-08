@@ -1,6 +1,7 @@
 package com.mk.ourola.api.group.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,5 @@ public interface GroupRepository extends JpaRepository<GroupDto, Integer> {
 	// @Query("SELECT s FROM group_subscribe s RIGHT JOIN s.groupChannelDto c WHERE c.id IS NULL AND s.fanUserDto.id = :id")
 	@Query(value = "SELECT c.id, c.name, c.file_path, c.file_extension FROM (select * from group_subscribe gs where gs.user_id= ?) s RIGHT JOIN group_channel c on s.group_id = c.id WHERE s.group_id IS NULL",
 		nativeQuery = true)
-	List<GroupDto> findAllWithNoRelatedSubscribeGroup(int fanUserId);
+	Optional<List<GroupDto>> findAllWithNoRelatedSubscribeGroup(int fanUserId);
 }

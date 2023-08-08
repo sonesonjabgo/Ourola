@@ -111,14 +111,14 @@ public class FanServiceImpl implements FanService {
 
 	public List<SubscribeGroupDto> getSubscribeGroup(int userId) {
 		Optional<FanDto> userDto = fanRepository.findById(userId);
-		return subscribeGroupRepository.findByFanDto_Id(userDto.get().getId()).get();
+		return subscribeGroupRepository.findByFanDto_Id(userDto.get().getId()).orElse(null);
 	}
 
 	public List<GroupDto> getNotSubscribeGroup(String userEmail) {
 		Optional<FanDto> userDto = fanRepository.findByEmail(userEmail);
 		System.out.println(userDto);
 
-		return groupRepository.findAllWithNoRelatedSubscribeGroup(userDto.get().getId());
+		return groupRepository.findAllWithNoRelatedSubscribeGroup(userDto.get().getId()).orElse(null);
 	}
 
 	//id를 기준으로 fan유저 정보를 가져오는 것
