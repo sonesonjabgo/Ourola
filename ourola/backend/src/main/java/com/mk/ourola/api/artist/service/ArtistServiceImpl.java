@@ -49,14 +49,14 @@ public class ArtistServiceImpl implements ArtistService {
 	public boolean isAdmin(String accessToken, String groupName) throws Exception {
 		int uid = jwtService.accessTokenToUserId(accessToken);
 		int groupId = groupRepository.findByName(groupName).getId();
-		ArtistDto groupAdmin = artistRepository.findByGroupDto_IdAndIsAdminIsTrue(groupId).orElse(null);
+		ArtistDto groupAdmin = artistRepository.findById(uid).orElse(null);
 
 		// 그룹 채널 관리자가 없을 경우
 		if(groupAdmin == null) {
 			throw new Exception(groupName + "의 채널 관리자가 없습니다");
 		} else {
 			// 그룹 채널 관리자인지 아닌지 확인
-			return groupAdmin.getId() == uid;
+			return groupAdmin.getGroupDto().getId() == groupId && groupAdmin.getIsAdmin();
 		}
 	}
 }

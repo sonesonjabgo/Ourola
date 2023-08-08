@@ -23,7 +23,6 @@ import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
 
-
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
@@ -66,12 +65,12 @@ render(
         element={<OnlineConcertList />}
       ></Route>
       <Route
-        path="/:group/online-concert/enter"
+        path="/:group/online-concert/view"
         element={<OnlineConcertView />}
       ></Route>
 
       <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
-      <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />}/>
+      <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
     </Routes>
   </BrowserRouter>,
   container

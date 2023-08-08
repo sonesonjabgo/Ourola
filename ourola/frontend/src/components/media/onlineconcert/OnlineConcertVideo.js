@@ -1,4 +1,5 @@
 import UserVideoComponent from "./UserVideoComponent";
+import "../../../style/media/onlineconcert/OnlineConcertVideo.css";
 
 const OnlineConcertVideo = ({
   sessionId,
