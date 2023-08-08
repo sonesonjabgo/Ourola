@@ -2,6 +2,7 @@ import "../../../style/others/announcement/Announcement.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnnouncementList from "./AnnouncementList";
+import { useLocation } from "react-router-dom";
 
 const Announcement = () => {
   const pathname = window.location.pathname;

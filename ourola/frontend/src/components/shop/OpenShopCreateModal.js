@@ -12,7 +12,7 @@ const OpenShopCreateModal = () => {
 
   return (
     <div>
-      <button onClick={showModal}>하하</button>
+      <button className="OpenCreateModalButton" onClick={showModal}>상품 등록</button>
       {modalOpen && (
         <ShopCreateModal state={{ setModalOpen }} />
       )}

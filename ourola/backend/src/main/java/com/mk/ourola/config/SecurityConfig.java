@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.filter.CustomJsonAuthenticationFilter;
 import com.mk.ourola.api.common.auth.filter.JwtAuthenticationProcessingFilter;
 import com.mk.ourola.api.common.auth.handler.LoginFailureHandler;
@@ -81,6 +82,7 @@ public class SecurityConfig {
 			.permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함
 			.antMatchers("/find/**")
 			.permitAll()	// 아이디(이메일), 비밀번호 찾기 접근 가능
+			.antMatchers("/admin").hasRole(Role.ADMIN.toString())	// 회원 관리 기능은 admin만 접근 가능
 			.anyRequest()
 			.authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 			.and()

@@ -3,7 +3,7 @@ import "../../style/shop/ShopUpdateModal.css";
 import ShopUpdateModal from "./ShopUpdateModal";
 
 
-const OpenShopUpdateModal = ({ shopItem }) => {
+const OpenShopUpdateModal = ({ path }) => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -15,7 +15,7 @@ const OpenShopUpdateModal = ({ shopItem }) => {
     <div>
       <button onClick={showModal}>하하</button>
       {modalOpen && (
-        <ShopUpdateModal shopItem={shopItem} state={{ setModalOpen }} />
+        <ShopUpdateModal path={path} state={{ setModalOpen }} />
       )}
     </div>
   );

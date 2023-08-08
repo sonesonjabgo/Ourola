@@ -47,15 +47,17 @@ const Shop = () => {
     return (
         <>
         <div className="shopContentContainer">
-          {userInfo.isAdmin === true && userInfo.role === "CHANNEL_ADMIN" ?
-          <div className="openCreateButton">
-            <OpenShopCreateModal />
-          </div>
-          : null
-          }
-            <div className="shopBasketContainer">
-                <img className="shopBasketIcon" src={BasketIcon}/>
-                장바구니
+          <div className="shopMainHeader">
+            {userInfo.isAdmin === true && userInfo.role === "CHANNEL_ADMIN" ?
+              <div className="openCreateButton">
+                <OpenShopCreateModal />
+              </div>
+              : null
+            }
+              <div className="shopBasketContainer">
+                  <img className="shopBasketIcon" src={BasketIcon}/>
+                  장바구니
+              </div>
             </div>
             <div className="shopItemsContainer">
                 <ShopItemList allStuff={allStuff}/>

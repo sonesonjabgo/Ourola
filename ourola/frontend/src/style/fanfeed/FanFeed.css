@@ -23,5 +23,13 @@
     width: 67%;
     float: left;
     margin-top: 2%;
-    background-color: red;
 }
+
+.group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    min-height: calc(100vh - 130px);
+  }
+  
