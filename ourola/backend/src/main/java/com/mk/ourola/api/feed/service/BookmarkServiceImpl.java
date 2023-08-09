@@ -104,7 +104,7 @@ public class BookmarkServiceImpl implements BookmarkService{
 
 	@Override
 	public List<BookmarkDto> getBookmarkList(String role, Integer userId) {
-		if (role.equals(Role.USER.getKey()) || role.equals(Role.ADMIN.getKey())) {
+		if (role.equals(Role.USER.getKey()) || role.equals(Role.GUEST.getKey()) || role.equals(Role.ADMIN.getKey())) {
 			return bookmarkRepository.findByFanDto_Id(userId);
 		} else {
 			return bookmarkRepository.findByArtistDto_Id(userId);

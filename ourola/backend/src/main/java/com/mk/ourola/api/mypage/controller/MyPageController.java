@@ -1,6 +1,7 @@
 package com.mk.ourola.api.mypage.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
+import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.feed.repository.dto.BookmarkDto;
+import com.mk.ourola.api.feed.repository.dto.CommentDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
+import com.mk.ourola.api.feed.service.BookmarkServiceImpl;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.UserMembershipInfoDto;
@@ -26,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyPageController {
 	private final MyPageServiceImpl myPageService;
+	private final JwtService jwtService;
+	private final BookmarkServiceImpl bookmarkService;
 
 	// TODO : component가 바뀌도록 할건데 일단 페이지 바뀌는걸로 함
 	// FIXME : 추후 component가 바뀌도록 하자
@@ -90,17 +98,6 @@ public class MyPageController {
 			return HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 	}
-
-	// 팬 개인정보
-	// 팬 개인정보 불러오기
-	// @GetMapping("/userinfo")
-	// public ResponseEntity<FanDto> getFanUserInfo(@RequestHeader("Authorization") String accessToken) {
-	// 	try {
-	// 		return new ResponseEntity<FanDto>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
-	// 	} catch (Exception e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
 
 	// 팬 닉네임 수정
 	@PutMapping("/modify/nickname")
@@ -172,4 +169,37 @@ public class MyPageController {
 		}
 	}
 
+	// 사용자가 작성한 피드 목록 불러옴
+	@GetMapping("/posts")
+	public ResponseEntity<List<FeedDto>> getMyFeed(@RequestHeader("Authorization") String accessToken){
+		try {
+			return new ResponseEntity<>(myPageService.getMyFeed(accessToken), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 사용자가 작성한 댓글 목록 불러옴
+	@GetMapping("/comments")
+	public ResponseEntity<List<CommentDto>> getMyComment(@RequestHeader("Authorization") String accessToken){
+		try {
+			return new ResponseEntity<>(myPageService.getMyComment(accessToken), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 사용자가 저장한 북마크 목록 불러옴
+	@GetMapping("/bookmark")
+	public ResponseEntity<List<BookmarkDto>> getMyBookmark(@RequestHeader(name = "Authorization") String accessToken) {
+		try {
+			Optional<String> role = jwtService.extractRole(accessToken);
+			Integer userId = jwtService.accessTokenToUserId(accessToken);
+			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
+			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
