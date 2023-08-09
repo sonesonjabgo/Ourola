@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 
 public interface OnlineConcertRepository extends JpaRepository<OnlineConcertDto, Integer> {
+	OnlineConcertDto findByIdAndDeleted(int concertId, boolean deleted);
+
 	OnlineConcertDto findById(int concertId);
 
-	List<OnlineConcertDto> findByGroupDto_Id(int groupId);
+	List<OnlineConcertDto> findByGroupDto_IdAndDeleted(int groupId, boolean deleted);
 
 	OnlineConcertDto findBySessionId(String sessionId);
 

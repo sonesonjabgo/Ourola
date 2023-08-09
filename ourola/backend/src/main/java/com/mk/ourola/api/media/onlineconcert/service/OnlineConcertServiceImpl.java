@@ -26,7 +26,7 @@ public class OnlineConcertServiceImpl implements OnlineConcertService {
 	@Override
 	public List<OnlineConcertDto> getAllOnlineConcert(String groupName) {
 		GroupDto group = groupRepository.findByName(groupName);
-		return onlineConcertRepository.findByGroupDto_Id(group.getId());
+		return onlineConcertRepository.findByGroupDto_IdAndDeleted(group.getId(), false);
 	}
 
 	@Override
