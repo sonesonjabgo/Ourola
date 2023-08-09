@@ -116,7 +116,7 @@ const ShopUpdateModal = (props) => {
         //     console.log(pair[0] + ', ' + pair[1]);
         // }
 
-        axios.put(`${putApi}`, formData, { headers: headers })
+        axios.put(putApi, formData, { headers: headers })
             .then((response) => {
                 setResponse(response.data)
                 alert('수정 완료')
