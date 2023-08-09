@@ -26,11 +26,12 @@ const OnlineConcertView = () => {
     },
   };
 
+  const id = location.state.id;
   const nickname = location.state.nickname;
   const sessionId = location.state.sessionId;
   const isAdmin = location.state.isAdmin;
 
-  const [OV, setOV] = useState(null);
+  const [OV, setOV] = useState(new OpenVidu());
 
   const [session, setSession] = useState(undefined);
   // 화면
@@ -74,9 +75,9 @@ const OnlineConcertView = () => {
   };
 
   const joinSession = async () => {
-    setOV((ov) => {
-      return new OpenVidu();
-    });
+    // setOV((ov) => {
+    //   return new OpenVidu();
+    // });
     OV.enableProdMode();
     OVRef.current = OV; // OV 인스턴스를 useRef에 저장
 

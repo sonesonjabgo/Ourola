@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OnlineConcertEnter = () => {
+  const location = useLocation();
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
-  const [isAdmin, setIsAdmin] = useState(false);
 
+  const [isAdmin, setIsAdmin] = useState(false);
   const [nickname, setNickname] = useState("");
-  const [sessionId, setSessionId] = useState("");
+  // const [sessionId, setSessionId] = useState(location.state.sessionId);
+  const sessionId = location.state.sessionId;
+  const isOpen = location.state.isOpen;
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("Authorization");
@@ -19,17 +22,19 @@ const OnlineConcertEnter = () => {
     },
   };
 
-  // sessionId 바뀌었을 때
-  const handleChangeState = (e) => {
-    setSessionId(e.target.value);
-  };
-
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    setNickname("");
-    setSessionId("");
+    if (!isAdmin && !isOpen) {
+      alert("입장 시간이 아닙니다");
+      return;
+    }
+
     navigate(`/${group}/online-concert/view`, {
-      state: { nickname: nickname, sessionId: sessionId, isAdmin: isAdmin },
+      state: {
+        nickname: nickname,
+        sessionId: sessionId,
+        isAdmin: isAdmin,
+      },
     });
     // onJoinSession(nickname, sessionId, isAdmin);
   };
@@ -67,31 +72,7 @@ const OnlineConcertEnter = () => {
       <div id="join-dialog" className="jumbotron vertical-center">
         <h1> Join a video session </h1>
         <form className="form-group" onSubmit={handleSubmit}>
-          {isAdmin ? (
-            <p>
-              <label> Session: </label>
-              <input
-                className="form-control"
-                type="text"
-                id="sessionId"
-                value={sessionId}
-                onChange={handleChangeState}
-                required
-              />
-            </p>
-          ) : null}
-
-          <p>
-            <label>Participant: </label>
-            <input
-              className="form-control"
-              type="text"
-              id="userName"
-              value={nickname}
-              onChange={handleChangeState}
-              required
-            />
-          </p>
+          <p>Participant: {nickname}</p>
 
           <p className="text-center">
             <input
