@@ -93,4 +93,7 @@ public class OnlineConcertDto {
 	// 	fileList.remove(file);
 	// }
 
+	@Column(name = "is_open")
+	private boolean isOpen;
+
 }

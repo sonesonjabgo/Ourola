@@ -57,7 +57,7 @@ function Fanfeed() {
   // 현재 접속 중인 페이지의 그룹 전체 피드 불러오기
   useEffect(() => {
     axios
-      .get(`/${group}/feed`)
+      .get(`/${group}/feed/fan`)
       .then((response) => {
         setFanFeed(response.data);
         setLodingFeed(false);

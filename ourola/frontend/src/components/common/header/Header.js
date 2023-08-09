@@ -48,7 +48,6 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
           </div>
         </ul>
         <div className="buttons">
-          {/* <Login onLogin={onLogin}/> */}
           {isLoggedIn ? (
             <button onClick={clickLogout}>로그아웃</button>
           ) : (

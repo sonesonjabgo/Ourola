@@ -13,6 +13,7 @@ const FanFeedItem = ({
   group,
   groupId,
   fanId,
+  profileId,
   artistId,
   title,
   content,
@@ -24,7 +25,7 @@ const FanFeedItem = ({
 
   // artistId가 없을 때 accessImg 설정에 fanId를 이용하도록 유도
   const getFanPic = () => {
-    const getFanImg = "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + fanId;
+    const getFanImg = "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
     setAccessImg(getFanImg)
   }
 

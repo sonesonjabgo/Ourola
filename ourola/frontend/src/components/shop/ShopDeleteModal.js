@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../../style/shop/ShopUpdateModal.css'
 
@@ -69,6 +70,29 @@ const ShopUpdateModal = (props) => {
         })
     }
 
+    // 물품이 콘서트일때, 멤버십일때를 구분해 API 요청을 하기 위해 API를 변수로 설정
+    const [deleteApi, setDeleteApi] = useState();
+
+    const getConcertDeleteApi = () => {
+        const concertDeleteApi = `shop/seventeen/online-concert/${props.path.path}`
+        setDeleteApi(concertDeleteApi)
+    }
+
+    const getMembershipDeleteApi = () => {
+        const membershipDeleteApi = `shop/seventeen/membership/${props.path.path}`
+        setDeleteApi(membershipDeleteApi)
+    }
+
+    useEffect (() => {
+        if (props.path.isMembership) {
+            getMembershipDeleteApi()
+        } else {
+            getConcertDeleteApi()
+        }
+    })
+
+    const navigate = useNavigate()
+
     if (!path) {
         return null
     }
@@ -76,11 +100,12 @@ const ShopUpdateModal = (props) => {
     // POST 요청 실행
     const deleteRequest = () => {
 
-        axios.delete(`shop/seventeen/online-concert/${props.path.path}`, { headers: headers })
+        axios.delete(`${deleteApi}`, { headers: headers })
             .then((response) => {
                 setResponse(response.data)
                 alert('삭제되었습니다')
                 closeModal()
+                navigate(-1)
             })
             .catch((error) => {
                 if (error.response) {

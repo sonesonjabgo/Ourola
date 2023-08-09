@@ -13,7 +13,7 @@ const OpenShopUpdateModal = ({ path }) => {
 
   return (
     <div>
-      <button onClick={showModal}>하하</button>
+      <button onClick={showModal}>보여줄게완전히달라진나</button>
       {modalOpen && (
         <ShopUpdateModal path={path} state={{ setModalOpen }} />
       )}

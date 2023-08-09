@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../style/auth/loginmodal.module.css';
 import FindEmail from './FindEmail';
 import FindPassword from './FindPassword'
-
+import {useCookies} from 'react-cookie'
 
 function LoginBasic({ setModalOpen, onLogin }) {
   const [email, setEmail] = useState("");
@@ -11,6 +11,29 @@ function LoginBasic({ setModalOpen, onLogin }) {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showFindEmailModal, setShowFindEmailModal] = useState(false);
   const [showFindPasswordModal, setShowFindPasswordModal] = useState(false);
+
+  // 자동 로그인 관련
+  // 쿠키에 이메일 저장해두고 사용
+  const [isRemember, setIsRemember] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['rememberEmail']);
+
+  // 저장된 쿠키값 있으면 체크박스 true, 아이디 값 셋팅
+  useEffect(() => {
+    if(cookies.rememberEmail !== undefined) {
+      setEmail(cookies.rememberEmail);
+      setIsRemember(true);
+    }
+ }, []);
+
+ // 해당 함수 실행될 때 checkbox 체크 여부를 확인하고 쿠키에 아이디를 저장하거나 지움
+ const handleOnChange = (e) => {
+  setIsRemember(e.target.checked);
+  if(e.target.checked){
+    setCookie('rememberEmail', email, 3);
+  } else {
+  removeCookie('rememberEmail');
+  }
+}
 
   // 이메일 찾기 모달 열기
   const openFindEmailModal = () => {
@@ -47,7 +70,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
       password: password,
     };
 
-    console.log(data)
+    // console.log(data)
 
     axios
       .post("/login", data)
@@ -59,18 +82,25 @@ function LoginBasic({ setModalOpen, onLogin }) {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${accessToken}`;
-
+        
+        
         // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
         onLogin();
-
+        
         // 로컬 스토리지에 accessToken 저장
         localStorage.setItem("UserEmail", email);
         localStorage.setItem("Authorization", accessToken);
+        
+        // 아이디 저장 체크 여부 확인하여 저장
+        if (isRemember && email !== "") {
+          setCookie('rememberEmail', email, 3);
+        } else {
+          removeCookie('rememberEmail');
+        }
 
         return response.data;
       })
-      .catch((e) => {
-        // console.log(e);
+      .catch(() => {
         setShowErrorMessage(true);
       });
   };
@@ -83,14 +113,7 @@ function LoginBasic({ setModalOpen, onLogin }) {
       </button>
       <p className={styles.logintitle}>로그인</p>
 
-      {/* {showErrorMessage && <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p>} */}
-      {showErrorMessage ? (
-        <p className={styles.errormessage}>
-          아이디 혹은 비밀번호를 잘못 입력 했습니다.
-        </p>
-      ) : (
-        <p></p>
-      )}
+      {showErrorMessage && <p className={styles.errormessage}>아이디 혹은 비밀번호를 잘못 입력 했습니다.</p>}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -107,14 +130,15 @@ function LoginBasic({ setModalOpen, onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <div className={styles.checkbox}>
+        <div className={styles.checkbox}>
           <label>
-            <input type="checkbox" name="option1" value="value1" /> 아이디 저장
+            <input type="checkbox" onChange={handleOnChange} 
+            checked={isRemember} /> 아이디 저장
           </label>
-          <label>
+          {/* <label>
             <input type="checkbox" name="option1" value="value1" /> 자동 로그인
-          </label>
-        </div> */}
+          </label> */}
+        </div>
         <button type='submit' className={styles.loginsubmitbutton}>
           로그인
         </button>
