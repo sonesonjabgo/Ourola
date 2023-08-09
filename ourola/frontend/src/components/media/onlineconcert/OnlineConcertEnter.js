@@ -11,7 +11,7 @@ const OnlineConcertEnter = () => {
   const [nickname, setNickname] = useState("");
   // const [sessionId, setSessionId] = useState(location.state.sessionId);
   const sessionId = location.state.sessionId;
-  const isOpen = location.state.isOpen;
+  const open = location.state.open;
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("Authorization");
@@ -24,9 +24,12 @@ const OnlineConcertEnter = () => {
 
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    if (!isAdmin && !isOpen) {
-      alert("입장 시간이 아닙니다");
-      return;
+    if (!isAdmin) {
+      console.log(open);
+      if (!open) {
+        alert("입장 시간이 아닙니다");
+        return;
+      }
     }
 
     navigate(`/${group}/online-concert/view`, {
