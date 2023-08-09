@@ -111,6 +111,10 @@ public class ShopServiceImpl implements ShopService {
 			GroupDto groupDto = groupRepository.findByName(artist);
 			membershipPayDto.setGroupDto(groupDto);
 			membershipPayDto.setFilePath(filePath);
+
+			if(membershipPayRepository.findByGroupDto_Id(groupDto.getId()).isPresent()) {
+				throw new Exception("Error :: 이미 해당 채널 멤버십이 존재합니다. 수정해주세요.");
+			}
 			return membershipPayRepository.save(membershipPayDto);
 		} else {
 			throw new Exception("Error :: 관리자 권한입니다.");
