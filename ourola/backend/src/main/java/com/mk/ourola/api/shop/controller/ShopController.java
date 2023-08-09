@@ -77,6 +77,7 @@ public class ShopController {
 			MembershipPayDto item = shopService.getMembershipItem(artist);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -119,8 +120,8 @@ public class ShopController {
 			// }
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
-			log.info(e.getMessage());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			// log.info(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
