@@ -83,13 +83,12 @@ function LoginBasic({ setModalOpen, onLogin }) {
           "Authorization"
         ] = `Bearer ${accessToken}`;
         
-        
-        // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
-        onLogin();
-        
         // 로컬 스토리지에 accessToken 저장
         localStorage.setItem("UserEmail", email);
         localStorage.setItem("Authorization", accessToken);
+        
+        // 로그인 성공 시, 부모로 전달된 onLogin 함수 호출하여 isLoggedIn 상태 변경
+        onLogin();
         
         // 아이디 저장 체크 여부 확인하여 저장
         if (isRemember && email !== "") {
