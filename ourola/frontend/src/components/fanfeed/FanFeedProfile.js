@@ -2,6 +2,8 @@ import React from "react";
 import "../../style/fanfeed/FanFeedProfile.css";
 
 function FanFeedProfile({ groupInfo, userInfo }) {
+
+  console.log(userInfo)
   return (
     <>
       <div className="fanFeedProfileGroupContainer">
@@ -15,7 +17,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
       {/* 마이페이지 구현 후 연결 필요 */}
       <div className="fanFeedProfileUserContainer">
         <div className="fanFeedProfileUserImgContainer">
-          {userInfo.profileFileDto.id ? (
+          {userInfo.profileFileDto ? (
           <img
             className="fanFeedProfileUserImg"
             src={`https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=${userInfo.profileFileDto.id}`}
