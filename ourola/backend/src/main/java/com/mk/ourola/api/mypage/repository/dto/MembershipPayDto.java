@@ -46,7 +46,7 @@ public class MembershipPayDto {
 
 	private Integer price;
 
-	private String detail;
+	private String content;
 
 	@CreationTimestamp
 	@Column(name = "create_date", updatable = false)

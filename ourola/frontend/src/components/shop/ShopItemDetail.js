@@ -22,8 +22,6 @@ const ShopItemDetail = () => {
 
     const path = location.state
 
-    console.log(path)
-
     return (
         <>
         <div className="shopDetailContentContainer">
