@@ -79,7 +79,7 @@ const Shop = () => {
               </div>
               : null
             }
-            <Link to={`${path}/basket`}>
+            <Link to={`${path}/basket`} state={{userInfo: userInfo}}>
               <div className="shopBasketContainer">
                   <img className="shopBasketIcon" src={BasketIcon}/>
                   장바구니
