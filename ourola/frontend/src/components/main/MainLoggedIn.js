@@ -21,7 +21,7 @@ function MainLoggedIn() {
         setSubGroup(response.data.map((item) => item.groupDto));
       })
       .catch((error) => {
-        console.error("하하 망했지", error);
+        console.error("error :", error);
       });
   }, []);
 
@@ -35,7 +35,7 @@ function MainLoggedIn() {
         setNotSubGroup(response.data);
       })
       .catch((error) => {
-        console.error("하하 망했지", error);
+        console.error("error :", error);
       });
   }, []);
 
