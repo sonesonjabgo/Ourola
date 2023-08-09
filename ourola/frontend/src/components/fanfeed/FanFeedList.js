@@ -18,6 +18,7 @@ const FanFeedList = ({ group, fanFeed }) => {
             groupId={it.groupDto.id}
             artistId={it.artistDto?.id}
             fanId={it.fanDto?.id}
+            profileId={it.fanDto?.profileFileDto?.id}
             title={it.title}
             content={it.content}
             like={it.like}
