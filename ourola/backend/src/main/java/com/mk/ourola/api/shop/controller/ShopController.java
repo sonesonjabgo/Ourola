@@ -176,15 +176,15 @@ public class ShopController {
 		}
 	}
 
-	@DeleteMapping("/membership/{id}")
-	public ResponseEntity<?> deleteMembership(@PathVariable String artist,
-		@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
-		try {
-			shopService.deleteMembership(artist, accessToken, id);
-			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @DeleteMapping("/membership/{id}")
+	// public ResponseEntity<?> deleteMembership(@PathVariable String artist,
+	// 	@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
+	// 	try {
+	// 		shopService.deleteMembership(artist, accessToken, id);
+	// 		return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 }

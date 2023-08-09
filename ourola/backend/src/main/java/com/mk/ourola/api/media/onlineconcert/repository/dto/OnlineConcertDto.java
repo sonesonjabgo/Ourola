@@ -1,6 +1,5 @@
 package com.mk.ourola.api.media.onlineconcert.repository.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +18,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.mk.ourola.api.common.file.repository.dto.FeedFileDto;
 import com.mk.ourola.api.common.file.repository.dto.ShopFileDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
@@ -95,5 +92,11 @@ public class OnlineConcertDto {
 
 	@Column(name = "is_open")
 	private boolean isOpen;
+
+	private boolean deleted;
+
+	public void delete() {
+		this.deleted = true;
+	}
 
 }

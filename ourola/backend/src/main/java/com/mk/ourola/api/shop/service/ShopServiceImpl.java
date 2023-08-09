@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.artist.repository.ArtistRepository;
-import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.Role;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.common.file.repository.ShopFileRepository;
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.fan.repository.FanRepository;
-import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.media.onlineconcert.repository.OnlineConcertRepository;
@@ -43,7 +41,7 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<OnlineConcertDto> getAllOnlineConcertItems(String artist) {
 		int groupId = groupRepository.findByName(artist).getId();
-		return onlineConcertRepository.findByGroupDto_Id(groupId);
+		return onlineConcertRepository.findByGroupDto_IdAndDeleted(groupId, false);
 	}
 
 	// @Override
@@ -56,7 +54,7 @@ public class ShopServiceImpl implements ShopService {
 	public OnlineConcertDto getOnlineConcertItem(String artist, int id) {
 		// int groupId = groupRepository.findByName(artist).getId();
 		// log.info("online concert 조회 :: "+onlineConcertRepository.findById(id));
-		return onlineConcertRepository.findById(id);
+		return onlineConcertRepository.findByIdAndDeleted(id, false);
 	}
 
 	@Override
@@ -192,7 +190,9 @@ public class ShopServiceImpl implements ShopService {
 		if(role.equals(Role.ADMIN.getKey()) ||
 			(role.equals(Role.CHANNEL_ADMIN.getKey()) &&
 				artistUserRepository.findByEmail(email).get().getGroupDto().getName().equals(artist))) {
-				onlineConcertRepository.deleteById(id);
+			// onlineConcertRepository.deleteById(id);
+			OnlineConcertDto onlineConcertDto = onlineConcertRepository.findById(id);
+			onlineConcertDto.delete();
 		} else {
 			throw new Exception("ERROR :: 관리자 권한입니다.");
 		}
