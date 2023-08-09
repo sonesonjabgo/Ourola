@@ -11,6 +11,7 @@ const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
     : "http://i9d204.p.ssafy.io:8001/seventeen/online-concert";
+// "http://localhost:8000/seventeen/online-concert";
 
 const OnlineConcertView = () => {
   const pathname = window.location.pathname;
@@ -103,10 +104,9 @@ const OnlineConcertView = () => {
 
     // --- 4) Connect to the session with a valid user token ---
     try {
-      const token = await getToken(sessionId);
-      await mySession.connect(token, { clientData: nickname });
-
       if (isAdmin) {
+        const token = await getToken(sessionId);
+        await mySession.connect(token, { clientData: nickname });
         // --- 5) Get your own camera stream ---
         const publisher = await OV.initPublisherAsync(undefined, {
           audioSource: undefined,
@@ -116,7 +116,7 @@ const OnlineConcertView = () => {
           resolution: "640x480",
           frameRate: 30,
           insertMode: "APPEND",
-          mirror: false,
+          // mirror: false,
         });
 
         // --- 6) Publish your stream ---
@@ -140,6 +140,9 @@ const OnlineConcertView = () => {
         setPublisher(publisher);
         setSubscribers([]);
       } else {
+        const token = await createToken(sessionId);
+        await mySession.connect(token, { clientData: nickname });
+        setMainStreamManager(mySession.subscribers[0]);
       }
     } catch (error) {
       console.log(
@@ -154,7 +157,6 @@ const OnlineConcertView = () => {
     if (session) {
       session.disconnect();
     }
-
     setOV(null);
     setSession(undefined);
     setSubscribers([]);
