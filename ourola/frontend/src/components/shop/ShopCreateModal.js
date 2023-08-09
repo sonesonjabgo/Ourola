@@ -25,6 +25,14 @@ const ShopCreateModal = (props) => {
       };
     }, [setModalOpen]);
 
+    // 콘서트와 멤버십 물품 추가 화면 나누기
+    const [whatKind, setWhatKind] = useState('membership');
+    const wannaPostConcert = () => {
+        setWhatKind('concert')
+    }
+    const wannaPostMembership = () => {
+        setWhatKind('membership')
+    }
 
     const token = localStorage.getItem('Authorization')
     
@@ -39,8 +47,6 @@ const ShopCreateModal = (props) => {
     const handleTicketingDateChange = (event) => {
         setSelectedTicketingDate(event.target.value)
     }
-
-
 
     // 달력 통해 오픈 날짜 선택 시 inputValue에도 바로 적용하기
     const [selectedOpenDate, setSelectedOpenDate] = useState('')
@@ -103,7 +109,35 @@ const ShopCreateModal = (props) => {
             <div ref={modalRef} className="shopCreateDetail">
                 <div className="shopCreateHeader">
                     상품 등록
+                    <div className="chooseWhatKind">
+                    <span onClick={wannaPostMembership}>멤버십</span> | <span onClick={wannaPostConcert}>콘서트</span>
+                    </div>
                 </div>
+
+        {whatKind === 'membership' ? (
+                <form onSubmit={postRequest} className="inputValueContainer">
+                    <div className="inputValue">
+                    <label htmlFor="title">멤버십 이름</label>
+                    <input type="text" id="title" name="title" value={inputValue.title} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="content">멤버십 정보</label>
+                    <input type="text" id="content" name="content" value={inputValue.content} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="price">가격</label>
+                    <input type="text" id="price" name="price" value={inputValue.price} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="postButtonContainer">
+                    <input type="submit" className="createButton" value="등록"></input>
+                    </div>
+                </form>
+        
+        ) : (
+
                 <form onSubmit={postRequest} className="inputValueContainer">
                     <div className="inputValue">
                     <label htmlFor="title">콘서트명</label>
@@ -133,8 +167,10 @@ const ShopCreateModal = (props) => {
                     <input type="submit" className="postButton" value="등록"></input>
                 </div>
                 </form>
+        )
+        }
             </div>
-        </div>
+        </div>  
         </>
     )
 }

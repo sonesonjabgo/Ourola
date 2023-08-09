@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../../style/shop/ShopUpdateModal.css'
 
@@ -69,6 +70,29 @@ const ShopUpdateModal = (props) => {
         })
     }
 
+    // 물품이 콘서트일때, 멤버십일때를 구분해 API 요청을 하기 위해 API를 변수로 설정
+    const [putApi, setPutApi] = useState();
+
+    const getConcertPutApi = () => {
+        const concertPutApi = `shop/seventeen/online-concert/${props.path.path}`
+        setPutApi(concertPutApi)
+    }
+
+    const getMembershipPutApi = () => {
+        const membershipPutApi = `shop/seventeen/membership/${props.path.path}`
+        setPutApi(membershipPutApi)
+    }
+
+    useEffect (() => {
+        if (props.path.isMembership) {
+            getMembershipPutApi()
+        } else {
+            getConcertPutApi()
+        }
+    })
+
+    const navigate = useNavigate()
+    
     if (!path) {
         return null
     }
@@ -88,25 +112,58 @@ const ShopUpdateModal = (props) => {
         formData.append('group_id', path.group_id)
 
         // 콘솔 출력용
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1]);
+        // }
 
-        axios.put(`shop/seventeen/online-concert/${props.path.path}`, formData, { headers: headers })
+        axios.put(`${putApi}`, formData, { headers: headers })
             .then((response) => {
                 setResponse(response.data)
                 alert('수정 완료')
                 closeModal()
-                window.location.reload()
+                navigate(-1)
             })
             .catch((error) => {
                 console.error('자수정', error)
                 alert('제대로 써라')
             })
     }
-
+    if (props.path.isMembership) {
     return (
         <>
+        <div className="shopUpdateBackground">
+        <button className="shopUpdateClose" onClick={closeModal}>
+            ×
+        </button>
+            <div ref={modalRef} className="shopUpdateDetail">
+                <div className="shopUpdateHeader">
+                    상품 정보 수정
+                </div>
+                <form onSubmit={putRequest} className="inputValueContainer">
+                    <div className="inputValue">
+                    <label htmlFor="title">멤버십 이름</label>
+                    <input type="text" id="title" name="title" value={inputValue.title} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="content">멤버십 정보</label>
+                    <input type="text" id="content" name="content" value={inputValue.content} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="price">가격</label>
+                    <input type="text" id="price" name="price" value={inputValue.price} onChange={handleInputChange}></input>
+                    </div>
+
+                    <div className="postButtonContainer">
+                    <input type="submit" className="putButton" value="수정"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </>
+    )} else {
+        return(
         <div className="shopUpdateBackground">
         <button className="shopUpdateClose" onClick={closeModal}>
             ×
@@ -146,8 +203,7 @@ const ShopUpdateModal = (props) => {
                 </form>
             </div>
         </div>
-        </>
-    )
+    )}
 }
 
 export default ShopUpdateModal
