@@ -22,13 +22,15 @@ const ShopItemDetail = () => {
 
     const path = location.state
 
+
     return (
         <>
         <div className="shopDetailContentContainer">
             <div className="shopDetailBasketContainer">
                 <button onClick={goBack} className="shopDetailToListButton">이전으로</button>
                 <OpenShopUpdateModal path={path} />
-                <OpenShopDeleteModal path={path} />
+                {path.isMembership ? ( null ) : 
+                (<OpenShopDeleteModal path={path} />)}
                 <div className="shopDetailBasketButton">
                     <img className="shopDetailBasketIcon" src={BasketIcon}/>
                     장바구니
