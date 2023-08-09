@@ -26,6 +26,7 @@ function GroupPageMenu() {
   };
 
   const location = useLocation();
+
   const isGroupPageMatch = match("/:subpath");
   const isGroupPage = isGroupPageMatch(location.pathname);
   
