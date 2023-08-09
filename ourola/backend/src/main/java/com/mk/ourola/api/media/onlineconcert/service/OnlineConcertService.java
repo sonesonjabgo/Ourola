@@ -10,4 +10,6 @@ public interface OnlineConcertService {
 	public List<OnlineConcertDto> getAllOnlineConcert(String groupName);
 
 	public OnlineConcertDto getOnlineConcert(String sessionId);
+
+	boolean toggleOnlineConcert(int concert_id);
 }
