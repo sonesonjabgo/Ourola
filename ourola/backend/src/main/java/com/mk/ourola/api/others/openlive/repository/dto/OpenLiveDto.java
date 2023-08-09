@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.openlive;
+package com.mk.ourola.api.others.openlive.repository.dto;
 
 import java.util.Date;
 

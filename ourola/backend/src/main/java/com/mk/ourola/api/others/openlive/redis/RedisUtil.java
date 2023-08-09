@@ -6,8 +6,8 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
-import com.mk.ourola.api.others.openlive.OpenLiveParticipantDto;
-import com.mk.ourola.api.others.openlive.OpenLiveServiceImpl;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
+import com.mk.ourola.api.others.openlive.service.OpenLiveServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.openlive;
+package com.mk.ourola.api.others.openlive.repository.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

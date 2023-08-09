@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.openlive;
+package com.mk.ourola.api.others.openlive.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.naming.AuthenticationException;
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
@@ -13,6 +15,11 @@ import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
+import com.mk.ourola.api.others.openlive.repository.OpenLiveParticipantRepository;
+import com.mk.ourola.api.others.openlive.repository.OpenLiveRepository;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
+import com.mk.ourola.api.others.openlive.service.OpenLiveService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,8 +36,10 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	private final JwtService jwtService;
 
 	@Override
-	public List<OpenLiveDto> getOpenLiveList(String artist) {
-		GroupDto groupDto = groupRepository.findByName(artist);
+	@Transactional()
+	public List<OpenLiveDto> getOpenLiveList(String group) {
+		GroupDto groupDto = groupRepository.findByName(group);
+
 		return openLiveRepository.findByGroupDto_Id(groupDto.getId());
 	}
 

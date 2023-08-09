@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.service;
+package com.mk.ourola.api.others.announcement.service;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
-import com.mk.ourola.api.others.repository.AnnouncementRepository;
-import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.announcement.repository.AnnouncementRepository;
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
 
 import lombok.RequiredArgsConstructor;
 

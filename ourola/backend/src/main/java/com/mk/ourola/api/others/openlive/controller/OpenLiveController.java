@@ -1,5 +1,12 @@
-package com.mk.ourola.api.others.openlive;
+package com.mk.ourola.api.others.openlive.controller;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
+import com.mk.ourola.api.others.openlive.service.OpenLiveServiceImpl;
 import com.mk.ourola.api.others.openlive.redis.RedisUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -32,9 +43,11 @@ public class OpenLiveController {
 	@GetMapping("/list")
 	public ResponseEntity<?> getOpenLiveList(@PathVariable String group) {
 		try {
-			return new ResponseEntity<>(openLiveService.getOpenLiveList(group), HttpStatus.OK);
+			Date currentDateTime = new Date();
+			System.out.println(currentDateTime);
+			List<OpenLiveDto> announcements = openLiveService.getOpenLiveList(group);
+			return new ResponseEntity<>(announcements, HttpStatus.OK);
 		} catch (Exception e) {
-			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
