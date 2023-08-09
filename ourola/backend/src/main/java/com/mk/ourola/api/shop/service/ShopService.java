@@ -16,7 +16,7 @@ public interface ShopService {
 	// 상품 개별 조회 (온콘, 멤버십)
 	public OnlineConcertDto getOnlineConcertItem(String artist, int id);
 
-	public MembershipPayDto getMembershipItem(String artist, int id);
+	public MembershipPayDto getMembershipItem(String artist);
 
 	// 상품 등록 (소속사만 가능)
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
