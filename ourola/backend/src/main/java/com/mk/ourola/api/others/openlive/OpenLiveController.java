@@ -86,7 +86,7 @@ public class OpenLiveController {
 		log.info("participate controller");
 		try {
 			Integer userId = jwtService.accessTokenToUserId(header);
-			OpenLiveParticipantDto cancelResult = openLiveService.cancelOpenLiveParticipate(userId, id);
+			Integer cancelResult = openLiveService.cancelOpenLiveParticipate(userId, id);
 			return new ResponseEntity<>(cancelResult, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());

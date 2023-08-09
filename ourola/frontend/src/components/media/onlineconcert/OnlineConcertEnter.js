@@ -1,18 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const OnlineConcertEnter = ({ onJoinSession }) => {
-  //const location = useLocation();
+const OnlineConcertEnter = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
-  // const sessionId = location.state.sessionId;
-  // const nickname = location.state.nickname;
   const [isAdmin, setIsAdmin] = useState(false);
 
   const [nickname, setNickname] = useState("");
   const [sessionId, setSessionId] = useState("");
 
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem("Authorization");
   const config = {
     headers: {
@@ -28,9 +26,12 @@ const OnlineConcertEnter = ({ onJoinSession }) => {
 
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    onJoinSession(nickname, sessionId, isAdmin);
     setNickname("");
     setSessionId("");
+    navigate(`/${group}/online-concert/view`, {
+      state: { nickname: nickname, sessionId: sessionId, isAdmin: isAdmin },
+    });
+    // onJoinSession(nickname, sessionId, isAdmin);
   };
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import FeedCreateModal from './FeedCreateModal'
 import '../../style/fanfeed/CreateFeedButton.css'
 
-const OpenFeedCreateModal = () => {
+const OpenFeedCreateModal = ({groupInfo, userInfo, userRole}) => {
     const [modalOpen, setModalOpen] = useState(false)
 
     const showModal = () => {
@@ -15,6 +15,9 @@ const OpenFeedCreateModal = () => {
             {modalOpen && (
               <FeedCreateModal
                 state={{ setModalOpen }}
+                groupInfo = {groupInfo}
+                userInfo = {userInfo}
+                userRole = {userRole}
               ></FeedCreateModal>
             )}
           </div>

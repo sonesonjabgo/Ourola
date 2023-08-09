@@ -1,18 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../style/fanfeed/FeedCreateModalProfile.css'
-import '../../style/fanfeed/FanFeedProfile.css'
 
-const FeedCreateModalProfile = () => {
+const FeedCreateModalProfile = ({userInfo, userRole}) => {
 
-    const user = {
-        name: 'PePe'
+    const [profileImg, setProfileImg] = useState();
+
+    console.log(userInfo)
+
+    // 일반 사용자 프로필 사진 가져오기
+    const getFanPic = () => {
+      const getFanImg = "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + userInfo.profileFileDto.id;
+      setProfileImg(getFanImg)
     }
+  
+    // 아티스트 또는 소속사 프로필 사진 가져오기
+    const getArtistPic = () => {
+      const getArtistImg = "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + userInfo.profileFileDto.id;
+      setProfileImg(getArtistImg)
+    }
+  
+    // 사용자가 배정받은 역할에 따라 다른 함수 실행
+    useEffect(() => {
+      if (userRole !== "ARTIST" && userRole !== "CHANNEL_ADMIN") {
+        getFanPic()
+      } else {
+        getArtistPic()
+      }
+    }, [])
 
     return (
         <>
-        <div className='feedCreateModalProfileUserContainer'>
-            <div className='feedCreateModalProfileUserImg'></div>
-            {user.name}
+        <div className="feedCreateModalProfileContainer">
+            <div className='feedCreateModalProfileUserImgContainer'>
+                <img className="feedCreateModalProfileUserImg" src={profileImg}/>
+            </div>
+            <div className="feedCreateModalProfileUsername">
+            {userInfo.name}
+            </div>
         </div>
         </>
     )

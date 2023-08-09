@@ -6,9 +6,9 @@ import FileUploadButton from '../../assets/icons/upload_photo.png'
 import axios from 'axios'
 
 
-const FeedCreateModal = (props) => {
+const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
     // 모달
-    const setModalOpen = props.state.setModalOpen;
+    const setModalOpen = state.setModalOpen;
   
     const closeModal = () => {
       setModalOpen(false);
@@ -63,7 +63,7 @@ const FeedCreateModal = (props) => {
         </button>
         <form onSubmit={submitFeed}>
         <div ref={modalRef} className="createFeedDetail">
-          <FeedCreateModalProfile />
+          <FeedCreateModalProfile userInfo = {userInfo} userRole = {userRole}/>
           <div className="feedCreateInputContainer">
             <div className="feedCreateInput">
               <FeedCreateInput content={content} setContent={setContent}/>

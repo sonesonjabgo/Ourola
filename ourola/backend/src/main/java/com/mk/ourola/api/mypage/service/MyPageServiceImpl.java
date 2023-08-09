@@ -11,6 +11,10 @@ import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.feed.repository.CommentRepository;
+import com.mk.ourola.api.feed.repository.FeedRepository;
+import com.mk.ourola.api.feed.repository.dto.CommentDto;
+import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.BillRepository;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
@@ -32,6 +36,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	private final UserMembershipInfoRepository userMembershipInfoRepository;
 	private final MembershipPayRepository membershipPayRepository;
+
+	private final FeedRepository feedRepository;
+	private final CommentRepository commentRepository;
 
 	private final JwtService jwtService;
 
@@ -111,7 +118,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return billRepository.findByFanDto_Id(jwtService.accessTokenToUserId(accessToken));
 	}
 
-
 	// 사용자가 가입한 전체 멤버십 구매 내역 가져오기
 	public List<UserMembershipInfoDto> getAllMembershipPurchase(String accessToken) {
 		Optional<FanDto> user = fanRepository.findById(jwtService.accessTokenToUserId(accessToken));
@@ -139,10 +145,40 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 	}
 
+	// 해당 그룹의 멤버십에 가입이 되어있는지 확인하기
 	@Override
 	public boolean isMembership(String accessToken, String groupName) {
 		Optional<UserMembershipInfoDto> membershipInfo = userMembershipInfoRepository.findByFanDto_IdAndGroupName(
 			jwtService.accessTokenToUserId(accessToken), groupName);
 		return membershipInfo.isPresent();
 	}
+
+	// 사용자가 작성한 피드 가져오기
+	@Override
+	public List<FeedDto> getMyFeed(String accessToken) {
+		String role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get()).orElse(null);
+		int uid = jwtService.accessTokenToUserId(accessToken);
+		List<FeedDto> feedList;
+		if (role.equals("USER") || role.equals("GUEST") || role.equals("ADMIN")) {
+			feedList = feedRepository.findByFanDto_Id(uid);
+		} else {
+			feedList = feedRepository.findByArtistDto_Id(uid);
+		}
+		return feedList;
+	}
+
+	// 사용자가 작성한 댓글 가져오기
+	@Override
+	public List<CommentDto> getMyComment(String accessToken) {
+		String role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get()).orElse(null);
+		int uid = jwtService.accessTokenToUserId(accessToken);
+		List<CommentDto> commentList;
+		if (role.equals("USER") || role.equals("GUEST") || role.equals("ADMIN")) {
+			commentList = commentRepository.findByFanDto_Id(uid);
+		} else {
+			commentList = commentRepository.findByArtistDto_Id(uid);
+		}
+		return commentList;
+	}
+
 }
