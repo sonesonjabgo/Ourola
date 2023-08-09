@@ -8,6 +8,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
         <img
           className="fanFeedProfileGroupImg"
           src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${groupInfo[0].filePath}`}
+          alt="ff"
         />
         <div className="fanFeedProfileGroupNamespace">{groupInfo[0].name}</div>
       </div>
@@ -17,6 +18,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
           <img
             className="fanFeedProfileUserImg"
             src={`https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=${userInfo.profileFileDto.id}`}
+            alt="ff"
           />
         </div>
         {userInfo.name}
