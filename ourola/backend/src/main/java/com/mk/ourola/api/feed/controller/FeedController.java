@@ -241,12 +241,13 @@ public class FeedController {
 	}
 
 	@GetMapping("/getBookmarkList")
-	public ResponseEntity<?> getBookmarkList(@RequestHeader(name = "Authorization") String accessToken){
-		try{
+	public ResponseEntity<?> getBookmarkList(@RequestHeader(name = "Authorization") String accessToken) {
+		try {
+			Optional<String> role = jwtService.extractRole(accessToken);
 			Integer userId = jwtService.accessTokenToUserId(accessToken);
-			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(userId);
+			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
 			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
