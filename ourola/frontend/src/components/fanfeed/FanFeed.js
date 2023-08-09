@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Header from "../common/header/Header";
+import { Link, useLocation } from "react-router-dom";
 import CreateFeedButton from "./CreateFeedButton";
 import AnnouncementOneline from "../others/announcement/AnnouncementOneline";
 import FanFeedProfile from "./FanFeedProfile";
 import FanFeedList from "./FanFeedList";
 import "../../style/fanfeed/FanFeed.css";
-import { useLocation } from "react-router-dom";
 
 function Fanfeed() {
-  const pathname = window.location.pathname;
-  const group = pathname.split("/")[1];
+  const location = useLocation();
+  const group = location.pathname.split("/")[1];
 
   const [loadingFeed, setLodingFeed] = useState(true);
   const [fanFeed, setFanFeed] = useState([]);
@@ -29,47 +27,27 @@ function Fanfeed() {
 
   // 현재 접속 중인 사용자의 정보 불러오기
   useEffect(() => {
-    axios
-      .get(`user/userinfo`, config)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용", error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    axios.get(`user/userinfo`, config)
+      .then(response => {setUserInfo(response.data);})
+      .catch(error => {console.error("현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용", error);});
 
   // 현재 접속 중인 페이지의 그룹 정보 불러오기
-  useEffect(() => {
-    axios
-      .get(`search/${group}`)
-      .then((response) => {
-        setGroupInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("현재 접속 중인 페이지의 그룹 정보를 불러올 수 없어 이 글을 보고 계십니다", error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    axios.get(`search/${group}`)
+      .then(response => {setGroupInfo(response.data);})
+      .catch(error => {console.error("현재 접속 중인 페이지의 그룹 정보를 불러올 수 없어 이 글을 보고 계십니다", error);});
 
   // 현재 접속 중인 페이지의 그룹 전체 피드 불러오기
-  useEffect(() => {
-    axios
-      .get(`/${group}/feed/fan`)
-      .then((response) => {
+    axios.get(`/${group}/feed/fan`)
+      .then(response => {
         setFanFeed(response.data);
-        setLodingFeed(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data : ", error);
-        setLodingFeed(false);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        setLodingFeed(false);})
+      .catch(error => {
+        console.error("Error fetching data : ", error); 
+        setLodingFeed(false);});
+      }, [group, config]);
 
-if (userInfo) {
+if (!userInfo) return null;
+
   return (
     <>
       <div className="contentContainer">
@@ -90,8 +68,6 @@ if (userInfo) {
       </div>
     </>
   );
-} else {
-  return null
-}}
+}
 
 export default Fanfeed;
