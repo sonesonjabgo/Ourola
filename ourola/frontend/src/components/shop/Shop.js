@@ -6,8 +6,8 @@ import axios from 'axios'
 import OpenShopCreateModal from './OpenShopCreateModal'
 
 const Shop = () => {
-    // Shop 물품 전체 불러오기
-    const [allStuff, setStuff] = useState([])
+    // Concert 물품 전체 불러오기
+    const [allConcert, setAllConcert] = useState([])
 
     useEffect(() => {
       let isMounted = true;
@@ -15,7 +15,7 @@ const Shop = () => {
       axios.get('shop/seventeen/online-concert')
         .then((response) => {
           if (isMounted) {
-          setStuff(response.data)
+          setAllConcert(response.data)
           }
         })
         .catch((error) => {
@@ -26,6 +26,27 @@ const Shop = () => {
           isMounted = false;
         }
     }, [])
+
+        // Membership 물품 전체 불러오기
+        const [allMembership, setAllMembership] = useState([])
+
+        useEffect(() => {
+          let isMounted = true;
+      
+          axios.get('shop/seventeen/membership')
+            .then((response) => {
+              if (isMounted) {
+              setAllMembership(response.data)
+              }
+            })
+            .catch((error) => {
+              console.error('ㅋㅋ', error)
+            })
+      
+            return () => {
+              isMounted = false;
+            }
+        }, [])
 
     // 현재 유저가 관리자 권한을 가지고 있는지 판단하기 위한 유저 정보 불러오기
     const [userInfo, setUserInfo] = useState('')
@@ -43,7 +64,7 @@ const Shop = () => {
         })
     }, [])
 
-
+    console.log(allMembership)
     return (
         <>
         <div className="shopContentContainer">
@@ -60,7 +81,7 @@ const Shop = () => {
               </div>
             </div>
             <div className="shopItemsContainer">
-                <ShopItemList allStuff={allStuff}/>
+                <ShopItemList allConcert={allConcert} allMembership={allMembership}/>
             </div>
         </div>
         </>

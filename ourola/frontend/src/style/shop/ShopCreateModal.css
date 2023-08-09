@@ -13,6 +13,11 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
   
+  .chooseWhatKind {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
   .shopCreateDetail {
     display: block;
     width: 40%;
