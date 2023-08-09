@@ -22,7 +22,7 @@ import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
-import ShopBasket from "./components/shop/ShopBasket"
+import ShopBasket from "./components/shop/ShopBasket";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -30,6 +30,7 @@ import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnte
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 import Temp from "components/media/onlineconcert/temp";
+import OpenLive from "components/others/openlive/OpenLive";
 
 // EC2 서버
 // axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -54,6 +55,7 @@ render(
       <Route path="/:group" element={<FanFeed />}></Route>
       <Route path="/:group/group" element={<Group />}></Route>
       <Route path="/:group/announcement" element={<Announcement />}></Route>
+      <Route path="/:group/openlive" element={<OpenLive />}></Route>
       <Route
         path="/seventeen/membershipOnly"
         element={<MembershipOnly />}
