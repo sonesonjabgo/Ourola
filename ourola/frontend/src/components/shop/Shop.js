@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import BasketIcon from '../../assets/icons/basket.png'
 import ShopItemList from './ShopItemList'
 import '../../style/shop/Shop.css'
@@ -64,7 +65,10 @@ const Shop = () => {
         })
     }, [])
 
-    console.log(allMembership)
+    const location = useLocation()
+
+    const path = location.pathname
+
     return (
         <>
         <div className="shopContentContainer">
@@ -75,10 +79,12 @@ const Shop = () => {
               </div>
               : null
             }
+            <Link to={`${path}/basket`}>
               <div className="shopBasketContainer">
                   <img className="shopBasketIcon" src={BasketIcon}/>
                   장바구니
               </div>
+              </Link>
             </div>
             <div className="shopItemsContainer">
                 <ShopItemList allConcert={allConcert} allMembership={allMembership}/>

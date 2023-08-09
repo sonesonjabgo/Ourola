@@ -22,6 +22,7 @@ import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
+import ShopBasket from "./components/shop/ShopBasket"
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -60,6 +61,7 @@ render(
       <Route path="/seventeen/fanSigning" element={<FanSigning />}></Route>
       <Route path="/seventeen/shop/" element={<Shop />}></Route>
       <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
+      <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
 
       {/* 온라인콘서트 */}
       <Route
