@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
-import Signup from "components/auth/SignUp";
+
 
 import { useNavigate } from "react-router-dom";
 import "../../../style/common/header/Header_noLoggedIn.css";
@@ -54,7 +54,6 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
         </Link>
         <ul className={click ? "navMenu active" : "navMenu"}>
           <div className="searchbar">
-            {/* <input className="searchbar-input" placeholder={isSearchbarClicked === true ? "" : "아티스트 검색"}></input> */}
             <input
               id="searchGroupText"
               className="searchbarInput"

@@ -15,86 +15,83 @@ function GroupPageMenu() {
   // clickedTab에 들어감
   // isTabActive를 통해 clickedTab과 tabName이 같은 지 확인하게 되고
   // 탭이 하얗게 변한다.
-  const [clickedTab, setClickedTab] = useState(null);
 
+  const [clickedTab, setClickedTab] = useState(null);
+  
   const handleTabClick = (tabName) => {
     setClickedTab(tabName);
   };
-
+  
   const isTabActive = (tabName) => {
     return clickedTab === tabName;
   };
-
+  
   const location = useLocation();
-
-  const isGroupPageMatch = match("/:subpath");
-  const isGroupPage = isGroupPageMatch(location.pathname);
+  const group = location.pathname.split('/')[1]
   
   useEffect(() => {setClickedTab("fanFeed");
   }, []);
+  if (group.length !== 0 && group !== 'signup') {
+  return (
+    <>
+      <div className="groupPageMenuContainer">
+        <div className="groupPageMenuSpacer"></div>
+        <div className="groupPageMenuButtonContainer" >
+            <Link
+              to={`/${group}`}
+              className={isTabActive("fanFeed") ? "active" : ""}
+              onClick={() => handleTabClick("fanFeed")}
+            >
+              팬 피드
+            </Link>
 
-  if (isGroupPage) {
-    return (
-      <>
-        <div className="groupPageMenuContainer">
-          <div className="groupPageMenuSpacer"></div>
-          <div className="groupPageMenuButtonContainer" >
-              <Link
-                to="/seventeen"
-                className={isTabActive("fanFeed") ? "active" : ""}
-                onClick={() => handleTabClick("fanFeed")}
-              >
-                팬 피드
-              </Link>
+            <Link
+              to={`/${group}/group`}
+              className={isTabActive("groupFeed") ? "active" : ""}
+              onClick={() => handleTabClick("groupFeed")}
+            >
+              아티스트 피드
+            </Link>
 
-              <Link
-                to="/seventeen/group"
-                className={isTabActive("groupFeed") ? "active" : ""}
-                onClick={() => handleTabClick("groupFeed")}
-              >
-                아티스트 피드
-              </Link>
+            <Link
+              to={`/${group}/live`}
+              className={isTabActive("live") ? "active" : ""}
+              onClick={() => handleTabClick("live")}
+            >
+            라이브
+            </Link>
 
-              <Link
-                to="/live"
-                className={isTabActive("live") ? "active" : ""}
-                onClick={() => handleTabClick("live")}
-              >
-              라이브
-              </Link>
+            <Link
+              to={`/${group}/fanSigning`}
+              className={isTabActive("media") ? "active" : ""}
+              onClick={() => handleTabClick("media")}
+            >
+              미디어
+            </Link>
 
-              <Link
-                to="/seventeen/fanSigning"
-                className={isTabActive("media") ? "active" : ""}
-                onClick={() => handleTabClick("media")}
-              >
-                미디어
-              </Link>
+            <Link
+              to={`/${group}/announcement`}
+              className={isTabActive("others") ? "active" : ""}
+              onClick={() => handleTabClick("others")}
+            >
+              Others
+            </Link>
 
-              <Link
-                to="/seventeen/announcement"
-                className={isTabActive("others") ? "active" : ""}
-                onClick={() => handleTabClick("others")}
-              >
-                Others
-              </Link>
-
-              <Link
-                to="/seventeen/shop"
-                className={isTabActive("shop") ? "active" : ""}
-                onClick={() => handleTabClick("shop")}
-              >
-                Shop
-              </Link>
-          </div>
-          <div className="groupPageMenuSpacer"></div>
+            <Link
+              to={`/${group}/shop`}
+              className={isTabActive("shop") ? "active" : ""}
+              onClick={() => handleTabClick("shop")}
+            >
+              Shop
+            </Link>
         </div>
-         {/* 서브 네비게이션 바 */}
-         {isTabActive("media") && <MediaSubNav />}
-         {isTabActive("others") && <OthersSubNav />}
-      </>
-    );
-  } else {
+        <div className="groupPageMenuSpacer"></div>
+      </div>
+        {/* 서브 네비게이션 바 */}
+        {isTabActive("media") && <MediaSubNav />}
+        {isTabActive("others") && <OthersSubNav />}
+    </>
+  );} else {
     return null;
   }
 }
