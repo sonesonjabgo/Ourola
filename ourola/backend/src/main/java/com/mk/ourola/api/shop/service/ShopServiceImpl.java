@@ -54,7 +54,7 @@ public class ShopServiceImpl implements ShopService {
 	public OnlineConcertDto getOnlineConcertItem(String artist, int id) {
 		// int groupId = groupRepository.findByName(artist).getId();
 		// log.info("online concert 조회 :: "+onlineConcertRepository.findById(id));
-		return onlineConcertRepository.findByIdAndDeleted(id, false);
+		return onlineConcertRepository.findById(id);
 	}
 
 	@Override
