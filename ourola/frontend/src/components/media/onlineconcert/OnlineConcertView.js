@@ -26,6 +26,7 @@ const OnlineConcertView = () => {
     },
   };
 
+  const id = location.state.id;
   const nickname = location.state.nickname;
   const sessionId = location.state.sessionId;
   const isAdmin = location.state.isAdmin;

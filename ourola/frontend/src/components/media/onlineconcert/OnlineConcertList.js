@@ -29,6 +29,7 @@ const OnlineConcertList = () => {
             text={it.title}
             group={group}
             sessionId={it.sessionId}
+            isOpen={it.isOpen}
           />
         ))}
       </div>
