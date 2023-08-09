@@ -60,9 +60,9 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public MembershipPayDto getMembershipItem(String artist, int id) {
-		// int groupId = groupRepository.findByName(artist).getId();
-		return membershipPayRepository.findById(id).get();
+	public MembershipPayDto getMembershipItem(String artist) {
+		int groupId = groupRepository.findByName(artist).getId();
+		return membershipPayRepository.findByGroupDto_Id(groupId).orElse(null);
 	}
 
 	@Override
