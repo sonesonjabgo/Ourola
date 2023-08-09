@@ -13,6 +13,8 @@ import com.mk.ourola.api.feed.repository.dto.LikeDto;
 public interface BookmarkRepository extends JpaRepository<BookmarkDto, Integer> {
 	List<BookmarkDto> findByFanDto_Id(Integer userId);
 
+	List<BookmarkDto> findByArtistDto_Id(Integer artistId);
+
 	boolean existsByFeedDto_IdAndFanDto_Id(int feedId, int fanId);
 	boolean existsByFeedDto_IdAndArtistDto_Id(int feedId, int artistId);
 

@@ -14,5 +14,5 @@ public interface BookmarkService {
 
 	public BookmarkDto writeBookmark(FanDto fanDto, FeedDto feedDto);
 
-	List<BookmarkDto> getBookmarkList(Integer userId);
+	List<BookmarkDto> getBookmarkList(String role, Integer userId);
 }
