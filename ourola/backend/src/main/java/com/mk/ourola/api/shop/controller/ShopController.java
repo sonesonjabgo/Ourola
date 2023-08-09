@@ -71,10 +71,10 @@ public class ShopController {
 		}
 	}
 
-	@GetMapping("/membership/{id}")
-	public ResponseEntity<?> getMembership(@PathVariable String artist, @PathVariable int id) {
+	@GetMapping("/membership")
+	public ResponseEntity<?> getMembership(@PathVariable String artist) {
 		try {
-			MembershipPayDto item = shopService.getMembershipItem(artist, id);
+			MembershipPayDto item = shopService.getMembershipItem(artist);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
