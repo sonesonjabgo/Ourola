@@ -1,4 +1,4 @@
-package com.mk.ourola.api.others.controller;
+package com.mk.ourola.api.others.announcement.controller;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.mk.ourola.api.others.repository.dto.AnnouncementDto;
-import com.mk.ourola.api.others.service.AnnouncementServiceImpl;
+import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
+import com.mk.ourola.api.others.announcement.service.AnnouncementServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 

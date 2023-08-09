@@ -1,10 +1,12 @@
-package com.mk.ourola.api.others.openlive;
+package com.mk.ourola.api.others.openlive.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
 
 public interface OpenLiveParticipantRepository extends JpaRepository<OpenLiveParticipantDto, Integer> {
 	List<OpenLiveParticipantDto> findByFanDto_Id(int id);
