@@ -26,13 +26,17 @@ function GroupPageMenu() {
   };
 
   const location = useLocation();
-  const isGroupPageMatch = match("/:subpath");
+
+  const check = location.pathname.split("/")[1];
+
+  const isGroupPageMatch = match("/:subpath*");
   const isGroupPage = isGroupPageMatch(location.pathname);
+  console.log(check)
   
   useEffect(() => {setClickedTab("fanFeed");
   }, []);
 
-  if (isGroupPage) {
+  if (isGroupPage && check !== 'signup' && check !== '') {
     return (
       <>
         <div className="groupPageMenuContainer">

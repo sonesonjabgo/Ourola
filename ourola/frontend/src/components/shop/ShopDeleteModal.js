@@ -133,6 +133,7 @@ const ShopUpdateModal = (props) => {
                 <div className="shopDeleteHeader">
                     상품 삭제
                 </div>
+                
                 <div className="inputValueContainer">
                     삭제?
                     <div className="shopDeleteButtonContainer">
