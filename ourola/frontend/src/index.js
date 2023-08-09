@@ -51,15 +51,15 @@ render(
         element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
       ></Route>
       <Route path="/:group" element={<FanFeed />}></Route>
-      <Route path="/seventeen/group" element={<Group />}></Route>
+      <Route path="/:group/group" element={<Group />}></Route>
       <Route path="/:group/announcement" element={<Announcement />}></Route>
       <Route
         path="/seventeen/membershipOnly"
         element={<MembershipOnly />}
       ></Route>
-      <Route path="/seventeen/fanSigning" element={<FanSigning />}></Route>
-      <Route path="/seventeen/shop/" element={<Shop />}></Route>
-      <Route path="/seventeen/shop*" element={<ShopItemDetail />}></Route>
+      <Route path="/:group/fanSigning" element={<FanSigning />}></Route>
+      <Route path="/:group/shop/" element={<Shop />}></Route>
+      <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
 
       {/* 온라인콘서트 */}
       <Route
@@ -76,7 +76,7 @@ render(
       ></Route> */}
       <Route path="/:group/online-concert/view" element={<Temp />}></Route>
 
-      <Route path="/seventeen/shop/:itemId" element={<ShopItemDetail />} />
+      <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
     </Routes>
   </BrowserRouter>,
