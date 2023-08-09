@@ -83,6 +83,7 @@ const ShopUpdateModal = (props) => {
         setDeleteApi(membershipDeleteApi)
     }
 
+    console.log(props.path.path)
     useEffect (() => {
         if (props.path.isMembership) {
             getMembershipDeleteApi()
@@ -100,7 +101,7 @@ const ShopUpdateModal = (props) => {
     // POST 요청 실행
     const deleteRequest = () => {
 
-        axios.delete(`${deleteApi}`, { headers: headers })
+        axios.delete(deleteApi, { headers: headers })
             .then((response) => {
                 setResponse(response.data)
                 alert('삭제되었습니다')
@@ -132,6 +133,7 @@ const ShopUpdateModal = (props) => {
                 <div className="shopDeleteHeader">
                     상품 삭제
                 </div>
+                
                 <div className="inputValueContainer">
                     삭제?
                     <div className="shopDeleteButtonContainer">

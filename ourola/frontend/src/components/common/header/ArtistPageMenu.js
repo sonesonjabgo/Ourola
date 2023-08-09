@@ -27,12 +27,7 @@ function GroupPageMenu() {
   };
   
   const location = useLocation();
-  console.log(location)
-  console.log(location.pathname.split('/'))
   const group = location.pathname.split('/')[1]
-  // const isGroupPageMatch = match("/:subpath");
-  // const isGroupPage = isGroupPageMatch(location.pathname);
-  console.log(group)
   
   useEffect(() => {setClickedTab("fanFeed");
   }, []);

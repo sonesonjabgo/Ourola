@@ -22,6 +22,7 @@ import Signup from "./components/auth/SignUp";
 import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
+import ShopBasket from "./components/shop/ShopBasket"
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -31,9 +32,9 @@ import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView"
 import Temp from "components/media/onlineconcert/temp";
 
 // EC2 서버
-axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://192.168.100.151:8000";
 
 // axios.defaults.withCredentials = true;
 
