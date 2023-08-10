@@ -31,9 +31,13 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
     }, [setModalOpen]);
   
     // textarea 내 작성한 글을 DB로 보내기
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState();
+    const [response, setResponse] = useState(null)
+    const getTextData = (textData) => {
+      setContent(textData)
+    }
 
-    const group = 'seventeen'
+    const group = groupInfo[0].name
 
     const token = localStorage.getItem('Authorization')
     const headers = {
@@ -42,11 +46,18 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
 
     const submitFeed = (event) => {
       event.preventDefault()
+      console.log(content)
+
+      const formData = new FormData()
+
+      formData.append('content', content)
       // 그룹명 부분 seventeen으로 고정된 상태 - 바꿔줘야 함
-      axios.post(`${group}/feed/write`, {content: content, headers: headers})
+      axios.post(`${group}/feed/write`, formData, {headers: headers})
 
         .then((response) => {
-          setContent('')
+          console.log(response.data)
+          closeModal()
+          // window.location.reload()
         })
         .catch((error) => {
           console.error(error)
@@ -66,7 +77,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
           <FeedCreateModalProfile userInfo = {userInfo} userRole = {userRole}/>
           <div className="feedCreateInputContainer">
             <div className="feedCreateInput">
-              <FeedCreateInput content={content} setContent={setContent}/>
+              <FeedCreateInput getTextData={getTextData}/>
             </div>
           </div>
           <div className="feedCreateButtonContainer">
