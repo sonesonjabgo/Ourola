@@ -29,7 +29,6 @@ import MyPage from "components/mypage/MyPage";
 import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnter";
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
-import Temp from "components/media/onlineconcert/temp";
 import OpenLive from "components/others/openlive/OpenLive";
 
 // EC2 서버
