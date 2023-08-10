@@ -1,6 +1,4 @@
 import "../../../style/others/openlive/OpenLive.css";
-import leftarrow from "../../../assets/icons/leftarrow.png";
-import rightarrow from "../../../assets/icons/rightarrow.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OpenLiveItem from "./OpenLiveItem";
@@ -28,7 +26,7 @@ const OpenLive = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/${group}/open-live/list?page=0`, config)
+      .get(`/${group}/open-live/list?page=0`, config)
       .then((response) => {
         setOpenLiveList(response.data.content);
         setOpenLiveTotalPages(response.data.totalPages);
@@ -47,12 +45,7 @@ const OpenLive = () => {
 
   const prevClick = () => {
     axios
-      .get(
-        `http://localhost:8000/${group}/open-live/list?page=${
-          openLiveStartIndex - 5
-        }`,
-        config
-      )
+      .get(`/${group}/open-live/list?page=${openLiveStartIndex - 5}`, config)
       .then((response) => {
         setOpenLiveList(response.data.content);
         if (response.data.content[0].id <= sliceLength) {
@@ -72,10 +65,7 @@ const OpenLive = () => {
 
   const numberClick = (page) => {
     axios
-      .get(
-        `http://localhost:8000/${group}/open-live/list?page=${page - 1}`,
-        config
-      )
+      .get(`/${group}/open-live/list?page=${page - 1}`, config)
       .then((response) => {
         setOpenLiveList(response.data.content);
         setActiveButton(page);
@@ -89,12 +79,7 @@ const OpenLive = () => {
 
   const nextClick = () => {
     axios
-      .get(
-        `http://localhost:8000/${group}/open-live/list?page=${
-          openLiveStartIndex + 5
-        }`,
-        config
-      )
+      .get(`/${group}/open-live/list?page=${openLiveStartIndex + 5}`, config)
       .then((response) => {
         setOpenLiveList(response.data.content);
         if (response.data.content[0].id <= sliceLength) {
@@ -112,8 +97,6 @@ const OpenLive = () => {
       });
   };
 
-  console.log(openLiveList);
-
   return (
     <div id="openLive" className="openLive">
       <div id="openLiveTitle" className="openLiveTitle">
@@ -127,10 +110,13 @@ const OpenLive = () => {
             <OpenLiveItem
               key={it.id}
               id={it.id}
+              group={group}
               title={it.title}
               startDate={it.startDate}
               ticketingDate={it.ticketingDate}
+              ticketingEndDate={it.ticketingEndDate}
               maxParticipant={it.maxParticipant}
+              imgFilePath={it.filePath}
             ></OpenLiveItem>
           ))}
         </div>
