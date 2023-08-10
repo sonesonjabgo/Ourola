@@ -9,12 +9,14 @@ import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
 public interface OpenLiveService {
 	public Page<OpenLiveDto> getOpenLiveList(String group, Date currentTime, Pageable pageable);
 
 	public OpenLiveDto getOpenLive(String artist, int id);
 
-	public OpenLiveDto writeOpenLive(String artist, String header, OpenLiveDto openLiveDto) throws Exception;
+	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto, MultipartFile file) throws Exception;
 
 	public OpenLiveParticipantDto writeOpenLiveParticipate(String artist, String accessToken, int id) throws Exception;
 
