@@ -63,6 +63,7 @@ render(
       <Route path="/:group/fanSigning" element={<FanSigning />}></Route>
       <Route path="/:group/shop/" element={<Shop />}></Route>
       <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
+      <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
 
       {/* 온라인콘서트 */}
       <Route
