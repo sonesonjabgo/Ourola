@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
 
 const OnlineConcertEnter = () => {
   const location = useLocation();
