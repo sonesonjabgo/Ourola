@@ -33,9 +33,9 @@ import Temp from "components/media/onlineconcert/temp";
 import OpenLive from "components/others/openlive/OpenLive";
 
 // EC2 서버
-axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://192.168.100.151:8000";
+axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 

@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://i9d204.p.ssafy.io:8001/seventeen/online-concert";
+    : "http://localhost:8000/seventeen/online-concert";
 // "http://192.168.100.151:8000/seventeen/online-concert";
 
 const OnlineConcertView = () => {
