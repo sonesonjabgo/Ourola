@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
@@ -65,9 +67,10 @@ public class OpenLiveController {
 	// 공개방송 등록
 	@PostMapping("")
 	public ResponseEntity<?> writeOpenLive(@PathVariable String group, @RequestHeader("Authorization") String header,
-		@RequestBody OpenLiveDto openLiveDto) {
+		OpenLiveDto openLiveDto,
+		@RequestParam(name = "file", required = false) MultipartFile file) {
 		try {
-			return new ResponseEntity<>(openLiveService.writeOpenLive(group, header, openLiveDto), HttpStatus.OK);
+			return new ResponseEntity<>(openLiveService.writeOpenLive(group, header, openLiveDto, file), HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

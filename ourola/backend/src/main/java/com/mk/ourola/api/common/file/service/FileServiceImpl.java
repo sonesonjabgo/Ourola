@@ -62,6 +62,9 @@ public class FileServiceImpl implements FileService {
 	@Value("${file.shopMainFile}")
 	private String SHOP_MAIN_FOLDER;
 
+	@Value("${file.openLiveFile}")
+	private String OPENLIVE_FOLDER;
+
 	public FanDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException {
@@ -177,6 +180,18 @@ public class FileServiceImpl implements FileService {
 		}
 		return "저장완료";
 	}
+	@Override
+	public String openLiveImgToPath(MultipartFile file) throws
+		NoSuchAlgorithmException,
+		IOException {
+		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+		String hashName = generateUniqueFileName(fileName);
+		String shopfile_path = FILE_PATH + "/openLiveFile/" + hashName;
+		File dest = new File(shopfile_path);
+		file.transferTo(dest);
+
+		return hashName;
+	}
 
 	public byte[] getProfileImg(int id) throws IOException {
 		Optional<ProfileFileDto> profileFileDto = profileFileRepository.findById(id);
@@ -241,6 +256,12 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public byte[] getShopDetailImg(String filePath) throws IOException {
 		File file = new File(FILE_PATH + SHOP_FOLDER + filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getOpenLiveImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + OPENLIVE_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

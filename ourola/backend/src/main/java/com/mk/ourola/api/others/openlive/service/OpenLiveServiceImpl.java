@@ -10,8 +10,10 @@ import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
@@ -35,6 +37,7 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	private final OpenLiveParticipantRepository openLiveParticipantRepository;
 
 	private final JwtService jwtService;
+	private final FileServiceImpl fileService;
 
 	@Override
 	@Transactional()
@@ -50,7 +53,7 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	}
 
 	@Override
-	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto) throws Exception {
+	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto, MultipartFile file) throws Exception {
 		String accessToken = jwtService.headerStringToAccessToken(header).get();
 
 		System.out.println(openLiveDto);
@@ -60,6 +63,11 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 		if (role.equals("USER") || role.equals("ARTIST") || !groupDto.getName().equals(group)) {
 			throw new AuthenticationException("관리자 권한입니다.");
 		}
+		String filePath = null;
+		if(!(file == null)) {
+			filePath = fileService.openLiveImgToPath(file);
+		}
+		openLiveDto.setFilePath(filePath);
 		openLiveDto.setCurParticipant(0);
 		return openLiveRepository.save(openLiveDto);
 	}

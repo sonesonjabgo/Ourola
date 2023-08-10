@@ -32,6 +32,10 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
+	public String openLiveImgToPath(MultipartFile file) throws
+		NoSuchAlgorithmException,
+		IOException;
+
 	public String removeFeedImage(int feedId);
 
 	public byte[] getShopMainImg(String filePath) throws IOException;
@@ -49,4 +53,6 @@ public interface FileService {
 	byte[] getFeedImg(int fileId) throws IOException;
 
 	byte[] getOnlineConcertMainImgList(String group) throws Exception;
+
+	public byte[] getOpenLiveImg(String filePath) throws IOException;
 }
