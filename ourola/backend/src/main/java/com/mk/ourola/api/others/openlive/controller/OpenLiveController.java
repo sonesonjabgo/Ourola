@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,7 +44,10 @@ public class OpenLiveController {
 
 	// 그룹 채널별 공개방송 리스트 조회
 	@GetMapping("/list")
-	public ResponseEntity<?> getOpenLiveList(@PathVariable String group, @PageableDefault(size=3) Pageable pageable) {
+	public ResponseEntity<?> getOpenLiveList(@PathVariable String group, @PageableDefault(size=3) @SortDefault.SortDefaults({
+		@SortDefault(sort = "ticketingDate", direction = Sort.Direction.ASC),
+		@SortDefault(sort = "ticketingEndDate", direction = Sort.Direction.ASC)
+	}) Pageable pageable) {
 		try {
 			Date currentTime = new Date();
 			Page<OpenLiveDto> openLives = openLiveService.getOpenLiveList(group, currentTime, pageable);

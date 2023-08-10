@@ -44,7 +44,7 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	public Page<OpenLiveDto> getOpenLiveList(String group, Date currentTime, Pageable pageable) {
 		GroupDto groupDto = groupRepository.findByName(group);
 
-		return openLiveRepository.findByGroupDto_IdAndTicketingDateAfterOrderByTicketingDateAsc(groupDto.getId(), currentTime, pageable);
+		return openLiveRepository.findByGroupDto_IdAndTicketingEndDateIsAfter(groupDto.getId(), currentTime, pageable);
 	}
 
 	@Override
