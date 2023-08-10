@@ -18,4 +18,6 @@ public interface OpenLiveParticipantRepository extends JpaRepository<OpenLivePar
 	@Query(value = "SELECT `rank` from (select *, RANK() OVER (PARTITION BY open_live_id ORDER BY id) as `rank` FROM open_live_participant) as r WHERE open_live_id = :openLiveId AND fan_id = :userId",
 		nativeQuery = true)
 	int findByOpenLiveDto_IdAndFanDto_IdOverRank(int userId, int openLiveId);
+
+	boolean existsByFanDto_IdAndOpenLiveDto_Id(int fanId, int openLiveId);
 }

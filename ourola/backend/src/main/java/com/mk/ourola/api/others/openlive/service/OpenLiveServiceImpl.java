@@ -53,6 +53,12 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	}
 
 	@Override
+	public boolean getOpenLiveParticipate(String header, int id) throws Exception {
+		FanDto fanDto = fanRepository.findById(jwtService.accessTokenToUserId(header)).orElseThrow();
+		return openLiveParticipantRepository.existsByFanDto_IdAndOpenLiveDto_Id(fanDto.getId(), id);
+	}
+
+	@Override
 	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto, MultipartFile file) throws Exception {
 		String accessToken = jwtService.headerStringToAccessToken(header).get();
 
