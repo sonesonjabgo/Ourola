@@ -1,20 +1,26 @@
   import React, { useState, useEffect } from "react";
-  import { Link, Router, Routes, Route, useLocation } from "react-router-dom";
+  import { Link, useLocation } from "react-router-dom";
   import Header from "./components/common/header/Header";
   import MainLoggedIn from "./components/main/MainLoggedIn";
   import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
 
-
-  import AllCards from "./components/common/cards/AllCards";
   import SearchResult from "./components/main/SearchResult";
 
   // artist 선언 방식 fix 필요
   function App() {
-    const artist = "BTS";
+    // 로그인 모달 열기
+    const [modalOpen, setModalOpen] = useState(false)
+    const showModal = () => {setModalOpen(true)}
+
+    // 모달 끄기
+    const closeModal = () => {
+      setModalOpen(false);
+    };
+
     const [isLoggedIn, setLoggedIn] = useState(false);
 
     const {state} = useLocation();
-    console.log("state 받음: ", state);
+    // console.log("state 받음: ", state);
 
     // 로그인 상태 변경 함수
     const handleLoginSuccess = () => {
@@ -57,12 +63,15 @@
       <div id="App" className="App">
         <Header
           isLoggedIn={isLoggedIn}
+          modalOpen={modalOpen}
           onLogin={handleLoginSuccess}
           onLogout={handleLogout}
+          showModal={showModal}
+          closeModal={closeModal}
         />
         <div className="main"></div>
         <div className="main">
-          {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn />}
+          {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn showModal={showModal}/>}
         </div>
 
         <div className="main">

@@ -2,7 +2,7 @@ import React from "react";
 import CardItem from "./CardItem";
 import "../../../style/common/cards/Cards.css";
 
-function NewCards({allGroup}) {
+function NewCards({ allGroup }) {
 
   if (!allGroup) {
     return null

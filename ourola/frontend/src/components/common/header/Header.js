@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
-
 
 import { useNavigate } from "react-router-dom";
 import "../../../style/common/header/Header_noLoggedIn.css";
 import axios from "axios";
 
-function Header({ isLoggedIn, onLogin, onLogout }) {
+function Header({ isLoggedIn, onLogin, onLogout, showModal, modalOpen, closeModal }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
   const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const [searchText, setSearchText] = useState("bt")
   const navigate = useNavigate();
@@ -74,8 +72,9 @@ function Header({ isLoggedIn, onLogin, onLogout }) {
           {isLoggedIn ? (
             <button onClick={clickLogout}>로그아웃</button>
           ) : (
-            <Login onLogin={onLogin} />
-          )}
+            <button className="btn-hover color-3" onClick={showModal}>로그인</button>
+            )}
+          {modalOpen && <Login onLogin={onLogin} closeModal={closeModal}/>}
           {isLoggedIn ? (
             <button>my page</button>
           ) : (
