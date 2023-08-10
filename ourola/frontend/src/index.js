@@ -35,7 +35,7 @@ import OpenLive from "components/others/openlive/OpenLive";
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://192.168.100.151:8000";
+// axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
@@ -73,11 +73,11 @@ render(
         path="/:group/online-concert/enter"
         element={<OnlineConcertEnter />}
       ></Route>
-      {/* <Route
+      <Route
         path="/:group/online-concert/view"
         element={<OnlineConcertView />}
-      ></Route> */}
-      <Route path="/:group/online-concert/view" element={<Temp />}></Route>
+      ></Route>
+      {/* <Route path="/:group/online-concert/view" element={<Temp />}></Route> */}
 
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />

@@ -10,10 +10,10 @@ import { useLocation } from "react-router-dom";
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://i9d204.p.ssafy.io:8001/seventeen/online-concert";
+    : "http://i9d204.p.ssafy.io/seventeen/online-concert";
 // "http://192.168.100.151:8000/seventeen/online-concert";
 
-const OnlineConcertView = () => {
+const Temp = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
 
@@ -104,49 +104,41 @@ const OnlineConcertView = () => {
 
     // --- 4) Connect to the session with a valid user token ---
     try {
-      if (isAdmin) {
-        const token = await getToken(sessionId);
-        await mySession.connect(token, { clientData: nickname });
-        // --- 5) Get your own camera stream ---
-        const publisher = await OV.initPublisherAsync(undefined, {
-          audioSource: undefined,
-          videoSource: undefined,
-          publishAudio: true,
-          publishVideo: true,
-          resolution: "640x480",
-          frameRate: 30,
-          insertMode: "APPEND",
-          // mirror: false,
-        });
+      const token = await getToken(sessionId);
+      await mySession.connect(token, { clientData: nickname });
+      // --- 5) Get your own camera stream ---
+      const publisher = await OV.initPublisherAsync(undefined, {
+        audioSource: undefined,
+        videoSource: undefined,
+        publishAudio: true,
+        publishVideo: true,
+        resolution: "640x480",
+        frameRate: 30,
+        insertMode: "APPEND",
+        // mirror: false,
+      });
 
-        // --- 6) Publish your stream ---
-        mySession.publish(publisher);
+      // --- 6) Publish your stream ---
+      mySession.publish(publisher);
 
-        const devices = await OV.getDevices();
-        const videoDevices = devices.filter(
-          (device) => device.kind === "videoinput"
-        );
-        const currentVideoDeviceId = publisher.stream
-          .getMediaStream()
-          .getVideoTracks()[0]
-          .getSettings().deviceId;
+      const devices = await OV.getDevices();
+      const videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      const currentVideoDeviceId = publisher.stream
+        .getMediaStream()
+        .getVideoTracks()[0]
+        .getSettings().deviceId;
 
-        const currentVideoDevice = videoDevices.find(
-          (device) => device.deviceId === currentVideoDeviceId
-        );
+      const currentVideoDevice = videoDevices.find(
+        (device) => device.deviceId === currentVideoDeviceId
+      );
 
-        // Set the main video in the page to display our webcam and store our Publisher
-        setMainStreamManager(publisher);
-        setPublisher(publisher);
-        setSubscribers([]);
-        console.log(subscribers);
-      } else {
-        // 관객
-        const token = await createToken(sessionId);
-        await mySession.connect(token, { clientData: nickname });
-        //setMainStreamManager(mySession.subscribers[0]);
-        console.log(subscribers);
-      }
+      // Set the main video in the page to display our webcam and store our Publisher
+      setMainStreamManager(publisher);
+      setPublisher(publisher);
+      setSubscribers([]);
+      console.log(subscribers);
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",
@@ -266,4 +258,4 @@ const OnlineConcertView = () => {
   );
 };
 
-export default OnlineConcertView;
+export default Temp;
