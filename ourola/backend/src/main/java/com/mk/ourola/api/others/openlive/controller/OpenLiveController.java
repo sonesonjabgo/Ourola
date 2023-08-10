@@ -64,6 +64,16 @@ public class OpenLiveController {
 		}
 	}
 
+	// 사용자가 해당 공개방송을 신청했는지 조회
+	@GetMapping("/participate/{id}")
+	public ResponseEntity<?> getOpenLiveParticipate(@PathVariable("id") int id, @RequestHeader("Authorization") String header) {
+		try {
+			return new ResponseEntity<>(openLiveService.getOpenLiveParticipate(header, id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 공개방송 등록
 	@PostMapping("")
 	public ResponseEntity<?> writeOpenLive(@PathVariable String group, @RequestHeader("Authorization") String header,

@@ -16,6 +16,8 @@ public interface OpenLiveService {
 
 	public OpenLiveDto getOpenLive(String artist, int id);
 
+	public boolean getOpenLiveParticipate(String header, int id) throws Exception;
+
 	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto, MultipartFile file) throws Exception;
 
 	public OpenLiveParticipantDto writeOpenLiveParticipate(String artist, String accessToken, int id) throws Exception;
