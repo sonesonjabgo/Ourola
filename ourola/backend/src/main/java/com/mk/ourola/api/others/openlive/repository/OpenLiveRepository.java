@@ -13,7 +13,7 @@ import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
 
 @Repository
 public interface OpenLiveRepository extends JpaRepository<OpenLiveDto, Integer> {
-	Page<OpenLiveDto> findByGroupDto_IdAndTicketingDateAfterOrderByTicketingDateAsc(int id, Date currentTime, Pageable pageable);
+	Page<OpenLiveDto> findByGroupDto_IdAndTicketingEndDateIsAfter(int id, Date currentTime, Pageable pageable);
 
 	OpenLiveDto findById(int id);
 }

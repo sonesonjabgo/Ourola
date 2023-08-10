@@ -55,6 +55,11 @@ public class OpenLiveDto {
 	@Column(name = "ticketing_date")
 	private Date ticketingDate;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@Column(name = "ticketing_end_date")
+	private Date ticketingEndDate;
+
 	@Column(name = "file_path")
 	private String filePath;
 
