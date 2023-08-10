@@ -141,13 +141,6 @@ public class FileServiceImpl implements FileService {
 		File dest = new File(shopfile_path);
 		mainFile.transferTo(dest);
 
-		// ShopFileDto shopMainFileDto = ShopFileDto.builder()
-		// 	.membershipPayDto(membershipPayDto)
-		// 	.onlineConcertDto(onlineConcertDto)
-		// 	.filePath(shopfile_path)
-		// 	.build();
-		// ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
-
 		return hashName;
 	}
 
@@ -186,8 +179,8 @@ public class FileServiceImpl implements FileService {
 		IOException {
 		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
 		String hashName = generateUniqueFileName(fileName);
-		String shopfile_path = FILE_PATH + "/openLiveFile/" + hashName;
-		File dest = new File(shopfile_path);
+		String file_path = FILE_PATH + "/openLiveFile/" + hashName;
+		File dest = new File(file_path);
 		file.transferTo(dest);
 
 		return hashName;
