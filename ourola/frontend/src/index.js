@@ -73,11 +73,11 @@ render(
         path="/:group/online-concert/enter"
         element={<OnlineConcertEnter />}
       ></Route>
-      {/* <Route
+      <Route
         path="/:group/online-concert/view"
         element={<OnlineConcertView />}
-      ></Route> */}
-      <Route path="/:group/online-concert/view" element={<Temp />}></Route>
+      ></Route>
+      {/* <Route path="/:group/online-concert/view" element={<Temp />}></Route> */}
 
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
