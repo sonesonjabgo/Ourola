@@ -11,13 +11,11 @@ const OpenLive = () => {
 
   const sliceLength = 15;
   const [openLiveList, setOpenLiveList] = useState([]);
+  const [openLiveTotalPages, setOpenLiveTotalPages] = useState(0);
+  const [openLiveStartIndex, setOpenLiveStartIndex] = useState(0);
+  const [liveEnd, setLiveEnd] = useState(false);
+  const [activeButton, setActiveButton] = useState(1);
   const [openLiveLoading, setOpenLiveLoading] = useState(true);
-  const [listLives, setListLives] = useState(-1);
-  const [totalPages, setTotalPages] = useState(-1);
-  const [currentStartpage, setCurrentStartPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sliceStartLive, setSliceStartLive] = useState([]);
-  const [sliceLive, setSliceLive] = useState([]);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -29,56 +27,92 @@ const OpenLive = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentDateTime = new Date();
-
-        const response = await axios.get(
-          `http://localhost:8000/${group}/open-live/list`,
-          config
-        );
-
-        const canLiveList = response.data.filter((item) => {
-          return new Date(item.ticketingDate) > currentDateTime;
-        });
-
-        canLiveList.sort((a, b) => {
-          return new Date(a.ticketingDate) - new Date(b.ticketingDate);
-        });
-
-        const noLiveList = response.data.filter((item) => {
-          return new Date(item.ticketingDate) <= currentDateTime;
-        });
-
-        noLiveList.sort((a, b) => {
-          return -(new Date(a.ticketingDate) - new Date(b.ticketingDate));
-        });
-
-        const combinedList = [...canLiveList, ...noLiveList];
-
-        setListLives(combinedList.length);
-        setTotalPages(Math.ceil(combinedList.length / sliceLength));
-        setOpenLiveList(combinedList);
-
-        // 여기서 sliceLive 설정
-        if (combinedList.length < 3) {
-          setSliceLive(combinedList);
+    axios
+      .get(`http://localhost:8000/${group}/open-live/list?page=0`, config)
+      .then((response) => {
+        setOpenLiveList(response.data.content);
+        setOpenLiveTotalPages(response.data.totalPages);
+        if (response.data.content[0].id <= sliceLength) {
+          setLiveEnd(true);
         } else {
-          setSliceLive(combinedList.slice(0, 3));
+          setLiveEnd(false);
         }
-
         setOpenLiveLoading(false);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching data : ", error);
         setOpenLiveLoading(false);
-      }
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      });
   }, []);
 
-  console.log(totalPages);
+  const prevClick = () => {
+    axios
+      .get(
+        `http://localhost:8000/${group}/open-live/list?page=${
+          openLiveStartIndex - 5
+        }`,
+        config
+      )
+      .then((response) => {
+        setOpenLiveList(response.data.content);
+        if (response.data.content[0].id <= sliceLength) {
+          setLiveEnd(true);
+        } else {
+          setLiveEnd(false);
+        }
+        setOpenLiveStartIndex(openLiveStartIndex - 5);
+        setActiveButton(openLiveStartIndex - 4);
+        setOpenLiveLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setOpenLiveLoading(false);
+      });
+  };
+
+  const numberClick = (page) => {
+    axios
+      .get(
+        `http://localhost:8000/${group}/open-live/list?page=${page - 1}`,
+        config
+      )
+      .then((response) => {
+        setOpenLiveList(response.data.content);
+        setActiveButton(page);
+        setOpenLiveLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setOpenLiveLoading(false);
+      });
+  };
+
+  const nextClick = () => {
+    axios
+      .get(
+        `http://localhost:8000/${group}/open-live/list?page=${
+          openLiveStartIndex + 5
+        }`,
+        config
+      )
+      .then((response) => {
+        setOpenLiveList(response.data.content);
+        if (response.data.content[0].id <= sliceLength) {
+          setLiveEnd(true);
+        } else {
+          setLiveEnd(false);
+        }
+        setOpenLiveStartIndex(openLiveStartIndex + 5);
+        setActiveButton(openLiveStartIndex + 6);
+        setOpenLiveLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+        setOpenLiveLoading(false);
+      });
+  };
+
+  console.log(openLiveList);
 
   return (
     <div id="openLive" className="openLive">
@@ -89,7 +123,7 @@ const OpenLive = () => {
         <div></div>
       ) : (
         <div id="openLiveContentWrap" className="openLiveContentWrap">
-          {sliceLive.map((it) => (
+          {openLiveList.map((it) => (
             <OpenLiveItem
               key={it.id}
               id={it.id}
@@ -102,24 +136,45 @@ const OpenLive = () => {
         </div>
       )}
       <div id="pagingButtons" className="pagingButtons">
-        {/* <button onClick={prevPage} disabled={currentStartpage === 0}>
-          이전
-        </button> */}
-        {Array.from(
-          { length: totalPages - 15 * (currentStartpage - 1) },
-          (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => setCurrentStartPage(index + 1)}
-              className={currentStartpage === index + 1 ? "active" : ""}
-            >
-              {index + 1}
-            </button>
-          )
+        {openLiveStartIndex > 0 && (
+          <button
+            id="pagingInnerButton"
+            className="pagingInnerButton"
+            onClick={prevClick}
+          >
+            &lt;
+          </button>
         )}
-        {/* <button onClick={nextPage} disabled={currentStartpage === totalPages}>
-          다음
-        </button> */}
+
+        {Array.from(
+          {
+            length:
+              (openLiveTotalPages - openLiveStartIndex) / 5 > 1
+                ? 5
+                : openLiveTotalPages - openLiveStartIndex,
+          },
+          (_, index) => openLiveStartIndex + index + 1
+        ).map((page) => (
+          <button
+            key={page}
+            className={`pagingInnerButton ${
+              activeButton === page ? "pagingActive" : ""
+            }`}
+            onClick={() => numberClick(page)}
+          >
+            {page}
+          </button>
+        ))}
+
+        {openLiveStartIndex + 5 < openLiveTotalPages && (
+          <button
+            id="pagingInnerButton"
+            className="pagingInnerButton"
+            onClick={nextClick}
+          >
+            &gt;
+          </button>
+        )}
       </div>
     </div>
   );

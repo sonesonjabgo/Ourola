@@ -34,7 +34,7 @@ public class AnnouncementController {
 
 	// 게시판 첫 접속 시 전체 공지 정보를 보내는 메서드
 	@GetMapping("/list")
-	public ResponseEntity<?> getAllAnnouncement(@PathVariable("group") String groupName, @PageableDefault(size=7, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
+	public ResponseEntity<?> getAllAnnouncement(@PathVariable("group") String groupName, @PageableDefault(size=7) Pageable pageable) {
 		try {
 			Page<AnnouncementDto> announcements = announcementService.getAllAnnouncement(groupName, pageable);
 			return new ResponseEntity<>(announcements, HttpStatus.OK);

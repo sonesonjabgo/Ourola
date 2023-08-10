@@ -1,5 +1,6 @@
 package com.mk.ourola.api.others.openlive.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,10 +38,10 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 
 	@Override
 	@Transactional()
-	public List<OpenLiveDto> getOpenLiveList(String group) {
+	public Page<OpenLiveDto> getOpenLiveList(String group, Date currentTime, Pageable pageable) {
 		GroupDto groupDto = groupRepository.findByName(group);
 
-		return openLiveRepository.findByGroupDto_Id(groupDto.getId());
+		return openLiveRepository.findByGroupDto_IdAndTicketingDateAfterOrderByTicketingDateAsc(groupDto.getId(), currentTime, pageable);
 	}
 
 	@Override

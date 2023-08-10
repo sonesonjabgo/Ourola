@@ -23,7 +23,7 @@ import com.mk.ourola.api.common.auth.service.JwtService;
 import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
 import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
 import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveParticipantDto;
-import com.mk.ourola.api.others.openlive.service.OpenLiveServiceImpl;
+import com.mk.ourola.api.others.openlive.service.OpenLiveService;
 import com.mk.ourola.api.others.openlive.redis.RedisUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -35,18 +35,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OpenLiveController {
 
-	private final OpenLiveServiceImpl openLiveService;
+	private final OpenLiveService openLiveService;
 	private final RedisUtil redisUtil;
 	private final JwtService jwtService;
 
 	// 그룹 채널별 공개방송 리스트 조회
 	@GetMapping("/list")
-	public ResponseEntity<?> getOpenLiveList(@PathVariable String group) {
+	public ResponseEntity<?> getOpenLiveList(@PathVariable String group, @PageableDefault(size=3) Pageable pageable) {
 		try {
-			Date currentDateTime = new Date();
-			System.out.println(currentDateTime);
-			List<OpenLiveDto> announcements = openLiveService.getOpenLiveList(group);
-			return new ResponseEntity<>(announcements, HttpStatus.OK);
+			Date currentTime = new Date();
+			Page<OpenLiveDto> openLives = openLiveService.getOpenLiveList(group, currentTime, pageable);
+			return new ResponseEntity<>(openLives, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
