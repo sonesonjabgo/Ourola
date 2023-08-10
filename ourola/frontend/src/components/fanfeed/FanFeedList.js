@@ -5,8 +5,6 @@ import FanFeedItem from "./FanFeedItem";
 
 const FanFeedList = ({ group, fanFeed }) => {
 
-  console.log(fanFeed)
-
   return (
     <div id="artistFeedList" className="artistFeedList">
       <section id="artistFeedBoard" className="artistFeedBoard">
