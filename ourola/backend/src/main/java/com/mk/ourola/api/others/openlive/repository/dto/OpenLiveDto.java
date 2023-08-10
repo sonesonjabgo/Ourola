@@ -45,18 +45,18 @@ public class OpenLiveDto {
 
 	private String content;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "start_date")
 	private Date startDate;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "ticketing_date")
 	private Date ticketingDate;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "ticketing_end_date")
 	private Date ticketingEndDate;
 
