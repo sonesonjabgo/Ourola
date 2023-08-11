@@ -51,7 +51,7 @@ render(
         path="/mypage"
         element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
       ></Route>
-      <Route path="/:group" element={<FanFeed />}></Route>
+      <Route path="/:group/fanfeed" element={<FanFeed />}></Route>
       <Route path="/:group/group" element={<Group />}></Route>
       <Route path="/:group/announcement" element={<Announcement />}></Route>
       <Route path="/:group/openlive" element={<OpenLive />}></Route>
@@ -77,7 +77,20 @@ render(
         path="/:group/online-concert/view"
         element={<OnlineConcertView />}
       ></Route>
-      {/* <Route path="/:group/online-concert/view" element={<Temp />}></Route> */}
+
+      {/* 팬싸인회 */}
+      <Route
+        path="/:group/online-concert/list"
+        element={<OnlineConcertList />}
+      ></Route>
+      <Route
+        path="/:group/online-concert/enter"
+        element={<OnlineConcertEnter />}
+      ></Route>
+      <Route
+        path="/:group/online-concert/view"
+        element={<OnlineConcertView />}
+      ></Route>
 
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />

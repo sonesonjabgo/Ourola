@@ -1,8 +1,7 @@
 // 세븐틴 들어가는 부분에 `{artist}` 가 들어가도록 수정해야 함.
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { match } from "path-to-regexp";
 import "../../../style/common/header/GroupPageMenu.css";
 
 import MediaSubNav from "./MediaSubNav"
@@ -16,7 +15,7 @@ function GroupPageMenu() {
   // isTabActive를 통해 clickedTab과 tabName이 같은 지 확인하게 되고
   // 탭이 하얗게 변한다.
 
-  const [clickedTab, setClickedTab] = useState(null);
+  const [clickedTab, setClickedTab] = useState('fanFeed');
   
   const handleTabClick = (tabName) => {
     setClickedTab(tabName);
@@ -28,9 +27,12 @@ function GroupPageMenu() {
   
   const location = useLocation();
   const group = location.pathname.split('/')[1]
-  
-  useEffect(() => {setClickedTab("fanFeed");
-  }, []);
+  const page = location.pathname.split('/')[2]
+  console.log(page)
+  // useEffect(() => {
+  //   setClickedTab("fanFeed");
+  // }, []);
+
   if (group.length !== 0 && group !== 'signup') {
   return (
     <>
@@ -38,7 +40,7 @@ function GroupPageMenu() {
         <div className="groupPageMenuSpacer"></div>
         <div className="groupPageMenuButtonContainer" >
             <Link
-              to={`/${group}`}
+              to={`/${group}/fanfeed`}
               className={isTabActive("fanFeed") ? "active" : ""}
               onClick={() => handleTabClick("fanFeed")}
             >
