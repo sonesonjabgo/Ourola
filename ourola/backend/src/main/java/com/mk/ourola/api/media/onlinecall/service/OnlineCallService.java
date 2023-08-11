@@ -9,7 +9,7 @@ public interface OnlineCallService {
 
 	public OnlineCallDto writeOnlineCall(OnlineCallDto onlineCallDto);
 
-	public List<OnlineCallDto> getOnlineCall();
+	OnlineCallDto getOnlineCall();
 
 	OnlineCallWinner checkOnlineCall(Integer userId, String callId) throws Exception;
 }

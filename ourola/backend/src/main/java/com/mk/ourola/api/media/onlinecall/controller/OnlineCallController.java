@@ -58,7 +58,7 @@ public class OnlineCallController {
 	@GetMapping("/list")
 	public ResponseEntity<?> getOnlineCall() {
 		try {
-			List<OnlineCallDto> onlineCallDtoList = onlineCallService.getOnlineCall();
+			OnlineCallDto onlineCallDtoList = onlineCallService.getOnlineCall();
 			return new ResponseEntity<>(onlineCallDtoList, HttpStatus.OK);
 
 		} catch (Exception e) {
