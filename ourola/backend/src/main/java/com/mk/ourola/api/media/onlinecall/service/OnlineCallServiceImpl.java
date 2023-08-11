@@ -25,9 +25,9 @@ public class OnlineCallServiceImpl implements OnlineCallService {
 	}
 
 	@Override
-	public List<OnlineCallDto> getOnlineCall() {
-		List<OnlineCallDto> all = onlineCallRepository.findAll();
-		return all;
+	public OnlineCallDto getOnlineCall() {
+		OnlineCallDto onlineCallDto = onlineCallRepository.findTopByOrderByStartDateDesc();
+		return onlineCallDto;
 	}
 
 	@Override
