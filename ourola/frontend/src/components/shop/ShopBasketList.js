@@ -2,7 +2,6 @@ import React from 'react'
 import ShopBasketItem from './ShopBasketItem'
 
 const ShopBasketList = ({allBasket}) => {
-    console.log(allBasket)
     return (
         <>
         <div id="shopBasketList" className="shopBasketList">
@@ -10,11 +9,13 @@ const ShopBasketList = ({allBasket}) => {
         {allBasket.map((it) => (
             <ShopBasketItem
                 key = {it?.id}
-                membershipPayDto = {it?.membershipPayDto}    
-                onlineConcertDto = {it?.onlineConcertDto}       
+                stuffId = {it?.id}
+                membershipPayDto = {it?.membershipPayDto}
+                onlineConcertDto = {it?.onlineConcertDto}
             ></ShopBasketItem>
              ))}
             </section>
+            <br></br>
         </div>
         </>
     )
