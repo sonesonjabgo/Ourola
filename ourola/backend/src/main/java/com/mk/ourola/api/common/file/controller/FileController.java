@@ -75,10 +75,10 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getimg/feed-img")
-	public ResponseEntity<?> getFeedImg(@RequestParam int id) {
+	@GetMapping("/getimg/feed-img/{filePath}")
+	public ResponseEntity<?> getFeedImg(@PathVariable String filePath) {
 		try {
-			byte[] profileImg = fileService.getFeedImg(id);
+			byte[] profileImg = fileService.getFeedImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);

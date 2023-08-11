@@ -107,7 +107,7 @@ public class FileServiceImpl implements FileService {
 
 			FeedFileDto feedFileDto = FeedFileDto.builder()
 				.feedDto(feedDto)
-				.filePath(feedfile_path)
+				.filePath(hashName)
 				.fileExtension(fileExtension).build();
 			FeedFileDto save = feedFileRepository.save(feedFileDto);
 		}
@@ -221,9 +221,8 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public byte[] getFeedImg(int fileId) throws IOException {
-		Optional<FeedFileDto> feedImg = feedFileRepository.findById(fileId);
-		File file = new File(feedImg.get().getFilePath());
+	public byte[] getFeedImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + FEED_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

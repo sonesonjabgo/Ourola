@@ -97,7 +97,6 @@ public class FeedController {
 			FeedDto fanFeedDtoResult = feedService.writeFeed(group, feedDto, email.get());
 			System.out.println(files);
 			if (!(files == null)) {
-				System.out.println("없다");
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
