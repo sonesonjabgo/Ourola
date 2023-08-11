@@ -98,10 +98,11 @@ public class OpenLiveController {
 		log.info("participate controller");
 		try {
 			OpenLiveParticipantDto openLiveParticipantDto = redisUtil.saveLock(group, header, id);
+			OpenLiveDto openLiveDto = openLiveService.getOpenLive(group, id);
 			if (openLiveParticipantDto == null) {
-				throw new Exception("수강신청에 실패하였습니다.");
+				throw new Exception("신청에 실패하였습니다.");
 			}
-			return new ResponseEntity<>(openLiveParticipantDto, HttpStatus.OK);
+			return new ResponseEntity<>(openLiveDto, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,8 +116,8 @@ public class OpenLiveController {
 		log.info("participate controller");
 		try {
 			Integer userId = jwtService.accessTokenToUserId(header);
-			Integer cancelResult = openLiveService.cancelOpenLiveParticipate(userId, id);
-			return new ResponseEntity<>(cancelResult, HttpStatus.OK);
+			OpenLiveDto openLiveDto = openLiveService.cancelOpenLiveParticipate(userId, id);
+			return new ResponseEntity<>(openLiveDto, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

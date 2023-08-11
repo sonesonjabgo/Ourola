@@ -19,6 +19,7 @@ import com.mk.ourola.api.fan.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -66,20 +67,41 @@ public class FanServiceImpl implements FanService {
 	}
 
 	@Override
-	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group, String nickname) throws Exception {
+	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group) throws Exception {
 		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 		FanDto fanDto = fanRepository.findByEmail(email).get();
 		GroupDto groupDto = groupRepository.findByName(group);
-		if(! subscribeGroupRepository.existsByFanDto_IdAndGroupDto_id(fanDto.getId(), groupDto.getId())) {
-			throw new Exception("이미 구독중인 채널입니다.");
+		if(subscribeGroupRepository.existsByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId())) {
+			throw new DuplicateRequestException("이미 구독중인 채널입니다.");
 		}
 		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
 			.fanDto(fanDto)
 			.groupDto(groupDto)
-			.nickname(nickname)
 			.build();
 		return subscribeGroupRepository.save(subscribeGroupDto);
+	}
+
+	@Override
+	public int removeSubscribeGroup(String accessToken, String group, String nickname) throws Exception {
+		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
+		String email = jwtService.extractEmail(accessToken).get();
+		FanDto fanDto = fanRepository.findByEmail(email).get();
+		GroupDto groupDto = groupRepository.findByName(group);
+		if(!subscribeGroupRepository.existsByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId())) {
+			throw new Exception("구독중이지 않은 그룹입니다.");
+		}
+
+		return subscribeGroupRepository.deleteByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId());
+	}
+
+	@Override
+	public SubscribeGroupDto checkSubscribeGroup(String accessToken, String group, String nickname) {
+		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
+		String email = jwtService.extractEmail(accessToken).get();
+		FanDto fanDto = fanRepository.findByEmail(email).get();
+		GroupDto groupDto = groupRepository.findByName(group);
+		return subscribeGroupRepository.findByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId());
 	}
 
 	// public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
@@ -126,4 +148,6 @@ public class FanServiceImpl implements FanService {
 		Optional<FanDto> byId = fanRepository.findById(fanId);
 		return byId.get();
 	}
+
+
 }

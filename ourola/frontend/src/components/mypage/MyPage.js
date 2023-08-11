@@ -9,7 +9,6 @@ import "../../style/mypage/MyPage.css";
 
 const MyPage = () => {
   const accessToken = localStorage.getItem("Authorization");
-  console.log(accessToken);
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,
@@ -39,7 +38,6 @@ const MyPage = () => {
     axios
       .get("/user/userinfo", config)
       .then((response) => {
-        console.log(response.data);
         setUserInfo(response.data);
         setLoadingUserInfo(false);
       })
@@ -49,8 +47,8 @@ const MyPage = () => {
       });
   }, []);
 
-  //console.log(localStorage.getItem("Authorization"));
-  // console.log(accessToken);
+  // console.log(userinfo);
+
   return (
     <div className="myPageHome">
       <div className="myPageHeader">
@@ -64,6 +62,7 @@ const MyPage = () => {
               <MyPageProfile
                 profileId={userinfo.profileFileDto.id}
                 nickName={userinfo.nickname}
+                registDate={userinfo.registDate}
               />
             ) : (
               <></>

@@ -3,7 +3,7 @@ import "../../style/fanfeed/FanFeedProfile.css";
 
 function FanFeedProfile({ groupInfo, userInfo }) {
 
-  console.log(userInfo)
+  // console.log(userInfo)
   return (
     <>
       <div className="fanFeedProfileGroupContainer">

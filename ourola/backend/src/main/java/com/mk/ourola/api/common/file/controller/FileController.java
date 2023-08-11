@@ -75,10 +75,10 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getimg/feed-img")
-	public ResponseEntity<?> getFeedImg(@RequestParam int id) {
+	@GetMapping("/getimg/feed-img/{filePath}")
+	public ResponseEntity<?> getFeedImg(@PathVariable String filePath) {
 		try {
-			byte[] profileImg = fileService.getFeedImg(id);
+			byte[] profileImg = fileService.getFeedImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
@@ -114,7 +114,7 @@ public class FileController {
 	// 상품의 메인이미지(썸네일)을 불러온다.
 	// filePath : 온콘/멤버십 dto 안에 filePath
 	@GetMapping("/getimg/shop-main/{filePath}")
-	public ResponseEntity<?> getShopMainImg(@RequestParam String group,
+	public ResponseEntity<?> getShopMainImg(
 		@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
 			byte[] artistProfileImg = fileService.getShopMainImg(filePath);
@@ -142,7 +142,7 @@ public class FileController {
 
 	// 공개방송 이미지를 불러온다.
 	@GetMapping("/getimg/open-live/{filePath}")
-	public ResponseEntity<?> getOpenLiveImg(@RequestParam String group,
+	public ResponseEntity<?> getOpenLiveImg(
 		@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
 			byte[] artistProfileImg = fileService.getOpenLiveImg(filePath);

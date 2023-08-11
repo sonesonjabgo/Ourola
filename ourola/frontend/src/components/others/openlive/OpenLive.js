@@ -100,7 +100,7 @@ const OpenLive = () => {
   return (
     <div id="openLive" className="openLive">
       <div id="openLiveTitle" className="openLiveTitle">
-        공개방송
+        공방신청
       </div>
       {openLiveLoading ? (
         <div></div>
@@ -112,9 +112,11 @@ const OpenLive = () => {
               id={it.id}
               group={group}
               title={it.title}
+              content={it.content}
               startDate={it.startDate}
               ticketingDate={it.ticketingDate}
               ticketingEndDate={it.ticketingEndDate}
+              curParticipant={it.curParticipant}
               maxParticipant={it.maxParticipant}
               imgFilePath={it.filePath}
             ></OpenLiveItem>

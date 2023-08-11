@@ -4,6 +4,11 @@
   src: url("./fonts/NanumSquareEB.ttf") format("truetype");
 }
 
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 * {
   font-family: "NanumSquare-Extrabold";
 }
