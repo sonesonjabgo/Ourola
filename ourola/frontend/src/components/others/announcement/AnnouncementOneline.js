@@ -21,7 +21,7 @@ function AnnouncementOneline({ group }) {
     axios
       .get(`/${group}/announcement/list?page=0`, config)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setAnnouncementList(response.data.content.slice(0, 3));
         setCurrentIndex(0);
       })
