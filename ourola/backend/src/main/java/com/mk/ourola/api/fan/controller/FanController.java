@@ -19,6 +19,7 @@ import com.mk.ourola.api.fan.repository.dto.NotificationDto;
 import com.mk.ourola.api.fan.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.fan.service.FanServiceImpl;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -64,6 +65,8 @@ public class FanController {
 		try {
 			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, group);
 			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
+		} catch (DuplicateRequestException de) {
+			return new ResponseEntity<>(de.getMessage(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
