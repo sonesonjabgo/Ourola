@@ -3,17 +3,23 @@ import reserved from "../../../assets/icons/reserved.png";
 import notreserved from "../../../assets/icons/notreserved.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import OpenLiveNotBook from "./OpenLiveNotBook";
+import OpenLiveBook from "./OpenLiveBook";
 
 const OpenLiveItem = ({
   id,
   group,
   title,
+  content,
   startDate,
   ticketingDate,
   ticketingEndDate,
+  curParticipant,
   maxParticipant,
   imgFilePath,
 }) => {
+  const contentItem = content;
+
   const accessToken = localStorage.getItem("Authorization");
 
   const [userGetLive, setUserGetLive] = useState(false);
@@ -24,7 +30,6 @@ const OpenLiveItem = ({
       "Content-Type": "application/json",
     },
   };
-
   useEffect(() => {
     axios
       .get(`/${group}/open-live/participate/${id}`, config)
@@ -39,7 +44,6 @@ const OpenLiveItem = ({
   // 나중에 실제 사진으로 수정 필요
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/open-live/" + imgFilePath;
-
   const startDateParts = startDate.split("T");
   const datePart = startDateParts[0];
 
@@ -71,18 +75,51 @@ const OpenLiveItem = ({
 
   const isTicketingStarted = new Date() >= new Date(ticketingDate);
 
+  const [modalReserveOpen, setModalReserveOpen] = useState(false);
+
+  const openLiveReserveModalOpen = () => {
+    setModalReserveOpen(true);
+  };
+
+  const [modalCancleOpen, setModalCancleOpen] = useState(false);
+
+  const openLiveReserveModalCancleOpen = () => {
+    setModalCancleOpen(true);
+  };
   return (
     <div>
       {isTicketingStarted ? (
         <div>
           {userGetLive ? (
-            <div id="openLiveItemStartGet" className="openLiveItemStartGet">
+            <div
+              id="openLiveItemStartGet"
+              className="openLiveItemStartGet"
+              onClick={openLiveReserveModalCancleOpen}
+            >
+              {modalCancleOpen ? (
+                <div id="openLiveNotBookWarp" className="openLiveNotBookWarp">
+                  <OpenLiveNotBook
+                    setModalCancleOpen={setModalCancleOpen}
+                    liveId={id}
+                    group={group}
+                    title={title}
+                    content={contentItem}
+                    startFormatDate={startFormatDate}
+                    ticketingDate={ticketingFormatDate}
+                    ticketingEndDate={ticketingEndFormatDate}
+                    curParticipant={curParticipant}
+                    maxParticipant={maxParticipant}
+                  ></OpenLiveNotBook>
+                </div>
+              ) : (
+                <div style={{ display: "none" }}></div>
+              )}
               <div id="openLiveInfo" className="openLiveInfo">
                 <div id="openLiveInfoTitle" className="openLiveInfoTitle">
                   {startFormatDate} {title}
                 </div>
                 <div id="openLiveInfoEndDate" className="openLiveInfoEndDate">
-                  티켓팅 끝나는 시간 : {ticketingEndFormatDate}
+                  신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
                 </div>
               </div>
               <div
@@ -109,13 +146,32 @@ const OpenLiveItem = ({
             <div
               id="openLiveItemStartNotGet"
               className="openLiveItemStartNotGet"
+              onClick={openLiveReserveModalOpen}
             >
+              {modalReserveOpen ? (
+                <div id="openLiveBookWarp" className="openLiveBookWarp">
+                  <OpenLiveBook
+                    setModalReserveOpen={setModalReserveOpen}
+                    liveId={id}
+                    group={group}
+                    title={title}
+                    content={contentItem}
+                    startFormatDate={startFormatDate}
+                    ticketingDate={ticketingFormatDate}
+                    ticketingEndDate={ticketingEndFormatDate}
+                    curParticipant={curParticipant}
+                    maxParticipant={maxParticipant}
+                  ></OpenLiveBook>
+                </div>
+              ) : (
+                <div style={{ display: "none" }}></div>
+              )}
               <div id="openLiveInfo" className="openLiveInfo">
                 <div id="openLiveInfoTitle" className="openLiveInfoTitle">
                   {startFormatDate} {title}
                 </div>
                 <div id="openLiveInfoEndDate" className="openLiveInfoEndDate">
-                  티켓팅 끝나는 시간 : {ticketingEndFormatDate}
+                  신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
                 </div>
               </div>
               <div
@@ -147,7 +203,7 @@ const OpenLiveItem = ({
               {startFormatDate} {title}
             </div>
             <div id="openLIveInfoStartDate" className="openLIveInfoStartDate">
-              티켓팅 시작 시간 : {ticketingFormatDate}
+              신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
             </div>
           </div>
           <div id="openLiveInfoImg" className="openLiveInfoImg">
