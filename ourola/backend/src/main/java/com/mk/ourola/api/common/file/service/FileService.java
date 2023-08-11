@@ -50,7 +50,7 @@ public interface FileService {
 		NoSuchAlgorithmException,
 		IOException;
 
-	byte[] getFeedImg(int fileId) throws IOException;
+	byte[] getFeedImg(String filePath) throws IOException;
 
 	byte[] getOnlineConcertMainImgList(String group) throws Exception;
 
