@@ -26,4 +26,8 @@ public interface FanService {
 	public String writeNotifications(FeedDto feedDto);
 
 	public FanDto getFanInfo(int fanId);
+
+	int removeSubscribeGroup(String header, String group, String nickname) throws Exception;
+
+	SubscribeGroupDto checkSubscribeGroup(String header, String group, String nickname);
 }
