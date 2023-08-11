@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
 import "../../../style/mypage/purchase/PurchaseItem.css";
+import PurchaseDetail from "./PurchaseDetail";
 
 const PurchaseItem = ({ item }) => {
+  const ENUM = { MEMBERSHIP: "membership", ONLINECONCERT: "online-concert" };
   const [purchaseDate, setPurchaseDate] = useState(
     moment().format("YYYY.MM.DD")
   );
@@ -12,14 +13,19 @@ const PurchaseItem = ({ item }) => {
   const [title, setTitle] = useState("");
   const [expiration, setExpiration] = useState(moment().format("YYYY-MM-DD"));
   const [accessImg, setAccessImg] = useState("");
-  const [path, setPath] = useState("");
+  const [type, setType] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   useEffect(() => {
     setPurchaseDate(moment(new Date(item.paymentDate)).format("YYYY.MM.DD"));
     if (item.membershipPayDto === null) {
-      console.log(item);
       setGroupName(item.onlineConcertDto.groupDto.name);
       setTitle(item.onlineConcertDto.title);
+      setType(ENUM.ONLINECONCERT);
       setAccessImg(
         "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
           item.onlineConcertDto.filePath
@@ -31,6 +37,7 @@ const PurchaseItem = ({ item }) => {
       // console.log(item);
       setGroupName(item.membershipPayDto.groupDto.name);
       setTitle(item.membershipPayDto.title);
+      setType(ENUM.MEMBERSHIP);
       setAccessImg(
         "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
           item.membershipPayDto.filePath
@@ -43,7 +50,8 @@ const PurchaseItem = ({ item }) => {
   }, []);
 
   return (
-    <div className="productWrap">
+    <div className="productWrap" onClick={showModal}>
+      {modalOpen && <PurchaseDetail setModalOpen={setModalOpen} item={item} />}
       <div className="productItemImage">
         <img className="productImg" src={accessImg} alt={""} />
       </div>
@@ -51,7 +59,10 @@ const PurchaseItem = ({ item }) => {
         <div className="productItemContentHeader">{purchaseDate} 구매</div>
         <div className="productItemContentBody">
           <div className="productItemGroupName">
-            <p>{groupName}</p>
+            <p>
+              {groupName} |{" "}
+              {type === ENUM.MEMBERSHIP ? "멤버십" : "온라인 콘서트"}
+            </p>
           </div>
           <div className="productItemTitle">
             <p>{title}</p>

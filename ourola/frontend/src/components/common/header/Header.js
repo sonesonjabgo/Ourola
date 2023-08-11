@@ -7,26 +7,12 @@ import { useNavigate } from "react-router-dom";
 import "../../../style/common/header/Header_noLoggedIn.css";
 import axios from "axios";
 
-<<<<<<< HEAD
-function Header({
-  isLoggedIn,
-  onLogin,
-  onLogout,
-  showModal,
-  modalOpen,
-  closeModal,
-}) {
-  // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
-  const [click, setClick] = useState(false);
-  const closeMobileMenu = () => setClick(false);
-  const [searchText, setSearchText] = useState("bt");
-=======
 function Header({ showModal, modalOpen, closeModal }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
   const [click, setClick] = useState(false);
   const closeMobileMenu = () => setClick(false);
   const [searchText, setSearchText] = useState("");
->>>>>>> fca230f6953b1f653bce3aa7b4e262c0926c4fe6
+
   const navigate = useNavigate();
 
   useEffect(() => {
