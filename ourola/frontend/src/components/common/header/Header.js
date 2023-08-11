@@ -11,7 +11,7 @@ function Header({ showModal, modalOpen, closeModal }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
   const [click, setClick] = useState(false);
   const closeMobileMenu = () => setClick(false);
-  const [searchText, setSearchText] = useState("bt");
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
