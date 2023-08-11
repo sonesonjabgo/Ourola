@@ -1,8 +1,8 @@
 import React from "react";
-import CardItem from "./CardItem";
+import NoLoggedCard from "./NoLoggedCard";
 import "../../../style/common/cards/Cards.css";
 
-function NewCards({ allGroup }) {
+function NewCards({ allGroup, showModal }) {
 
   if (!allGroup) {
     return null
@@ -11,7 +11,7 @@ function NewCards({ allGroup }) {
   return (
     <div className="cardsContainer">
       {allGroup.map((data, i) => (
-        <CardItem key={i} src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${data.filePath}`} text={data.name} path={data.name} />
+        <NoLoggedCard key={i} src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${data.filePath}`} text={data.name} showModal={showModal} />
       ))}
     </div>
   );
