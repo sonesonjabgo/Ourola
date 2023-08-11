@@ -68,6 +68,26 @@ public class FanController {
 		}
 	}
 
+	@PostMapping("/unsubscribe")
+	public ResponseEntity<?> removeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+		try {
+			Integer unsubscribeGroupCnt = fanService.removeSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			return new ResponseEntity<>(unsubscribeGroupCnt, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/checkSubscribe")
+	public ResponseEntity<?> checkSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+		try {
+			SubscribeGroupDto subscribeGroupDto = fanService.checkSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 채널 구독 시 닉네임 중복 체크 (중복 여부 반환)
 	// @PostMapping("/nickname-duplicate-check")
 	// public ResponseEntity<?> nicknameDuplicateCheck(@RequestBody Map<String, String> map) {
