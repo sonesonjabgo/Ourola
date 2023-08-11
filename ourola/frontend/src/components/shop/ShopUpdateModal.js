@@ -83,6 +83,12 @@ const ShopUpdateModal = (props) => {
         setPutApi(membershipPutApi)
     }
 
+    const [file, setFile] = useState(null)
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0])
+    }
+
     useEffect (() => {
         if (props.path.isMembership) {
             getMembershipPutApi()
@@ -110,6 +116,7 @@ const ShopUpdateModal = (props) => {
         formData.append('startTime', selectedOpenDate)
         formData.append('ticketingTime', selectedTicketingDate)
         formData.append('group_id', path.group_id)
+        formData.append('main-file', file)
 
         // 콘솔 출력용
         // for (var pair of formData.entries()) {
@@ -155,6 +162,11 @@ const ShopUpdateModal = (props) => {
                     <input type="text" id="price" name="price" value={inputValue.price} onChange={handleInputChange}></input>
                     </div>
 
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+                    
                     <div className="postButtonContainer">
                     <input type="submit" className="putButton" value="수정"></input>
                     </div>
@@ -197,6 +209,12 @@ const ShopUpdateModal = (props) => {
                     <label htmlFor="startTime">오픈 시간</label>
                     <input type="datetime-local" id="startTime" name="startTime" value={selectedOpenDate} onChange={handleOpenDateChange}></input>
                     </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+
                     <div className="postButtonContainer">
                     <input type="submit" className="putButton" value="수정"></input>
                 </div>
