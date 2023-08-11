@@ -99,7 +99,7 @@ public class OpenLiveController {
 		try {
 			OpenLiveParticipantDto openLiveParticipantDto = redisUtil.saveLock(group, header, id);
 			if (openLiveParticipantDto == null) {
-				throw new Exception("수강신청에 실패하였습니다.");
+				throw new Exception("신청에 실패하였습니다.");
 			}
 			return new ResponseEntity<>(openLiveParticipantDto, HttpStatus.OK);
 		} catch (Exception e) {
