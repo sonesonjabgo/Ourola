@@ -55,25 +55,23 @@ function App() {
     };
   }, [state]);
 
-  return (
-    <div id="App" className="App">
-      <Header
-        modalOpen={modalOpen}
-        showModal={showModal}
-        closeModal={closeModal}
-      />
-      <div className="main"></div>
-      <div className="main">
-        {state ? (
-          <SearchResult allGroup={state} />
-        ) : isLoggedIn ? (
-          <MainLoggedIn />
-        ) : (
-          <MainNoLoggedIn showModal={showModal} />
-        )}
-      </div>
+    return (
+      <div id="App" className="App">
+        <Header
+          modalOpen={modalOpen}
+          showModal={showModal}
+          closeModal={closeModal}
+        />
+        <div className="main"></div>
+        <div className="main">
+          {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn showModal={showModal}/>}
+        </div>
 
-      <Link to="/seventeen/online-concert/list">라이브</Link>
+        <div className="main">
+          {state ? <SearchResult allGroup={state} /> : null}
+        </div>
+{/* 
+      <Link to="/seventeen/online-concert/list">라이브</Link> */}
     </div>
   );
 }
