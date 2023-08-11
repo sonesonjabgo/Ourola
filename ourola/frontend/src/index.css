@@ -4,10 +4,9 @@
   src: url("./fonts/NanumSquareEB.ttf") format("truetype");
 }
 
-@font-face {
-  font-family: "NanumSquare-Bold";
-  font-weight: normal;
-  src: url("./fonts/NanumSquareB.ttf") format("truetype");
+body {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 * {
