@@ -6,11 +6,13 @@ import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
 
 import SearchResult from "./components/main/SearchResult";
 
-  // artist 선언 방식 fix 필요
-  function App() {
-    // 로그인 모달 열기
-    const [modalOpen, setModalOpen] = useState(false)
-    const showModal = () => {setModalOpen(true)}
+// artist 선언 방식 fix 필요
+function App() {
+  // 로그인 모달 열기
+  const [modalOpen, setModalOpen] = useState(false);
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   // 모달 끄기
   const closeModal = () => {
@@ -19,20 +21,20 @@ import SearchResult from "./components/main/SearchResult";
 
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-    const {state} = useLocation();
-    // console.log("state 받음: ", state);
+  const { state } = useLocation();
+  // console.log("state 받음: ", state);
 
   useEffect(() => {
     // 로컬스토리지에서 Authorization 값을 가져옴
     const authorization = localStorage.getItem("Authorization");
 
-      // Authorization 값이 존재하면 로그인 상태로 설정
-      if (authorization) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    }, [localStorage.getItem("Authorization")]);
+    // Authorization 값이 존재하면 로그인 상태로 설정
+    if (authorization) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [localStorage.getItem("Authorization")]);
 
   useEffect(() => {
     // 페이지가 처음 로드될 때와 새로고침 시 state 값을 null로 설정
@@ -53,21 +55,23 @@ import SearchResult from "./components/main/SearchResult";
     };
   }, [state]);
 
-    return (
-      <div id="App" className="App">
-        <Header
-          modalOpen={modalOpen}
-          showModal={showModal}
-          closeModal={closeModal}
-        />
-        <div className="main"></div>
-        <div className="main">
-          {isLoggedIn ? <MainLoggedIn /> : <MainNoLoggedIn showModal={showModal}/>}
-        </div>
-
-        <div className="main">
-          {state ? <SearchResult allGroup={state} /> : null}
-        </div>
+  return (
+    <div id="App" className="App">
+      <Header
+        modalOpen={modalOpen}
+        showModal={showModal}
+        closeModal={closeModal}
+      />
+      <div className="main"></div>
+      <div className="main">
+        {state ? (
+          <SearchResult allGroup={state} />
+        ) : isLoggedIn ? (
+          <MainLoggedIn />
+        ) : (
+          <MainNoLoggedIn showModal={showModal} />
+        )}
+      </div>
 
       <Link to="/seventeen/online-concert/list">라이브</Link>
     </div>
