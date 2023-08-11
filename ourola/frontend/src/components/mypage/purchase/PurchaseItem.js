@@ -51,7 +51,7 @@ const PurchaseItem = ({ item }) => {
 
   return (
     <div className="productWrap" onClick={showModal}>
-      {modalOpen && <PurchaseDetail setModalOpen={setModalOpen} item={item} />}
+      {/* {modalOpen && <PurchaseDetail setModalOpen={setModalOpen} item={item} />} */}
       <div className="productItemImage">
         <img className="productImg" src={accessImg} alt={""} />
       </div>
