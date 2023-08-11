@@ -88,8 +88,8 @@ function GroupPageMenu() {
         <div className="groupPageMenuSpacer"></div>
       </div>
         {/* 서브 네비게이션 바 */}
-        {isTabActive("media") && <MediaSubNav />}
-        {isTabActive("others") && <OthersSubNav />}
+        {isTabActive("media") && <MediaSubNav group={group}/>}
+        {isTabActive("others") && <OthersSubNav group={group}/>}
     </>
   );} else {
     return null;

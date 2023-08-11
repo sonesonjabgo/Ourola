@@ -68,8 +68,8 @@ import SearchResult from "./components/main/SearchResult";
         <div className="main">
           {state ? <SearchResult allGroup={state} /> : null}
         </div>
-
-      <Link to="/seventeen/online-concert/list">라이브</Link>
+{/* 
+      <Link to="/seventeen/online-concert/list">라이브</Link> */}
     </div>
   );
 }
