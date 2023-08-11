@@ -56,7 +56,7 @@ render(
       <Route path="/:group/announcement" element={<Announcement />}></Route>
       <Route path="/:group/openlive" element={<OpenLive />}></Route>
       <Route
-        path="/seventeen/membershipOnly"
+        path="/:group/membershipOnly"
         element={<MembershipOnly />}
       ></Route>
       <Route path="/:group/fanSigning" element={<FanSigning />}></Route>
