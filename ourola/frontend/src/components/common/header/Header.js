@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import mainLogo from "../../../assets/images/ourola_logo.png";
 import Login from "components/auth/Login";
@@ -7,12 +7,37 @@ import { useNavigate } from "react-router-dom";
 import "../../../style/common/header/Header_noLoggedIn.css";
 import axios from "axios";
 
-function Header({ isLoggedIn, onLogin, onLogout, showModal, modalOpen, closeModal }) {
+function Header({ showModal, modalOpen, closeModal }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
   const [click, setClick] = useState(false);
   const closeMobileMenu = () => setClick(false);
   const [searchText, setSearchText] = useState("bt")
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 로컬스토리지에서 Authorization 값을 가져옴
+    const authorization = localStorage.getItem("Authorization");
+
+    // Authorization 값이 존재하면 로그인 상태로 설정
+    if (authorization) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [localStorage.getItem("Authorization")]);
+
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  // 로그인 상태 변경 함수
+  const onLogin = () => {
+    setLoggedIn(true);
+  };
+
+  // 로그아웃 상태 변경 함수
+  const onLogout = () => {
+    navigate('/')
+    setLoggedIn(false);
+  };
 
   const clickLogout = () => {
     // 로그아웃 로직 수행

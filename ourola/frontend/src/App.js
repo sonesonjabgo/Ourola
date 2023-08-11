@@ -1,5 +1,5 @@
   import React, { useState, useEffect } from "react";
-  import { Link, useLocation } from "react-router-dom";
+  import { Link, useLocation  } from "react-router-dom";
   import Header from "./components/common/header/Header";
   import MainLoggedIn from "./components/main/MainLoggedIn";
   import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
@@ -8,6 +8,7 @@
 
   // artist 선언 방식 fix 필요
   function App() {
+
     // 로그인 모달 열기
     const [modalOpen, setModalOpen] = useState(false)
     const showModal = () => {setModalOpen(true)}
@@ -22,16 +23,6 @@
     const {state} = useLocation();
     // console.log("state 받음: ", state);
 
-    // 로그인 상태 변경 함수
-    const handleLoginSuccess = () => {
-      setLoggedIn(true);
-    };
-
-    // 로그아웃 상태 변경 함수
-    const handleLogout = () => {
-      setLoggedIn(false);
-    };
-
     useEffect(() => {
       // 로컬스토리지에서 Authorization 값을 가져옴
       const authorization = localStorage.getItem("Authorization");
@@ -42,7 +33,7 @@
       } else {
         setLoggedIn(false);
       }
-    }, []);
+    }, [localStorage.getItem("Authorization")]);
 
     useEffect(() => {
       // 페이지가 처음 로드될 때와 새로고침 시 state 값을 null로 설정
@@ -64,8 +55,6 @@
         <Header
           isLoggedIn={isLoggedIn}
           modalOpen={modalOpen}
-          onLogin={handleLoginSuccess}
-          onLogout={handleLogout}
           showModal={showModal}
           closeModal={closeModal}
         />
