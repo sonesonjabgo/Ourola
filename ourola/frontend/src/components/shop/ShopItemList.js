@@ -12,12 +12,13 @@ function ShopItemList({allConcert, allMembership}) {
     return null
   }
   
+  console.log(allMembership)
   return (
     <div className="shopCardsContainer">
-        <ShopItem src={allMembership.src} title={allMembership.title} path={allMembership.id} price={allMembership.price} content={allMembership.content} groupId={allMembership.groupId} isMembership = {true}/>
+        <ShopItem src={allMembership.filePath} title={allMembership.title} path={allMembership.id} price={allMembership.price} content={allMembership.content} groupId={allMembership.groupId} isMembership = {true}/>
 
       {allConcert.map((data, i) => (
-        <ShopItem key={i} src={data.src} title={data.title} path={data.id} price={data.price} content={data.content} groupId={data.groupId} isMembership={false}/>
+        <ShopItem key={i} src={data.filePath} title={data.title} path={data.id} price={data.price} content={data.content} groupId={data.groupId} isMembership={false}/>
       ))}
     </div>
   );

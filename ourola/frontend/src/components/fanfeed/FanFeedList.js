@@ -4,7 +4,7 @@ import axios from "axios";
 import FanFeedItem from "./FanFeedItem";
 
 const FanFeedList = ({ group, fanFeed }) => {
-
+  console.log(fanFeed)
   return (
     <div id="artistFeedList" className="artistFeedList">
       <section id="artistFeedBoard" className="artistFeedBoard">
@@ -22,6 +22,7 @@ const FanFeedList = ({ group, fanFeed }) => {
             like={it.like}
             commentCount={it.commentCount}
             createDate={it.createDate}
+            files={it.fileList}
           ></FanFeedItem>
         ))}
       </section>
