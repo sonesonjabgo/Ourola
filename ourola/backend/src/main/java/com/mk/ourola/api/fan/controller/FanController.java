@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
@@ -59,7 +60,7 @@ public class FanController {
 	// 채널 구독
 	// TODO: 중복으로 들어가는거 처리 필요
 	@PostMapping("/subscribe")
-	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody String group){
+	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestParam String group){
 		try {
 			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, group);
 			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);

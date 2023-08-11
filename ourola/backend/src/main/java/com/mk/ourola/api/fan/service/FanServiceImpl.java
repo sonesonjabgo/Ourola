@@ -71,7 +71,7 @@ public class FanServiceImpl implements FanService {
 		String email = jwtService.extractEmail(accessToken).get();
 		FanDto fanDto = fanRepository.findByEmail(email).get();
 		GroupDto groupDto = groupRepository.findByName(group);
-		if(! subscribeGroupRepository.existsByFanDto_IdAndGroupDto_id(fanDto.getId(), groupDto.getId())) {
+		if(subscribeGroupRepository.existsByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId())) {
 			throw new Exception("이미 구독중인 채널입니다.");
 		}
 		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
@@ -87,7 +87,7 @@ public class FanServiceImpl implements FanService {
 		String email = jwtService.extractEmail(accessToken).get();
 		FanDto fanDto = fanRepository.findByEmail(email).get();
 		GroupDto groupDto = groupRepository.findByName(group);
-		if(!subscribeGroupRepository.existsByFanDto_IdAndGroupDto_id(fanDto.getId(), groupDto.getId())) {
+		if(!subscribeGroupRepository.existsByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId())) {
 			throw new Exception("구독중이지 않은 그룹입니다.");
 		}
 
