@@ -182,6 +182,7 @@ public class FileServiceImpl implements FileService {
 		String file_path = FILE_PATH + "/openLiveFile/" + hashName;
 		File dest = new File(file_path);
 		file.transferTo(dest);
+		log.info("openLiveImgToPath :: "+file_path);
 
 		return hashName;
 	}
