@@ -59,9 +59,9 @@ public class FanController {
 	// 채널 구독
 	// TODO: 중복으로 들어가는거 처리 필요
 	@PostMapping("/subscribe")
-	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody String group){
 		try {
-			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, group);
 			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
