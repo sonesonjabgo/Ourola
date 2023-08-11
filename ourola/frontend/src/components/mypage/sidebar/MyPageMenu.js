@@ -6,8 +6,8 @@ const MyPageMenu = ({ menu }) => {
   return (
     <div className="menuItem">
       {menu.map((it) => (
-        <div className="menuTitle">
-          <Link key={it.id}>
+        <div className="menuTitle" key={it.id}>
+          <Link>
             <span>{it.title}</span>
             <br />
           </Link>
