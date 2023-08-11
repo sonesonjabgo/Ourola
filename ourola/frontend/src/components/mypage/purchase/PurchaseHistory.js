@@ -11,7 +11,6 @@ const PurchaseHistory = ({ config }) => {
     axios
       .get(`/user/purchase`, config)
       .then((response) => {
-        //console.log(response.data);
         setList(response.data);
         setLoadingPurchase(false);
       })
@@ -23,7 +22,11 @@ const PurchaseHistory = ({ config }) => {
 
   return (
     <div className="purchaseHistory">
-      {loadingPurchase ? <></> : list.map((it) => <PurchaseItem item={it} />)}
+      {loadingPurchase ? (
+        <></>
+      ) : (
+        list.map((it) => <PurchaseItem key={it.id} item={it} />)
+      )}
     </div>
   );
 };

@@ -12,6 +12,7 @@ function Header({ showModal, modalOpen, closeModal }) {
   const [click, setClick] = useState(false);
   const closeMobileMenu = () => setClick(false);
   const [searchText, setSearchText] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -113,7 +114,7 @@ function Header({ showModal, modalOpen, closeModal }) {
           )}
           {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
           {isLoggedIn ? (
-            <button>my page</button>
+            <Link to="mypage">마이페이지</Link>
           ) : (
             <Link to="/signup">회원가입</Link>
           )}
