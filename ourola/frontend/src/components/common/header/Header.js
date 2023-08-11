@@ -11,7 +11,7 @@ function Header({ showModal, modalOpen, closeModal }) {
   // isLoggedIn 의 상태에 따라 Header의 글귀를 바꿔야 함
   const [click, setClick] = useState(false);
   const closeMobileMenu = () => setClick(false);
-  const [searchText, setSearchText] = useState("bt")
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Header({ showModal, modalOpen, closeModal }) {
 
   // 로그아웃 상태 변경 함수
   const onLogout = () => {
-    navigate('/')
+    navigate("/");
     setLoggedIn(false);
   };
 
@@ -46,17 +46,24 @@ function Header({ showModal, modalOpen, closeModal }) {
     // 로컬스토리지에서 Authorization 제거
     localStorage.removeItem("UserEmail");
     localStorage.removeItem("Authorization");
-    
+
     // App에서 prop해온 onLogout 실행
     // isLoggedIn을 false로 만든다
     onLogout();
   };
 
-  const handleSearchTextChange = (event) =>{
+  const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
-  }
+  };
 
-  const search = () =>{
+  const search = () => {
+    const searchRegex = /^.{2,}$/; // 최소 2글자 이상인지를 검사하는 정규식
+    console.log(searchText);
+    if (!searchRegex.test(searchText)) {
+      console.log("검색어는 최소 2글자 이상이어야 합니다.");
+      return; // 검색어가 2글자 미만인 경우 함수 종료
+    }
+
     axios
       .get(`/search/` + searchText)
       .then((response) => {
@@ -66,7 +73,7 @@ function Header({ showModal, modalOpen, closeModal }) {
       .catch((error) => {
         console.error("Error fetching data : ", error);
       });
-  }
+  };
 
   return (
     <nav className="navbar">
@@ -84,11 +91,14 @@ function Header({ showModal, modalOpen, closeModal }) {
               onChange={handleSearchTextChange}
             ></input>
             <div>
-              <button style={{background:"none", border:"none"}} onClick={search}>
-              <img
-                className="searchbarButton"
-                src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-              />  
+              <button
+                style={{ background: "none", border: "none" }}
+                onClick={search}
+              >
+                <img
+                  className="searchbarButton"
+                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                />
               </button>
             </div>
           </div>
@@ -97,9 +107,11 @@ function Header({ showModal, modalOpen, closeModal }) {
           {isLoggedIn ? (
             <button onClick={clickLogout}>로그아웃</button>
           ) : (
-            <button className="btn-hover color-3" onClick={showModal}>로그인</button>
-            )}
-          {modalOpen && <Login onLogin={onLogin} closeModal={closeModal}/>}
+            <button className="btn-hover color-3" onClick={showModal}>
+              로그인
+            </button>
+          )}
+          {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
           {isLoggedIn ? (
             <button>my page</button>
           ) : (
