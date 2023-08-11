@@ -82,6 +82,28 @@ public class FanServiceImpl implements FanService {
 		return subscribeGroupRepository.save(subscribeGroupDto);
 	}
 
+	@Override
+	public int removeSubscribeGroup(String accessToken, String group, String nickname) throws Exception {
+		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
+		String email = jwtService.extractEmail(accessToken).get();
+		FanDto fanDto = fanRepository.findByEmail(email).get();
+		GroupDto groupDto = groupRepository.findByName(group);
+		if(!subscribeGroupRepository.existsByFanDto_IdAndGroupDto_id(fanDto.getId(), groupDto.getId())) {
+			throw new Exception("구독중이지 않은 그룹입니다.");
+		}
+
+		return subscribeGroupRepository.deleteByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId());
+	}
+
+	@Override
+	public SubscribeGroupDto checkSubscribeGroup(String accessToken, String group, String nickname) {
+		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
+		String email = jwtService.extractEmail(accessToken).get();
+		FanDto fanDto = fanRepository.findByEmail(email).get();
+		GroupDto groupDto = groupRepository.findByName(group);
+		return subscribeGroupRepository.findByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId());
+	}
+
 	// public boolean nicknameDuplicateCheck(String group, String nickname) throws Exception {
 	// 	GroupDto groupDto = groupRepository.findByName(group);
 	// 	return subscribeGroupRepository.existsByGroupDto_IdAndNickname(groupDto.getId(), nickname);
@@ -126,4 +148,6 @@ public class FanServiceImpl implements FanService {
 		Optional<FanDto> byId = fanRepository.findById(fanId);
 		return byId.get();
 	}
+
+
 }
