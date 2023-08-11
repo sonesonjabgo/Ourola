@@ -66,7 +66,7 @@ public class FanServiceImpl implements FanService {
 	}
 
 	@Override
-	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group, String nickname) throws Exception {
+	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group) throws Exception {
 		accessToken = jwtService.headerStringToAccessToken(accessToken).get();
 		String email = jwtService.extractEmail(accessToken).get();
 		FanDto fanDto = fanRepository.findByEmail(email).get();
@@ -77,7 +77,6 @@ public class FanServiceImpl implements FanService {
 		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
 			.fanDto(fanDto)
 			.groupDto(groupDto)
-			.nickname(nickname)
 			.build();
 		return subscribeGroupRepository.save(subscribeGroupDto);
 	}

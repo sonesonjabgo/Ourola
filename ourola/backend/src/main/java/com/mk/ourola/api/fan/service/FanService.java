@@ -17,7 +17,7 @@ public interface FanService {
 
 	public List<NotificationDto> getNotification(String email);
 
-	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group, String nickname) throws Exception;
+	public SubscribeGroupDto writeSubscribeGroup(String accessToken, String group) throws Exception;
 
 	public List<SubscribeGroupDto> getSubscribeGroup(int userId);
 
