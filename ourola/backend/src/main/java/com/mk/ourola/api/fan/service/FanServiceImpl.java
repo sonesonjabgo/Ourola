@@ -19,6 +19,7 @@ import com.mk.ourola.api.fan.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.feed.repository.dto.FeedDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -72,7 +73,7 @@ public class FanServiceImpl implements FanService {
 		FanDto fanDto = fanRepository.findByEmail(email).get();
 		GroupDto groupDto = groupRepository.findByName(group);
 		if(subscribeGroupRepository.existsByFanDto_IdAndGroupDto_Id(fanDto.getId(), groupDto.getId())) {
-			throw new Exception("이미 구독중인 채널입니다.");
+			throw new DuplicateRequestException("이미 구독중인 채널입니다.");
 		}
 		SubscribeGroupDto subscribeGroupDto = SubscribeGroupDto.builder()
 			.fanDto(fanDto)
