@@ -3,7 +3,11 @@ import React, { useEffect, useRef } from "react";
 import axios from "axios";
 
 const OpenLiveNotBook = ({
+  setModalReserveOpen,
   setModalCancleOpen,
+  setUserGetLive,
+  setOpenLiveList,
+  openLiveList,
   liveId,
   group,
   title,
@@ -45,7 +49,18 @@ const OpenLiveNotBook = ({
       config
     );
 
-    console.log(result);
+    const updatedOpenLiveList = openLiveList.map((it) => {
+      if (it.id === liveId) {
+        return result.data;
+      }
+
+      return it;
+    });
+
+    setOpenLiveList(updatedOpenLiveList);
+    setUserGetLive(false);
+    setModalReserveOpen(true);
+    setModalCancleOpen(false);
   };
 
   return (
@@ -79,13 +94,18 @@ const OpenLiveNotBook = ({
           className="openLiveNotBookWrapFooter"
         >
           <div
-            id="openLiveNotBookWrapHeaderTicketingDate"
-            className="openLiveNotBookWrapHeaderTicketingDate"
+            id="openLiveNotBookWrapFooterTicketingDate"
+            className="openLiveNotBookWrapFooterTicketingDate"
           >
             신청기간 : {ticketingDate} ~ {ticketingEndDate}
           </div>
           <div>
-            {curParticipant} / {maxParticipant}
+            <div
+              id="openLiveNotBookParticipant"
+              className="openLiveNotBookParticipant"
+            >
+              {curParticipant}등 / {maxParticipant}명
+            </div>
             <button
               id="openLiveBookCancleButton"
               className="openLiveBookCancleButton"
