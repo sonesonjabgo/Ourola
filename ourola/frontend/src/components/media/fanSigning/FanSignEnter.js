@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
 
-const OnlineConcertEnter = () => {
+const FanSignEnter = () => {
   const location = useLocation();
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
@@ -13,7 +13,8 @@ const OnlineConcertEnter = () => {
   // const [sessionId, setSessionId] = useState(location.state.sessionId);
   const sessionId = location.state.sessionId;
   const open = location.state.open;
-
+  const callId = location.state.callId;
+  console.log(location.state)
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("Authorization");
   const config = {
@@ -25,21 +26,33 @@ const OnlineConcertEnter = () => {
 
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    if (!isAdmin) {
-      console.log(open);
-      if (!open) {
-        alert("입장 시간이 아닙니다");
-        return;
+    // if (!isAdmin) {
+    //   console.log(open);
+    //   if (!open) {
+    //     alert("입장 시간이 아닙니다");
+    //     return;
+    //   }
+    // }
+    axios
+      .get(`/${group}/onlinecall/check/${callId}`)
+      .then((res)=>{
+        console.log(res)
+        console.log('asdadasaaaaaaaaaaaaaaaa')
       }
-    }
+      )
+      .catch((err)=>{
+        console.log(err)
+        console.log(group)
+        console.log(callId)
+      })
 
-    navigate(`/${group}/online-concert/view`, {
-      state: {
-        nickname: nickname,
-        sessionId: sessionId,
-        isAdmin: isAdmin,
-      },
-    });
+    // navigate(`/${group}/online-concert/view`, {
+    //   state: {
+    //     nickname: nickname,
+    //     sessionId: sessionId,
+    //     isAdmin: isAdmin,
+    //   },
+    // });
     // onJoinSession(nickname, sessionId, isAdmin);
   };
 
@@ -82,7 +95,8 @@ const OnlineConcertEnter = () => {
             <input
               className="btn btn-lg btn-success"
               name="입장하기"
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               value="JOIN"
             />
           </p>
@@ -92,4 +106,4 @@ const OnlineConcertEnter = () => {
   );
 };
 
-export default OnlineConcertEnter;
+export default FanSignEnter;

@@ -17,21 +17,21 @@ const OthersSubNav = ({ group }) => {
         <div className="othersSubTab">
             <div className="othersMenuButtonContainer">
                 <Link
-                to={`/${group}/announcement`}
+                to={`/${group}/others/announcement`}
                 className={isTabActive("announcement") ? "active" : ""}
                 onClick={() => handleTabClick("announcement")}
                 >
                 공지사항
                 </Link>
                 <Link
-                to={`/${group}/openlive`}
+                to={`/${group}/others/openlive`}
                 className={isTabActive("openlive") ? "active" : ""}
                 onClick={() => handleTabClick("openlive")}
                 >
                 공방신청
                 </Link>
                 <Link
-                to={`/${group}/membershipOnly`}
+                to={`/${group}/others/membershipOnly`}
                 className={isTabActive("membershipOnly") ? "active" : ""}
                 onClick={() => handleTabClick("membershipOnly")}
                 >
