@@ -20,7 +20,7 @@ const Card = ({ src, text, path }) => {
   }
   
   return (
-  <Link to={path} className="groupLink" onClick={checkFollow}>
+  <Link to={`${path}/fanfeed`} className="groupLink" onClick={checkFollow}>
     <div className="card">
       <img src={src} alt={text} />
       <div className="cardInfo">
