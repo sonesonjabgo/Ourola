@@ -9,7 +9,7 @@
 import React from "react";
 import App from "./App";
 import { render } from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
@@ -33,6 +33,7 @@ import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnte
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 import OpenLive from "components/others/openlive/OpenLive";
+import NotFound from "./components/common/NotFound";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -62,7 +63,6 @@ render(
       {/* 아티스트 피드 */}
       <Route path="/:group/group" element={<Group />}></Route>
 
-
       {/* 미디어 - 팬싸인회 */}
       <Route
         path="/:group/media/fanSigning/list"
@@ -91,7 +91,10 @@ render(
       ></Route>
 
       {/* others - 공지사항 */}
-      <Route path="/:group/others/announcement" element={<Announcement />}></Route>
+      <Route
+        path="/:group/others/announcement"
+        element={<Announcement />}
+      ></Route>
       {/* others - 멤버쉽 콘텐츠 */}
       <Route
         path="/:group/others/membershipOnly"
@@ -106,12 +109,12 @@ render(
       <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
 
-
       {/* 팬싸인회 */}
-      
 
       {/* 소셜로그인 */}
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
+      <Route path="*" element={<Navigate to="/NotFound" />} />
+      <Route path="/NotFound" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,
   container

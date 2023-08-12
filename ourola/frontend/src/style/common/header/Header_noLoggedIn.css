@@ -17,6 +17,14 @@
     height: 70px;
     max-width: 1500px;
   }
+
+  .navbarUtilContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    max-width: 1500px;
+  }
   
   .navbarLogo {
     color: black;
