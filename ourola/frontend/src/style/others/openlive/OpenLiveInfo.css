@@ -1,8 +1,8 @@
-.openLiveNotBook {
+.openLiveInfo {
   cursor: auto;
 }
 
-.openLiveNotBookWrap {
+.openLiveInfoWrap {
   display: flex;
   width: 800px;
   height: 600px;
@@ -21,21 +21,21 @@
   flex-direction: column;
 }
 
-.openLiveNotBookWrapHeader {
+.openLiveInfoWrapHeader {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #e4e6ea;
   max-height: 110px;
 }
 
-.openLiveNotBookWrapHeaderTitle {
+.openLiveInfoWrapHeaderTitle {
   margin-top: 30px;
   margin-left: 30px;
   margin-bottom: 20px;
   font-size: 30px;
 }
 
-.openLiveNotBookWrapContent {
+.openLiveInfoWrapContent {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #e4e6ea;
@@ -43,37 +43,26 @@
   max-height: 420px;
 }
 
-.openLiveNotBookWrapContentValue {
+.openLiveInfoWrapContentValue {
   margin-top: 30px;
   margin-left: 30px;
   max-width: 730px;
   color: #666;
 }
 
-.openLiveNotBookWrapFooter {
+.openLiveInfoWrapFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
   font-size: 18px;
-  margin-top: 25px;
+  margin-top: 32px;
 }
 
-.openLiveNotBookWrapFooterTicketingDate {
+.openLiveInfoWrapFooterTicketingDate {
   margin-left: 30px;
 }
 
-.openLiveNotBookParticipant {
-  display: inline-block;
-}
-
-.openLiveBookCancleButton {
-  margin-left: 20px;
+.openLiveInfoWrapFooterTicketingParticipant {
   margin-right: 30px;
-  cursor: pointer;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 5px;
-  border: none;
-  background-color: #f44336;
 }
