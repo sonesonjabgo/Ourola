@@ -9,7 +9,7 @@
 import React from "react";
 import App from "./App";
 import { render } from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
@@ -30,6 +30,7 @@ import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnte
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 import OpenLive from "components/others/openlive/OpenLive";
+import NotFound from "./components/common/NotFound";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -55,10 +56,7 @@ render(
       <Route path="/:group/group" element={<Group />}></Route>
       <Route path="/:group/announcement" element={<Announcement />}></Route>
       <Route path="/:group/openlive" element={<OpenLive />}></Route>
-      <Route
-        path="/:group/membershipOnly"
-        element={<MembershipOnly />}
-      ></Route>
+      <Route path="/:group/membershipOnly" element={<MembershipOnly />}></Route>
       <Route path="/:group/fanSigning" element={<FanSigning />}></Route>
       <Route path="/:group/shop/" element={<Shop />}></Route>
       <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
@@ -94,6 +92,8 @@ render(
 
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
+      <Route path="*" element={<Navigate to="/NotFound" />} />
+      <Route path="/NotFound" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,
   container
