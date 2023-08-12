@@ -106,17 +106,17 @@ function Header({ showModal, modalOpen, closeModal }) {
         </ul>
         <div className="buttons">
           {isLoggedIn ? (
-            <button onClick={clickLogout}>로그아웃</button>
+            <button className="authButton" onClick={clickLogout}>로그아웃</button>
           ) : (
-            <button className="btn-hover color-3" onClick={showModal}>
+            <button className="authButton" onClick={showModal}>
               로그인
             </button>
           )}
           {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
           {isLoggedIn ? (
-            <Link to="mypage">마이페이지</Link>
+            <Link to="mypage" className="authButton">마이 페이지</Link>
           ) : (
-            <Link to="/signup">회원가입</Link>
+            <Link to="/signup" className="authButton">회원가입</Link>
           )}
         </div>
       </div>

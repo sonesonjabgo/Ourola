@@ -8,6 +8,7 @@
     position: fixed;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   
   .navbarContainer {
@@ -248,4 +249,12 @@ input::placeholder {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.authButton {
+  border: none;
+  background-color:transparent;
+  margin-right: 10px;
+  font-size: large;
+  width: 70px;
 }
