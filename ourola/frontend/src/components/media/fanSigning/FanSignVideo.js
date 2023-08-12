@@ -1,7 +1,7 @@
 import UserVideoComponent from "./UserVideoComponent";
 import "../../../style/media/onlineconcert/OnlineConcertVideo.css";
 
-const OnlineConcertVideo = ({
+const FanSignVideo = ({
   sessionId,
   mainStreamManager,
   onLeaveSession,
@@ -44,4 +44,4 @@ const OnlineConcertVideo = ({
   );
 };
 
-export default OnlineConcertVideo;
+export default FanSignVideo;
