@@ -7,13 +7,16 @@ import axios from 'axios'
 import OpenShopCreateModal from './OpenShopCreateModal'
 
 const Shop = () => {
+    const location = useLocation();
+    const group = location.pathname.split("/")[1];
+
     // Concert 물품 전체 불러오기
     const [allConcert, setAllConcert] = useState([])
 
     useEffect(() => {
       let isMounted = true;
   
-      axios.get('shop/seventeen/online-concert')
+      axios.get(`shop/${group}/online-concert`)
         .then((response) => {
           if (isMounted) {
           setAllConcert(response.data)
@@ -34,7 +37,7 @@ const Shop = () => {
         useEffect(() => {
           let isMounted = true;
       
-          axios.get('shop/seventeen/membership')
+          axios.get(`shop/${group}/membership`)
             .then((response) => {
               if (isMounted) {
               setAllMembership(response.data)
@@ -64,8 +67,6 @@ const Shop = () => {
           console.error('누구세용?', error)
         })
     }, [])
-
-    const location = useLocation()
 
     const path = location.pathname
 
