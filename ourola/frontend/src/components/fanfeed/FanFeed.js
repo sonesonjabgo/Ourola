@@ -55,23 +55,28 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-if (userInfo) {
-  return (
-    <>
-      <div className="contentContainer">
-        <div className="buttonCreatefeedContainer">
-          <CreateFeedButton groupInfo = {groupInfo} userInfo = {userInfo} userRole = {userInfo.role}/>
-        </div>
-        <div className="onelineAnnouncementContainer">
-          <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
-            <AnnouncementOneline group={group} />
-          </Link>
-        </div>
-        <div className="fanfeedProfileContainer">
-          <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
-        </div>
-        <div className="fanfeedFeedContainer">
-          <FanFeedList userInfo={userInfo} userRole = {userInfo.role}/>
+  if (userInfo) {
+    return (
+      <>
+        <div className="contentContainer">
+          <div className="buttonCreatefeedContainer">
+            <CreateFeedButton
+              groupInfo={groupInfo}
+              userInfo={userInfo}
+              userRole={userInfo.role}
+            />
+          </div>
+          <div className="onelineAnnouncementContainer">
+            <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
+              <AnnouncementOneline group={group} />
+            </Link>
+          </div>
+          <div className="fanfeedProfileContainer">
+            <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
+          </div>
+          <div className="fanfeedFeedContainer">
+            <FanFeedList userInfo={userInfo} userRole={userInfo.role} />
+          </div>
         </div>
       </>
     );
