@@ -1,5 +1,6 @@
 import "../../style/fanfeed/FanFeedItem.css";
 import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom'
 import moment from "moment";
 import FanFeedDetail from "./FanFeedDetail";
 import axios from "axios";
@@ -19,8 +20,17 @@ const FanFeedItem = ({
   content,
   like,
   createDate,
-  files
+  files,
+  userInfo,
+  count,
+  setCount,
+  setFanFeed,
+  userRole
 }) => {
+
+  console.log(userInfo)
+  const location = useLocation();
+  const nowGroup = location.pathname.split("/")[1];
 
   const [accessImg, setAccessImg] = useState();
 
@@ -146,6 +156,37 @@ const FanFeedItem = ({
     document.body.style.overflow = "hidden";
   };
 
+  // 피드 삭제
+  const token = localStorage.getItem('Authorization')
+    
+  const headers = {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "multipart/form-data"
+  }
+
+  const deleteRequest = (event) => {
+    event.preventDefault()
+
+    axios.delete(`${nowGroup}/feed/remove/${id}`, { headers: headers })
+        .then((response) => {
+            alert('피드가 삭제되었습니다')
+            setFanFeed(fanFeed => fanFeed.filter(feed => feed.id !== id))
+        })
+        .catch((error) => {
+            if (error.response) {
+                // 서버가 응답을 반환한 경우
+                console.error('Error response:', error.response.data);
+            } else if (error.request) {
+                // 요청이 만들어졌지만 응답을 받지 못한 경우
+                console.error('No response:', error.request);
+            } else {
+                // 그 외의 오류
+                console.error('Error:', error.message);
+            }
+            alert('삭제 실패');
+        });
+}
+
   return (
     <div id="artistFeedItem" className="artistFeedItem">
       <div id="aritstFeedHeader" className="aritstFeedHeader">
@@ -171,6 +212,8 @@ const FanFeedItem = ({
           </div>
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
+          {userInfo.id === fanId || userRole === 'CHANNEL_ADMIN' ?
+          <button onClick={deleteRequest}>피드 삭제</button> : null }
           <img
             src={bookmarkempty}
             alt="이미지가 없습니다."

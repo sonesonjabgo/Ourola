@@ -11,8 +11,6 @@ function Fanfeed() {
   const location = useLocation();
   const group = location.pathname.split("/")[1];
 
-  const [loadingFeed, setLodingFeed] = useState(true);
-  const [fanFeed, setFanFeed] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
 
@@ -52,21 +50,6 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 현재 접속 중인 페이지의 그룹 전체 피드 불러오기
-  useEffect(() => {
-    axios
-      .get(`/${group}/feed/fan`)
-      .then((response) => {
-        setFanFeed(response.data);
-        setLodingFeed(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data : ", error);
-        setLodingFeed(false);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
 if (userInfo) {
   return (
     <>
@@ -83,7 +66,7 @@ if (userInfo) {
           <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
         </div>
         <div className="fanfeedFeedContainer">
-          <FanFeedList fanFeed={fanFeed}/>
+          <FanFeedList userInfo={userInfo} userRole = {userInfo.role}/>
         </div>
       </div>
     </>
