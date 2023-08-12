@@ -33,11 +33,13 @@ function Fanfeed() {
         setUserInfo(response.data);
       })
       .catch((error) => {
-        console.error("현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용", error);
+        console.error(
+          "현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용",
+          error
+        );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   // 현재 접속 중인 페이지의 그룹 정보 불러오기
   useEffect(() => {
@@ -47,7 +49,10 @@ function Fanfeed() {
         setGroupInfo(response.data);
       })
       .catch((error) => {
-        console.error("현재 접속 중인 페이지의 그룹 정보를 불러올 수 없어 이 글을 보고 계십니다", error);
+        console.error(
+          "현재 접속 중인 페이지의 그룹 정보를 불러올 수 없어 이 글을 보고 계십니다",
+          error
+        );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -67,29 +72,34 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-if (userInfo) {
-  return (
-    <>
-      <div className="contentContainer">
-        <div className="buttonCreatefeedContainer">
-          <CreateFeedButton groupInfo = {groupInfo} userInfo = {userInfo} userRole = {userInfo.role}/>
+  if (userInfo) {
+    return (
+      <>
+        <div className="contentContainer">
+          <div className="buttonCreatefeedContainer">
+            <CreateFeedButton
+              groupInfo={groupInfo}
+              userInfo={userInfo}
+              userRole={userInfo.role}
+            />
+          </div>
+          <div className="onelineAnnouncementContainer">
+            <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
+              <AnnouncementOneline group={group} />
+            </Link>
+          </div>
+          <div className="fanfeedProfileContainer">
+            <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
+          </div>
+          <div className="fanfeedFeedContainer">
+            <FanFeedList fanFeed={fanFeed} />
+          </div>
         </div>
-        <div className="onelineAnnouncementContainer">
-          <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
-            <AnnouncementOneline group={group} />
-          </Link>
-        </div>
-        <div className="fanfeedProfileContainer">
-          <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
-        </div>
-        <div className="fanfeedFeedContainer">
-          <FanFeedList fanFeed={fanFeed}/>
-        </div>
-      </div>
-    </>
-  );
-} else {
-  return null
-}}
+      </>
+    );
+  } else {
+    return null;
+  }
+}
 
 export default Fanfeed;

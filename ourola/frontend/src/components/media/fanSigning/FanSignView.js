@@ -3,11 +3,11 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 // import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
-import OnlineConcertEnter from "./OnlineConcertEnter";
-import OnlineConcertVideo from "./OnlineConcertVideo";
+import FanSignEnter from "./FanSignEnter";
+import FanSignVideo from "./FanSignVideo";
 import { useLocation } from "react-router-dom";
 
-const OnlineConcertView = () => {
+const FanSignView = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
 
@@ -250,11 +250,11 @@ const OnlineConcertView = () => {
   return (
     <div className="container">
       {session === undefined ? (
-        <OnlineConcertEnter onJoinSession={onJoinSession} />
+        <FanSignEnter onJoinSession={onJoinSession} />
       ) : null}
 
       {session !== undefined ? (
-        <OnlineConcertVideo
+        <FanSignVideo
           sessionId={sessionId}
           mainStreamManager={mainStreamManager}
           onLeaveSession={onLeaveSession}
@@ -263,7 +263,7 @@ const OnlineConcertView = () => {
       ) : null}
 
       {subscribers.map((sub, i) => (
-        <OnlineConcertVideo
+        <FanSignVideo
         sessionId={sessionId}
         mainStreamManager={sub}
         onLeaveSession={onLeaveSession}
@@ -274,4 +274,4 @@ const OnlineConcertView = () => {
   );
 };
 
-export default OnlineConcertView;
+export default FanSignView;

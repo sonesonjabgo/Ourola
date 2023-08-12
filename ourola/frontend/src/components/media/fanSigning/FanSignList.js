@@ -1,16 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import OnlineConcertItem from "./OnlineConcertItem";
+import FanSignItem from "./FanSignItem";
 import "../../../style/media/onlineconcert/OnlineConcertList.css";
 
-const OnlineConcertList = () => {
+const FanSignList = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
   const [concertList, setConcertList] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`/${group}/online-concert/list`)
+      .get(`/${group}/online-concert/list`) // onlinecall
       .then((response) => {
         setConcertList(response.data);
         console.log(response.data);
@@ -24,8 +24,8 @@ const OnlineConcertList = () => {
     <div className="onlineConcertListMain">
       <div className="onlineConcertList">
         {concertList.map((it) => (
-          <OnlineConcertItem
-            key={it.id}
+          <FanSignItem
+            keyid={it.id}
             text={it.title}
             group={group}
             sessionId={it.sessionId}
@@ -37,4 +37,4 @@ const OnlineConcertList = () => {
   );
 };
 
-export default OnlineConcertList;
+export default FanSignList;
