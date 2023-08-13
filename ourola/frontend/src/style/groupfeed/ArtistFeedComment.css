@@ -90,6 +90,7 @@
   white-space: pre-line;
   word-break: break-word;
   z-index: 5;
+  max-width: 270px;
 }
 
 .artistFeedCommentUserDelete {
@@ -114,6 +115,6 @@
   font-size: 30px;
   color: #e4e6ea;
   position: absolute;
-  top: -5px;
-  left: 310px;
+  top: 5px;
+  left: 280px;
 }
