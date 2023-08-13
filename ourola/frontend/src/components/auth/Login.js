@@ -4,6 +4,10 @@ import styles from '../../style/auth/loginmodal.module.css';
 import FindEmail from './FindEmail';
 import FindPassword from './FindPassword'
 import {useCookies} from 'react-cookie'
+import kakaologo from "../../socialLoginLogo/kakao.png"
+import googlelogo from "../../socialLoginLogo/google.png"
+import naverlogo from "../../socialLoginLogo/naver.png"
+
 
 function Login({ onLogin, closeModal }) {
   const [email, setEmail] = useState("");
@@ -137,16 +141,18 @@ function Login({ onLogin, closeModal }) {
           로그인
         </button>
       </form>
-      <div>
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> 카카오</a> |
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> 네이버</a> |
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> 구글</a>
+      <div className={styles.loginothersdiv}>
+      <div className={styles.socialLogin}>
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> <img src={kakaologo}/></a>
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> <img src={naverlogo}/></a>
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> <img src={googlelogo}/></a>
         </div>
       <div>
       <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |
       {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
       <a href='#' onClick={openFindPasswordModal}> 비밀번호 찾기</a>
       {showFindPasswordModal && <FindPassword onClose={closeFindPasswordModal} />}
+      </div>
       </div>
     </div>
   );
