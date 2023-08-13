@@ -54,8 +54,6 @@ const OpenLiveBook = ({
       config
     );
 
-    console.log(result);
-
     if (result.data === false) {
       const newOpenLive = await axios.get(
         `/${group}/open-live/list?page=${page}`,

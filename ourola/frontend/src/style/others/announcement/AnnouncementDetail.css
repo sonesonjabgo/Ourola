@@ -43,6 +43,15 @@
   height: 20px;
 }
 
+.announcementDetail ::-webkit-scrollbar {
+  width: 2px;
+}
+
+.announcementDetail ::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
+}
+
 .announcementDetailClose {
   z-index: 23000;
   height: 60px;
