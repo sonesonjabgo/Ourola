@@ -28,15 +28,13 @@ import com.mk.ourola.api.mypage.service.MyPageServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MyPageController {
 	private final MyPageServiceImpl myPageService;
 	private final JwtService jwtService;
 	private final BookmarkServiceImpl bookmarkService;
 
-	// TODO : component가 바뀌도록 할건데 일단 페이지 바뀌는걸로 함
-	// FIXME : 추후 component가 바뀌도록 하자
 
 	// 개인정보 확인
 	// FIXME : 유저 DTO 수정되는 대로 다시 건드리기
@@ -48,7 +46,6 @@ public class MyPageController {
 			if (role.equals("USER") || role.equals("GUEST")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
-				System.out.println("aaa");
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
 			}
 		} catch (Exception e) {
