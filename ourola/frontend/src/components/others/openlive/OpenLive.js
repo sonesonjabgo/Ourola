@@ -115,6 +115,7 @@ const OpenLive = () => {
               key={it.id}
               id={it.id}
               group={group}
+              page={page}
               openLiveList={openLiveList}
               setOpenLiveList={setOpenLiveList}
               title={it.title}

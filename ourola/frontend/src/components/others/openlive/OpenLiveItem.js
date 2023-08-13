@@ -8,6 +8,7 @@ import OpenLiveInfo from "./OpenLiveInfo";
 const OpenLiveItem = ({
   id,
   group,
+  page,
   openLiveList,
   setOpenLiveList,
   title,
@@ -159,6 +160,7 @@ const OpenLiveItem = ({
                     openLiveList={openLiveList}
                     liveId={id}
                     group={group}
+                    page={page}
                     title={title}
                     content={contentItem}
                     startFormatDate={startFormatDate}
