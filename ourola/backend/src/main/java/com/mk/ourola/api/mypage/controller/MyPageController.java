@@ -28,7 +28,7 @@ import com.mk.ourola.api.mypage.service.MyPageServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/mypage")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class MyPageController {
 	private final MyPageServiceImpl myPageService;
