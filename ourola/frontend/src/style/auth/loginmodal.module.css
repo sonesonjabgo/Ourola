@@ -55,6 +55,7 @@ form {
   font-family: Inter, 'Source Sans Pro';
   white-space: nowrap;
   background-color: #e4d4f9;
+  border: none;
   border-radius: 3.3478rem;
 }
 
@@ -72,21 +73,20 @@ form {
 .loginsubmitbutton {
   width: 8.3696rem;
   height: 3.571rem;
-  /* position: absolute; */
-  left: 11.2982rem;
-  top: 20.3333rem;
-  font-size: 1.5623rem;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.2125;
   color: #ffffff;
-  font-family: Inter, 'Source Sans Pro';
+  /* font-family: Inter, 'Source Sans Pro'; */
   white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #a05bf9;
+  border: none;
   border-radius: 4.7986rem;
-  /* border-color: #a05bf9; */
+  border-color: #a05bf9;
+  cursor: pointer;
 }
 
 .errormessage {

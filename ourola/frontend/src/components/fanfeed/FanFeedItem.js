@@ -28,7 +28,6 @@ const FanFeedItem = ({
   userRole
 }) => {
 
-  console.log(userInfo)
   const location = useLocation();
   const nowGroup = location.pathname.split("/")[1];
 
