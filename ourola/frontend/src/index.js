@@ -9,7 +9,7 @@
 import React from "react";
 import App from "./App";
 import { render } from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
 import FanFeed from "./components/fanfeed/FanFeed";
@@ -19,10 +19,13 @@ import "./index.css";
 import Header from "./components/common/header/Header";
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
 import Signup from "./components/auth/SignUp";
-import FanSigning from "./components/media/fanSigning/FanSigning";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
 import KakaoLoginHandler from "./components/auth/KakaoLoginHandler";
 import ShopBasket from "./components/shop/ShopBasket";
+
+import FanSignEnter from "components/media/fanSigning/FanSignEnter";
+import FanSignView from "components/media/fanSigning/FanSignView";
+import FanSignList from "components/media/fanSigning/FanSignList";
 
 import axios from "axios";
 import MyPage from "components/mypage/MyPage";
@@ -30,6 +33,7 @@ import OnlineConcertEnter from "components/media/onlineconcert/OnlineConcertEnte
 import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList";
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 import OpenLive from "components/others/openlive/OpenLive";
+import NotFound from "./components/common/NotFound";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -45,42 +49,72 @@ render(
     <Header />
     <ArtistHeader />
     <Routes>
+      {/* 메인, 회원가입, 마이페이지 */}
       <Route path="/" element={<App />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route
         path="/mypage"
         element={<MyPage accessToken={localStorage.getItem("Authorization")} />}
       ></Route>
-      <Route path="/:group" element={<FanFeed />}></Route>
-      <Route path="/:group/group" element={<Group />}></Route>
-      <Route path="/:group/announcement" element={<Announcement />}></Route>
-      <Route path="/:group/openlive" element={<OpenLive />}></Route>
-      <Route
-        path="/:group/membershipOnly"
-        element={<MembershipOnly />}
-      ></Route>
-      <Route path="/:group/fanSigning" element={<FanSigning />}></Route>
-      <Route path="/:group/shop/" element={<Shop />}></Route>
-      <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
-      <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
 
-      {/* 온라인콘서트 */}
+      {/* 팬 피드 */}
+      <Route path="/:group/fanfeed" element={<FanFeed />}></Route>
+
+      {/* 아티스트 피드 */}
+      <Route path="/:group/group" element={<Group />}></Route>
+
+      {/* 미디어 - 팬싸인회 */}
       <Route
-        path="/:group/online-concert/list"
+        path="/:group/media/fanSigning/list"
+        element={<FanSignList />}
+      ></Route>
+      <Route
+        path="/:group/media/fanSigning/enter"
+        element={<FanSignEnter />}
+      ></Route>
+      <Route
+        path="/:group/media/fanSigning/view"
+        element={<FanSignView />}
+      ></Route>
+      {/* 미디어 - 온라인콘서트 */}
+      <Route
+        path="/:group/media/online-concert/list"
         element={<OnlineConcertList />}
       ></Route>
       <Route
-        path="/:group/online-concert/enter"
+        path="/:group/media/online-concert/enter"
         element={<OnlineConcertEnter />}
       ></Route>
       <Route
-        path="/:group/online-concert/view"
+        path="/:group/media/online-concert/view"
         element={<OnlineConcertView />}
       ></Route>
-      {/* <Route path="/:group/online-concert/view" element={<Temp />}></Route> */}
 
+      {/* others - 공지사항 */}
+      <Route
+        path="/:group/others/announcement"
+        element={<Announcement />}
+      ></Route>
+      {/* others - 멤버쉽 콘텐츠 */}
+      <Route
+        path="/:group/others/membershipOnly"
+        element={<MembershipOnly />}
+      ></Route>
+      {/* others- 공방신청 */}
+      <Route path="/:group/others/openlive" element={<OpenLive />}></Route>
+
+      {/* shop */}
+      <Route path="/:group/shop/" element={<Shop />}></Route>
+      <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
+      <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
+
+      {/* 팬싸인회 */}
+
+      {/* 소셜로그인 */}
       <Route path="/login/oauth2/code/kakao" element={<KakaoLoginHandler />} />
+      <Route path="*" element={<Navigate to="/NotFound" />} />
+      <Route path="/NotFound" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,
   container

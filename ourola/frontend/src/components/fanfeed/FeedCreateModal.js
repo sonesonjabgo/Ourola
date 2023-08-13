@@ -7,6 +7,7 @@ import axios from 'axios'
 
 
 const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
+
     // 모달
     const setModalOpen = state.setModalOpen;
   
@@ -44,24 +45,50 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
       'Authorization': `Bearer ${token}`
     }
 
-    const submitFeed = (event) => {
+    // 파일
+    const [file, setFile] = useState(null)
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0])
+    }
+
+    // input type="file" 기본 형태의 기능을 이미지가 수행할 수 있도록
+    const imageInput = useRef()
+
+    const onClickImageUpload = () => {
+      imageInput.current.click()
+    }
+
+    // 현재 로그인 중인 유저가 일반 사용자인지, 아티스트 또는 소속사인지 판단해 피드 타입 지정
+    const [feedType, setFeedType] = useState()
+    useEffect(() => {
+      if (userRole === 'USER') {
+        setFeedType(1)
+      } else {
+        setFeedType(2)
+      }
+    })
+
+    const submitFeed = async (event) => {
       event.preventDefault()
       console.log(content)
 
       const formData = new FormData()
 
       formData.append('content', content)
-      // 그룹명 부분 seventeen으로 고정된 상태 - 바꿔줘야 함
+      formData.append('files', file)
+      formData.append('type', feedType)
       axios.post(`${group}/feed/write`, formData, {headers: headers})
 
         .then((response) => {
           console.log(response.data)
           closeModal()
-          // window.location.reload()
+          window.location.reload()
         })
         .catch((error) => {
           console.error(error)
         })
+
     }
     
     return (
@@ -81,7 +108,8 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
             </div>
           </div>
           <div className="feedCreateButtonContainer">
-                <img className="feedCreateButtonUploadfile" src={FileUploadButton} />
+                <input type="file" style={{ display: "none" }} ref={imageInput} onChange={handleFileChange}/>
+                <img onClick={onClickImageUpload} className="feedCreateButtonUploadfile" src={FileUploadButton} />
                 <button type='submit' className="feedCreateButtonUploadfeed">등록</button>
           </div>
         </div>

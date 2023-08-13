@@ -75,6 +75,13 @@ const ShopCreateModal = (props) => {
         })
     }
 
+    // 파일
+    const [file, setFile] = useState(null)
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0])
+    }
+
     // POST 요청 실행
     const postRequest = (event) => {
 
@@ -87,6 +94,7 @@ const ShopCreateModal = (props) => {
         formData.append('price', parseInt(inputValue.price, 10))
         formData.append('startTime', selectedOpenDate)
         formData.append('ticketingTime', selectedTicketingDate)
+        formData.append('main-file', file)
         
         axios.post('shop/seventeen/online-concert', formData, {headers: headers})
             .then((response) => {
@@ -131,6 +139,11 @@ const ShopCreateModal = (props) => {
                     <input type="text" id="price" name="price" value={inputValue.price} onChange={handleInputChange}></input>
                     </div>
 
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+
                     <div className="postButtonContainer">
                     <input type="submit" className="createButton" value="등록"></input>
                     </div>
@@ -163,6 +176,12 @@ const ShopCreateModal = (props) => {
                     <label htmlFor="startTime">오픈 시간</label>
                     <input type="datetime-local" id="startTime" name="startTime" value={selectedOpenDate} onChange={handleOpenDateChange}></input>
                     </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+
                     <div className="postButtonContainer">
                     <input type="submit" className="postButton" value="등록"></input>
                 </div>

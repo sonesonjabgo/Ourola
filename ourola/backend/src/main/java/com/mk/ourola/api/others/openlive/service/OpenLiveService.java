@@ -22,7 +22,7 @@ public interface OpenLiveService {
 
 	public OpenLiveParticipantDto writeOpenLiveParticipate(String artist, String accessToken, int id) throws Exception;
 
-	Integer cancelOpenLiveParticipate(Integer userId, int id);
+	OpenLiveDto cancelOpenLiveParticipate(Integer userId, int id);
 
 	int getParticipateRank(Integer userId, int openLiveId);
 }
