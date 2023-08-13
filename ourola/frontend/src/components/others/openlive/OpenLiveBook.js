@@ -53,20 +53,25 @@ const OpenLiveBook = ({
       config
     );
 
-    const updatedOpenLiveList = openLiveList.map((it) => {
-      if (it.id === liveId) {
-        return result.data;
-      }
+    console.log(result);
 
-      return it;
-    });
+    if (result === false) {
+      setModalReserveOpen(true);
+    } else {
+      const updatedOpenLiveList = openLiveList.map((it) => {
+        if (it.id === liveId) {
+          return result.data;
+        }
 
-    setOpenLiveList(updatedOpenLiveList);
-    setUserGetLive(true);
-    setModalReserveOpen(false);
-    setModalCancleOpen(true);
+        return it;
+      });
+
+      setOpenLiveList(updatedOpenLiveList);
+      setUserGetLive(true);
+      setModalReserveOpen(false);
+      setModalCancleOpen(true);
+    }
   };
-
   return (
     <div id="openLiveBook" className="openLiveBook" ref={modalRef}>
       <div id="openLiveBookWrap" className="openLiveBookWrap">
