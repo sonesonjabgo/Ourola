@@ -1,8 +1,17 @@
-import { useEffect } from "react";
+import BookmarkList from "./BookmarkList";
+import "../../../style/mypage/bookmark/Bookmark.css";
 
-const BookMark = ({ accessToken }) => {
-  //useEffect(() => {});
-  return <div></div>;
+const Bookmark = ({ config }) => {
+  return (
+    <div className="bookmarkMain">
+      <div className="bookmarkMainTitle">
+        <span className="titleText">북마크 </span>
+      </div>
+      <div className="bookmarkBody">
+        <BookmarkList config={config} />
+      </div>
+    </div>
+  );
 };
 
-export default BookMark;
+export default Bookmark;

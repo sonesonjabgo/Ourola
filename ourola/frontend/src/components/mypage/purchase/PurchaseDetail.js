@@ -1,6 +1,12 @@
-// const PurchaseDetail = ({ setModalOpen, item }) => {
-//   console.log(item);
-//   return <div></div>;
-// };
+const PurchaseDetail = (props) => {
+  const item = props.item;
+  const setModalOpen = props.setModalOpen;
 
-// export default PurchaseDetail();
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  return null;
+};
+
+export default PurchaseDetail;
