@@ -3,6 +3,8 @@ package com.mk.ourola.api.others.openlive.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.LimitExceededException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -103,6 +105,8 @@ public class OpenLiveController {
 				throw new Exception("신청에 실패하였습니다.");
 			}
 			return new ResponseEntity<>(openLiveDto, HttpStatus.OK);
+		} catch (LimitExceededException lee) {
+			return new ResponseEntity<>(false, HttpStatus.OK);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
