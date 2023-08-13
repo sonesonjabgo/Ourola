@@ -59,8 +59,12 @@
   margin-top: 25px;
 }
 
-.openLiveNotBookWrapHeaderTicketingDate {
+.openLiveNotBookWrapFooterTicketingDate {
   margin-left: 30px;
+}
+
+.openLiveNotBookParticipant {
+  display: inline-block;
 }
 
 .openLiveBookCancleButton {
@@ -71,5 +75,32 @@
   color: white;
   border-radius: 5px;
   border: none;
-  background-color: #bfbfbf;
+  background-color: #f44336;
+}
+
+.openLiveNotBookClose {
+  z-index: 23000;
+  height: 60px;
+  position: absolute;
+  right: -70px;
+  width: 50px;
+  appearance: auto;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 70px;
+  color: #e4e6ea;
 }

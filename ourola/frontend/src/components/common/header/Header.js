@@ -83,41 +83,43 @@ function Header({ showModal, modalOpen, closeModal }) {
           <img className="mainLogo" src={mainLogo} alt="OurolaLogo" />
           Ourola
         </Link>
-        <ul className={click ? "navMenu active" : "navMenu"}>
-          <div className="searchbar">
-            <input
-              id="searchGroupText"
-              className="searchbarInput"
-              placeholder="아티스트 검색"
-              onChange={handleSearchTextChange}
-            ></input>
-            <div>
-              <button
-                style={{ background: "none", border: "none" }}
-                onClick={search}
-              >
-                <img
-                  className="searchbarButton"
-                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-                />
-              </button>
+        <div className="navbarUtilContainer">
+          <ul className={click ? "navMenu active" : "navMenu"}>
+            <div className="searchbar">
+              <input
+                id="searchGroupText"
+                className="searchbarInput"
+                placeholder="아티스트 검색"
+                onChange={handleSearchTextChange}
+              ></input>
+              <div>
+                <button
+                  style={{ background: "none", border: "none" }}
+                  onClick={search}
+                >
+                  <img
+                    className="searchbarButton"
+                    src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                  />
+                </button>
+              </div>
             </div>
+          </ul>
+          <div className="buttons">
+            {isLoggedIn ? (
+              <button className="authButton"onClick={clickLogout}>로그아웃</button>
+            ) : (
+              <button className="authButton" onClick={showModal}>
+                로그인
+              </button>
+            )}
+            {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
+            {isLoggedIn ? (
+              <Link className="authButton" to="mypage">마이페이지</Link>
+            ) : (
+              <Link className="authButton" to="/signup">회원가입</Link>
+            )}
           </div>
-        </ul>
-        <div className="buttons">
-          {isLoggedIn ? (
-            <button onClick={clickLogout}>로그아웃</button>
-          ) : (
-            <button className="btn-hover color-3" onClick={showModal}>
-              로그인
-            </button>
-          )}
-          {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
-          {isLoggedIn ? (
-            <Link to="mypage">마이페이지</Link>
-          ) : (
-            <Link to="/signup">회원가입</Link>
-          )}
         </div>
       </div>
     </nav>

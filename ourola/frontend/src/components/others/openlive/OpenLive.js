@@ -14,6 +14,7 @@ const OpenLive = () => {
   const [liveEnd, setLiveEnd] = useState(false);
   const [activeButton, setActiveButton] = useState(1);
   const [openLiveLoading, setOpenLiveLoading] = useState(true);
+  const [page, setPage] = useState(0);
 
   const accessToken = localStorage.getItem("Authorization");
 
@@ -54,6 +55,7 @@ const OpenLive = () => {
           setLiveEnd(false);
         }
         setOpenLiveStartIndex(openLiveStartIndex - 5);
+        setPage(openLiveStartIndex - 5);
         setActiveButton(openLiveStartIndex - 4);
         setOpenLiveLoading(false);
       })
@@ -68,6 +70,7 @@ const OpenLive = () => {
       .get(`/${group}/open-live/list?page=${page - 1}`, config)
       .then((response) => {
         setOpenLiveList(response.data.content);
+        setPage(page - 1);
         setActiveButton(page);
         setOpenLiveLoading(false);
       })
@@ -88,6 +91,7 @@ const OpenLive = () => {
           setLiveEnd(false);
         }
         setOpenLiveStartIndex(openLiveStartIndex + 5);
+        setPage(openLiveStartIndex + 5);
         setActiveButton(openLiveStartIndex + 6);
         setOpenLiveLoading(false);
       })
@@ -111,6 +115,8 @@ const OpenLive = () => {
               key={it.id}
               id={it.id}
               group={group}
+              openLiveList={openLiveList}
+              setOpenLiveList={setOpenLiveList}
               title={it.title}
               content={it.content}
               startDate={it.startDate}

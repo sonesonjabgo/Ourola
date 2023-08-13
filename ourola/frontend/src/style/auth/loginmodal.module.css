@@ -34,10 +34,8 @@ form {
 }
 
 .logintitle {
-  font-size: 4.0174rem;
+  font-size: 3.20rem;
   font-weight: 700;
-  margin: 0;
-  position: absolute;
   top: 30px;
 }
 
@@ -94,4 +92,19 @@ form {
 .errormessage {
   color: red;
   opacity: 80%;
+}
+
+.loginothersdiv {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 원하는 간격 크기로 조정하세요 */
+}
+
+img {
+  height: 50px;
+}
+
+.socialLogin{
+  width: 500px;
 }
