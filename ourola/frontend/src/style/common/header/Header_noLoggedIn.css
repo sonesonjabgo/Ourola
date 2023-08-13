@@ -223,6 +223,7 @@
   height: 25px;
   top: 8px;
   right: 10px;
+  cursor: pointer;
 }
 
 .searchbar {
@@ -268,6 +269,7 @@ a {
   font-size: large;
   width: 100px;
   vertical-align: center;
+  cursor: pointer;
 }
 .buttons > a {
   padding-top: 7px;
