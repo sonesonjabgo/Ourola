@@ -190,7 +190,7 @@ public class MyPageController {
 	@GetMapping("/bookmark")
 	public ResponseEntity<List<BookmarkDto>> getMyBookmark(@RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			Optional<String> role = jwtService.extractRole(accessToken);
+			Optional<String> role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get());
 			Integer userId = jwtService.accessTokenToUserId(accessToken);
 			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
 			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
