@@ -10,6 +10,7 @@ const OpenLiveBook = ({
   openLiveList,
   liveId,
   group,
+  page,
   title,
   content,
   startFormatDate,
@@ -55,7 +56,14 @@ const OpenLiveBook = ({
 
     console.log(result);
 
-    if (result === false) {
+    if (result.data === false) {
+      const newOpenLive = await axios.get(
+        `/${group}/open-live/list?page=${page}`,
+        config
+      );
+
+      setOpenLiveList(newOpenLive.data.content);
+      setUserGetLive(false);
       setModalReserveOpen(true);
     } else {
       const updatedOpenLiveList = openLiveList.map((it) => {
