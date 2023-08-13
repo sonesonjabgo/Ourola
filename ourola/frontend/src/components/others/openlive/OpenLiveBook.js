@@ -20,6 +20,10 @@ const OpenLiveBook = ({
 }) => {
   const modalRef = useRef(null);
 
+  const closeModal = () => {
+    setModalReserveOpen(false);
+  };
+
   useEffect(() => {
     const handler = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -36,8 +40,6 @@ const OpenLiveBook = ({
 
   const book = async () => {
     const accessToken = localStorage.getItem("Authorization");
-
-    console.log(accessToken);
 
     const config = {
       headers: {
@@ -69,6 +71,15 @@ const OpenLiveBook = ({
     <div id="openLiveBook" className="openLiveBook" ref={modalRef}>
       <div id="openLiveBookWrap" className="openLiveBookWrap">
         <div id="openLiveBookWrapHeader" className="openLiveBookWrapHeader">
+          <div>
+            <button
+              id="openLiveBookClose"
+              className="openLiveBookClose"
+              onMouseUp={closeModal}
+            >
+              ×
+            </button>
+          </div>
           <div
             id="openLiveBookWrapHeaderTitle"
             className="openLiveBookWrapHeaderTitle"
