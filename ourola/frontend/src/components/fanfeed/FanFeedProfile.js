@@ -9,18 +9,18 @@ function FanFeedProfile({ groupInfo, userInfo }) {
       <div className="fanFeedProfileGroupContainer">
         <img
           className="fanFeedProfileGroupImg"
-          src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${groupInfo[0].filePath}`}
+          src={`https://i9d204.p.ssafy.io:8001/file/getimg/group-img/${groupInfo[0]?.filePath}`}
           alt="ff"
         />
-        <div className="fanFeedProfileGroupNamespace">{groupInfo[0].name}</div>
+        <div className="fanFeedProfileGroupNamespace">{groupInfo[0]?.name}</div>
       </div>
       {/* 마이페이지 구현 후 연결 필요 */}
       <div className="fanFeedProfileUserContainer">
         <div className="fanFeedProfileUserImgContainer">
-          {userInfo.profileFileDto ? (
+          {userInfo?.profileFileDto ? (
           <img
             className="fanFeedProfileUserImg"
-            src={`https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=${userInfo.profileFileDto.id}`}
+            src={`https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=${userInfo?.profileFileDto.id}`}
             alt="ff"
           />
           ) : (
@@ -32,7 +32,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
           )
           }
         </div>
-        {userInfo.name}
+        {userInfo?.name}
         <div className="fanFeedProfileUserUnderline"></div>
       </div>
     </>
