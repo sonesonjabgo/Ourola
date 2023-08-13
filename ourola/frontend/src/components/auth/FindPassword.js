@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../style/auth/loginmodal.module.css';
+import "../../style/auth/findPassword.css"
 
 import ChangePassword from './ChangePassword'
 
@@ -69,36 +69,36 @@ function FindPassword({ onClose }) {
 
 
     return (
-        <div className={styles.container}>
+        <div className="container">
 
             <h1>비밀번호 찾기</h1>
 
-            <button className={styles.close} onClick={onClose}>
+            <button className="close" onClick={onClose}>
                 X
             </button>
 
-            <form onSubmit={emailSubmit}>
+            <form onSubmit={emailSubmit} className='passwordForm'>
                 <input
                 type='email'
-                className={styles.inputbox}
-                placeholder='아이디 ex)malangkongddeock@naver.com'
+                className="inputbox"
+                placeholder='아이디   ex) abc123@naver.com'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 />
-                <button type='submit' className={styles.loginsubmitbutton}>
+                <button type='submit' className="loginsubmitbutton">
                     인증번호 받기
                 </button>
             </form>
 
-            <form onSubmit={certificationSubmit}>
+            <form onSubmit={certificationSubmit} className='passwordForm'>
                 <input
                 type='text'
-                className={styles.inputbox}
+                className="inputbox"
                 placeholder='인증번호를 입력하세요'
                 value={certification}
                 onChange={(e) => setCertification(e.target.value)}
                 />
-                <button type='submit' className={styles.loginsubmitbutton}>
+                <button type='submit' className="loginsubmitbutton">
                     인증번호 확인
                 </button>
             </form>
