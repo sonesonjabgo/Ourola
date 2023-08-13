@@ -16,7 +16,9 @@ const OpenLiveInfo = ({
 }) => {
   const modalRef = useRef(null);
 
-  console.log(liveId);
+  const closeModal = () => {
+    setModalInfoOpen(false);
+  };
 
   useEffect(() => {
     const handler = (event) => {
@@ -36,6 +38,13 @@ const OpenLiveInfo = ({
     <div id="openLiveInfo" className="openLiveInfo" ref={modalRef}>
       <div id="openLiveInfoWrap" className="openLiveInfoWrap">
         <div id="openLiveInfoWrapHeader" className="openLiveInfoWrapHeader">
+          <button
+            id="openLiveInfoClose"
+            className="openLiveInfoClose"
+            onMouseUp={closeModal}
+          >
+            ×
+          </button>
           <div
             id="openLiveInfoWrapHeaderTitle"
             className="openLiveInfoWrapHeaderTitle"

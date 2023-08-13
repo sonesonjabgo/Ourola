@@ -31,13 +31,6 @@ const AnnouncementDetail = (props) => {
 
   return (
     <div id="announcementBackGround" className="announcementBackGround">
-      <button
-        id="announcementDetailClose"
-        className="announcementDetailClose"
-        onClick={closeModal}
-      >
-        ×
-      </button>
       <div
         ref={modalRef}
         id="announcementDetail"
@@ -45,6 +38,13 @@ const AnnouncementDetail = (props) => {
       >
         <div id="announcementDetailScroll" className="announcementDetailScroll">
           <div id="announcemenDetailHeader" className="announcemenDetailHeader">
+            <button
+              id="announcementDetailClose"
+              className="announcementDetailClose"
+              onClick={closeModal}
+            >
+              ×
+            </button>
             <h3
               id="announcementDetailTitle"
               className="announcementDetailTitle"

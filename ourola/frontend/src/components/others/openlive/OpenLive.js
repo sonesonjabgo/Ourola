@@ -101,8 +101,6 @@ const OpenLive = () => {
       });
   };
 
-  console.log(page);
-
   return (
     <div id="openLive" className="openLive">
       <div id="openLiveTitle" className="openLiveTitle">

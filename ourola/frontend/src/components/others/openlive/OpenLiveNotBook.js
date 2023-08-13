@@ -20,6 +20,10 @@ const OpenLiveNotBook = ({
 }) => {
   const modalRef = useRef(null);
 
+  const closeModal = () => {
+    setModalCancleOpen(false);
+  };
+
   useEffect(() => {
     const handler = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -66,6 +70,13 @@ const OpenLiveNotBook = ({
   return (
     <div id="openLiveNotBook" className="openLiveNotBook" ref={modalRef}>
       <div id="openLiveNotBookWrap" className="openLiveNotBookWrap">
+        <button
+          id="openLiveNotBookClose"
+          className="openLiveNotBookClose"
+          onMouseUp={closeModal}
+        >
+          ×
+        </button>
         <div
           id="openLiveNotBookWrapHeader"
           className="openLiveNotBookWrapHeader"
