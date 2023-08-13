@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.naming.AuthenticationException;
+import javax.naming.LimitExceededException;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -85,7 +86,7 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 
 		if (openLiveDto.isFull())
-			throw new Exception("인원 모집이 마감되었습니다.");
+			throw new LimitExceededException("인원 모집이 마감되었습니다.");
 
 		Optional<OpenLiveParticipantDto> any = openLiveParticipantRepository.findByFanDto_IdAndOpenLiveDto_Id(
 			fanDto.getId(), id);
