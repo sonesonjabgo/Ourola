@@ -31,10 +31,7 @@ function Fanfeed() {
         setUserInfo(response.data);
       })
       .catch((error) => {
-        console.error(
-          "현재 로그인된 사용자가 일반 유저가 아니므로 다른 api 사용",
-          error
-        );
+        console.error("현재 접속 중인 사용자 정보 불러오기 실패", error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,28 +52,23 @@ function Fanfeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (userInfo) {
-    return (
-      <>
-        <div className="contentContainer">
-          <div className="buttonCreatefeedContainer">
-            <CreateFeedButton
-              groupInfo={groupInfo}
-              userInfo={userInfo}
-              userRole={userInfo.role}
-            />
-          </div>
-          <div className="onelineAnnouncementContainer">
-            <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
-              <AnnouncementOneline group={group} />
-            </Link>
-          </div>
-          <div className="fanfeedProfileContainer">
-            <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
-          </div>
-          <div className="fanfeedFeedContainer">
-            <FanFeedList userInfo={userInfo} userRole={userInfo.role} />
-          </div>
+if (userInfo) {
+  return (
+    <>
+      <div className="contentContainer">
+        <div className="buttonCreatefeedContainer">
+          <CreateFeedButton groupInfo = {groupInfo} userInfo = {userInfo} userRole = {userInfo.role}/>
+        </div>
+        <div className="onelineAnnouncementContainer">
+          <Link to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}>
+            <AnnouncementOneline group={group} />
+          </Link>
+        </div>
+        <div className="fanfeedProfileContainer">
+          <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
+        </div>
+        <div className="fanfeedFeedContainer">
+          <FanFeedList userInfo={userInfo} userRole = {userInfo.role}/>
         </div>
       </>
     );

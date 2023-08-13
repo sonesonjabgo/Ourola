@@ -35,3 +35,12 @@
   text-decoration: none;
   background-color: #f5f7fa;
 }
+
+.moveToGroupContainer {
+  text-align: center;
+  width: 100%;
+}
+
+.moveToGroup {
+  font-size: 50px;
+}
