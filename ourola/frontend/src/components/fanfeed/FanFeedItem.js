@@ -5,6 +5,7 @@ import moment from "moment";
 import FanFeedDetail from "./FanFeedDetail";
 import axios from "axios";
 import bookmarkempty from "../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 import commentclick from "../../assets/icons/comment.png";
@@ -79,35 +80,6 @@ const FanFeedItem = ({
 
   const [comment, setComment] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/${id}/comment`, config)
-  //     .then((response) => {
-  //       const modifiedData = response.data.map((it) => {
-  //         const getDate = it.createDate.split("T", 2);
-  //         getDate[1] = getDate[1].split(".", 1);
-
-  //         const [year, month, day] = getDate[0].split("-");
-  //         const [hour, minute] = getDate[1][0].split(":");
-
-  //         const formatTime = `${year.slice(
-  //           2
-  //         )}.${month}.${day} ${hour}:${minute}`;
-
-  //         return {
-  //           ...it,
-  //           createDate: formatTime,
-  //         };
-  //       });
-
-  //       setComment(modifiedData);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data : ", error);
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   const commentCount = comment.length;
 
   const [thisFeedLike, setThisFeedLike] = useState(false);
@@ -153,6 +125,36 @@ const FanFeedItem = ({
     setScrollPosition(window.pageYOffset);
     window.scrollTo(0, 120);
     document.body.style.overflow = "hidden";
+  };
+
+  const [thisFeedBookmark, setThisFeedBookmark] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/feed/${id}/bookmark`, config)
+      .then((response) => {
+        setThisFeedBookmark(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wantBookmark = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  const wantBookmarkCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
   };
 
   // 피드 삭제
@@ -213,12 +215,23 @@ const FanFeedItem = ({
         <div id="artistFeedBlank" className="artistFeedBlank">
           {userInfo.id === fanId || userRole === 'CHANNEL_ADMIN' ?
           <button onClick={deleteRequest}>피드 삭제</button> : null }
-          <img
-            src={bookmarkempty}
-            alt="이미지가 없습니다."
-            id="artistFeedBookmark"
-            className="artistFeedBookmark"
-          ></img>
+          {thisFeedBookmark ? (
+            <img
+              src={bookmarkfill}
+              alt="이미지가 없습니다."
+              id="artistFeedBookmarkImg"
+              className="artistFeedBookmarkImg"
+              onClick={wantBookmarkCancle}
+            ></img>
+          ) : (
+            <img
+              src={bookmarkempty}
+              alt="이미지가 없습니다."
+              id="artistFeedBookmarkImg"
+              className="artistFeedBookmarkImg"
+              onClick={wantBookmark}
+            ></img>
+          )}    
         </div>
       </div>
       <div
