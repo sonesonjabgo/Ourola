@@ -261,8 +261,18 @@ a {
 
 .authButton {
   border: none;
+  height: 35px;
+  border-radius: 10px;
   background-color:transparent;
   margin-right: 10px;
   font-size: large;
-  width: 70px;
+  width: 100px;
+  vertical-align: center;
+}
+.buttons > a {
+  padding-top: 7px;
+}
+
+.authButton:hover {
+  background-color: #D2CDF0;
 }
