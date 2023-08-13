@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import mainLogo from '../../assets/images/ourola_logo.png'
+import { useNavigate } from 'react-router-dom';
 import "../../style/auth/signup.css";
 
 const Signup = () => {
@@ -119,6 +118,7 @@ const Signup = () => {
   return (
     <div className='container'>
       <div className='signupContainer'>
+      <h1>회원가입</h1>
       <div>
           <label>이름</label> <br/>
           <input
@@ -138,7 +138,7 @@ const Signup = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일 입력"
           />
-          <button onClick={checkDuplicateUsername}>중복 확인</button>
+          <button onClick={checkDuplicateUsername} className='doubleCheckButton'>중복 확인</button>
         </div>
         <div>
           <label>닉네임</label> <br/>
@@ -149,7 +149,7 @@ const Signup = () => {
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉네임 입력"
           />
-          <button onClick={checkDuplicateNickname}>중복 확인</button>
+          <button onClick={checkDuplicateNickname} className='doubleCheckButton'>중복 확인</button>
         </div>
         <div>
           <label>비밀번호</label> <br/>
@@ -186,7 +186,7 @@ const Signup = () => {
 
         {!passwordsMatch && <p style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</p>}
 
-        <button onClick={handleSignup}>회원가입</button>
+        <button onClick={handleSignup} className='signupSubmitButton'>회원가입</button>
       </div>
   </div>
   );
