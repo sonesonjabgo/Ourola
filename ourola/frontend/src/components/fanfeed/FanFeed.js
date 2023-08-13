@@ -70,6 +70,7 @@ if (userInfo) {
         <div className="fanfeedFeedContainer">
           <FanFeedList userInfo={userInfo} userRole = {userInfo.role}/>
         </div>
+      </div>
       </>
     );
   } else {
