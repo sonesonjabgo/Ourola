@@ -1,6 +1,7 @@
 .mainbanner {
   background-image: url(../../assets/images/noLoggedIn_mainbanner_moving2.gif);
   background-size: cover;
+  background-position: center;
   height: 250px;
   color: white;
   font-size: 120px;
