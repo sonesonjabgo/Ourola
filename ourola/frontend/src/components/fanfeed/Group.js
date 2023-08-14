@@ -122,10 +122,7 @@ const Group = () => {
             </Link>
           </div>
           <div id="feedContent" className="feedContent">
-            <div
-              id="fanFeedProfile"
-              className={`fanFeedProfile ${scrollY > 275 ? "sticky" : ""}`}
-            >
+            <div id="fanFeedProfile" className="fanFeedProfile">
               <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
             </div>
             <ArtistFeed
