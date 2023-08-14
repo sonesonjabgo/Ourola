@@ -17,10 +17,16 @@ const ArtistProfile = ({
 
   const artistSelect = artistFirstState.filter((it) => it.id === id)[0].value;
 
+  const config = {
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("Authorization"),
+    },
+  };
+
   const clickArtist = async () => {
     if (artistSelect === false) {
       await axios
-        .get(`/${group}/feed/filter/${id}`)
+        .get(`/${group}/feed/filter/${id}`, config)
         .then((response) => {
           setArtistFeed(response.data);
         })
