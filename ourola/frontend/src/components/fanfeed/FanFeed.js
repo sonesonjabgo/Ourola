@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import ArtistFeedItem from "./ArtistFeedItem";
+import ArtistFeedItem from "./FanFeedItem";
 import { format } from "date-fns";
 
 const CustomDatePickerHeader = ({ date, decreaseMonth, increaseMonth }) => {
@@ -148,6 +148,8 @@ const ArtistFeed = ({
     }
   };
 
+  console.log(artistFeed)
+
   return (
     <div
       id="artistFeedList"
@@ -211,9 +213,9 @@ const ArtistFeed = ({
             key={it.id}
             id={it.id}
             group={group}
-            artistId={it.artistDto.id}
-            artistProfileId={it.artistDto.profileFileDto.id}
-            artistName={it.artistDto.name}
+            artistId={it.artistDto?.id}
+            artistProfileId={it.artistDto?.profileFileDto.id}
+            artistName={it.artistDto?.name}
             title={it.title}
             content={it.content}
             like={it.like}
@@ -221,6 +223,8 @@ const ArtistFeed = ({
             createDate={it.createDate}
             userInfo={userInfo}
             getArtistFeed={getArtistFeed}
+            fanId={it.fanDto?.id}
+            profileId={it.fanDto?.profileFileDto?.id}
           ></ArtistFeedItem>
         ))}
       </section>

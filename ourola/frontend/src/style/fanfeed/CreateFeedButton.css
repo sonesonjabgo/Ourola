@@ -1,0 +1,50 @@
+/* 피드 작성 버튼  */
+.buttonCreatefeedContainer {
+    margin: 180px auto 20px;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonCreatefeed {
+    background:#7b68ee;
+    color:white;
+    border:none;
+    position:relative;
+    height:100%;
+    font-size:1.6em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    border-radius: 15px;
+    width: 1100px;
+}
+
+.buttonCreatefeed:hover{
+    background:#fff;
+    color:#7b68ee;
+}
+
+.buttonCreatefeed:before, .buttonCreatefeed:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #7b68ee;
+    transition:50ms ease all;
+}
+
+.buttonCreatefeed:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+
+.buttonCreatefeed:hover:before, .buttonCreatefeed:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}

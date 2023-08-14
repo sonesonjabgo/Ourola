@@ -1,7 +1,7 @@
 import "../../style/groupfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import ArtistFeedComment from "./ArtistFeedComment";
+import ArtistFeedComment from "./FanFeedComment";
 import downarrow from "../../assets/icons/downarrow.png";
 import send from "../../assets/icons/send.png";
 import bookmarkempty from "../../assets/icons/bookmarkempty.png";
