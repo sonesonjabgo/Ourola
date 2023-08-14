@@ -1,4 +1,4 @@
-import "../../style/groupfeed/ArtistFeedComment.css";
+import "../../style/fanfeed/ArtistFeedComment.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 

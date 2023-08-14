@@ -1,4 +1,4 @@
-import "../../style/groupfeed/ArtistFeed.css";
+import "../../style/fanfeed/ArtistFeed.css";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
@@ -148,8 +148,6 @@ const ArtistFeed = ({
     }
   };
 
-  console.log(artistFeed)
-
   return (
     <div
       id="artistFeedList"
@@ -215,7 +213,7 @@ const ArtistFeed = ({
             group={group}
             artistId={it.artistDto?.id}
             artistProfileId={it.artistDto?.profileFileDto.id}
-            artistName={it.artistDto?.name}
+            artistName={it.fanDto?.name}
             title={it.title}
             content={it.content}
             like={it.like}
@@ -225,6 +223,7 @@ const ArtistFeed = ({
             getArtistFeed={getArtistFeed}
             fanId={it.fanDto?.id}
             profileId={it.fanDto?.profileFileDto?.id}
+            files={it.fileList}
           ></ArtistFeedItem>
         ))}
       </section>

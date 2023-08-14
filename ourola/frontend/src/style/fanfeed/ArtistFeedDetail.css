@@ -325,6 +325,7 @@
   display: block;
   margin-left: 30px;
   max-width: 645px;
+  height: 100%;
 }
 
 .artistFeedInfoAndContent ::-webkit-scrollbar {
@@ -363,4 +364,8 @@
 .artistFeedBookmarkImgWrap {
   margin-top: 8px;
   margin-left: 535px;
+}
+
+.feedImgContainer {
+  max-width: 707px;
 }
