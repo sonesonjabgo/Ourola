@@ -51,7 +51,7 @@ const ArtistProfile = ({
         .classList.add("selected");
     } else {
       await axios
-        .get(`/${group}/feed/artist`)
+        .get(`/${group}/feed/artist`, config)
         .then((response) => {
           setArtistFeed(response.data);
         })
