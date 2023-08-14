@@ -1,7 +1,5 @@
 .myPostItemWrapper {
-  /* margin-right: 25px; */
-  padding-bottom: 25px;
-  width: 600px;
+  /* width: 600px; */
   border-bottom: 1px solid lightgray;
   cursor: pointer;
 }
@@ -59,4 +57,42 @@
   font-size: 16px;
   padding-top: 5px;
   padding-left: 10px;
+}
+
+.myPostItemFooter {
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.myFeedLike {
+  display: flex;
+  margin-right: 15px;
+}
+
+.myFeedLikeImg {
+  cursor: pointer;
+  width: 55px;
+  height: auto;
+}
+
+.myFeedLikeCount {
+  padding-top: 15px;
+}
+
+.myFeedComment {
+  display: flex;
+}
+
+.myFeedCommentImg {
+  width: 25px;
+  height: 25px;
+  margin-top: 8px;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.myFeedCommentRealCount {
+  padding-top: 15px;
 }
