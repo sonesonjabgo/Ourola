@@ -34,4 +34,8 @@ public interface FanRepository extends JpaRepository<FanDto, Integer> {
 		nativeQuery = true)
 	List<UserListDto> getAllUserList();
 
+
+	@Query(value = "SELECT * FROM fan_user f WHERE f.id <> ? and f.nickname = ?", nativeQuery = true)
+	List<FanDto> checkNicknameDuplicate(int fanId, String nickname);
+
 }
