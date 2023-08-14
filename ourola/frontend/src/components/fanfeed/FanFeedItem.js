@@ -270,18 +270,19 @@ const ArtistFeedItem = ({
               commentCount,
               comment,
               scrollPosition,
-              files
+              files,
             }}
           ></ArtistFeedDetail>
         )}
         <div id="artistFeedItemContent" className="artistFeedItemContent">
           <div className="feedImgContainer">
-           {files.length > 0 && files.map((file, index) => (
-            <img 
-            key={index} 
-            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
-            alt={`File ${index}`} 
-           />
+            {files.length > 0 &&
+              files.map((file, index) => (
+                <img
+                  key={index}
+                  src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`}
+                  alt={`File ${index}`}
+                />
               ))}
           </div>
           {content}

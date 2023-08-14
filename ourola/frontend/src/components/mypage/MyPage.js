@@ -82,7 +82,7 @@ const MyPage = () => {
           {selectedMenu === menu[0].title ? <Bookmark config={config} /> : null}
           {selectedMenu === menu[1].title ? <Purchase config={config} /> : null}
           {selectedMenu === menu[2].title ? (
-            <UserInfo userinfo={userinfo} />
+            <UserInfo userinfo={userinfo} config={config} />
           ) : null}
           {selectedMenu === menu[3].title ? (
             <MyActivity config={config} />
