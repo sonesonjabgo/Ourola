@@ -11,8 +11,9 @@ import App from "./App";
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
-import Group from "components/groupfeed/Group";
-import FanFeed from "./components/fanfeed/Group";
+import Group1 from "components/fanfeed/Group";
+import Group2 from "components/groupfeed/Group";
+// import FanFeed from "./components/fanfeed/FanFeed";
 import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
@@ -58,10 +59,10 @@ render(
       ></Route>
 
       {/* 팬 피드 */}
-      <Route path="/:group/fanfeed" element={<FanFeed />}></Route>
+      <Route path="/:group/fanfeed" element={<Group1 />}></Route>
 
       {/* 아티스트 피드 */}
-      <Route path="/:group/group" element={<Group />}></Route>
+      <Route path="/:group/group" element={<Group2 />}></Route>
 
       {/* 미디어 - 팬싸인회 */}
       <Route

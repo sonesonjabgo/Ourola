@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "../../../style/mypage/sidebar/MyPageMenu.css";
 
 const MyPageMenu = (props) => {

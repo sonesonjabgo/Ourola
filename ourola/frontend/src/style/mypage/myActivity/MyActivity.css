@@ -1,0 +1,35 @@
+.myActivityTitle {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 27px;
+  height: 40px;
+  align-items: center;
+}
+
+.myActivityMainSortArea {
+  display: flex;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid lightgray;
+}
+.myActivitySortBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.myActivityMainSortArea i {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: -1px;
+  border-bottom: 2px solid #000;
+  transition: all 0.3s;
+}
+
+.myActivitySortBtn:focus + i {
+  left: 0;
+  right: 0;
+  transition: all 0.3s;
+}
