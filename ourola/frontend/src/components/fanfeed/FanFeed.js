@@ -148,7 +148,7 @@ const ArtistFeed = ({
     }
   };
 
-  console.log(artistFeed)
+  console.log(artistFeed);
 
   return (
     <div
@@ -206,28 +206,29 @@ const ArtistFeed = ({
           </div>
         </div>
       )}
-
-      <section id="artistFeedBoard" className="artistFeedBoard">
-        {artistFeed.map((it) => (
-          <ArtistFeedItem
-            key={it.id}
-            id={it.id}
-            group={group}
-            artistId={it.artistDto?.id}
-            artistProfileId={it.artistDto?.profileFileDto.id}
-            artistName={it.artistDto?.name}
-            title={it.title}
-            content={it.content}
-            like={it.like}
-            commentCount={it.commentCount}
-            createDate={it.createDate}
-            userInfo={userInfo}
-            getArtistFeed={getArtistFeed}
-            fanId={it.fanDto?.id}
-            profileId={it.fanDto?.profileFileDto?.id}
-          ></ArtistFeedItem>
-        ))}
-      </section>
+      {artistFeed ? (
+        <section id="artistFeedBoard" className="artistFeedBoard">
+          {artistFeed.map((it) => (
+            <ArtistFeedItem
+              key={it.id}
+              id={it.id}
+              group={group}
+              artistId={it.artistDto?.id}
+              artistProfileId={it.artistDto?.profileFileDto.id}
+              artistName={it.artistDto?.name}
+              title={it.title}
+              content={it.content}
+              like={it.like}
+              commentCount={it.commentCount}
+              createDate={it.createDate}
+              userInfo={userInfo}
+              getArtistFeed={getArtistFeed}
+              fanId={it.fanDto?.id}
+              profileId={it.fanDto?.profileFileDto?.id}
+            ></ArtistFeedItem>
+          ))}
+        </section>
+      ) : null}
     </div>
   );
 };
