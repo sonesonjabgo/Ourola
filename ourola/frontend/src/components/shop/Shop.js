@@ -88,7 +88,7 @@ const Shop = () => {
               </Link>
             </div>
             <div className="shopItemsContainer">
-                <ShopItemList allConcert={allConcert} allMembership={allMembership}/>
+                <ShopItemList allConcert={allConcert} allMembership={allMembership} userRole={userInfo.role}/>
             </div>
         </div>
         </>

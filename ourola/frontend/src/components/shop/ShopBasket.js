@@ -52,6 +52,20 @@ const ShopBasket = () => {
     }
   })
 
+  const purchaseRequest = () => {
+    
+    const itemsToPuschase = allBasket.map(item => item.id)
+
+    axios.post(`payment/ready`, {items: itemsToPuschase}, config)
+    .then((response) => {
+      alert('결제 완료')
+    })
+    .catch((error) => {
+      alert('결제 오류')
+      console.log(error)
+    })
+  }
+
     return (
         <>
         <div className="basketContentContainer">
@@ -62,6 +76,7 @@ const ShopBasket = () => {
             <div className="basketTotalPrice">
             총 금액 : {totalPrice}원
             </div>
+            <button onClick={purchaseRequest}>전체 구매</button>
         </div>
         </>
     )}

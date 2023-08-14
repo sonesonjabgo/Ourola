@@ -7,7 +7,7 @@ import OpenShopDeleteModal from './OpenShopDeleteModal'
 import OpenAddBasketModal from './OpenAddBasketModal'
 import axios from 'axios'
 
-const ShopItemDetail = () => {
+const ShopItemDetail = ( ) => {
 
     // 뒤로가기
     const navigate = useNavigate()
@@ -32,9 +32,13 @@ const ShopItemDetail = () => {
         <div className="shopDetailContentContainer">
             <div className="shopDetailBasketContainer">
                 <button onClick={goBack} className="shopDetailToListButton">이전으로</button>
+                {path.userRole === 'CHANNEL_ADMIN' || path.userRole ==='ADMIN' ?
+                <>
                 <OpenShopUpdateModal path={path} />
-                {path.isMembership ? ( null ) : 
-                (<OpenShopDeleteModal path={path} />)}
+                  {path.isMembership ? null :
+                  <OpenShopDeleteModal path={path} />} 
+                </>
+                : null }
                 <OpenAddBasketModal path={path} />
                 <div onClick={() => navigate(newPath)} className="shopDetailBasketButton">
                     <img className="shopDetailBasketIcon" src={BasketIcon}/>
