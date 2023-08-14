@@ -149,10 +149,7 @@ const ArtistFeed = ({
   };
 
   return (
-    <div
-      id="artistFeedList"
-      className={`artistFeedList ${scrollY > 275 ? "sticky" : ""}`}
-    >
+    <div id="artistFeedList" className="artistFeedList">
       {artistFeed.length === 0 ? (
         <div></div>
       ) : (
