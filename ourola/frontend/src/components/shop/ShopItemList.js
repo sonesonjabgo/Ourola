@@ -13,6 +13,7 @@ function ShopItemList({allConcert, allMembership, userRole}) {
     return null
   }
   
+  console.log(allConcert)
   return (
     <div className="shopCardsContainer">
         <ShopItem src={allMembership.filePath} title={allMembership.title} path={allMembership.id} price={allMembership.price} content={allMembership.content} groupId={allMembership.groupId} isMembership = {true} userRole={userRole}/>
