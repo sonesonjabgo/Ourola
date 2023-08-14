@@ -30,6 +30,8 @@ public interface MyPageService {
 	// 팬 닉네임 수정
 	FanDto modifyFanNickname(String accessToken, FanDto newNickname) throws Exception;
 
+	public boolean checkNicknameDuplicate(String header, String nickname) throws Exception;
+
 	// 팬 비밀번호 수정
 	void modifyFanPassword(String accessToken, FanDto newPassword) throws Exception;
 
