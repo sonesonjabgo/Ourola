@@ -3,7 +3,6 @@ import "../../../style/mypage/myActivity/MyCommentItem.css";
 import remove from "../../../assets/icons/trashbin.png";
 
 const MyCommentItem = ({ item, onRemove }) => {
-  console.log(item);
   const feed = item.feedDto;
   const type =
     feed.type === 1 ? "commentItem fanFeed" : "commentItem artistFeed";

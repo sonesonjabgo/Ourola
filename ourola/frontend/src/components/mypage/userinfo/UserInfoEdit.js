@@ -3,7 +3,7 @@ import "../../../style/mypage/userinfo/UserInfoEdit.css";
 import moment from "moment";
 import axios from "axios";
 
-const UserInfoEdit = ({ userinfo }) => {
+const UserInfoEdit = ({ userinfo, config }) => {
   const [state, setState] = useState({
     email: userinfo.email,
     nickname: userinfo.nickname,
@@ -26,6 +26,13 @@ const UserInfoEdit = ({ userinfo }) => {
   const pwdRef = useRef();
 
   console.log(userinfo);
+
+  const checkNickDup = () => {
+    axios
+      .get(`/user/modify/nickname/check-duplicate/${state.nickname}`)
+      .then()
+      .catch();
+  };
 
   // 닉네임 변경 버튼 클릭시
   const onNickEditClick = () => {
@@ -92,6 +99,14 @@ const UserInfoEdit = ({ userinfo }) => {
     });
   };
 
+  // input 값이 바뀔 때
+  const handleChangeState = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="userInfoWrapper">
       <div className="userInfo">
@@ -108,6 +123,7 @@ const UserInfoEdit = ({ userinfo }) => {
               className="userinfoInput"
               value={state.nickname}
               readOnly={nickReadOnly}
+              onChange={handleChangeState}
             ></input>
             {nickBtnMode === 0 ? (
               <button className="userinfoEditBtn" onClick={onNickEditClick}>
@@ -133,6 +149,7 @@ const UserInfoEdit = ({ userinfo }) => {
               className="userinfoInput"
               value={state.name}
               readOnly={nameReadOnly}
+              onChange={handleChangeState}
             ></input>
             {nameBtnMode === 0 ? (
               <button className="userinfoEditBtn" onClick={onNameEditClick}>
@@ -150,11 +167,12 @@ const UserInfoEdit = ({ userinfo }) => {
           <div className="userinfoEdit">
             <input
               ref={pwdRef}
-              name="pwd"
+              name="password"
               className="userPwdInput"
               type="password"
               value={state.password}
               readOnly={pwdReadOnly}
+              onChange={handleChangeState}
             ></input>
             {pwdBtnMode === 0 ? (
               <button className="userinfoEditBtn" onClick={onPwdEditClick}>
