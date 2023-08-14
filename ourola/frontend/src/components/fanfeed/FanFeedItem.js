@@ -24,7 +24,7 @@ const ArtistFeedItem = ({
   getArtistFeed,
   fanId,
   profileId,
-  files,
+  files
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
