@@ -5,12 +5,12 @@
   align-items: center;
 }
 
-.sortBtnArea {
+.purchaseSortBtnArea {
   margin-left: auto;
   padding-right: 20px;
 }
 
-.sortBtn {
+.purchaseSortBtn {
   border: none;
   border-radius: 30px;
   width: 110px;
@@ -21,10 +21,10 @@
   margin-right: 10px;
 }
 
-.sortBtn.membership {
+.purchaseSortBtn.membership {
   width: 80px;
 }
 
-.sortBtn:hover {
+.purchaseSortBtn:hover {
   background-color: rgb(159, 158, 158);
 }

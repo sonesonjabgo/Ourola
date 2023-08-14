@@ -6,9 +6,11 @@ const Purchase = ({ config }) => {
     <div className="purchaseMain">
       <div className="purchaseMainTitle">
         <span className="titleText">구매 내역 </span>
-        <span className="sortBtnArea">
-          <button className="sortBtn membership">멤버십</button>
-          <button className="sortBtn onlineConcert">온라인 콘서트</button>
+        <span className="purchaseSortBtnArea">
+          <button className="purchaseSortBtn membership">멤버십</button>
+          <button className="purchaseSortBtn onlineConcert">
+            온라인 콘서트
+          </button>
         </span>
       </div>
       <div className="purchaseBody">

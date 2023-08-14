@@ -7,6 +7,7 @@ import Purchase from "./purchase/Purchase";
 
 import "../../style/mypage/MyPage.css";
 import UserInfo from "./userinfo/UserInfo";
+import MyActivity from "./myActivity/MyActivity";
 
 const MyPage = () => {
   const accessToken = sessionStorage.getItem("Authorization");
@@ -33,8 +34,7 @@ const MyPage = () => {
     { id: 1, title: "북마크" },
     { id: 2, title: "구매 내역" },
     { id: 3, title: "계정 설정" },
-    { id: 4, title: "내가 작성한 포스트" },
-    { id: 5, title: "내가 작성한 댓글" },
+    { id: 4, title: "내 활동" },
   ];
 
   // 사용자 프로필 사진과 닉네임을 보여준다.
@@ -84,9 +84,9 @@ const MyPage = () => {
           {selectedMenu === menu[2].title ? (
             <UserInfo userinfo={userinfo} />
           ) : null}
-          {/* 내가 작성한 포스트, 댓글 내역 */}
-          <div className="myPosts"></div>
-          <div className="myComments"></div>
+          {selectedMenu === menu[3].title ? (
+            <MyActivity config={config} />
+          ) : null}
         </div>
       </div>
     </div>
