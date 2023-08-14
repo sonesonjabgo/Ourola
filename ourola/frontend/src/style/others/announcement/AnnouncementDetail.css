@@ -43,6 +43,15 @@
   height: 20px;
 }
 
+.announcementDetail ::-webkit-scrollbar {
+  width: 2px;
+}
+
+.announcementDetail ::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
+}
+
 .announcementDetailClose {
   z-index: 23000;
   height: 60px;
@@ -101,11 +110,11 @@
   font-size: 16px;
   color: #666;
   min-height: 650px;
+  max-height: 650px;
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding: 20px 30px 30px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+  overflow: auto;
 }

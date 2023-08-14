@@ -35,8 +35,6 @@ public class MyPageController {
 	private final JwtService jwtService;
 	private final BookmarkServiceImpl bookmarkService;
 
-	// TODO : component가 바뀌도록 할건데 일단 페이지 바뀌는걸로 함
-	// FIXME : 추후 component가 바뀌도록 하자
 
 	// 개인정보 확인
 	// FIXME : 유저 DTO 수정되는 대로 다시 건드리기
@@ -48,7 +46,6 @@ public class MyPageController {
 			if (role.equals("USER") || role.equals("GUEST")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
-				System.out.println("aaa");
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -77,9 +74,9 @@ public class MyPageController {
 	}
 
 	// 아티스트 닉네임 수정
-	@PutMapping("/artist/modify/nickname")
+	@PutMapping("/artist/modify/nickname/{nickname}")
 	public ResponseEntity<ArtistDto> modifyArtistNickname(@RequestHeader String accessToken,
-		@RequestBody ArtistDto newNickname) {
+		@PathVariable("nickname") String newNickname) {
 		try {
 			return new ResponseEntity<ArtistDto>(myPageService.modifyArtistNickname(accessToken, newNickname),
 				HttpStatus.OK);
@@ -89,8 +86,8 @@ public class MyPageController {
 	}
 
 	// 비밀번호 수정
-	@PutMapping("/artist/modify/password")
-	public HttpStatus modifyArtistPassword(@RequestHeader String accessToken, @RequestBody ArtistDto newPassword) {
+	@PutMapping("/artist/modify/password/{password}")
+	public HttpStatus modifyArtistPassword(@RequestHeader String accessToken, @PathVariable("password") String newPassword) {
 		try {
 			myPageService.modifyArtistPassword(accessToken, newPassword);
 			return HttpStatus.OK;
@@ -100,9 +97,9 @@ public class MyPageController {
 	}
 
 	// 팬 닉네임 수정
-	@PutMapping("/modify/nickname")
+	@PutMapping("/modify/nickname/{nickname}")
 	public ResponseEntity<FanDto> modifyFanNickname(@RequestHeader("Authorization") String accessToken,
-		@RequestBody FanDto newNickname) {
+		@PathVariable("nickname") String newNickname) {
 		try {
 			System.out.println(newNickname);
 			return new ResponseEntity<FanDto>(myPageService.modifyFanNickname(accessToken, newNickname),
@@ -112,9 +109,19 @@ public class MyPageController {
 		}
 	}
 
-	@PutMapping("/modify/password")
+	// 팬 닉네임 중복 체크
+	@GetMapping("/modify/nickname/check-duplicate/{nickname}")
+	public ResponseEntity<?> checkNicknameDuplicate(@RequestHeader("Authorization") String header, @PathVariable("nickname") String nickname) {
+		try {
+			return new ResponseEntity<>(myPageService.checkNicknameDuplicate(header, nickname), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping("/modify/password/{password}")
 	public HttpStatus modifyFanPassword(@RequestHeader("Authorization") String accessToken,
-		@RequestBody FanDto newPassword) {
+		@PathVariable("password") String newPassword) {
 		try {
 			System.out.println(newPassword);
 			myPageService.modifyFanPassword(accessToken, newPassword);
@@ -193,7 +200,7 @@ public class MyPageController {
 	@GetMapping("/bookmark")
 	public ResponseEntity<List<BookmarkDto>> getMyBookmark(@RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			Optional<String> role = jwtService.extractRole(accessToken);
+			Optional<String> role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get());
 			Integer userId = jwtService.accessTokenToUserId(accessToken);
 			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
 			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);

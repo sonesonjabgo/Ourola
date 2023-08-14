@@ -1,0 +1,30 @@
+.purchaseMainTitle {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 27px;
+  align-items: center;
+}
+
+.purchaseSortBtnArea {
+  margin-left: auto;
+  padding-right: 20px;
+}
+
+.purchaseSortBtn {
+  border: none;
+  border-radius: 30px;
+  width: 110px;
+  height: 40px;
+  transition: all 0.3s;
+  background-color: lightgray;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.purchaseSortBtn.membership {
+  width: 80px;
+}
+
+.purchaseSortBtn:hover {
+  background-color: rgb(159, 158, 158);
+}

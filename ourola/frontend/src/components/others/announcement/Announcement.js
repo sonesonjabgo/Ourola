@@ -14,7 +14,7 @@ const Announcement = () => {
   const [announcementStartIndex, setAnnouncementStartIndex] = useState(0);
   const [announcementEnd, setAnnouncementEnd] = useState(false);
   const [activeButton, setActiveButton] = useState(1);
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {

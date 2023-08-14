@@ -70,6 +70,14 @@
   line-height: 21px;
 }
 
+.artistFeedItemContent {
+  max-width: 1060px;
+}
+
+.artistFeedItemContent img{
+  width: 100%;
+  height: 100%;
+}
 .artistFeedFooter {
   padding-left: 10px;
   align-items: center;
@@ -123,7 +131,7 @@
   display: inline-block;
 }
 
-.artistFeedBookmark {
+.artistFeedBookmarkImg {
   width: 30px;
   height: 30px;
   cursor: pointer;

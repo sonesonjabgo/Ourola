@@ -16,7 +16,7 @@ const OpenLive = () => {
   const [openLiveLoading, setOpenLiveLoading] = useState(true);
   const [page, setPage] = useState(0);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {

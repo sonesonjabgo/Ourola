@@ -70,6 +70,14 @@
   line-height: 21px;
 }
 
+.artistFeedItemContent {
+  max-width: 1060px;
+}
+
+.feedImgContainer {
+  max-width: 707px;
+}
+
 .artistFeedFooter {
   padding-left: 10px;
   align-items: center;

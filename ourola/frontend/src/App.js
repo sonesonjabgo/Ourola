@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     // 로컬스토리지에서 Authorization 값을 가져옴
-    const authorization = localStorage.getItem("Authorization");
+    const authorization = sessionStorage.getItem("Authorization");
 
     // Authorization 값이 존재하면 로그인 상태로 설정
     if (authorization) {
@@ -34,7 +34,7 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, [localStorage.getItem("Authorization")]);
+  }, [sessionStorage.getItem("Authorization")]);
 
   useEffect(() => {
     // 페이지가 처음 로드될 때와 새로고침 시 state 값을 null로 설정

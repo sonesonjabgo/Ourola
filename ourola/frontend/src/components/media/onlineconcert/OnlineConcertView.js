@@ -18,7 +18,7 @@ const OnlineConcertView = () => {
 
   const location = useLocation();
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,
@@ -110,40 +110,40 @@ const OnlineConcertView = () => {
       const token = await getToken(sessionId);
       await mySession.connect(token, { clientData: nickname });
       if (isAdmin) {
-      // --- 5) Get your own camera stream ---
-      const publisher = await OV.initPublisherAsync(undefined, {
-        audioSource: undefined,
-        videoSource: undefined,
-        publishAudio: true,
-        publishVideo: true,
-        resolution: "640x480",
-        frameRate: 30,
-        insertMode: "APPEND",
-        mirror: false,
-      });
+        // --- 5) Get your own camera stream ---
+        const publisher = await OV.initPublisherAsync(undefined, {
+          audioSource: undefined,
+          videoSource: undefined,
+          publishAudio: true,
+          publishVideo: true,
+          resolution: "640x480",
+          frameRate: 30,
+          insertMode: "APPEND",
+          mirror: false,
+        });
 
-      // --- 6) Publish your stream ---
-      mySession.publish(publisher);
+        // --- 6) Publish your stream ---
+        mySession.publish(publisher);
 
-      const devices = await OV.getDevices();
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      const currentVideoDeviceId = publisher.stream
-        .getMediaStream()
-        .getVideoTracks()[0]
-        .getSettings().deviceId;
+        const devices = await OV.getDevices();
+        const videoDevices = devices.filter(
+          (device) => device.kind === "videoinput"
+        );
+        const currentVideoDeviceId = publisher.stream
+          .getMediaStream()
+          .getVideoTracks()[0]
+          .getSettings().deviceId;
 
-      const currentVideoDevice = videoDevices.find(
-        (device) => device.deviceId === currentVideoDeviceId
-      );
+        const currentVideoDevice = videoDevices.find(
+          (device) => device.deviceId === currentVideoDeviceId
+        );
 
-      // Set the main video in the page to display our webcam and store our Publisher
-      setMainStreamManager(publisher);
-      setPublisher(publisher);
-      setSubscribers([]);
-      // setNickname(nickname);
-      // setSessionId(sessionId);
+        // Set the main video in the page to display our webcam and store our Publisher
+        setMainStreamManager(publisher);
+        setPublisher(publisher);
+        setSubscribers([]);
+        // setNickname(nickname);
+        // setSessionId(sessionId);
       }
     } catch (error) {
       console.log(
@@ -263,11 +263,11 @@ const OnlineConcertView = () => {
 
       {subscribers.map((sub, i) => (
         <OnlineConcertVideo
-        sessionId={sessionId}
-        mainStreamManager={sub}
-        onLeaveSession={onLeaveSession}
-        onSwitchCamera={onSwitchCamera}
-      />
+          sessionId={sessionId}
+          mainStreamManager={sub}
+          onLeaveSession={onLeaveSession}
+          onSwitchCamera={onSwitchCamera}
+        />
       ))}
     </div>
   );

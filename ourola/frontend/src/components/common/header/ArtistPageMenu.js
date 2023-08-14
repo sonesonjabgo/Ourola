@@ -4,9 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../../style/common/header/GroupPageMenu.css";
 
-import MediaSubNav from "./MediaSubNav"
-import OthersSubNav from "./OthersSubNav"
-
+import MediaSubNav from "./MediaSubNav";
+import OthersSubNav from "./OthersSubNav";
 
 function GroupPageMenu() {
   // 클릭이 되면 상태변화를 시켜 active class를 추가시킴
@@ -15,27 +14,32 @@ function GroupPageMenu() {
   // isTabActive를 통해 clickedTab과 tabName이 같은 지 확인하게 되고
   // 탭이 하얗게 변한다.
   const location = useLocation();
-  const group = location.pathname.split('/')[1]
+  const group = location.pathname.split("/")[1];
 
   const [clickedTab, setClickedTab] = useState(null);
 
   useEffect(() => {
-    const tabFromName = location.pathname.split('/')[2]
+    const tabFromName = location.pathname.split("/")[2];
     if (tabFromName) {
       setClickedTab(tabFromName);
     }
   }, [location.pathname]);
-  
+
   const isTabActive = (tabName) => {
     return clickedTab === tabName;
   };
 
-  if (group.length !== 0 && group !== 'signup' && group !== 'NotFound') {
-  return (
-    <>
-      <div className="groupPageMenuContainer">
-        <div className="groupPageMenuSpacer"></div>
-        <div className="groupPageMenuButtonContainer" >
+  if (
+    group.length !== 0 &&
+    group !== "signup" &&
+    group !== "NotFound" &&
+    group !== "mypage"
+  ) {
+    return (
+      <>
+        <div id="groupPageMenuContainer" className="groupPageMenuContainer">
+          <div className="groupPageMenuSpacer"></div>
+          <div className="groupPageMenuButtonContainer">
             <Link
               to={`/${group}/fanfeed`}
               className={isTabActive("fanfeed") ? "active" : ""}
@@ -54,7 +58,7 @@ function GroupPageMenu() {
               to={`/${group}/live`}
               className={isTabActive("live") ? "active" : ""}
             >
-            라이브
+              라이브
             </Link>
 
             <Link
@@ -77,14 +81,15 @@ function GroupPageMenu() {
             >
               Shop
             </Link>
+          </div>
+          <div className="groupPageMenuSpacer"></div>
         </div>
-        <div className="groupPageMenuSpacer"></div>
-      </div>
         {/* 서브 네비게이션 바 */}
-        {isTabActive("media") && <MediaSubNav group={group}/>}
-        {isTabActive("others") && <OthersSubNav group={group}/>}
-    </>
-  );} else {
+        {isTabActive("media") && <MediaSubNav group={group} />}
+        {isTabActive("others") && <OthersSubNav group={group} />}
+      </>
+    );
+  } else {
     return null;
   }
 }

@@ -1,12 +1,14 @@
 package com.mk.ourola.api.common.auth.filter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.hc.core5.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -132,6 +134,16 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 				.ifPresent(email -> artistRepository.findByEmail(email)
 					.ifPresent(this::saveArtistAuthentication)));
 
+		log.info("checkAccessTokenAndAuthentication response"+response.getStatus());
+
+		Optional<String> accessToken = jwtService.extractAccessToken(request);
+		if(accessToken.isPresent()) {
+			if(!jwtService.isTokenValid(accessToken.get())) {
+				response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+				return;
+			}
+		}
+
 		filterChain.doFilter(request, response);
 	}
 
@@ -151,6 +163,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 	 * setAuthentication()을 이용하여 위에서 만든 Authentication 객체에 대한 인증 허가 처리
 	 */
 	public void saveAuthentication(FanDto myUser) {
+		log.info("fan saveAuthentication 시도");
 		String password = myUser.getPassword();
 		       if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
 		           password = PasswordUtil.generateRandomPassword();
@@ -170,6 +183,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 	}
 
 	public void saveArtistAuthentication(ArtistDto myUser) {
+		log.info("artist saveAuthentication 시도");
 		String password = myUser.getPassword();
 		       if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
 		           password = PasswordUtil.generateRandomPassword();

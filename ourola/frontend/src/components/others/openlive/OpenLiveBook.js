@@ -40,7 +40,7 @@ const OpenLiveBook = ({
   }, [setModalReserveOpen]);
 
   const book = async () => {
-    const accessToken = localStorage.getItem("Authorization");
+    const accessToken = sessionStorage.getItem("Authorization");
 
     const config = {
       headers: {
@@ -53,8 +53,6 @@ const OpenLiveBook = ({
       `/${group}/open-live/participate/${liveId}`,
       config
     );
-
-    console.log(result);
 
     if (result.data === false) {
       const newOpenLive = await axios.get(

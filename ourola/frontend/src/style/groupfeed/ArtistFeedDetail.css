@@ -17,9 +17,9 @@
 .artistFeedModal {
   outline: none;
   position: fixed;
-  top: -275px;
+  top: -300px;
   display: block;
-  left: -240px;
+  left: -230px;
 }
 
 .artistFeedContent {
@@ -101,7 +101,7 @@
 }
 
 .artistFeedCommentList::-webkit-scrollbar {
-  width: 10px;
+  width: 2px;
 }
 
 .artistFeedCommentList::-webkit-scrollbar-thumb {
@@ -291,7 +291,9 @@
   overflow-y: auto;
   position: relative;
   word-break: break-word;
-  min-height: 510px;
+  min-height: 500px;
+  max-height: 500px;
+  margin-bottom: 10px;
 }
 
 .artistFeedDetailFooter {
@@ -322,6 +324,17 @@
   font-size: 20px;
   display: block;
   margin-left: 30px;
+  max-width: 645px;
+  height: 100%;
+}
+
+.artistFeedInfoAndContent ::-webkit-scrollbar {
+  width: 2px;
+}
+
+.artistFeedInfoAndContent ::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
 }
 
 .backButton {

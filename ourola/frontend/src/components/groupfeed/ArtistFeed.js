@@ -32,7 +32,7 @@ const ArtistFeed = ({
   group,
   artistFeed,
   userInfo,
-  getArtistFeed
+  getArtistFeed,
 }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -123,8 +123,18 @@ const ArtistFeed = ({
     const formatStartDate = format(startDate, "yyyyMMdd");
     const formatEndDate = format(endDate, "yyyyMMdd");
 
+    const accessToken = sessionStorage.getItem("Authorization");
+
+    const config = {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+        "Content-Type": "application/json",
+      },
+    };
+
     const result = await axios.get(
-      `/${group}/feed/filter/date?startDate=${formatStartDate}&endDate=${formatEndDate}`
+      `/${group}/feed/filter/date?startDate=${formatStartDate}&endDate=${formatEndDate}`,
+      config
     );
 
     if (artistFilter !== -1) {
@@ -139,10 +149,7 @@ const ArtistFeed = ({
   };
 
   return (
-    <div
-      id="artistFeedList"
-      className={`artistFeedList ${scrollY > 275 ? "sticky" : ""}`}
-    >
+    <div id="artistFeedList" className="artistFeedList">
       {artistFeed.length === 0 ? (
         <div></div>
       ) : (
@@ -201,9 +208,9 @@ const ArtistFeed = ({
             key={it.id}
             id={it.id}
             group={group}
-            artistId={it.artistDto.id}
-            artistProfileId={it.artistDto.profileFileDto.id}
-            artistName={it.artistDto.name}
+            artistId={it.artistDto?.id}
+            artistProfileId={it.artistDto?.profileFileDto.id}
+            artistName={it.artistDto?.name}
             title={it.title}
             content={it.content}
             like={it.like}
@@ -211,6 +218,7 @@ const ArtistFeed = ({
             createDate={it.createDate}
             userInfo={userInfo}
             getArtistFeed={getArtistFeed}
+            files={it.fileList}
           ></ArtistFeedItem>
         ))}
       </section>

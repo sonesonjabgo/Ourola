@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const AddBasketModal = ({ state, path }) => {
 
-    const token = localStorage.getItem('Authorization') 
+    const token = sessionStorage.getItem('Authorization') 
     
     const headers = {
         "Authorization": `Bearer ${token}`,
@@ -56,27 +56,49 @@ const AddBasketModal = ({ state, path }) => {
         setAddBasketApi(membershipAddBasketApi)
     }
 
+    const [alreadyExist, setAlreadyExist] = useState(false);
+
     useEffect (() => {
         if (isMembership) {
             getMembershipAddBasketApi()
         } else {
             getConcertAddBasketApi()
         }
+    }, [isMembership])
 
+    useEffect (() => {
+
+        if (!addBasketApi) return;
+        
         axios.post(addBasketApi, {} ,{headers: headers} )
         .then((response) => {
             console.log('와잘됨')
+            setAlreadyExist(false)
         })
         .catch((error) => {
             console.error('실패하다 추가 장바구니 요청 당신의')
+            if (error.response && error.response.status === 500) {
+                setAlreadyExist(true)
+            }
         })
-    })
-
-
+    }, [addBasketApi, headers])
 
     return (
         <>
-        <div className="shopCreateBackground">
+        {alreadyExist ?
+        (<div className="shopCreateBackground">
+            <button className="shopCreateClose" onClick={closeModal}>
+                ×
+            </button>
+            <div ref={modalRef} className="shopCreateDetail">
+                이미 장바구니에 담긴 물품입니다
+                <div className="basketButtonContainer">
+                    <button onClick={() => navigate(-1)} className="gotoBackButton">이전으로</button>
+                    <button onClick={() => navigate(newPath)} className="gotoBasketButton">장바구니로</button>
+                </div>
+            </div>
+        </div>) : (
+            <div className="shopCreateBackground">
             <button className="shopCreateClose" onClick={closeModal}>
                 ×
             </button>
@@ -87,7 +109,9 @@ const AddBasketModal = ({ state, path }) => {
                     <button onClick={() => navigate(newPath)} className="gotoBasketButton">장바구니로</button>
                 </div>
             </div>
-        </div>  
+        </div>
+        )
+        }
         </>
     )
 }

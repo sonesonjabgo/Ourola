@@ -34,7 +34,7 @@ const ShopCreateModal = (props) => {
         setWhatKind('membership')
     }
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
     
     const headers = {
         "Authorization": `Bearer ${token}`,
@@ -83,6 +83,16 @@ const ShopCreateModal = (props) => {
     }
 
     // POST 요청 실행
+    const [postApi, setPostApi] = useState()
+
+    useEffect (() => {
+        if (whatKind === 'membership') {
+            setPostApi(`shop/seventeen/membership`)
+        } else (
+            setPostApi('shop/seventeen/online-concert')
+        )
+    })
+
     const postRequest = (event) => {
 
         event.preventDefault()
@@ -96,7 +106,7 @@ const ShopCreateModal = (props) => {
         formData.append('ticketingTime', selectedTicketingDate)
         formData.append('main-file', file)
         
-        axios.post('shop/seventeen/online-concert', formData, {headers: headers})
+        axios.post(postApi, formData, {headers: headers})
             .then((response) => {
                 setResponse(response.data)
                 closeModal()
@@ -104,7 +114,13 @@ const ShopCreateModal = (props) => {
             })
             .catch((error) => {
                 console.error('하하 또 망했지', error)
-                alert('비어있는 칸을 모두 채워주세요')
+
+                if (error.response && error.response.status === 400) {
+                    alert('이미 멤버십이 등록되어 있습니다')
+                    closeModal()
+                } else {
+                    alert('비어있는 칸을 모두 채워주세요')
+                }
             })
     }
 

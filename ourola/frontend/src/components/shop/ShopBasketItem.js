@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const ShopBasketItem = ({ stuffId, membershipPayDto, onlineConcertDto }) => {
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
 
     const headers = {
         "Authorization": `Bearer ${token}`,

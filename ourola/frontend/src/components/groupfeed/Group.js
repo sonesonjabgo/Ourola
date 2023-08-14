@@ -20,7 +20,7 @@ const Group = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -115,15 +115,14 @@ const Group = () => {
             artist={artist}
           />
           <div className="onelineAnnouncementContainer">
-            <Link to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}>
+            <Link
+              to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}
+            >
               <AnnouncementOneline group={group} />
             </Link>
           </div>
           <div id="feedContent" className="feedContent">
-            <div
-              id="fanFeedProfile"
-              className={`fanFeedProfile ${scrollY > 275 ? "sticky" : ""}`}
-            >
+            <div id="fanFeedProfile" className="fanFeedProfile">
               <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
             </div>
             <ArtistFeed

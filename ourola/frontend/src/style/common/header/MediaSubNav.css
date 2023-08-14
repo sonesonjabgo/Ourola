@@ -10,7 +10,8 @@
 }
 
 .mediaMenuButtonContainer{
+    /* position: fixed; */
     display: flex;
     gap: 20px;
-    margin-left: 950px;
+    margin-left: 1060px;
 }

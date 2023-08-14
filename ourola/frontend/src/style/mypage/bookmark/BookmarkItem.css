@@ -1,0 +1,69 @@
+.bookmarkItemWrapper {
+  margin-right: 25px;
+  margin-bottom: 25px;
+  width: 230px;
+  height: 230px;
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+.bookmarkItemWrapper:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.bookmarkItemHeader {
+  padding-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-bottom: 5px;
+  /* border-bottom: 1px solid black; */
+}
+
+.bookmarkFeedProfileWrapper {
+  display: flex;
+}
+
+.bookmarkFeedProfileImg {
+  width: 38px;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.bookmarkProfileImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  vertical-align: center;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.bookmarkFeedProfileInfo {
+  padding-left: 10px;
+}
+
+.bookmarkFeedNickname {
+  font-size: 14px;
+}
+
+.bookmarkFeedCreateDate {
+  font-family: "NanumSquare-Bold";
+  font-size: 14px;
+}
+
+.bookmarkItemBody {
+  padding: 10px;
+}
+
+.bookmarkContent {
+  font-size: 16px;
+  padding-top: 5px;
+  padding-left: 10px;
+}
