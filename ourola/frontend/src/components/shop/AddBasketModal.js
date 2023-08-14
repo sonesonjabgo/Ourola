@@ -69,8 +69,6 @@ const AddBasketModal = ({ state, path }) => {
     useEffect (() => {
 
         if (!addBasketApi) return;
-
-        setIsLoading(true)
         
         axios.post(addBasketApi, {} ,{headers: headers} )
         .then((response) => {
