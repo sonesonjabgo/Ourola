@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ArtistFeed from "./FanFeed";
 import AnnouncementOneline from "components/others/announcement/AnnouncementOneline";
-import CreateFeedButton from './CreateFeedButton'
+import CreateFeedButton from "./CreateFeedButton";
 import { Link } from "react-router-dom";
 import FanFeedProfile from "components/fanfeed/FanFeedProfile";
 import { useLocation } from "react-router-dom";
@@ -108,16 +108,16 @@ const Group = () => {
       {!loadingMember && !loadingFeed ? (
         <div id="groupContent" className="groupContent">
           <div className="buttonCreatefeedContainer">
-            <CreateFeedButton
-              groupInfo={groupInfo}
-              userInfo={userInfo}
-              userRole={userInfo.role}
-            />
+            {groupInfo && userInfo ? (
+              <CreateFeedButton
+                groupInfo={groupInfo}
+                userInfo={userInfo}
+                userRole={userInfo.role}
+              />
+            ) : null}
           </div>
           <div className="onelineAnnouncementContainer">
-            <Link
-              to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}
-            >
+            <Link to={`/${group}/others/announcement`}>
               <AnnouncementOneline group={group} />
             </Link>
           </div>

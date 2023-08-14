@@ -1,7 +1,8 @@
 .announcementOneline {
   display: flex;
   flex-direction: row;
-  /* cursor: pointer; */
+  justify-content: center;
+  margin-bottom: 45px;
 }
 
 .oneLineAnnouncement {
@@ -13,6 +14,7 @@
   min-height: 70px;
   align-items: center;
   padding-left: 20px;
+  cursor: pointer;
 }
 
 .oneLineAnnouncementIconContainer {
@@ -30,4 +32,8 @@
   align-items: center;
   justify-content: center;
   width: 700px;
+}
+
+.onelineAnnouncementContainer a {
+  cursor: default;
 }

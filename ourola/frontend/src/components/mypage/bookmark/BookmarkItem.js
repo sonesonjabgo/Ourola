@@ -7,9 +7,7 @@ const BookmarkItem = ({ item }) => {
   const FAN = 1;
   const ARTIST = 2;
 
-  // console.log(feed);
-
-  const [type, setType] = useState(item.type);
+  const type = item.type;
   const [nickname, setNickname] = useState("임시닉");
   const createDate = moment(new Date(feed.createDate)).format(
     "YYYY.MM.DD HH:mm"
@@ -27,13 +25,13 @@ const BookmarkItem = ({ item }) => {
   return (
     <div className="bookmarkItemWrapper">
       <div className="bookmarkItemHeader">
-        <div className="feedProfileWrapper">
-          <div className="feedprofileImg">
-            <img className="profileImg" src={profileImg} alt=""></img>
+        <div className="bookmarkFeedProfileWrapper">
+          <div className="bookmarkFeedProfileImg">
+            <img className="bookmarkProfileImg" src={profileImg} alt=""></img>
           </div>
-          <div className="feedProfileInfo">
-            <div className="feedNickname">{nickname}</div>
-            <div className="feedCreateDate">{createDate}</div>
+          <div className="bookmarkFeedProfileInfo">
+            <div className="bookmarkFeedNickname">{nickname}</div>
+            <div className="bookmarkFeedCreateDate">{createDate}</div>
           </div>
         </div>
       </div>

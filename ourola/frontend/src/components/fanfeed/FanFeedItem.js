@@ -24,7 +24,10 @@ const ArtistFeedItem = ({
   getArtistFeed,
   fanId,
   profileId,
+<<<<<<< HEAD
   files
+=======
+>>>>>>> master
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
@@ -219,28 +222,31 @@ const ArtistFeedItem = ({
             </span>
           </div>
         </div>
-        <div id="artistFeedBlank" className="artistFeedBlank">
-          {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
-            <button onClick={deleteRequest}>피드 삭제</button>
-          ) : null}
-          {thisFeedBookmark ? (
-            <img
-              src={bookmarkfill}
-              alt="이미지가 없습니다."
-              id="artistFeedBookmarkImg"
-              className="artistFeedBookmarkImg"
-              onClick={wantBookmarkCancle}
-            ></img>
-          ) : (
-            <img
-              src={bookmarkempty}
-              alt="이미지가 없습니다."
-              id="artistFeedBookmarkImg"
-              className="artistFeedBookmarkImg"
-              onClick={wantBookmark}
-            ></img>
-          )}
-        </div>
+
+        {userInfo ? (
+          <div id="artistFeedBlank" className="artistFeedBlank">
+            {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
+              <button onClick={deleteRequest}>피드 삭제</button>
+            ) : null}
+            {thisFeedBookmark ? (
+              <img
+                src={bookmarkfill}
+                alt="이미지가 없습니다."
+                id="artistFeedBookmarkImg"
+                className="artistFeedBookmarkImg"
+                onClick={wantBookmarkCancle}
+              ></img>
+            ) : (
+              <img
+                src={bookmarkempty}
+                alt="이미지가 없습니다."
+                id="artistFeedBookmarkImg"
+                className="artistFeedBookmarkImg"
+                onClick={wantBookmark}
+              ></img>
+            )}
+          </div>
+        ) : null}
       </div>
       <div
         id="artistFeedContent"

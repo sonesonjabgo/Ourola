@@ -112,6 +112,8 @@ public class JwtService {
 		setAccessTokenHeader(response, accessToken);
 		setRefreshTokenHeader(response, refreshToken);
 		log.info("Access Token, Refresh Token 헤더 설정 완료");
+		log.info("access token :: "+ accessToken);
+		log.info("refresh token :: "+ refreshToken);
 	}
 
 	/**
