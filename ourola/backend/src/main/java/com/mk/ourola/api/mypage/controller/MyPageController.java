@@ -74,9 +74,9 @@ public class MyPageController {
 	}
 
 	// 아티스트 닉네임 수정
-	@PutMapping("/artist/modify/nickname")
+	@PutMapping("/artist/modify/nickname/{nickname}")
 	public ResponseEntity<ArtistDto> modifyArtistNickname(@RequestHeader String accessToken,
-		@RequestBody ArtistDto newNickname) {
+		@PathVariable("nickname") String newNickname) {
 		try {
 			return new ResponseEntity<ArtistDto>(myPageService.modifyArtistNickname(accessToken, newNickname),
 				HttpStatus.OK);
@@ -86,8 +86,8 @@ public class MyPageController {
 	}
 
 	// 비밀번호 수정
-	@PutMapping("/artist/modify/password")
-	public HttpStatus modifyArtistPassword(@RequestHeader String accessToken, @RequestBody ArtistDto newPassword) {
+	@PutMapping("/artist/modify/password/{password}")
+	public HttpStatus modifyArtistPassword(@RequestHeader String accessToken, @PathVariable("password") String newPassword) {
 		try {
 			myPageService.modifyArtistPassword(accessToken, newPassword);
 			return HttpStatus.OK;
@@ -97,9 +97,9 @@ public class MyPageController {
 	}
 
 	// 팬 닉네임 수정
-	@PutMapping("/modify/nickname")
+	@PutMapping("/modify/nickname/{nickname}")
 	public ResponseEntity<FanDto> modifyFanNickname(@RequestHeader("Authorization") String accessToken,
-		@RequestBody FanDto newNickname) {
+		@PathVariable("nickname") String newNickname) {
 		try {
 			System.out.println(newNickname);
 			return new ResponseEntity<FanDto>(myPageService.modifyFanNickname(accessToken, newNickname),
@@ -119,9 +119,9 @@ public class MyPageController {
 		}
 	}
 
-	@PutMapping("/modify/password")
+	@PutMapping("/modify/password/{password}")
 	public HttpStatus modifyFanPassword(@RequestHeader("Authorization") String accessToken,
-		@RequestBody FanDto newPassword) {
+		@PathVariable("password") String newPassword) {
 		try {
 			System.out.println(newPassword);
 			myPageService.modifyFanPassword(accessToken, newPassword);
