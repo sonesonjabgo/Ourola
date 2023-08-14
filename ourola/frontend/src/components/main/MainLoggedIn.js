@@ -15,7 +15,7 @@ function MainLoggedIn() {
 
   useEffect(() => {
     axios
-      .get(`user/userinfo`, {headers})
+      .get(`user/userinfo`, {headers: headers})
       .then((response) => {
         setUserInfo(response.data);
       })

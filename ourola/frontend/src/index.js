@@ -97,10 +97,10 @@ render(
         element={<Announcement />}
       ></Route>
       {/* others - 멤버쉽 콘텐츠 */}
-      <Route
+      {/* <Route
         path="/:group/others/membershipOnly"
         element={<MembershipOnly />}
-      ></Route>
+      ></Route> */}
       {/* others- 공방신청 */}
       <Route path="/:group/others/openlive" element={<OpenLive />}></Route>
 

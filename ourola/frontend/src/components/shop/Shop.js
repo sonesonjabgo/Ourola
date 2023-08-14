@@ -10,13 +10,23 @@ const Shop = () => {
     const location = useLocation();
     const group = location.pathname.split("/")[1];
 
+    const accessToken = sessionStorage.getItem("Authorization");
+
+    const config = {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+        "Content-Type": "application/json",
+      },
+    };
+
     // Concert 물품 전체 불러오기
     const [allConcert, setAllConcert] = useState([])
+
 
     useEffect(() => {
       let isMounted = true;
   
-      axios.get(`shop/${group}/online-concert`)
+      axios.get(`shop/${group}/online-concert`, config)
         .then((response) => {
           if (isMounted) {
           setAllConcert(response.data)
@@ -37,7 +47,7 @@ const Shop = () => {
         useEffect(() => {
           let isMounted = true;
       
-          axios.get(`shop/${group}/membership`)
+          axios.get(`shop/${group}/membership`, config)
             .then((response) => {
               if (isMounted) {
               setAllMembership(response.data)

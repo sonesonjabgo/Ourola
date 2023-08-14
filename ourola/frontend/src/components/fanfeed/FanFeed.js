@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import ArtistFeedItem from "./ArtistFeedItem";
+import ArtistFeedItem from "./FanFeedItem";
 import { format } from "date-fns";
 
 const CustomDatePickerHeader = ({ date, decreaseMonth, increaseMonth }) => {
@@ -148,6 +148,8 @@ const ArtistFeed = ({
     }
   };
 
+  console.log(artistFeed);
+
   return (
     <div
       id="artistFeedList"
@@ -204,26 +206,29 @@ const ArtistFeed = ({
           </div>
         </div>
       )}
-
-      <section id="artistFeedBoard" className="artistFeedBoard">
-        {artistFeed.map((it) => (
-          <ArtistFeedItem
-            key={it.id}
-            id={it.id}
-            group={group}
-            artistId={it.artistDto.id}
-            artistProfileId={it.artistDto.profileFileDto.id}
-            artistName={it.artistDto.name}
-            title={it.title}
-            content={it.content}
-            like={it.like}
-            commentCount={it.commentCount}
-            createDate={it.createDate}
-            userInfo={userInfo}
-            getArtistFeed={getArtistFeed}
-          ></ArtistFeedItem>
-        ))}
-      </section>
+      {artistFeed ? (
+        <section id="artistFeedBoard" className="artistFeedBoard">
+          {artistFeed.map((it) => (
+            <ArtistFeedItem
+              key={it.id}
+              id={it.id}
+              group={group}
+              artistId={it.artistDto?.id}
+              artistProfileId={it.artistDto?.profileFileDto.id}
+              artistName={it.artistDto?.name}
+              title={it.title}
+              content={it.content}
+              like={it.like}
+              commentCount={it.commentCount}
+              createDate={it.createDate}
+              userInfo={userInfo}
+              getArtistFeed={getArtistFeed}
+              fanId={it.fanDto?.id}
+              profileId={it.fanDto?.profileFileDto?.id}
+            ></ArtistFeedItem>
+          ))}
+        </section>
+      ) : null}
     </div>
   );
 };

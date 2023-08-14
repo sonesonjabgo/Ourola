@@ -30,13 +30,13 @@ const OthersSubNav = ({ group }) => {
                 >
                 공방신청
                 </Link>
-                <Link
+                {/* <Link
                 to={`/${group}/others/membershipOnly`}
                 className={isTabActive("membershipOnly") ? "active" : ""}
                 onClick={() => handleTabClick("membershipOnly")}
                 >
                 멤버쉽
-                </Link>
+                </Link> */}
             </div>
         </div>
         )
