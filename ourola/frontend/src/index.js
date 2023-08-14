@@ -37,9 +37,9 @@ import OpenLive from "components/others/openlive/OpenLive";
 import NotFound from "./components/common/NotFound";
 
 // EC2 서버
-axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
@@ -97,10 +97,10 @@ render(
         element={<Announcement />}
       ></Route>
       {/* others - 멤버쉽 콘텐츠 */}
-      <Route
+      {/* <Route
         path="/:group/others/membershipOnly"
         element={<MembershipOnly />}
-      ></Route>
+      ></Route> */}
       {/* others- 공방신청 */}
       <Route path="/:group/others/openlive" element={<OpenLive />}></Route>
 
