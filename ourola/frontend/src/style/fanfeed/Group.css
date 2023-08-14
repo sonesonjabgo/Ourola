@@ -1,0 +1,30 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-height: calc(100vh - 130px);
+}
+
+.feedContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 200px;
+}
+
+.onelineAnnouncementContainer {
+  width: 100%;
+}
+
+.fanFeedProfile {
+}
+
+@media (min-height: 275px) {
+  .fanFeedProfile.sticky {
+    position: fixed;
+    top: 55%;
+    left: 155px;
+    transform: translateY(-50%);
+  }
+}
