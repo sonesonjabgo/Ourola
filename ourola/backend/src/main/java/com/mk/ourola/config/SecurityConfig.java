@@ -80,6 +80,8 @@ public class SecurityConfig {
 			.permitAll()
 			.antMatchers("/search/getAllGroup")
 			.permitAll()
+			.antMatchers(HttpMethod.GET, "/search/{group}")
+			.permitAll()
 			.antMatchers("/fan/sign-up", "/artist/sign-up")
 			.permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함
 			// .antMatchers("/login/oauth2/**")
