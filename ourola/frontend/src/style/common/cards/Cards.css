@@ -1,6 +1,6 @@
 .cardsContainer {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin: 50px 200px;
   flex-wrap: wrap;
   gap: 20px;
@@ -19,6 +19,7 @@
   width: 250px;
   line-height: 30px;
   color: white;
+  cursor: pointer;
 }
 
 .card img {
