@@ -4,11 +4,11 @@
     border-radius: 15px;
     overflow: hidden;
     text-align: center;
-    font-size: 35px;
+
     font-weight: 800;
     background-color: #D2CDF0;
     height: 350px;
-    line-height: 30px;
+    line-height: 0px;
     color: white;
   }
   
@@ -16,3 +16,11 @@
     width: 100%;
     height: 70%;
   }
+
+  .shopCardInfo {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+

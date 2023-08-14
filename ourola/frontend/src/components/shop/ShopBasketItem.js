@@ -21,26 +21,18 @@ const ShopBasketItem = ({ stuffId, membershipPayDto, onlineConcertDto }) => {
     }
 
     return (
-        <>
-        <div className="basketItemTitle">
-        {/* DB에 멤버십, 콘서트 사진 들어가면 불러오는 코드 추가 필요 */}
-        {membershipPayDto !== null ? 
-        <div>
-        <div>{membershipPayDto.title}</div>
-        <div>{membershipPayDto.price}원</div>
-        </div> : null}
-
-        {onlineConcertDto !== null ? 
-        <div>
-        <div>{onlineConcertDto.title}</div>
-        <div>{onlineConcertDto.price}원</div>
-        </div> : null}
+        <div className="basketItemContainer">
+            <div className="basketItemImage">
+                {membershipPayDto && <img src={`https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/${membershipPayDto.filePath}`} />}
+                {onlineConcertDto && <img src={`https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/${onlineConcertDto.filePath}`} />}
+            </div>
+            <div className="basketItemDetails">
+                <div className="basketItemTitle">{membershipPayDto ? membershipPayDto.title : onlineConcertDto.title}</div>
+                <div className="basketItemPrice">{membershipPayDto ? `${membershipPayDto.price}원` : `${onlineConcertDto.price}원`}</div>
+            </div>
+            <button className="basketItemDelete" onClick={deleteRequset}>삭제</button>
         </div>
-
-        <button onClick={deleteRequset}>내가없어져볼게얍!</button>
-        <br></br>
-        </>
-    )
+    );
 }
 
 export default ShopBasketItem

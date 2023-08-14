@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
+import '../../style/shop/AddBasketModal.css'
 
 const AddBasketModal = ({ state, path }) => {
 

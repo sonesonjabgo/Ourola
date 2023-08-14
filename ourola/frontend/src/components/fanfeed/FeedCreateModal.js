@@ -103,7 +103,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
         <div ref={modalRef} className="createFeedDetail">
           <FeedCreateModalProfile userInfo = {userInfo} userRole = {userRole}/>
           <div className="feedCreateInputContainer">
-            <div className="feedCreateInput">
+            <div>
               <FeedCreateInput getTextData={getTextData}/>
             </div>
           </div>

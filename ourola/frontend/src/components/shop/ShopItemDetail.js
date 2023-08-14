@@ -26,6 +26,12 @@ const ShopItemDetail = ( ) => {
     // 현재 접속 중 url 일부를 제거 후 basket을 추가해 장바구니로 연결하기 위함
     const newPath = location.pathname.split('/').slice(0, -1).join('/') + '/basket'
 
+    function NumberWithComma ({value}) {
+        return (
+          <div>\{value?.toLocaleString()}</div>
+        )
+      }
+
 
     return (
         <>
@@ -39,7 +45,6 @@ const ShopItemDetail = ( ) => {
                   <OpenShopDeleteModal path={path} />} 
                 </>
                 : null }
-                <OpenAddBasketModal path={path} />
                 <div onClick={() => navigate(newPath)} className="shopDetailBasketButton">
                     <img className="shopDetailBasketIcon" src={BasketIcon}/>
                     장바구니
@@ -48,7 +53,23 @@ const ShopItemDetail = ( ) => {
             <div className = "shopDetailInfoContainer">
                 <div className = "shopDetailMaininfo">
                     <div className = "shopDetailMaininfoImgContainer">
-                        <img className = "shopDetailMaininfoImg" src={path.src}/>
+                        <img className = "shopDetailMaininfoImg" src={`https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/${path.src}`}/>
+                    </div>
+                    <div className="verticalLine"></div>
+                    <div className="shopDetailPurchaseContainer">
+                     <div className="purchaseTitle">
+                        <h1>{path.title}</h1>
+                        <hr></hr>
+                        <h3 className="detailPrice"><NumberWithComma value={path.price} /></h3>
+                     </div>
+                     <div className="detailContentInfo">
+                        {path.content}
+                     </div>
+                
+                     <div className="datailBuy">
+                        <OpenAddBasketModal path={path} />
+                        <button className="detailBuyButton">바로 구매 ></button>
+                     </div>
                     </div>
                 </div>
             </div>
