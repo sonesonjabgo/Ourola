@@ -7,6 +7,7 @@ import axios from 'axios'
 
 
 const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
+
     // 모달
     const setModalOpen = state.setModalOpen;
   
@@ -58,7 +59,17 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
       imageInput.current.click()
     }
 
-    const submitFeed = (event) => {
+    // 현재 로그인 중인 유저가 일반 사용자인지, 아티스트 또는 소속사인지 판단해 피드 타입 지정
+    const [feedType, setFeedType] = useState()
+    useEffect(() => {
+      if (userRole === 'USER') {
+        setFeedType(1)
+      } else {
+        setFeedType(2)
+      }
+    })
+
+    const submitFeed = async (event) => {
       event.preventDefault()
       console.log(content)
 
@@ -66,8 +77,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
 
       formData.append('content', content)
       formData.append('files', file)
-      formData.append('type', 1)
-      // 그룹명 부분 seventeen으로 고정된 상태 - 바꿔줘야 함
+      formData.append('type', feedType)
       axios.post(`${group}/feed/write`, formData, {headers: headers})
 
         .then((response) => {
@@ -78,6 +88,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
         .catch((error) => {
           console.error(error)
         })
+
     }
     
     return (

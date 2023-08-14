@@ -1,13 +1,14 @@
 .mainbanner {
   background-image: url(../../assets/images/noLoggedIn_mainbanner_moving2.gif);
   background-size: cover;
-  height: 250px;
+  background-position: center;
+  height: 270px;
   color: white;
   font-size: 120px;
   font-weight: 700;
   text-align: center;
   line-height: 220px;
-  margin-top: -100px;
+  margin-top: -120px;
 }
 
 .groupsNew {
@@ -33,4 +34,13 @@
 .newList {
   text-decoration: none;
   background-color: #f5f7fa;
+}
+
+.moveToGroupContainer {
+  text-align: center;
+  width: 100%;
+}
+
+.moveToGroup {
+  font-size: 50px;
 }

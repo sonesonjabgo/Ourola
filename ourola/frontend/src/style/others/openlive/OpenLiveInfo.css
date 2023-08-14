@@ -1,0 +1,106 @@
+.openLiveInfo {
+  cursor: auto;
+}
+
+.openLiveInfoWrap {
+  display: flex;
+  width: 800px;
+  height: 600px;
+
+  z-index: 999;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+
+  flex-direction: column;
+}
+
+.openLiveInfoWrapHeader {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e4e6ea;
+  max-height: 110px;
+}
+
+.openLiveInfoWrapHeaderTitle {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.openLiveInfoWrapContent {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e4e6ea;
+  min-height: 420px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.openLiveInfoWrap ::-webkit-scrollbar {
+  width: 2px;
+}
+
+.openLiveInfoWrap ::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
+}
+
+.openLiveInfoWrapContentValue {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  max-width: 730px;
+  color: #666;
+}
+
+.openLiveInfoWrapFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  font-size: 18px;
+  margin-top: 32px;
+}
+
+.openLiveInfoWrapFooterTicketingDate {
+  margin-left: 30px;
+}
+
+.openLiveInfoWrapFooterTicketingParticipant {
+  margin-right: 30px;
+}
+
+.openLiveInfoClose {
+  z-index: 23000;
+  height: 60px;
+  position: absolute;
+  right: -70px;
+  width: 50px;
+  appearance: auto;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 70px;
+  color: #e4e6ea;
+}

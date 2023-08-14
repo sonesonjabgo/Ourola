@@ -1,14 +1,14 @@
 .mainbanner {
   background-image: url(../../assets/images/noLoggedIn_mainbanner_moving2.gif);
   background-size: cover;
-  height: 250px;
+  height: 270px;
   color: white;
   font-size: 120px;
   font-weight: 700;
   text-align: center;
   line-height: 220px;
   font-family: "NanumSqurae Extrabold";
-  margin-top: -100px;
+  margin-top: -120px;
 }
 
 .groupsNew {

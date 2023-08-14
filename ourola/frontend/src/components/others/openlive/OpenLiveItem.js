@@ -1,14 +1,16 @@
 import "../../../style/others/openlive/OpenLiveItem.css";
-import reserved from "../../../assets/icons/reserved.png";
-import notreserved from "../../../assets/icons/notreserved.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OpenLiveNotBook from "./OpenLiveNotBook";
 import OpenLiveBook from "./OpenLiveBook";
+import OpenLiveInfo from "./OpenLiveInfo";
 
 const OpenLiveItem = ({
   id,
   group,
+  page,
+  openLiveList,
+  setOpenLiveList,
   title,
   content,
   startDate,
@@ -86,6 +88,13 @@ const OpenLiveItem = ({
   const openLiveReserveModalCancleOpen = () => {
     setModalCancleOpen(true);
   };
+
+  const [modalInfoOpen, setModalInfoOpen] = useState(false);
+
+  const openLiveModalInfoOpen = () => {
+    setModalInfoOpen(true);
+  };
+
   return (
     <div>
       {isTicketingStarted ? (
@@ -99,7 +108,11 @@ const OpenLiveItem = ({
               {modalCancleOpen ? (
                 <div id="openLiveNotBookWarp" className="openLiveNotBookWarp">
                   <OpenLiveNotBook
+                    setModalReserveOpen={setModalReserveOpen}
                     setModalCancleOpen={setModalCancleOpen}
+                    setUserGetLive={setUserGetLive}
+                    setOpenLiveList={setOpenLiveList}
+                    openLiveList={openLiveList}
                     liveId={id}
                     group={group}
                     title={title}
@@ -122,17 +135,6 @@ const OpenLiveItem = ({
                   신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
                 </div>
               </div>
-              <div
-                id="openLiveInfoReserveWrap"
-                className="openLiveInfoReserveWrap"
-              >
-                <img
-                  id="openLiveInfoReserve"
-                  className="openLiveInfoReserve"
-                  src={reserved}
-                  alt="이미지가 없습니다."
-                ></img>
-              </div>
               <div id="openLiveInfoImg" className="openLiveInfoImg">
                 <img
                   id="openLiveImgProfile"
@@ -152,8 +154,13 @@ const OpenLiveItem = ({
                 <div id="openLiveBookWarp" className="openLiveBookWarp">
                   <OpenLiveBook
                     setModalReserveOpen={setModalReserveOpen}
+                    setModalCancleOpen={setModalCancleOpen}
+                    setUserGetLive={setUserGetLive}
+                    setOpenLiveList={setOpenLiveList}
+                    openLiveList={openLiveList}
                     liveId={id}
                     group={group}
+                    page={page}
                     title={title}
                     content={contentItem}
                     startFormatDate={startFormatDate}
@@ -174,17 +181,6 @@ const OpenLiveItem = ({
                   신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
                 </div>
               </div>
-              <div
-                id="openLiveInfoReserveWrap"
-                className="openLiveInfoReserveWrap"
-              >
-                <img
-                  id="openLiveInfoReserve"
-                  className="openLiveInfoReserve"
-                  src={notreserved}
-                  alt="이미지가 없습니다."
-                ></img>
-              </div>
               <div id="openLiveInfoImg" className="openLiveInfoImg">
                 <img
                   id="openLiveImgProfile"
@@ -197,23 +193,49 @@ const OpenLiveItem = ({
           )}
         </div>
       ) : (
-        <div id="openLiveItemNotStart" className="openLiveItemNotStart">
-          <div id="openLiveInfo" className="openLiveInfo">
-            <div id="openLiveInfoTitle" className="openLiveInfoTitle">
-              {startFormatDate} {title}
+        <div>
+          {modalInfoOpen ? (
+            <div id="openLiveInfoWarp" className="openLiveInfoWarp">
+              <OpenLiveInfo
+                setModalInfoOpen={setModalInfoOpen}
+                liveId={id}
+                group={group}
+                title={title}
+                content={contentItem}
+                startFormatDate={startFormatDate}
+                ticketingDate={ticketingFormatDate}
+                ticketingEndDate={ticketingEndFormatDate}
+                curParticipant={curParticipant}
+                maxParticipant={maxParticipant}
+              ></OpenLiveInfo>
             </div>
-            <div id="openLIveInfoStartDate" className="openLIveInfoStartDate">
-              신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
+          ) : (
+            <div
+              id="openLiveItemNotStart"
+              className="openLiveItemNotStart"
+              onClick={openLiveModalInfoOpen}
+            >
+              <div id="openLiveInfo" className="openLiveInfo">
+                <div id="openLiveInfoTitle" className="openLiveInfoTitle">
+                  {startFormatDate} {title}
+                </div>
+                <div
+                  id="openLIveInfoStartDate"
+                  className="openLIveInfoStartDate"
+                >
+                  신청기간 : {ticketingFormatDate} ~ {ticketingEndFormatDate}
+                </div>
+              </div>
+              <div id="openLiveInfoImg" className="openLiveInfoImg">
+                <img
+                  id="openLiveImgProfile"
+                  className="openLiveImgProfile"
+                  src={accessImg}
+                  alt="이미지가 없습니다."
+                ></img>
+              </div>
             </div>
-          </div>
-          <div id="openLiveInfoImg" className="openLiveInfoImg">
-            <img
-              id="openLiveImgProfile"
-              className="openLiveImgProfile"
-              src={accessImg}
-              alt="이미지가 없습니다."
-            ></img>
-          </div>
+          )}
         </div>
       )}
     </div>

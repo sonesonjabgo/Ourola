@@ -41,13 +41,25 @@
   border-bottom: 1px solid #e4e6ea;
   min-height: 420px;
   max-height: 420px;
+  overflow: auto;
+}
+
+.openLiveNotBookWrap ::-webkit-scrollbar {
+  width: 2px;
+}
+
+.openLiveNotBookWrap ::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 40%, 0.4);
+  border-radius: 10px;
 }
 
 .openLiveNotBookWrapContentValue {
   margin-top: 30px;
   margin-left: 30px;
+  margin-bottom: 30px;
   max-width: 730px;
   color: #666;
+  max-height: 420px;
 }
 
 .openLiveNotBookWrapFooter {
@@ -59,8 +71,12 @@
   margin-top: 25px;
 }
 
-.openLiveNotBookWrapHeaderTicketingDate {
+.openLiveNotBookWrapFooterTicketingDate {
   margin-left: 30px;
+}
+
+.openLiveNotBookParticipant {
+  display: inline-block;
 }
 
 .openLiveBookCancleButton {
@@ -71,5 +87,32 @@
   color: white;
   border-radius: 5px;
   border: none;
-  background-color: #bfbfbf;
+  background-color: #f44336;
+}
+
+.openLiveNotBookClose {
+  z-index: 23000;
+  height: 60px;
+  position: absolute;
+  right: -70px;
+  width: 50px;
+  appearance: auto;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 70px;
+  color: #e4e6ea;
 }

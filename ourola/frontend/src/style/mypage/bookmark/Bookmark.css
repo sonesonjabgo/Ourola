@@ -1,0 +1,7 @@
+.bookmarkMainTitle {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 27px;
+  height: 40px;
+  align-items: center;
+}

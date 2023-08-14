@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import MyPageProfile from "./sidebar/MyPageProfile";
 import axios from "axios";
 import MyPageMenu from "./sidebar/MyPageMenu";
-import BookMark from "./bookmark/BookMark";
-import PurchaseHistory from "./purchase/PurchaseHistory";
+import Bookmark from "./bookmark/Bookmark";
+import Purchase from "./purchase/Purchase";
 
 import "../../style/mypage/MyPage.css";
+import UserInfo from "./userinfo/UserInfo";
 
 const MyPage = () => {
   const accessToken = localStorage.getItem("Authorization");
@@ -17,6 +18,7 @@ const MyPage = () => {
   };
 
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
+  const [selectedMenu, setSelectedMenu] = useState("북마크");
 
   // 프로필과 개인정보 수정을 위한 userinfo
   const [userinfo, setUserInfo] = useState({});
@@ -30,7 +32,9 @@ const MyPage = () => {
   const menu = [
     { id: 1, title: "북마크" },
     { id: 2, title: "구매 내역" },
-    { id: 3, title: "개인정보 수정" },
+    { id: 3, title: "계정 설정" },
+    { id: 4, title: "내가 작성한 포스트" },
+    { id: 5, title: "내가 작성한 댓글" },
   ];
 
   // 사용자 프로필 사진과 닉네임을 보여준다.
@@ -47,7 +51,9 @@ const MyPage = () => {
       });
   }, []);
 
-  // console.log(userinfo);
+  const onMenuClick = (menu) => {
+    setSelectedMenu(menu);
+  };
 
   return (
     <div className="myPageHome">
@@ -69,19 +75,15 @@ const MyPage = () => {
             )}
           </div>
           <div className="myPageMenu">
-            <MyPageMenu menu={menu} />
+            <MyPageMenu menu={menu} onMenuClick={onMenuClick} />
           </div>
         </div>
         <div className="myPageMain">
-          <div className="myPageMainTitle">
-            <span>구매 내역</span>
-          </div>
-          <div className="bookmark">
-            {/* <BookMark accessToken={accessToken}></BookMark> */}
-          </div>
-          <div className="purchaseHistory">
-            <PurchaseHistory config={config} />
-          </div>
+          {selectedMenu === menu[0].title ? <Bookmark config={config} /> : null}
+          {selectedMenu === menu[1].title ? <Purchase config={config} /> : null}
+          {selectedMenu === menu[2].title ? (
+            <UserInfo userinfo={userinfo} />
+          ) : null}
           {/* 내가 작성한 포스트, 댓글 내역 */}
           <div className="myPosts"></div>
           <div className="myComments"></div>

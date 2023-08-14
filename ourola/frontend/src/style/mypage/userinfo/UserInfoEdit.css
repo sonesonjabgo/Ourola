@@ -1,0 +1,81 @@
+.userInfoWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+}
+
+.userInfo {
+  align-content: center;
+  padding-top: 70px;
+  padding-bottom: 60px;
+}
+
+.label {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.userEmailArea {
+  margin-bottom: 30px;
+}
+
+.userEmail {
+  width: 400px;
+  font-family: "NanumSquare-Bold";
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.userinfoArea {
+  margin-bottom: 30px;
+}
+
+.userinfoEdit {
+  display: flex;
+  width: 400px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.userinfoInput {
+  font-family: "NanumSquare-Bold";
+  border: none;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type="password"] {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border: none;
+}
+::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.userinfoEditBtn {
+  margin-left: auto;
+  transition-duration: 0.4s;
+  background-color: transparent;
+  border: 2px solid #7765df;
+  font-size: 15px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.userinfoEditBtn:hover {
+  background-color: #7b68ee;
+  color: white;
+}
+
+.userBirthday {
+  font-family: "NanumSquare-Bold";
+  font-size: 16px;
+}

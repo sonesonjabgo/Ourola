@@ -35,8 +35,6 @@ public class MyPageController {
 	private final JwtService jwtService;
 	private final BookmarkServiceImpl bookmarkService;
 
-	// TODO : component가 바뀌도록 할건데 일단 페이지 바뀌는걸로 함
-	// FIXME : 추후 component가 바뀌도록 하자
 
 	// 개인정보 확인
 	// FIXME : 유저 DTO 수정되는 대로 다시 건드리기
@@ -48,7 +46,6 @@ public class MyPageController {
 			if (role.equals("USER") || role.equals("GUEST")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
-				System.out.println("aaa");
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -193,7 +190,7 @@ public class MyPageController {
 	@GetMapping("/bookmark")
 	public ResponseEntity<List<BookmarkDto>> getMyBookmark(@RequestHeader(name = "Authorization") String accessToken) {
 		try {
-			Optional<String> role = jwtService.extractRole(accessToken);
+			Optional<String> role = jwtService.extractRole(jwtService.headerStringToAccessToken(accessToken).get());
 			Integer userId = jwtService.accessTokenToUserId(accessToken);
 			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
 			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);

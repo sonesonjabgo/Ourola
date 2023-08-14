@@ -51,7 +51,7 @@ const PurchaseItem = ({ item }) => {
 
   return (
     <div className="productWrap" onClick={showModal}>
-      {/* {modalOpen && <PurchaseDetail setModalOpen={setModalOpen} item={item} />} */}
+      {modalOpen && <PurchaseDetail setModalOpen={setModalOpen} item={item} />}
       <div className="productItemImage">
         <img className="productImg" src={accessImg} alt={""} />
       </div>
@@ -60,8 +60,8 @@ const PurchaseItem = ({ item }) => {
         <div className="productItemContentBody">
           <div className="productItemGroupName">
             <p>
-              {groupName} |{" "}
-              {type === ENUM.MEMBERSHIP ? "멤버십" : "온라인 콘서트"}
+              {groupName} |
+              {type === ENUM.MEMBERSHIP ? " 멤버십" : " 온라인 콘서트"}
             </p>
           </div>
           <div className="productItemTitle">

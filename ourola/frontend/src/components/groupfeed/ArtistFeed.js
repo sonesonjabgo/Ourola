@@ -31,6 +31,8 @@ const ArtistFeed = ({
   artistFilter,
   group,
   artistFeed,
+  userInfo,
+  getArtistFeed
 }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -207,6 +209,8 @@ const ArtistFeed = ({
             like={it.like}
             commentCount={it.commentCount}
             createDate={it.createDate}
+            userInfo={userInfo}
+            getArtistFeed={getArtistFeed}
           ></ArtistFeedItem>
         ))}
       </section>
