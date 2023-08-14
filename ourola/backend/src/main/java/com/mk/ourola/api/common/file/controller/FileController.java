@@ -75,10 +75,10 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getimg/feed-img")
-	public ResponseEntity<?> getFeedImg(@RequestParam int id) {
+	@GetMapping("/getimg/feed-img/{filePath}")
+	public ResponseEntity<?> getFeedImg(@PathVariable String filePath) {
 		try {
-			byte[] profileImg = fileService.getFeedImg(id);
+			byte[] profileImg = fileService.getFeedImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(profileImg, headers, HttpStatus.OK);
@@ -99,22 +99,22 @@ public class FileController {
 		}
 	}
 
-	@GetMapping("/getimg/shop-main/list")
-	public ResponseEntity<?> getShopMainImgList(@RequestParam String group) throws Exception {
-		try {
-			byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.IMAGE_JPEG);
-			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
-		} catch (IOException e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @GetMapping("/getimg/shop-main/list")
+	// public ResponseEntity<?> getShopMainImgList(@RequestParam String group) throws Exception {
+	// 	try {
+	// 		byte[] artistProfileImg = fileService.getOnlineConcertMainImgList(group);
+	// 		HttpHeaders headers = new HttpHeaders();
+	// 		headers.setContentType(MediaType.IMAGE_JPEG);
+	// 		return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+	// 	} catch (IOException e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 	// 상품의 메인이미지(썸네일)을 불러온다.
 	// filePath : 온콘/멤버십 dto 안에 filePath
 	@GetMapping("/getimg/shop-main/{filePath}")
-	public ResponseEntity<?> getShopMainImg(@RequestParam String group,
+	public ResponseEntity<?> getShopMainImg(
 		@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
 			byte[] artistProfileImg = fileService.getShopMainImg(filePath);
@@ -132,6 +132,20 @@ public class FileController {
 	public ResponseEntity<?> getShopDetailImg(@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
 			byte[] artistProfileImg = fileService.getShopDetailImg(filePath);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 공개방송 이미지를 불러온다.
+	@GetMapping("/getimg/open-live/{filePath}")
+	public ResponseEntity<?> getOpenLiveImg(
+		@PathVariable(name = "filePath") String filePath) throws Exception {
+		try {
+			byte[] artistProfileImg = fileService.getOpenLiveImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
 
 const OnlineConcertEnter = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const OnlineConcertEnter = () => {
   const open = location.state.open;
 
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,

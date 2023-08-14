@@ -7,4 +7,6 @@ import com.mk.ourola.api.media.onlinecall.repository.dto.OnlineCallDto;
 
 @Repository
 public interface OnlineCallRepository extends JpaRepository<OnlineCallDto, Integer> {
+
+	OnlineCallDto findTopByOrderByStartDateDesc();
 }

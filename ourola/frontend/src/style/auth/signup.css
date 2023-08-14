@@ -1,28 +1,59 @@
 .container {
-    display: inline-flex;
-    height: 100%;
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 23.252px;
+    height: 100%;
+    overflow: auto;
 }
 
 .signupContainer{
-    margin-top: 150px;
+    margin-top: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px; /* 요소들 사이의 위아래 간격 */
 }
 
-.signupHeader{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: black;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+label {
+    font-size: x-large;
+}
+
+.inputBox {
+    width: 800px;
+    height: 40px;
+    border: none; 
+    border-bottom: 2px solid gray;
+    outline: none;
+    margin-right: 10px;
 }
 
 .inputBox::placeholder {
-    color: gray;
+    color: rgba(128, 128, 128, 0.5);
+    font-size: large;
+  }
+
+.doubleCheckButton {
+    width: 180px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-size: 20px;
+    border-radius: 25px;
+    background-color: transparent;
+    border: 2px solid #9370DB;
+    cursor: pointer;
+}
+
+.signupSubmitButton {
+    width: 300px; /* 버튼 너비 */
+    height: 80px; /* 버튼 높이 */
+    font-size: 30px;
+    border-radius: 25px;
+    background-color: #9370DB;
+    border: #9370DB;
+    cursor: pointer;
+    align-self: center;
+}
+
+.inputBoxDate {
+    width: 200px; /* 원하는 너비로 조정 */
+    height: 50px;
+    border: none;
+    border-bottom: 2px solid gray;
+    outline: none;
   }

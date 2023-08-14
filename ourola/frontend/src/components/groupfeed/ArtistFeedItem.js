@@ -1,5 +1,6 @@
 import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import moment from "moment";
 import ArtistFeedDetail from "./ArtistFeedDetail";
 import axios from "axios";
@@ -19,6 +20,9 @@ const ArtistFeedItem = ({
   content,
   like,
   createDate,
+  userInfo,
+  getArtistFeed,
+  files
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
@@ -39,7 +43,7 @@ const ArtistFeedItem = ({
     setModalOpen(true);
   };
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -156,6 +160,37 @@ const ArtistFeedItem = ({
     document.body.style.overflow = "hidden";
   };
 
+  const location = useLocation();
+  const nowGroup = location.pathname.split("/")[1];
+
+  console.log(userInfo);
+  console.log();
+  const deleteRequest = (event) => {
+    event.preventDefault();
+
+    axios
+      .delete(`${nowGroup}/feed/remove/${id}`, config)
+      .then((response) => {
+        alert("피드가 삭제되었습니다");
+        getArtistFeed((artistFeed) =>
+          artistFeed.filter((feed) => feed.id !== id)
+        );
+      })
+      .catch((error) => {
+        if (error.response) {
+          // 서버가 응답을 반환한 경우
+          console.error("Error response:", error.response.data);
+        } else if (error.request) {
+          // 요청이 만들어졌지만 응답을 받지 못한 경우
+          console.error("No response:", error.request);
+        } else {
+          // 그 외의 오류
+          console.error("Error:", error.message);
+        }
+        alert("삭제 실패");
+      });
+  };
+
   return (
     <div id="artistFeedItem" className="artistFeedItem">
       <div id="aritstFeedHeader" className="aritstFeedHeader">
@@ -185,6 +220,9 @@ const ArtistFeedItem = ({
           </div>
         </div>
         <div id="artistFeedBlank" className="artistFeedBlank">
+          {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
+            <button onClick={deleteRequest}>피드 삭제</button>
+          ) : null}
           {thisFeedBookmark ? (
             <img
               src={bookmarkfill}
@@ -229,11 +267,21 @@ const ArtistFeedItem = ({
               commentCount,
               comment,
               scrollPosition,
+              files
             }}
           ></ArtistFeedDetail>
         )}
-        <div id="artistFeedContent" className="artistFeedContent">
-          {content}
+        <div id="artistFeedItemContent" className="artistFeedItemContent">
+            <div className="feedImgContainer">
+           {files?.length > 0 && files?.map((file, index) => (
+            <img 
+            key={index} 
+            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file?.filePath}`} 
+            alt={`File ${index}`} 
+           />
+              ))}
+              </div>
+              {content}
         </div>
       </div>
       <div id="artistFeedFooter" className="artistFeedFooter">

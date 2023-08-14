@@ -1,0 +1,41 @@
+.myActivityTitle {
+  display: flex;
+  margin-bottom: 25px;
+  font-size: 27px;
+  height: 40px;
+  align-items: center;
+}
+
+.myActivityMainSortArea {
+  display: flex;
+  margin-bottom: 15px;
+  border-bottom: 1px solid lightgray;
+}
+
+.myActivityMainSortArea > div {
+  margin-right: 15px;
+  height: 2rem;
+}
+
+.myActivitySortBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 17px;
+  width: 60px;
+}
+
+.btnArea {
+  position: relative;
+  padding: 0;
+}
+
+.btnUnderline {
+  position: absolute;
+  bottom: -2.5px;
+  left: 0px;
+  width: 100%;
+  height: 5px;
+  margin: 0;
+  background-color: #7765df;
+}

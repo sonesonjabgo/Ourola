@@ -2,7 +2,7 @@
   display: block;
   /* position: absolute; */
   position: relative;
-  padding-top: 100px;
+  padding-top: 80px;
   width: 100%;
   background-color: #f5f7fa;
 }
@@ -10,7 +10,7 @@
 .myPageHeader {
   background-color: #444;
   display: block;
-  height: 120px;
+  height: 150px;
 }
 
 .userNickName {
@@ -25,19 +25,24 @@
   display: grid;
   grid-template-columns: 2fr 5fr;
   margin-top: 50px;
-  margin-left: 12%;
-  margin-right: 10%;
+  margin-left: 130px;
+  margin-right: 130px;
 }
 
 .myPageSideBar {
   width: 330px;
   /* height: 400px; */
+  justify-content: center;
+  align-items: center;
   padding-left: 30px;
   padding-right: 30px;
 }
 
 .myPageProfile {
   background-color: #eee7fb;
+  width: 240px;
+  /* height: 250px; */
+  margin-left: 15px;
   padding-top: 25px;
   padding-bottom: 20px;
   border-radius: 30px;
@@ -54,11 +59,7 @@
 }
 
 .myPageMain {
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-.myPageMainTitle {
-  margin-bottom: 20px;
-  font-size: 27px;
+  width: 750px;
+  margin-left: 80px;
+  margin-right: 60px;
 }

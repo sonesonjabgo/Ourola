@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom"
 import "../../../style/common/header/MediaSubNav.css";
 
-const MediaSubNav = () => {
-    
-    const [clickedTab, setClickedTab] = useState("fanSigning");
+const MediaSubNav = ({ group }) => {
 
-    const handleTabClick = (tabName) => {
-        setClickedTab(tabName);
-    };
+    const location = useLocation();
+    const [clickedTab, setClickedTab] = useState(null);
+    
+    useEffect(() => {
+        const tabFromName = location.pathname.split('/')[3]
+        if (tabFromName) {
+          setClickedTab(tabFromName);
+        }
+      }, [location.pathname]);
 
     const isTabActive = (tabName) => {
         return clickedTab === tabName;
@@ -18,13 +22,15 @@ const MediaSubNav = () => {
     <div className="mediaSubTab">
         <div className="mediaMenuButtonContainer">
             <Link
-            to="/seventeen/fanSigning"
+            to={`/${group}/media/fanSigning/list`}
             className={isTabActive("fanSigning") ? "active" : ""}
-            onClick={() => handleTabClick("fanSigning")}
             >
             팬싸인회
             </Link>
-            <Link>
+            <Link
+            to={`/${group}/media/online-concert/list`}
+            className={isTabActive("online-concert") ? "active" : ""}
+            >
             온라인콘서트
             </Link>
         </div>

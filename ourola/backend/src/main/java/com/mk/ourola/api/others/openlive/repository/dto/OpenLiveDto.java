@@ -11,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
@@ -43,11 +45,20 @@ public class OpenLiveDto {
 
 	private String content;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "start_date")
 	private Date startDate;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Column(name = "ticketing_date")
 	private Date ticketingDate;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@Column(name = "ticketing_end_date")
+	private Date ticketingEndDate;
 
 	@Column(name = "file_path")
 	private String filePath;

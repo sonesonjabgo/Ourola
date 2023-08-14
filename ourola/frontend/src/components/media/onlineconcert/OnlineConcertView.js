@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? ""
-    : "http://localhost:8000/seventeen/online-concert";
+    : "https://i9d204.p.ssafy.io:8001/seventeen/online-concert";
 
 const OnlineConcertView = () => {
   const pathname = window.location.pathname;
@@ -18,7 +18,7 @@ const OnlineConcertView = () => {
 
   const location = useLocation();
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,
@@ -109,7 +109,6 @@ const OnlineConcertView = () => {
     try {
       const token = await getToken(sessionId);
       await mySession.connect(token, { clientData: nickname });
-
       if (isAdmin) {
         // --- 5) Get your own camera stream ---
         const publisher = await OV.initPublisherAsync(undefined, {
@@ -145,8 +144,6 @@ const OnlineConcertView = () => {
         setSubscribers([]);
         // setNickname(nickname);
         // setSessionId(sessionId);
-      } else {
-        console.log("aaaa");
       }
     } catch (error) {
       console.log(
@@ -263,6 +260,15 @@ const OnlineConcertView = () => {
           onSwitchCamera={onSwitchCamera}
         />
       ) : null}
+
+      {subscribers.map((sub, i) => (
+        <OnlineConcertVideo
+          sessionId={sessionId}
+          mainStreamManager={sub}
+          onLeaveSession={onLeaveSession}
+          onSwitchCamera={onSwitchCamera}
+        />
+      ))}
     </div>
   );
 };

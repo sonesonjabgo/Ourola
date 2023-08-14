@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
@@ -18,6 +19,7 @@ import com.mk.ourola.api.fan.repository.dto.NotificationDto;
 import com.mk.ourola.api.fan.repository.dto.SubscribeGroupDto;
 import com.mk.ourola.api.fan.service.FanServiceImpl;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -59,9 +61,31 @@ public class FanController {
 	// 채널 구독
 	// TODO: 중복으로 들어가는거 처리 필요
 	@PostMapping("/subscribe")
-	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+	public ResponseEntity<?> writeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestParam String group){
 		try {
-			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			SubscribeGroupDto subscribeGroupDto = fanService.writeSubscribeGroup(header, group);
+			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
+		} catch (DuplicateRequestException de) {
+			return new ResponseEntity<>(de.getMessage(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/unsubscribe")
+	public ResponseEntity<?> removeSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+		try {
+			Integer unsubscribeGroupCnt = fanService.removeSubscribeGroup(header, map.get("group"), map.get("nickname"));
+			return new ResponseEntity<>(unsubscribeGroupCnt, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/checkSubscribe")
+	public ResponseEntity<?> checkSubscribeGroup(@RequestHeader("Authorization") String header, @RequestBody Map<String, String> map){
+		try {
+			SubscribeGroupDto subscribeGroupDto = fanService.checkSubscribeGroup(header, map.get("group"), map.get("nickname"));
 			return new ResponseEntity<>(subscribeGroupDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

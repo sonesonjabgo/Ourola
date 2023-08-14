@@ -34,7 +34,7 @@ const ShopCreateModal = (props) => {
         setWhatKind('membership')
     }
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
     
     const headers = {
         "Authorization": `Bearer ${token}`,
@@ -75,7 +75,24 @@ const ShopCreateModal = (props) => {
         })
     }
 
+    // 파일
+    const [file, setFile] = useState(null)
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0])
+    }
+
     // POST 요청 실행
+    const [postApi, setPostApi] = useState()
+
+    useEffect (() => {
+        if (whatKind === 'membership') {
+            setPostApi(`shop/seventeen/membership`)
+        } else (
+            setPostApi('shop/seventeen/online-concert')
+        )
+    })
+
     const postRequest = (event) => {
 
         event.preventDefault()
@@ -87,8 +104,9 @@ const ShopCreateModal = (props) => {
         formData.append('price', parseInt(inputValue.price, 10))
         formData.append('startTime', selectedOpenDate)
         formData.append('ticketingTime', selectedTicketingDate)
+        formData.append('main-file', file)
         
-        axios.post('shop/seventeen/online-concert', formData, {headers: headers})
+        axios.post(postApi, formData, {headers: headers})
             .then((response) => {
                 setResponse(response.data)
                 closeModal()
@@ -96,7 +114,13 @@ const ShopCreateModal = (props) => {
             })
             .catch((error) => {
                 console.error('하하 또 망했지', error)
-                alert('비어있는 칸을 모두 채워주세요')
+
+                if (error.response && error.response.status === 400) {
+                    alert('이미 멤버십이 등록되어 있습니다')
+                    closeModal()
+                } else {
+                    alert('비어있는 칸을 모두 채워주세요')
+                }
             })
     }
 
@@ -131,6 +155,11 @@ const ShopCreateModal = (props) => {
                     <input type="text" id="price" name="price" value={inputValue.price} onChange={handleInputChange}></input>
                     </div>
 
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+
                     <div className="postButtonContainer">
                     <input type="submit" className="createButton" value="등록"></input>
                     </div>
@@ -163,6 +192,12 @@ const ShopCreateModal = (props) => {
                     <label htmlFor="startTime">오픈 시간</label>
                     <input type="datetime-local" id="startTime" name="startTime" value={selectedOpenDate} onChange={handleOpenDateChange}></input>
                     </div>
+
+                    <div className="inputValue">
+                    <label htmlFor="image">썸네일</label>
+                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                    </div>
+
                     <div className="postButtonContainer">
                     <input type="submit" className="postButton" value="등록"></input>
                 </div>

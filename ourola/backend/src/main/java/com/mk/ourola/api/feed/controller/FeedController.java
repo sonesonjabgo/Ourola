@@ -97,7 +97,6 @@ public class FeedController {
 			FeedDto fanFeedDtoResult = feedService.writeFeed(group, feedDto, email.get());
 			System.out.println(files);
 			if (!(files == null)) {
-				System.out.println("없다");
 				fileService.writeFeedImages(files, fanFeedDtoResult);
 			}
 			return new ResponseEntity<>(fanFeedDtoResult, HttpStatus.OK);
@@ -240,16 +239,16 @@ public class FeedController {
 		}
 	}
 
-	@GetMapping("/getBookmarkList")
-	public ResponseEntity<?> getBookmarkList(@RequestHeader(name = "Authorization") String accessToken) {
-		try {
-			Optional<String> role = jwtService.extractRole(accessToken);
-			Integer userId = jwtService.accessTokenToUserId(accessToken);
-			List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
-			return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @GetMapping("/getBookmarkList")
+	// public ResponseEntity<?> getBookmarkList(@RequestHeader(name = "Authorization") String accessToken) {
+	// 	try {
+	// 		Optional<String> role = jwtService.extractRole(accessToken);
+	// 		Integer userId = jwtService.accessTokenToUserId(accessToken);
+	// 		List<BookmarkDto> bookmarkList = bookmarkService.getBookmarkList(role.get(), userId);
+	// 		return new ResponseEntity<>(bookmarkList, HttpStatus.OK);
+	// 	} catch (Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 }

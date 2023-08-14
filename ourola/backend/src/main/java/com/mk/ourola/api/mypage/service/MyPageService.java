@@ -18,20 +18,22 @@ public interface MyPageService {
 	ArtistDto getArtistUserInfo(String accessToken) throws Exception;
 
 	// 아티스트 닉네임 수정
-	ArtistDto modifyArtistNickname(String accessToken, ArtistDto newNickname) throws Exception;
+	ArtistDto modifyArtistNickname(String accessToken, String newNickname) throws Exception;
 
 	// 아티스트 비밀번호 수정
-	void modifyArtistPassword(String accessToken, ArtistDto newPassword) throws Exception;
+	void modifyArtistPassword(String accessToken, String newPassword) throws Exception;
 
 	// 팬 개인정보
 	// 팬 개인정보 가져오기
 	FanDto getFanUserInfo(String accessToken) throws Exception;
 
 	// 팬 닉네임 수정
-	FanDto modifyFanNickname(String accessToken, FanDto newNickname) throws Exception;
+	FanDto modifyFanNickname(String accessToken, String newNickname) throws Exception;
+
+	public boolean checkNicknameDuplicate(String header, String nickname) throws Exception;
 
 	// 팬 비밀번호 수정
-	void modifyFanPassword(String accessToken, FanDto newPassword) throws Exception;
+	void modifyFanPassword(String accessToken, String newPassword) throws Exception;
 
 	// 사용자가 구매한 모든 구매내역 가져오기
 	List<BillDto> getAllBill(String accessToken);

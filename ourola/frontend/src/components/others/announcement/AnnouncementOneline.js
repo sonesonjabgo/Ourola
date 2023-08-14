@@ -8,7 +8,7 @@ function AnnouncementOneline({ group }) {
   const [announcementList, setAnnouncementList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -21,7 +21,6 @@ function AnnouncementOneline({ group }) {
     axios
       .get(`/${group}/announcement/list?page=0`, config)
       .then((response) => {
-        console.log(response.data);
         setAnnouncementList(response.data.content.slice(0, 3));
         setCurrentIndex(0);
       })

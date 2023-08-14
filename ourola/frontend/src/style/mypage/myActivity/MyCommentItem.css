@@ -1,0 +1,86 @@
+.commentItem {
+  position: relative;
+  width: 730px;
+  height: 200px;
+  padding: 0px;
+  background: #ebe5f6;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.commentItem:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 25px 15px 0;
+  border-color: transparent #ebe5f6;
+  display: block;
+  width: 0;
+  z-index: 1;
+  left: -19px;
+  top: 140px;
+}
+
+.fanFeed {
+  background-color: rgb(230, 230, 230);
+}
+
+.fanFeed:after {
+  border-color: transparent rgb(230, 230, 230);
+}
+
+.commentItemHeader {
+  height: 110px;
+  padding-top: 30px;
+  color: gray;
+  border-bottom: 1px solid lightgray;
+}
+
+.commentItemBody {
+  display: flex;
+  padding-top: 20px;
+}
+
+.headerText > span {
+  font-family: "NanumSquare-Bold";
+}
+
+.headerText.content {
+  height: 45px;
+  font-size: 17px;
+}
+
+.headerText.writer {
+  height: 30px;
+  font-size: 15px;
+}
+
+.bodyText.content {
+  margin-bottom: 8px;
+}
+
+.bodyText.createDate {
+  font-size: 15px;
+  color: gray;
+}
+
+.bodyText.createDate > span {
+  font-family: "NanumSquare-Bold";
+}
+
+.removeBtnArea {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.myCommentRemoveImg {
+  cursor: pointer;
+  width: 25px;
+  height: auto;
+}

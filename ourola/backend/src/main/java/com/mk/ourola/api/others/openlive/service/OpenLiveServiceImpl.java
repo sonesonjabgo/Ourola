@@ -1,16 +1,20 @@
 package com.mk.ourola.api.others.openlive.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.naming.AuthenticationException;
+import javax.naming.LimitExceededException;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.auth.service.JwtService;
+import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.fan.repository.FanRepository;
 import com.mk.ourola.api.fan.repository.dto.FanDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
@@ -34,13 +38,14 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	private final OpenLiveParticipantRepository openLiveParticipantRepository;
 
 	private final JwtService jwtService;
+	private final FileServiceImpl fileService;
 
 	@Override
 	@Transactional()
-	public List<OpenLiveDto> getOpenLiveList(String group) {
+	public Page<OpenLiveDto> getOpenLiveList(String group, Date currentTime, Pageable pageable) {
 		GroupDto groupDto = groupRepository.findByName(group);
 
-		return openLiveRepository.findByGroupDto_Id(groupDto.getId());
+		return openLiveRepository.findByGroupDto_IdAndTicketingEndDateIsAfter(groupDto.getId(), currentTime, pageable);
 	}
 
 	@Override
@@ -49,7 +54,13 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	}
 
 	@Override
-	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto) throws Exception {
+	public boolean getOpenLiveParticipate(String header, int id) throws Exception {
+		FanDto fanDto = fanRepository.findById(jwtService.accessTokenToUserId(header)).orElseThrow();
+		return openLiveParticipantRepository.existsByFanDto_IdAndOpenLiveDto_Id(fanDto.getId(), id);
+	}
+
+	@Override
+	public OpenLiveDto writeOpenLive(String group, String header, OpenLiveDto openLiveDto, MultipartFile file) throws Exception {
 		String accessToken = jwtService.headerStringToAccessToken(header).get();
 
 		System.out.println(openLiveDto);
@@ -59,6 +70,11 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 		if (role.equals("USER") || role.equals("ARTIST") || !groupDto.getName().equals(group)) {
 			throw new AuthenticationException("관리자 권한입니다.");
 		}
+		String filePath = null;
+		if(!(file == null)) {
+			filePath = fileService.openLiveImgToPath(file);
+		}
+		openLiveDto.setFilePath(filePath);
 		openLiveDto.setCurParticipant(0);
 		return openLiveRepository.save(openLiveDto);
 	}
@@ -70,7 +86,7 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 
 		if (openLiveDto.isFull())
-			throw new Exception("인원 모집이 마감되었습니다.");
+			throw new LimitExceededException("인원 모집이 마감되었습니다.");
 
 		Optional<OpenLiveParticipantDto> any = openLiveParticipantRepository.findByFanDto_IdAndOpenLiveDto_Id(
 			fanDto.getId(), id);
@@ -90,12 +106,12 @@ public class OpenLiveServiceImpl implements OpenLiveService {
 	}
 
 	@Override
-	public Integer cancelOpenLiveParticipate(Integer userId, int id) {
+	public OpenLiveDto cancelOpenLiveParticipate(Integer userId, int id) {
 		Integer deleteCnt = openLiveParticipantRepository.deleteByOpenLiveDto_IdAndFanDto_Id(
 			id, userId);
 		OpenLiveDto openLiveDto = openLiveRepository.findById(id);
 		openLiveDto.cancel();
-		return deleteCnt;
+		return openLiveDto;
 	}
 
 	@Override

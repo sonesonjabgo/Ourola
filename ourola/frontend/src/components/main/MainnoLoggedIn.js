@@ -3,7 +3,7 @@ import "../../style/main/Main_noLoggedIn.css";
 import AllCards from "../common/cards/AllCards";
 import axios from 'axios'
 
-function MainNoLoggedIn() {
+function MainNoLoggedIn({ showModal }) {
 
   const [allGroup, setAllGroup] = useState([])
 
@@ -18,7 +18,7 @@ function MainNoLoggedIn() {
         }
       })
       .catch((error) => {
-        console.error('하하 망했지', error)
+        console.error('error :', error)
       })
 
       return () => {
@@ -32,7 +32,7 @@ function MainNoLoggedIn() {
       <div className="groupsNew">당신의 오로라에 새로운 색을 더해보세요</div>
       <div className="underline"></div>
       <div className="cardList">
-        <AllCards allGroup = {allGroup}/>
+        <AllCards allGroup = {allGroup} showModal={showModal}/>
       </div>
     </>
   );

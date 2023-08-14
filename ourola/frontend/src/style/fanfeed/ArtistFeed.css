@@ -1,0 +1,121 @@
+.artistFeedList {
+  margin-top: 30px;
+  max-width: 1100px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  will-change: transform;
+  z-index: 1;
+}
+
+@media (min-height: 275px) {
+  .artistFeedList.sticky {
+    margin-left: 492px;
+  }
+}
+
+.artistDateFilterWarp {
+  padding: 0 200px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #000;
+}
+
+.artistDateWarp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 598px;
+}
+
+.artistStartDate {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+}
+
+.artistStartBetween {
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+.artistEndDate {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+
+.datePicker {
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.custom-datepicker-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.custom-datepicker-prev {
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-datepicker-title {
+  font-size: 16px;
+  margin-top: 3px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.custom-datepicker-next {
+  margin-top: 3px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.artistDateFilterButtonWarp {
+  padding-top: 10px;
+  padding-right: 20px;
+  width: 10px;
+}
+
+.artistDateFilterButton {
+  height: 40px;
+  width: 80px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.artistFeedProfile {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.artistFeedBlank {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.artistFeedBookmark {
+  display: block;
+  flex-shrink: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}

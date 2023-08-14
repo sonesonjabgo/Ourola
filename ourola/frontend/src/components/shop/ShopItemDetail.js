@@ -4,9 +4,10 @@ import BasketIcon from '../../assets/icons/basket.png'
 import '../../style/shop/ShopItemDetail.css'
 import OpenShopUpdateModal from './OpenShopUpdateModal'
 import OpenShopDeleteModal from './OpenShopDeleteModal'
+import OpenAddBasketModal from './OpenAddBasketModal'
 import axios from 'axios'
 
-const ShopItemDetail = () => {
+const ShopItemDetail = ( ) => {
 
     // 뒤로가기
     const navigate = useNavigate()
@@ -22,16 +23,24 @@ const ShopItemDetail = () => {
 
     const path = location.state
 
+    // 현재 접속 중 url 일부를 제거 후 basket을 추가해 장바구니로 연결하기 위함
+    const newPath = location.pathname.split('/').slice(0, -1).join('/') + '/basket'
+
 
     return (
         <>
         <div className="shopDetailContentContainer">
             <div className="shopDetailBasketContainer">
                 <button onClick={goBack} className="shopDetailToListButton">이전으로</button>
+                {path.userRole === 'CHANNEL_ADMIN' || path.userRole ==='ADMIN' ?
+                <>
                 <OpenShopUpdateModal path={path} />
-                {path.isMembership ? ( null ) : 
-                (<OpenShopDeleteModal path={path} />)}
-                <div className="shopDetailBasketButton">
+                  {path.isMembership ? null :
+                  <OpenShopDeleteModal path={path} />} 
+                </>
+                : null }
+                <OpenAddBasketModal path={path} />
+                <div onClick={() => navigate(newPath)} className="shopDetailBasketButton">
                     <img className="shopDetailBasketIcon" src={BasketIcon}/>
                     장바구니
                 </div>

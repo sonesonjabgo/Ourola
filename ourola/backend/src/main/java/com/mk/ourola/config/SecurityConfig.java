@@ -76,7 +76,11 @@ public class SecurityConfig {
 
 			// 아이콘, css, js 관련
 			// 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
-			.antMatchers("/**","/css/**", "/images/**", "/js/**", "/favicon.ico")
+			.antMatchers("/css/**", "/images/**", "/js/**", "/favicon.ico", "/file/**")
+			.permitAll()
+			.antMatchers("/search/getAllGroup")
+			.permitAll()
+			.antMatchers(HttpMethod.GET, "/search/{group}")
 			.permitAll()
 			.antMatchers("/fan/sign-up", "/artist/sign-up")
 			.permitAll() // 회원가입 접근 가능	// TODO: 아티스트 회원가입은 막던지 인증을 거치던지 수정해야 함

@@ -25,12 +25,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  background-color: #b0a4f0;
+  background-color: white;
   border: 1px solid black;
   border-radius: 20px;
 
   overflow-y: scroll;
   overflow-x: hidden;
+  transition: all 0.3s ease;
 }
 
 .createFeedDetail::-webkit-scrollbar {

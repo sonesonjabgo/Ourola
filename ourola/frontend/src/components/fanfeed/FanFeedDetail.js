@@ -1,15 +1,18 @@
-import "../../style/groupfeed/ArtistFeedDetail.css";
+import "../../style/fanfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import FanFeedComment from "./FanFeedComment";
+import ArtistFeedComment from "./FanFeedComment";
 import downarrow from "../../assets/icons/downarrow.png";
 import send from "../../assets/icons/send.png";
 import bookmarkempty from "../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 
 const ArtistFeedDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
+
+  const localHost = "http://localhost:8000";
 
   const closeModal = () => {
     setModalOpen(false);
@@ -23,6 +26,7 @@ const ArtistFeedDetail = (props) => {
     formatTime,
     content,
     commentCount,
+    files
   } = props.state;
 
   const comment = props.state.comment;
@@ -34,6 +38,9 @@ const ArtistFeedDetail = (props) => {
   const setThisFeedLike = props.state.setThisFeedLike;
   const feedLikeSum = props.state.feedLikeSum;
   const setFeedLikeSum = props.state.setFeedLikeSum;
+
+  const thisFeedBookmark = props.state.thisFeedBookmark;
+  const setThisFeedBookmark = props.state.setThisFeedBookmark;
 
   const scrollPosition = props.state.scrollPosition;
 
@@ -52,7 +59,7 @@ const ArtistFeedDetail = (props) => {
     };
   }, [closeModal, scrollPosition]);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -130,6 +137,22 @@ const ArtistFeedDetail = (props) => {
 
     setThisFeedLike(feedLike);
     setFeedLikeSum(like);
+  };
+
+  const wantBookmark = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  const wantBookmarkCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
   };
 
   const enterKeyPress = (event) => {
@@ -210,6 +233,15 @@ const ArtistFeedDetail = (props) => {
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
                     {content}
+                    <div className="feedImgContainer">
+           {files.length > 0 && files.map((file, index) => (
+            <img 
+            key={index} 
+            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
+            alt={`File ${index}`} 
+           />
+              ))}
+          </div>
                   </div>
                 </div>
                 <div
@@ -239,12 +271,28 @@ const ArtistFeedDetail = (props) => {
                   >
                     {feedLikeSum}
                   </div>
-                  <img
-                    src={bookmarkempty}
-                    alt="이미지가 없습니다."
-                    id="artistFeedInBookmark"
-                    className="artistFeedInBookmark"
-                  ></img>
+                  <div
+                    id="artistFeedInBookmarkImgWrap"
+                    className="artistFeedBookmarkImgWrap"
+                  >
+                    {thisFeedBookmark ? (
+                      <img
+                        src={bookmarkfill}
+                        alt="이미지가 없습니다."
+                        id="artistFeedInBookmarkImg"
+                        className="artistFeedInBookmarkImg"
+                        onClick={wantBookmarkCancle}
+                      ></img>
+                    ) : (
+                      <img
+                        src={bookmarkempty}
+                        alt="이미지가 없습니다."
+                        id="artistFeedInBookmarkImg"
+                        className="artistFeedInBookmarkImg"
+                        onClick={wantBookmark}
+                      ></img>
+                    )}
+                  </div>
                 </div>
               </div>
               <div id="artistFeedCommentWrap" className="artistFeedCommentWrap">
@@ -286,7 +334,7 @@ const ArtistFeedDetail = (props) => {
                       ></div>
                       <div id="aristFeedScrollCommentList">
                         {comment.map((it) => (
-                          <FanFeedComment
+                          <ArtistFeedComment
                             key={it.id}
                             comment={comment}
                             setComment={setComment}
@@ -296,7 +344,7 @@ const ArtistFeedDetail = (props) => {
                             artistDto={it.artistDto}
                             fanDto={it.fanDto}
                             content={it.content}
-                          ></FanFeedComment>
+                          ></ArtistFeedComment>
                         ))}
                       </div>
                     </div>

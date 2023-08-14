@@ -62,6 +62,9 @@ public class FileServiceImpl implements FileService {
 	@Value("${file.shopMainFile}")
 	private String SHOP_MAIN_FOLDER;
 
+	@Value("${file.openLiveFile}")
+	private String OPENLIVE_FOLDER;
+
 	public FanDto writeProfileImage(MultipartFile file, String email) throws
 		NoSuchAlgorithmException,
 		IOException {
@@ -104,7 +107,7 @@ public class FileServiceImpl implements FileService {
 
 			FeedFileDto feedFileDto = FeedFileDto.builder()
 				.feedDto(feedDto)
-				.filePath(feedfile_path)
+				.filePath(hashName)
 				.fileExtension(fileExtension).build();
 			FeedFileDto save = feedFileRepository.save(feedFileDto);
 		}
@@ -138,13 +141,6 @@ public class FileServiceImpl implements FileService {
 		File dest = new File(shopfile_path);
 		mainFile.transferTo(dest);
 
-		// ShopFileDto shopMainFileDto = ShopFileDto.builder()
-		// 	.membershipPayDto(membershipPayDto)
-		// 	.onlineConcertDto(onlineConcertDto)
-		// 	.filePath(shopfile_path)
-		// 	.build();
-		// ShopFileDto saveMain = shopFileRepository.save(shopMainFileDto);
-
 		return hashName;
 	}
 
@@ -176,6 +172,19 @@ public class FileServiceImpl implements FileService {
 			}
 		}
 		return "저장완료";
+	}
+	@Override
+	public String openLiveImgToPath(MultipartFile file) throws
+		NoSuchAlgorithmException,
+		IOException {
+		String fileName = getFileNameWithoutExtension(file.getOriginalFilename());
+		String hashName = generateUniqueFileName(fileName);
+		String file_path = FILE_PATH + "/openLiveFile/" + hashName;
+		File dest = new File(file_path);
+		file.transferTo(dest);
+		log.info("openLiveImgToPath :: "+file_path);
+
+		return hashName;
 	}
 
 	public byte[] getProfileImg(int id) throws IOException {
@@ -212,9 +221,8 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public byte[] getFeedImg(int fileId) throws IOException {
-		Optional<FeedFileDto> feedImg = feedFileRepository.findById(fileId);
-		File file = new File(feedImg.get().getFilePath());
+	public byte[] getFeedImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + FEED_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 
@@ -241,6 +249,12 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public byte[] getShopDetailImg(String filePath) throws IOException {
 		File file = new File(FILE_PATH + SHOP_FOLDER + filePath);
+		return FileUtil.readAsByteArray(file);
+	}
+
+	@Override
+	public byte[] getOpenLiveImg(String filePath) throws IOException {
+		File file = new File(FILE_PATH + OPENLIVE_FOLDER + filePath);
 		return FileUtil.readAsByteArray(file);
 	}
 

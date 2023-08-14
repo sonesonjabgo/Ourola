@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../../../style/media/onlineconcert/OnlineConcertItem.css";
 
 const OnlineConcertItem = ({ text, group, sessionId, open }) => {
-  const path = `/${group}/online-concert/enter`;
+  const path = `/${group}/media/online-concert/enter`;
 
   return (
     <Link

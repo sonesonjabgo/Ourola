@@ -20,7 +20,7 @@ const Group = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -115,7 +115,9 @@ const Group = () => {
             artist={artist}
           />
           <div className="onelineAnnouncementContainer">
-            <Link to={"https://i9d204.p.ssafy.io/" + group + "/announcement"}>
+            <Link
+              to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}
+            >
               <AnnouncementOneline group={group} />
             </Link>
           </div>
@@ -132,6 +134,8 @@ const Group = () => {
               scrollY={scrollY}
               artistFilter={artistFilter}
               artistFeed={artistFeed}
+              userInfo={userInfo}
+              getArtistFeed={setArtistFeed}
             />
           </div>
         </div>

@@ -26,6 +26,7 @@ const ArtistFeedDetail = (props) => {
     formatTime,
     content,
     commentCount,
+    files
   } = props.state;
 
   const comment = props.state.comment;
@@ -58,7 +59,7 @@ const ArtistFeedDetail = (props) => {
     };
   }, [closeModal, scrollPosition]);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -231,6 +232,15 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
+                  <div className="feedImgContainer">
+           {files.length > 0 && files.map((file, index) => (
+            <img className="feedImg"
+            key={index} 
+            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
+            alt={`File ${index}`} 
+           />
+              ))}
+          </div>
                     {content}
                   </div>
                 </div>

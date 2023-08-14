@@ -1,5 +1,6 @@
 package com.mk.ourola.api.others.openlive.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -12,7 +13,7 @@ import com.mk.ourola.api.others.openlive.repository.dto.OpenLiveDto;
 
 @Repository
 public interface OpenLiveRepository extends JpaRepository<OpenLiveDto, Integer> {
-	List<OpenLiveDto> findByGroupDto_Id(int id);
+	Page<OpenLiveDto> findByGroupDto_IdAndTicketingEndDateIsAfter(int id, Date currentTime, Pageable pageable);
 
 	OpenLiveDto findById(int id);
 }

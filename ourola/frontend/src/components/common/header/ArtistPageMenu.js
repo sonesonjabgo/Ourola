@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { match } from "path-to-regexp";
 import "../../../style/common/header/GroupPageMenu.css";
 
-import MediaSubNav from "./MediaSubNav"
-import OthersSubNav from "./OthersSubNav"
-
+import MediaSubNav from "./MediaSubNav";
+import OthersSubNav from "./OthersSubNav";
 
 function GroupPageMenu() {
   // 클릭이 되면 상태변화를 시켜 active class를 추가시킴
@@ -15,40 +13,43 @@ function GroupPageMenu() {
   // clickedTab에 들어감
   // isTabActive를 통해 clickedTab과 tabName이 같은 지 확인하게 되고
   // 탭이 하얗게 변한다.
+  const location = useLocation();
+  const group = location.pathname.split("/")[1];
 
   const [clickedTab, setClickedTab] = useState(null);
-  
-  const handleTabClick = (tabName) => {
-    setClickedTab(tabName);
-  };
-  
+
+  useEffect(() => {
+    const tabFromName = location.pathname.split("/")[2];
+    if (tabFromName) {
+      setClickedTab(tabFromName);
+    }
+  }, [location.pathname]);
+
   const isTabActive = (tabName) => {
     return clickedTab === tabName;
   };
-  
-  const location = useLocation();
-  const group = location.pathname.split('/')[1]
-  
-  useEffect(() => {setClickedTab("fanFeed");
-  }, []);
-  if (group.length !== 0 && group !== 'signup') {
-  return (
-    <>
-      <div className="groupPageMenuContainer">
-        <div className="groupPageMenuSpacer"></div>
-        <div className="groupPageMenuButtonContainer" >
+
+  if (
+    group.length !== 0 &&
+    group !== "signup" &&
+    group !== "NotFound" &&
+    group !== "mypage"
+  ) {
+    return (
+      <>
+        <div className="groupPageMenuContainer">
+          <div className="groupPageMenuSpacer"></div>
+          <div className="groupPageMenuButtonContainer">
             <Link
-              to={`/${group}`}
-              className={isTabActive("fanFeed") ? "active" : ""}
-              onClick={() => handleTabClick("fanFeed")}
+              to={`/${group}/fanfeed`}
+              className={isTabActive("fanfeed") ? "active" : ""}
             >
               팬 피드
             </Link>
 
             <Link
               to={`/${group}/group`}
-              className={isTabActive("groupFeed") ? "active" : ""}
-              onClick={() => handleTabClick("groupFeed")}
+              className={isTabActive("group") ? "active" : ""}
             >
               아티스트 피드
             </Link>
@@ -56,23 +57,20 @@ function GroupPageMenu() {
             <Link
               to={`/${group}/live`}
               className={isTabActive("live") ? "active" : ""}
-              onClick={() => handleTabClick("live")}
             >
-            라이브
+              라이브
             </Link>
 
             <Link
-              to={`/${group}/fanSigning`}
+              to={`/${group}/media/fanSigning/list`}
               className={isTabActive("media") ? "active" : ""}
-              onClick={() => handleTabClick("media")}
             >
               미디어
             </Link>
 
             <Link
-              to={`/${group}/announcement`}
+              to={`/${group}/others/announcement`}
               className={isTabActive("others") ? "active" : ""}
-              onClick={() => handleTabClick("others")}
             >
               Others
             </Link>
@@ -80,18 +78,18 @@ function GroupPageMenu() {
             <Link
               to={`/${group}/shop`}
               className={isTabActive("shop") ? "active" : ""}
-              onClick={() => handleTabClick("shop")}
             >
               Shop
             </Link>
+          </div>
+          <div className="groupPageMenuSpacer"></div>
         </div>
-        <div className="groupPageMenuSpacer"></div>
-      </div>
         {/* 서브 네비게이션 바 */}
-        {isTabActive("media") && <MediaSubNav />}
-        {isTabActive("others") && <OthersSubNav />}
-    </>
-  );} else {
+        {isTabActive("media") && <MediaSubNav group={group} />}
+        {isTabActive("others") && <OthersSubNav group={group} />}
+      </>
+    );
+  } else {
     return null;
   }
 }
