@@ -4,6 +4,8 @@ import "../../../style/common/cards/Cards.css";
 
 function NewCards({ allGroup, showModal }) {
 
+  console.log(allGroup)
+
   if (!allGroup) {
     return null
   }

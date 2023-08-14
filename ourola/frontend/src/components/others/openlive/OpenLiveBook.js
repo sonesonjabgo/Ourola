@@ -40,7 +40,7 @@ const OpenLiveBook = ({
   }, [setModalReserveOpen]);
 
   const book = async () => {
-    const accessToken = localStorage.getItem("Authorization");
+    const accessToken = sessionStorage.getItem("Authorization");
 
     const config = {
       headers: {

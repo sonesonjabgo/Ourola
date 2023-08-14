@@ -8,7 +8,7 @@ function AnnouncementOneline({ group }) {
   const [announcementList, setAnnouncementList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {

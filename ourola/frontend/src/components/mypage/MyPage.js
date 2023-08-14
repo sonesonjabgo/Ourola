@@ -10,7 +10,7 @@ import UserInfo from "./userinfo/UserInfo";
 import MyActivity from "./myActivity/MyActivity";
 
 const MyPage = () => {
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,

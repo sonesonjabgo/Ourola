@@ -56,7 +56,7 @@ const Shop = () => {
     const [userInfo, setUserInfo] = useState('')
 
     useEffect(() => {
-      const token = localStorage.getItem('Authorization')
+      const token = sessionStorage.getItem('Authorization')
       const headers = {"Authorization": `Bearer ${token}`}
 
       axios.get('user/userinfo', { headers: headers })
@@ -88,7 +88,7 @@ const Shop = () => {
               </Link>
             </div>
             <div className="shopItemsContainer">
-                <ShopItemList allConcert={allConcert} allMembership={allMembership}/>
+                <ShopItemList allConcert={allConcert} allMembership={allMembership} userRole={userInfo.role}/>
             </div>
         </div>
         </>

@@ -102,6 +102,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return fan;
 	}
 
+	public boolean checkNicknameDuplicate(String header, String nickname) throws Exception {
+		int fanId = jwtService.accessTokenToUserId(header);
+		if(fanRepository.checkNicknameDuplicate(fanId, nickname).isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	// 팬 비밀번호 수정
 	public void modifyFanPassword(String accessToken, FanDto newPassword) throws Exception {
 		int uid = jwtService.accessTokenToUserId(accessToken);

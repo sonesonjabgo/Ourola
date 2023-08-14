@@ -109,6 +109,16 @@ public class MyPageController {
 		}
 	}
 
+	// 팬 닉네임 중복 체크
+	@GetMapping("/modify/nickname/check-duplicate/{nickname}")
+	public ResponseEntity<?> checkNicknameDuplicate(@RequestHeader("Authorization") String header, @PathVariable("nickname") String nickname) {
+		try {
+			return new ResponseEntity<>(myPageService.checkNicknameDuplicate(header, nickname), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PutMapping("/modify/password")
 	public HttpStatus modifyFanPassword(@RequestHeader("Authorization") String accessToken,
 		@RequestBody FanDto newPassword) {

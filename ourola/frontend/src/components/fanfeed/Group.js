@@ -1,7 +1,6 @@
 import "../../style/groupfeed/Group.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ArtistList from "./ArtistList";
 import ArtistFeed from "./ArtistFeed";
 import AnnouncementOneline from "components/others/announcement/AnnouncementOneline";
 import { Link } from "react-router-dom";
@@ -107,13 +106,6 @@ const Group = () => {
     <div id="group" className="group">
       {!loadingMember && !loadingFeed ? (
         <div id="groupContent" className="groupContent">
-          <ArtistList
-            group={group}
-            setArtistFilter={setArtistFilter}
-            artistFilter={artistFilter}
-            setArtistFeed={setArtistFeed}
-            artist={artist}
-          />
           <div className="onelineAnnouncementContainer">
             <Link
               to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}
