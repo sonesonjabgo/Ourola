@@ -107,7 +107,10 @@ const Group = () => {
     <div id="group" className="group">
       {!loadingMember && !loadingFeed ? (
         <div id="groupContent" className="groupContent">
-          <div className="buttonCreatefeedContainer">
+          <div
+            id="buttonCreatefeedContainer"
+            className="buttonCreatefeedContainer"
+          >
             {groupInfo && userInfo ? (
               <CreateFeedButton
                 groupInfo={groupInfo}

@@ -17,9 +17,9 @@
 .artistFeedModal {
   outline: none;
   position: fixed;
-  top: -275px;
+  top: -300px;
   display: block;
-  left: -240px;
+  left: -230px;
 }
 
 .artistFeedContent {

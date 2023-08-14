@@ -24,7 +24,7 @@ const ArtistFeedItem = ({
   getArtistFeed,
   fanId,
   profileId,
-  files
+  files,
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
@@ -43,6 +43,10 @@ const ArtistFeedItem = ({
 
   const showModal = () => {
     setModalOpen(true);
+    document.getElementById("navbar").style.zIndex = 1;
+    document.getElementById("groupPageMenuContainer").style.zIndex = 0;
+    document.getElementById("buttonCreatefeedContainer").style.visibility =
+      "hidden";
   };
 
   const accessToken = sessionStorage.getItem("Authorization");

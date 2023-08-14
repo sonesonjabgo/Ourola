@@ -22,7 +22,7 @@ const ArtistFeedItem = ({
   createDate,
   userInfo,
   getArtistFeed,
-  files
+  files,
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
@@ -41,6 +41,9 @@ const ArtistFeedItem = ({
 
   const showModal = () => {
     setModalOpen(true);
+    document.getElementById("navbar").style.zIndex = 1;
+    document.getElementById("groupPageMenuContainer").style.zIndex = 0;
+    document.getElementById("artistList").style.visibility = "hidden";
   };
 
   const accessToken = sessionStorage.getItem("Authorization");
@@ -163,8 +166,6 @@ const ArtistFeedItem = ({
   const location = useLocation();
   const nowGroup = location.pathname.split("/")[1];
 
-  console.log(userInfo);
-  console.log();
   const deleteRequest = (event) => {
     event.preventDefault();
 
@@ -267,21 +268,22 @@ const ArtistFeedItem = ({
               commentCount,
               comment,
               scrollPosition,
-              files
+              files,
             }}
           ></ArtistFeedDetail>
         )}
         <div id="artistFeedItemContent" className="artistFeedItemContent">
-            <div className="feedImgContainer">
-           {files?.length > 0 && files?.map((file, index) => (
-            <img 
-            key={index} 
-            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file?.filePath}`} 
-            alt={`File ${index}`} 
-           />
+          <div className="feedImgContainer">
+            {files?.length > 0 &&
+              files?.map((file, index) => (
+                <img
+                  key={index}
+                  src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file?.filePath}`}
+                  alt={`File ${index}`}
+                />
               ))}
-              </div>
-              {content}
+          </div>
+          {content}
         </div>
       </div>
       <div id="artistFeedFooter" className="artistFeedFooter">

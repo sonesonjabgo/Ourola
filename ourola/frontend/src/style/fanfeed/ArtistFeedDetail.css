@@ -14,12 +14,12 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.artistFeedModal {
+.fanFeedModal {
   outline: none;
   position: fixed;
-  top: -275px;
+  top: -240px;
   display: block;
-  left: -240px;
+  left: -230px;
 }
 
 .artistFeedContent {
