@@ -18,7 +18,7 @@ function Header({ showModal, modalOpen, closeModal }) {
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(
       (response) => response,
-      (error) => {
+      async (error) => {
         if (error.response && error.response.status === 401) {
           // 만료된 토큰을 처리하기 위한 로직을 여기에 작성합니다.
           // 리프레시 토큰 요청을 보내고 액세스 토큰을 업데이트합니다.
@@ -27,15 +27,35 @@ function Header({ showModal, modalOpen, closeModal }) {
           const accessToken = sessionStorage.getItem("Authorization")
           const refreshToken = localStorage.getItem("RefreshToken")
 
-          const data = {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
+          const config = {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Authorization-refresh": "Bearer " + refreshToken,
+            }
           }
+          // const Headers = {
+          //   "Authorization": "Bearer " + accessToken,
+          //   "Authorization-refresh": "Bearer " + refreshToken,
+          // }
 
-          axios
-            .get("/cart", data)
+          await axios
+            .get("/auth", config)
             .then((res)=>{
-              console.log(res)
+              // console.log(res.headers["authorization"])
+              // console.log(res.headers["authorization-refresh"])
+              // console.log(res.headers)
+              // console.log(res.headers.authorization)
+              // console.log(res.headers["authorization"])
+
+              // sessionStorage.removeItem("UserEmail");
+              // sessionStorage.removeItem("Authorization");
+
+              // // 로컬스토리지에서 refreshToken 제거
+              // localStorage.removeItem("RefreshToken");
+
+              localStorage.setItem("RefreshToken", res.headers["authorization-refresh"])
+              sessionStorage.setItem("Authorization", res.headers["authorization"])
+              // console.log()
             })
 
         }
