@@ -34,7 +34,7 @@ const ShopCreateModal = (props) => {
         setWhatKind('membership')
     }
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
     
     const headers = {
         "Authorization": `Bearer ${token}`,

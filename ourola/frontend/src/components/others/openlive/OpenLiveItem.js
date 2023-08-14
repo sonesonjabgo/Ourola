@@ -22,7 +22,7 @@ const OpenLiveItem = ({
 }) => {
   const contentItem = content;
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const [userGetLive, setUserGetLive] = useState(false);
 

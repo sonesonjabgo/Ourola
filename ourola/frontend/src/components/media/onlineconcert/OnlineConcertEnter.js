@@ -15,7 +15,7 @@ const OnlineConcertEnter = () => {
   const open = location.state.open;
 
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,

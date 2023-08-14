@@ -58,7 +58,7 @@ const ArtistFeedDetail = (props) => {
     };
   }, [closeModal, scrollPosition]);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {

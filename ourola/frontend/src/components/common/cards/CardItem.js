@@ -4,7 +4,7 @@ import "../../../style/common/cards/CardItem.css";
 import axios from "axios";
 
 const Card = ({ src, text, path }) => {
-  const token = localStorage.getItem("Authorization");
+  const token = sessionStorage.getItem("Authorization");
   const headers = { Authorization: `Bearer ${token}` };
 
   // 그룹 클릭 했을 때 구독 하지 않으면 구독으로
