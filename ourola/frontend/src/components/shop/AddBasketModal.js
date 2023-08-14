@@ -4,9 +4,7 @@ import axios from 'axios'
 
 const AddBasketModal = ({ state, path }) => {
 
-    const [isLoading, setIsLoading] = useState(true)
-
-    const token = localStorage.getItem('Authorization') 
+    const token = sessionStorage.getItem('Authorization') 
     
     const headers = {
         "Authorization": `Bearer ${token}`,

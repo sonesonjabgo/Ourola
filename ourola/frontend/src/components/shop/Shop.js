@@ -56,7 +56,7 @@ const Shop = () => {
     const [userInfo, setUserInfo] = useState('')
 
     useEffect(() => {
-      const token = localStorage.getItem('Authorization')
+      const token = sessionStorage.getItem('Authorization')
       const headers = {"Authorization": `Bearer ${token}`}
 
       axios.get('user/userinfo', { headers: headers })

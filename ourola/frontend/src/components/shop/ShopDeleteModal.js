@@ -27,7 +27,7 @@ const ShopUpdateModal = (props) => {
     }, [setModalOpen]);
 
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
     
     const headers = {
         "Authorization": `Bearer ${token}`,

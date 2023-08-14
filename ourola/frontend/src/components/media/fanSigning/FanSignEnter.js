@@ -16,7 +16,7 @@ const FanSignEnter = () => {
   const callId = location.state.callId;
   console.log(location.state)
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,

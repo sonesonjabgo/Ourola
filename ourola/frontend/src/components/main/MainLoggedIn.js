@@ -7,7 +7,7 @@ import axios from "axios";
 
 function MainLoggedIn() {
   // 로그인된 유저의 토큰을 받고 헤더로 지정
-  const token = localStorage.getItem("Authorization");
+  const token = sessionStorage.getItem("Authorization");
   const headers = { Authorization: `Bearer ${token}` };
 
   // 현재 접속 중인 사용자의 정보 불러와 관리자 계정이면 바로 해당 그룹 페이지로 이동

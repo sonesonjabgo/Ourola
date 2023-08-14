@@ -13,8 +13,9 @@ function Fanfeed() {
 
   const [userInfo, setUserInfo] = useState(null);
   const [groupInfo, setGroupInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {
@@ -42,6 +43,7 @@ function Fanfeed() {
       .get(`search/${group}`)
       .then((response) => {
         setGroupInfo(response.data);
+        setIsLoading(true);
       })
       .catch((error) => {
         console.error(
@@ -65,25 +67,35 @@ function Fanfeed() {
     };
   }, []);
 
-if (userInfo) {
-  return (
-    <>
-      <div className="contentContainer">
-        <div className="buttonCreatefeedContainer">
-          <CreateFeedButton groupInfo = {groupInfo} userInfo = {userInfo} userRole = {userInfo.role}/>
-        </div>
-        <div className="onelineAnnouncementContainer">
-          <Link to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}>
-            <AnnouncementOneline group={group} />
-          </Link>
-        </div>
-        <div className="fanfeedProfileContainer">
-          <FanFeedProfile groupInfo = {groupInfo} userInfo = {userInfo}/>
-        </div>
-        <div className="fanfeedFeedContainer">
-          <FanFeedList userInfo={userInfo} userRole = {userInfo.role}/>
-        </div>
-      </div>
+  if (userInfo) {
+    return (
+      <>
+        {isLoading ? (
+          <div className="contentContainer">
+            <div className="buttonCreatefeedContainer">
+              <CreateFeedButton
+                groupInfo={groupInfo}
+                userInfo={userInfo}
+                userRole={userInfo.role}
+              />
+            </div>
+            <div className="onelineAnnouncementContainer">
+              <Link
+                to={
+                  "https://i9d204.p.ssafy.io/" + group + "/others/announcement"
+                }
+              >
+                <AnnouncementOneline group={group} />
+              </Link>
+            </div>
+            <div className="fanfeedProfileContainer">
+              <FanFeedProfile groupInfo={groupInfo} userInfo={userInfo} />
+            </div>
+            <div className="fanfeedFeedContainer">
+              <FanFeedList userInfo={userInfo} userRole={userInfo.role} />
+            </div>
+          </div>
+        ) : null}
       </>
     );
   } else {

@@ -10,10 +10,10 @@ const FanSignList = () => {
 
   useEffect(() => {
     axios
-      .get(`/${group}/online-concert/list`) // onlinecall
+      .get(`/${group}/onlinecall/list`) // onlinecall
       .then((response) => {
-        setConcertList(response.data);
         console.log(response.data);
+        setConcertList(response.data);
       })
       .catch((error) => {
         console.log("concert list 호출 오류 :: ", error);
@@ -23,15 +23,13 @@ const FanSignList = () => {
   return (
     <div className="onlineConcertListMain">
       <div className="onlineConcertList">
-        {concertList.map((it) => (
-          <FanSignItem
-            keyid={it.id}
-            text={it.title}
-            group={group}
-            sessionId={it.sessionId}
-            open={it.open}
-          />
-        ))}
+        <FanSignItem
+          keyid={concertList.id}
+          text={concertList.title}
+          content={concertList.content}
+          group={group}
+          sessionId={concertList.sessionId}
+        />
       </div>
     </div>
   );
