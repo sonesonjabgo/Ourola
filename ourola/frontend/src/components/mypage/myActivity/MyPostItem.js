@@ -7,8 +7,6 @@ import commentclick from "../../../assets/icons/comment.png";
 import axios from "axios";
 
 const MyPostItem = ({ item, config }) => {
-  console.log(item);
-
   const FAN = 1;
   const ARTIST = 2;
 
@@ -31,8 +29,6 @@ const MyPostItem = ({ item, config }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(comment);
-
   const commentCount = comment.length;
   const [nickname, setNickname] = useState("임시닉");
   const createDate = moment(new Date(item.createDate)).format(
@@ -52,16 +48,13 @@ const MyPostItem = ({ item, config }) => {
   const [thisFeedLike, setThisFeedLike] = useState(false);
 
   const wantLike = async () => {
-    if (type === 1) {
-    } else {
-      await axios.put(`/${group}/feed/${item.id}/like`, ``, config);
+    await axios.put(`/${group}/feed/${item.id}/like`, ``, config);
 
-      const like = likeCount + 1;
-      const feedLike = !thisFeedLike;
+    const like = likeCount + 1;
+    const feedLike = !thisFeedLike;
 
-      setThisFeedLike(feedLike);
-      setLikeCount(like);
-    }
+    setThisFeedLike(feedLike);
+    setLikeCount(like);
   };
 
   const wantLikeCancle = async () => {
@@ -99,40 +92,37 @@ const MyPostItem = ({ item, config }) => {
         )}
       </div>
       <div className="myPostItemFooter">
-        <div id="artistFeedLike" className="artistFeedLike">
+        <div id="myFeedLike" className="myFeedLike">
           {thisFeedLike ? (
             <img
               src={likeclick}
               alt="이미지가 없습니다."
-              id="artistFeedLikeImg"
-              className="artistFeedLikeImg"
+              id="myFeedLikeImg"
+              className="myFeedLikeImg"
               onClick={wantLikeCancle}
             ></img>
           ) : (
             <img
               src={notlikeclick}
               alt="이미지가 없습니다."
-              id="artistFeedLikeImg"
-              className="artistFeedLikeImg"
+              id="myFeedLikeImg"
+              className="myFeedLikeImg"
               onClick={wantLike}
             ></img>
           )}
-          <div id="artistFeedLikeCount" className="artistFeedLikeCount">
+          <div id="myFeedLikeCount" className="myFeedLikeCount">
             {likeCount}
           </div>
         </div>
-        <div id="artistFeedComment" className="artistFeedComment">
+        <div id="myFeedComment" className="myFeedComment">
           <img
             src={commentclick}
             alt="이미지가 없습니다."
-            id="artistFeedCommentImg"
-            className="artistFeedCommentImg"
+            id="myFeedCommentImg"
+            className="myFeedCommentImg"
           ></img>
-          <div
-            id="artistFeedCommentRealCount"
-            className="artistFeedCommentRealCount"
-          >
-            {commentCount} {/*  나중에 댓글 갯수로 수정필요 */}
+          <div id="myFeedCommentRealCount" className="myFeedCommentRealCount">
+            {commentCount}
           </div>
         </div>
       </div>

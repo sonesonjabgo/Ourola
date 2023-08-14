@@ -21,20 +21,22 @@ const MyActivity = ({ config }) => {
         <span className="myActivityTitleText">내 활동 </span>
       </div>
       <div className="myActivityMainSortArea">
-        <div className="postBtnArea">
+        <div className="btnArea">
           <button className="myActivitySortBtn post" onClick={onPostClick}>
             포스트
           </button>
-          <i />
+          {sortMode === mode.POST ? <div className="btnUnderline"></div> : null}
         </div>
-        <div className="commentBtnArea">
+        <div className="btnArea">
           <button
             className="myActivitySortBtn comment"
             onClick={onCommentClick}
           >
             댓글
           </button>
-          <i />
+          {sortMode === mode.COMMENT ? (
+            <div className="btnUnderline"></div>
+          ) : null}
         </div>
       </div>
       <div className="myActivityBody">
