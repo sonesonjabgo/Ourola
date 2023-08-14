@@ -2,7 +2,7 @@ import "../../style/groupfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
-import ArtistFeedDetail from "./ArtistFeedDetail";
+import ArtistFeedDetail from "./FanFeedDetail";
 import axios from "axios";
 import bookmarkempty from "../../assets/icons/bookmarkempty.png";
 import bookmarkfill from "../../assets/icons/bookmarkfill.png";
@@ -22,9 +22,11 @@ const ArtistFeedItem = ({
   createDate,
   userInfo,
   getArtistFeed,
+  fanId,
+  profileId
 }) => {
   const accessImg =
-    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
+    "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
 
   const localHost = "http://localhost:8000";
 
@@ -162,8 +164,6 @@ const ArtistFeedItem = ({
   const location = useLocation();
   const nowGroup = location.pathname.split("/")[1];
 
-  console.log(userInfo);
-  console.log();
   const deleteRequest = (event) => {
     event.preventDefault();
 

@@ -1,8 +1,9 @@
-import "../../style/groupfeed/Group.css";
+import "../../style/fanfeed/Group.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ArtistFeed from "./ArtistFeed";
+import ArtistFeed from "./FanFeed";
 import AnnouncementOneline from "components/others/announcement/AnnouncementOneline";
+import CreateFeedButton from './CreateFeedButton'
 import { Link } from "react-router-dom";
 import FanFeedProfile from "components/fanfeed/FanFeedProfile";
 import { useLocation } from "react-router-dom";
@@ -76,7 +77,7 @@ const Group = () => {
 
   useEffect(() => {
     axios
-      .get(`/${group}/feed/artist`, config)
+      .get(`/${group}/feed/fan`, config)
       .then((response) => {
         setArtistFeed(response.data);
         setLodingFeed(false);
@@ -106,6 +107,13 @@ const Group = () => {
     <div id="group" className="group">
       {!loadingMember && !loadingFeed ? (
         <div id="groupContent" className="groupContent">
+          <div className="buttonCreatefeedContainer">
+            <CreateFeedButton
+              groupInfo={groupInfo}
+              userInfo={userInfo}
+              userRole={userInfo.role}
+            />
+          </div>
           <div className="onelineAnnouncementContainer">
             <Link
               to={"https://i9d204.p.ssafy.io/" + group + "/others/announcement"}

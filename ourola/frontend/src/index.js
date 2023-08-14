@@ -12,7 +12,7 @@ import { render } from "react-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Announcement from "./components/others/announcement/Announcement";
 import Group from "components/groupfeed/Group";
-import FanFeed from "./components/fanfeed/FanFeed";
+import FanFeed from "./components/fanfeed/Group";
 import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
