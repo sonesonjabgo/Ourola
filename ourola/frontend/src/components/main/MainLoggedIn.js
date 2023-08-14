@@ -27,7 +27,7 @@ function MainLoggedIn() {
       .finally(() => {
         setFirstEffectCompleted(true);
       }) 
-  }, []);
+  }, [userInfo]);
 
   if (userInfo?.role === "CHANNEL_ADMIN" && userInfo?.groupDto?.name !== undefined) {
     window.location.href = `${userInfo?.groupDto?.name}/fanfeed`

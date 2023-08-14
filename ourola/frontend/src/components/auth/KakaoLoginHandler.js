@@ -17,7 +17,8 @@ const KakaoLoginHandler = () => {
       
       // console.log(code)
       // console.log(accessToken, refreshToken);
-      localStorage.setItem("Authorization", accessToken);
+      localStorage.setItem("RefreshToken", refreshToken);
+      sessionStorage.setItem("Authorization", accessToken);
       navigate('/')
     })
 

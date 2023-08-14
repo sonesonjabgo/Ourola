@@ -15,58 +15,58 @@ function Header({ showModal, modalOpen, closeModal }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const interceptor = axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        if (error.response && error.response.status === 401) {
-          // 만료된 토큰을 처리하기 위한 로직을 여기에 작성합니다.
-          // 리프레시 토큰 요청을 보내고 액세스 토큰을 업데이트합니다.
-          // 액세스 토큰이 업데이트된 후 원래 요청을 다시 시도합니다.
-          // 응답을 가지고 Promise를 해결합니다.
-          const accessToken = sessionStorage.getItem("Authorization")
-          const refreshToken = localStorage.getItem("RefreshToken")
+  // useEffect(() => {
+  //   const interceptor = axios.interceptors.response.use(
+  //     (response) => response,
+  //     async (error) => {
+  //       if (error.response && error.response.status === 401) {
+  //         // 만료된 토큰을 처리하기 위한 로직을 여기에 작성합니다.
+  //         // 리프레시 토큰 요청을 보내고 액세스 토큰을 업데이트합니다.
+  //         // 액세스 토큰이 업데이트된 후 원래 요청을 다시 시도합니다.
+  //         // 응답을 가지고 Promise를 해결합니다.
+  //         const accessToken = sessionStorage.getItem("Authorization")
+  //         const refreshToken = localStorage.getItem("RefreshToken")
 
-          const config = {
-            headers: {
-              Authorization: "Bearer " + accessToken,
-              "Authorization-refresh": "Bearer " + refreshToken,
-            }
-          }
-          // const Headers = {
-          //   "Authorization": "Bearer " + accessToken,
-          //   "Authorization-refresh": "Bearer " + refreshToken,
-          // }
+  //         const config = {
+  //           headers: {
+  //             Authorization: "Bearer " + accessToken,
+  //             "Authorization-refresh": "Bearer " + refreshToken,
+  //           }
+  //         }
+  //         // const Headers = {
+  //         //   "Authorization": "Bearer " + accessToken,
+  //         //   "Authorization-refresh": "Bearer " + refreshToken,
+  //         // }
 
-          await axios
-            .get("/auth", config)
-            .then((res)=>{
-              // console.log(res.headers["authorization"])
-              // console.log(res.headers["authorization-refresh"])
-              // console.log(res.headers)
-              // console.log(res.headers.authorization)
-              // console.log(res.headers["authorization"])
+  //         await axios
+  //           .get("/auth", config)
+  //           .then((res)=>{
+  //             // console.log(res.headers["authorization"])
+  //             // console.log(res.headers["authorization-refresh"])
+  //             // console.log(res.headers)
+  //             // console.log(res.headers.authorization)
+  //             // console.log(res.headers["authorization"])
 
-              // sessionStorage.removeItem("UserEmail");
-              // sessionStorage.removeItem("Authorization");
+  //             // sessionStorage.removeItem("UserEmail");
+  //             // sessionStorage.removeItem("Authorization");
 
-              // // 로컬스토리지에서 refreshToken 제거
-              // localStorage.removeItem("RefreshToken");
+  //             // // 로컬스토리지에서 refreshToken 제거
+  //             // localStorage.removeItem("RefreshToken");
 
-              localStorage.setItem("RefreshToken", res.headers["authorization-refresh"])
-              sessionStorage.setItem("Authorization", res.headers["authorization"])
-              // console.log()
-            })
-            return Promise.reject(error);
-          }
-      }
-    );
+  //             localStorage.setItem("RefreshToken", res.headers["authorization-refresh"])
+  //             sessionStorage.setItem("Authorization", res.headers["authorization"])
+  //             // console.log()
+  //           })
+  //           return Promise.reject(error);
+  //       }
+  //     }
+  //   );
   
-    return () => {
-      // 컴포넌트가 언마운트될 때 인터셉터를 제거합니다.
-      axios.interceptors.response.eject(interceptor);
-    };
-  }, []);
+  //   return () => {
+  //     // 컴포넌트가 언마운트될 때 인터셉터를 제거합니다.
+  //     axios.interceptors.response.eject(interceptor);
+  //   };
+  // }, []);
 
 
   useEffect(() => {
