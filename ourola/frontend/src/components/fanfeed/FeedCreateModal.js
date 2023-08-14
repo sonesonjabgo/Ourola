@@ -40,7 +40,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
 
     const group = groupInfo[0].name
 
-    const token = localStorage.getItem('Authorization')
+    const token = sessionStorage.getItem('Authorization')
     const headers = {
       'Authorization': `Bearer ${token}`
     }

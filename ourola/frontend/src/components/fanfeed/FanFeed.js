@@ -15,7 +15,7 @@ function Fanfeed() {
   const [groupInfo, setGroupInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
 
   const config = {
     headers: {

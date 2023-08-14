@@ -9,7 +9,7 @@ import "../../style/mypage/MyPage.css";
 import UserInfo from "./userinfo/UserInfo";
 
 const MyPage = () => {
-  const accessToken = localStorage.getItem("Authorization");
+  const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
       Authorization: "Bearer " + accessToken,
