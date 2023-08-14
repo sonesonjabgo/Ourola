@@ -61,13 +61,12 @@ function Header({ showModal, modalOpen, closeModal }) {
   //       }
   //     }
   //   );
-  
+
   //   return () => {
   //     // 컴포넌트가 언마운트될 때 인터셉터를 제거합니다.
   //     axios.interceptors.response.eject(interceptor);
   //   };
   // }, []);
-
 
   useEffect(() => {
     // 로컬스토리지에서 Authorization 값을 가져옴
@@ -134,7 +133,7 @@ function Header({ showModal, modalOpen, closeModal }) {
   };
 
   return (
-    <nav className="navbar">
+    <nav id="navbar" className="navbar">
       <div className="navbarContainer">
         <Link to="/" className="navbarLogo" onClick={closeMobileMenu}>
           <img className="mainLogo" src={mainLogo} alt="OurolaLogo" />
@@ -164,7 +163,9 @@ function Header({ showModal, modalOpen, closeModal }) {
           </ul>
           <div className="buttons">
             {isLoggedIn ? (
-              <button className="authButton"onClick={clickLogout}>로그아웃</button>
+              <button className="authButton" onClick={clickLogout}>
+                로그아웃
+              </button>
             ) : (
               <button className="authButton" onClick={showModal}>
                 로그인
@@ -172,9 +173,13 @@ function Header({ showModal, modalOpen, closeModal }) {
             )}
             {modalOpen && <Login onLogin={onLogin} closeModal={closeModal} />}
             {isLoggedIn ? (
-              <Link className="authButton" to="mypage">마이페이지</Link>
+              <Link className="authButton" to="mypage">
+                마이페이지
+              </Link>
             ) : (
-              <Link className="authButton" to="/signup">회원가입</Link>
+              <Link className="authButton" to="/signup">
+                회원가입
+              </Link>
             )}
           </div>
         </div>

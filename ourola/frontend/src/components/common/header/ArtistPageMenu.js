@@ -37,7 +37,7 @@ function GroupPageMenu() {
   ) {
     return (
       <>
-        <div className="groupPageMenuContainer">
+        <div id="groupPageMenuContainer" className="groupPageMenuContainer">
           <div className="groupPageMenuSpacer"></div>
           <div className="groupPageMenuButtonContainer">
             <Link

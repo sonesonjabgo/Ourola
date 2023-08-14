@@ -26,7 +26,7 @@ const ArtistFeedDetail = (props) => {
     formatTime,
     content,
     commentCount,
-    files
+    files,
   } = props.state;
 
   const comment = props.state.comment;
@@ -72,6 +72,9 @@ const ArtistFeedDetail = (props) => {
     closeModal();
     window.scrollTo(0, scrollPosition);
     document.body.style.overflow = "auto";
+    document.getElementById("navbar").style.zIndex = 999;
+    document.getElementById("groupPageMenuContainer").style.zIndex = 998;
+    document.getElementById("artistList").style.visibility = "visible";
   };
 
   const handleModalClick = (event) => {
@@ -232,15 +235,17 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                  <div className="feedImgContainer">
-           {files.length > 0 && files.map((file, index) => (
-            <img className="feedImg"
-            key={index} 
-            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
-            alt={`File ${index}`} 
-           />
-              ))}
-          </div>
+                    <div className="feedImgContainer">
+                      {files.length > 0 &&
+                        files.map((file, index) => (
+                          <img
+                            className="feedImg"
+                            key={index}
+                            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`}
+                            alt={`File ${index}`}
+                          />
+                        ))}
+                    </div>
                     {content}
                   </div>
                 </div>
