@@ -1,4 +1,4 @@
-import "../../style/groupfeed/ArtistFeedDetail.css";
+import "../../style/fanfeed/ArtistFeedDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ArtistFeedComment from "./FanFeedComment";
@@ -26,6 +26,7 @@ const ArtistFeedDetail = (props) => {
     formatTime,
     content,
     commentCount,
+    files
   } = props.state;
 
   const comment = props.state.comment;
@@ -232,6 +233,15 @@ const ArtistFeedDetail = (props) => {
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
                     {content}
+                    <div className="feedImgContainer">
+           {files.length > 0 && files.map((file, index) => (
+            <img 
+            key={index} 
+            src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
+            alt={`File ${index}`} 
+           />
+              ))}
+          </div>
                   </div>
                 </div>
                 <div

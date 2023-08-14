@@ -211,9 +211,9 @@ const ArtistFeed = ({
             key={it.id}
             id={it.id}
             group={group}
-            artistId={it.artistDto.id}
-            artistProfileId={it.artistDto.profileFileDto.id}
-            artistName={it.artistDto.name}
+            artistId={it.artistDto?.id}
+            artistProfileId={it.artistDto?.profileFileDto.id}
+            artistName={it.artistDto?.name}
             title={it.title}
             content={it.content}
             like={it.like}
@@ -221,6 +221,7 @@ const ArtistFeed = ({
             createDate={it.createDate}
             userInfo={userInfo}
             getArtistFeed={getArtistFeed}
+            files={it.fileList}
           ></ArtistFeedItem>
         ))}
       </section>
