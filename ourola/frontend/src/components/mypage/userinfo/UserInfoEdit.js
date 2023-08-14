@@ -16,7 +16,7 @@ const UserInfoEdit = ({ userinfo }) => {
   const [nameModalOpen, setNameModalOpen] = useState(false);
   const [pwdModalOpen, setPwdModalOpen] = useState(false);
 
-  console.log(userinfo);
+  // console.log(userinfo);
 
   const onNickEditClick = () => {
     setNickModalOpen(true);
