@@ -57,9 +57,8 @@ function Header({ showModal, modalOpen, closeModal }) {
               sessionStorage.setItem("Authorization", res.headers["authorization"])
               // console.log()
             })
-
-        }
-        return Promise.reject(error);
+            return Promise.reject(error);
+          }
       }
     );
   
