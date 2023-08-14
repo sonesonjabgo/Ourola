@@ -72,9 +72,12 @@
 
 .artistFeedItemContent {
   max-width: 1060px;
-  max-height: 20px;
 }
 
+.artistFeedItemContent img{
+  width: 100%;
+  height: 100%;
+}
 .artistFeedFooter {
   padding-left: 10px;
   align-items: center;

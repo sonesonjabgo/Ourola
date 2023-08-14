@@ -325,6 +325,7 @@
   display: block;
   margin-left: 30px;
   max-width: 645px;
+  height: 100%;
 }
 
 .artistFeedInfoAndContent ::-webkit-scrollbar {

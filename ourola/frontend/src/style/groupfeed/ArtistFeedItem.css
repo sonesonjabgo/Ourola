@@ -72,7 +72,10 @@
 
 .artistFeedItemContent {
   max-width: 1060px;
-  max-height: 20px;
+}
+
+.feedImgContainer {
+  max-width: 707px;
 }
 
 .artistFeedFooter {

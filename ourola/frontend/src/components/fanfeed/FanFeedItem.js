@@ -1,4 +1,4 @@
-import "../../style/groupfeed/ArtistFeedItem.css";
+import "../../style/fanfeed/ArtistFeedItem.css";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
@@ -23,7 +23,8 @@ const ArtistFeedItem = ({
   userInfo,
   getArtistFeed,
   fanId,
-  profileId
+  profileId,
+  files
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
@@ -218,28 +219,31 @@ const ArtistFeedItem = ({
             </span>
           </div>
         </div>
-        <div id="artistFeedBlank" className="artistFeedBlank">
-          {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
-            <button onClick={deleteRequest}>피드 삭제</button>
-          ) : null}
-          {thisFeedBookmark ? (
-            <img
-              src={bookmarkfill}
-              alt="이미지가 없습니다."
-              id="artistFeedBookmarkImg"
-              className="artistFeedBookmarkImg"
-              onClick={wantBookmarkCancle}
-            ></img>
-          ) : (
-            <img
-              src={bookmarkempty}
-              alt="이미지가 없습니다."
-              id="artistFeedBookmarkImg"
-              className="artistFeedBookmarkImg"
-              onClick={wantBookmark}
-            ></img>
-          )}
-        </div>
+
+        {userInfo ? (
+          <div id="artistFeedBlank" className="artistFeedBlank">
+            {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
+              <button onClick={deleteRequest}>피드 삭제</button>
+            ) : null}
+            {thisFeedBookmark ? (
+              <img
+                src={bookmarkfill}
+                alt="이미지가 없습니다."
+                id="artistFeedBookmarkImg"
+                className="artistFeedBookmarkImg"
+                onClick={wantBookmarkCancle}
+              ></img>
+            ) : (
+              <img
+                src={bookmarkempty}
+                alt="이미지가 없습니다."
+                id="artistFeedBookmarkImg"
+                className="artistFeedBookmarkImg"
+                onClick={wantBookmark}
+              ></img>
+            )}
+          </div>
+        ) : null}
       </div>
       <div
         id="artistFeedContent"
@@ -266,10 +270,21 @@ const ArtistFeedItem = ({
               commentCount,
               comment,
               scrollPosition,
+              files,
             }}
           ></ArtistFeedDetail>
         )}
         <div id="artistFeedItemContent" className="artistFeedItemContent">
+          <div className="feedImgContainer">
+            {files.length > 0 &&
+              files.map((file, index) => (
+                <img
+                  key={index}
+                  src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`}
+                  alt={`File ${index}`}
+                />
+              ))}
+          </div>
           {content}
         </div>
       </div>
