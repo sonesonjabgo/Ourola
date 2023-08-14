@@ -234,7 +234,7 @@ const ArtistFeedDetail = (props) => {
                   <div id="artistScrollContent" className="artistScrollContent">
                   <div className="feedImgContainer">
            {files.length > 0 && files.map((file, index) => (
-            <img 
+            <img className="feedImg"
             key={index} 
             src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`} 
             alt={`File ${index}`} 
