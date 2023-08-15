@@ -32,7 +32,7 @@ const OnlineConcertList = () => {
       });
   }, []);
 
-  console.log(concertList);
+  // console.log(concertList);
 
   return (
     <div className="onlineConcertListMain">
@@ -40,7 +40,9 @@ const OnlineConcertList = () => {
         {loadingList ? (
           <></>
         ) : (
-          concertList.map((it) => <OnlineConcertItem key={it.id} item={it} />)
+          concertList.map((it) => (
+            <OnlineConcertItem key={it.id} group={group} concertInfo={it} />
+          ))
         )}
       </div>
     </div>
