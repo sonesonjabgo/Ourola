@@ -7,6 +7,6 @@ import com.mk.ourola.api.media.onlinecall.repository.dto.OnlineCallWinner;
 
 @Repository
 public interface OnlineCallWinnerRepository extends JpaRepository<OnlineCallWinner, Integer> {
-	OnlineCallWinner findByFanDto_IdAndOnlineCallDto_Id(Integer userId, String callId);
+	OnlineCallWinner findByFanDto_IdAndOnlineCallDto_Id(Integer userId, Integer callId);
 
 }

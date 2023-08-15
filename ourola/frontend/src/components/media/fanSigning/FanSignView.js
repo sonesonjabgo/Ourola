@@ -12,12 +12,11 @@ const FanSignView = () => {
   const group = pathname.split("/")[1];
 
   const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production"
-    ? ""
-    : `https://i9d204.p.ssafy.io:8001/${group}/onlinecall`;
+    process.env.NODE_ENV === "production"
+      ? ""
+      : `https://i9d204.p.ssafy.io:8001/${group}/onlinecall`;
 
   const location = useLocation();
-
 
   const accessToken = sessionStorage.getItem("Authorization");
   const config = {
@@ -110,7 +109,6 @@ const FanSignView = () => {
     try {
       const token = await getToken(sessionId);
       await mySession.connect(token, { clientData: nickname });
-      if (isAdmin) {
       // --- 5) Get your own camera stream ---
       const publisher = await OV.initPublisherAsync(undefined, {
         audioSource: undefined,
@@ -145,7 +143,6 @@ const FanSignView = () => {
       setSubscribers([]);
       // setNickname(nickname);
       // setSessionId(sessionId);
-      }
     } catch (error) {
       console.log(
         "There was an error connecting to the session:",
@@ -264,11 +261,11 @@ const FanSignView = () => {
 
       {subscribers.map((sub, i) => (
         <FanSignVideo
-        sessionId={sessionId}
-        mainStreamManager={sub}
-        onLeaveSession={onLeaveSession}
-        onSwitchCamera={onSwitchCamera}
-      />
+          sessionId={sessionId}
+          mainStreamManager={sub}
+          onLeaveSession={onLeaveSession}
+          onSwitchCamera={onSwitchCamera}
+        />
       ))}
     </div>
   );
