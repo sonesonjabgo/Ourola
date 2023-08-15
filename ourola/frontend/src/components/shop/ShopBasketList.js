@@ -1,7 +1,9 @@
 import React from 'react'
 import ShopBasketItem from './ShopBasketItem'
+import '../../style/shop/ShopBasketList.css'
 
 const ShopBasketList = ({allBasket}) => {
+    console.log(allBasket)
     return (
         <>
         <div id="shopBasketList" className="shopBasketList">

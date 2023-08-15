@@ -68,8 +68,9 @@ public class OnlineCallController {
 
 	@GetMapping("/check/{callId}")
 	public ResponseEntity<?> checkOnlineCall(@RequestHeader("Authorization") String header,
-		@PathVariable String callId){
+		@PathVariable Integer callId){
 		try {
+			System.out.println(callId);
 			Integer userId = jwtService.accessTokenToUserId(header);
 			OnlineCallWinner isCheck = onlineCallService.checkOnlineCall(userId, callId);
 			return new ResponseEntity<>(isCheck, HttpStatus.OK);

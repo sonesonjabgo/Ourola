@@ -15,8 +15,8 @@
   
 .createFeedDetail {
   display: block;
-  width: 90%;
-  height: 80%;
+  width: 1500px;
+  height: 700px;
 
   z-index: 999;
 
@@ -57,7 +57,7 @@
 .createFeedClose {
   height: 60px;
   position: absolute;
-  top: 70px;
+  top: 30px;
   right: 30px;
   width: 50px;
   appearance: auto;
@@ -112,7 +112,7 @@
 }
 
 .feedCreateInputContainer {
-  margin-top: -25px;
+  margin-top: 38px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -120,19 +120,27 @@
 
 .feedCreateButtonContainer {
   display: flex;
-  margin: 5px 35px;
+  margin: 50px 60px;
   justify-content: space-between;
 }
 
 .feedCreateButtonUploadfile {
   height: 45px;
   width: 45px;
+  cursor: pointer;
 }
 
 .feedCreateButtonUploadfeed {
   width: 100px;
+  height: 50px;
   border-radius: 20px;
   background-color: #7b68ee;
   border: none;
   font-size: 20px;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
+.feedCreateInput {
+  background-color: lightgrey;
 }

@@ -6,6 +6,9 @@
     display: flex;
     text-align: center;
     font-size: 30px;
+    margin-left: 30px;
+    margin-top: 30px;
+    align-items: center;
 }
 
 .feedCreateModalProfileUserImgContainer {
@@ -24,6 +27,7 @@
 }
 
 .feedCreateModalProfileUsername {
-    font-size: 30px;
-    width: 100px;
+    font-size: 25px;
+    width: 300px;
+    text-align: left;
 }
