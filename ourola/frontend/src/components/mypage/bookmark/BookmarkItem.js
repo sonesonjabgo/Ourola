@@ -7,7 +7,7 @@ const BookmarkItem = ({ item }) => {
   const FAN = 1;
   const ARTIST = 2;
 
-  const type = item.type;
+  const type = feed.type;
   const [nickname, setNickname] = useState("임시닉");
   const createDate = moment(new Date(feed.createDate)).format(
     "YYYY.MM.DD HH:mm"
