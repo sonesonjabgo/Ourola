@@ -1,3 +1,13 @@
 #join {
   padding-top: 150px;
 }
+
+.OnlineConcertEnterTitle {
+  text-align: center;
+}
+
+.enterBtn {
+  border: none;
+  background-color: beige;
+  cursor: pointer;
+}
