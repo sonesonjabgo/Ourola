@@ -66,7 +66,7 @@ const ShopItemDetail = ( ) => {
                         {path.content}
                      </div>
                 
-                     <div className="datailBuy">
+                     <div className="detailBuy">
                         <OpenAddBasketModal path={path} />
                         <button className="detailBuyButton">바로 구매 ></button>
                      </div>
