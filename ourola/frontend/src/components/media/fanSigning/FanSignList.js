@@ -8,9 +8,16 @@ const FanSignList = () => {
   const group = pathname.split("/")[1];
   const [concertList, setConcertList] = useState([]);
 
+  const config = {
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("Authorization"),
+      "Content-Type": "application/json",
+    },
+  };
+
   useEffect(() => {
     axios
-      .get(`/${group}/onlinecall/list`) // onlinecall
+      .get(`/${group}/onlinecall/list`, config) // onlinecall
       .then((response) => {
         console.log(response.data);
         setConcertList(response.data);
