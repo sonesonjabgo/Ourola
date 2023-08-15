@@ -11,5 +11,5 @@ public interface OnlineCallService {
 
 	OnlineCallDto getOnlineCall();
 
-	OnlineCallWinner checkOnlineCall(Integer userId, String callId) throws Exception;
+	OnlineCallWinner checkOnlineCall(Integer userId, Integer callId) throws Exception;
 }

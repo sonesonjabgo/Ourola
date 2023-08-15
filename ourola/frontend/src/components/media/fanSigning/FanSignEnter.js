@@ -14,7 +14,7 @@ const FanSignEnter = () => {
   const sessionId = location.state.sessionId;
   const open = location.state.open;
   const callId = location.state.callId;
-  console.log(location.state)
+  console.log(location.state);
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem("Authorization");
   const config = {
@@ -26,25 +26,24 @@ const FanSignEnter = () => {
 
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    // if (!isAdmin) {
-    //   console.log(open);
-    //   if (!open) {
-    //     alert("입장 시간이 아닙니다");
-    //     return;
-    //   }
-    // }
-    axios
-      .get(`/${group}/onlinecall/check/${callId}`)
-      .then((res)=>{
-        console.log(res)
-        console.log('asdadasaaaaaaaaaaaaaaaa')
+    if (!isAdmin) {
+      console.log(open);
+      if (open) {
+        alert("입장 시간이 아닙니다");
+        return;
       }
-      )
-      .catch((err)=>{
-        console.log(err)
-        console.log(group)
-        console.log(callId)
+    }
+    axios
+      .get(`/${group}/onlinecall/check/${callId}`, config)
+      .then((res) => {
+        console.log(res);
+        console.log("asdadasaaaaaaaaaaaaaaaa");
       })
+      .catch((err) => {
+        console.log(err);
+        console.log(group);
+        console.log(callId);
+      });
 
     // navigate(`/${group}/online-concert/view`, {
     //   state: {

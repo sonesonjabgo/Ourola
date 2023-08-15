@@ -31,7 +31,7 @@ public class OnlineCallServiceImpl implements OnlineCallService {
 	}
 
 	@Override
-	public OnlineCallWinner checkOnlineCall(Integer userId, String callId) throws Exception {
+	public OnlineCallWinner checkOnlineCall(Integer userId, Integer callId) throws Exception {
 		OnlineCallWinner byFanDtoIdAndOnlineCallDtoId = onlineCallWinnerRepository.findByFanDto_IdAndOnlineCallDto_Id(
 			userId, callId);
 		if(byFanDtoIdAndOnlineCallDtoId == null){
