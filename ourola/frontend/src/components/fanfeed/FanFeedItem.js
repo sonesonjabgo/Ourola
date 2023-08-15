@@ -226,7 +226,7 @@ const ArtistFeedItem = ({
 
         {userInfo ? (
           <div id="artistFeedBlank" className="artistFeedBlank">
-            {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
+            {userInfo.id === fanId || userInfo.role === "CHANNEL_ADMIN" ? (
               <button onClick={deleteRequest}>피드 삭제</button>
             ) : null}
             {thisFeedBookmark ? (
