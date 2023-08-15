@@ -93,6 +93,7 @@ const FanSignView = () => {
       // Subscribe to the Stream to receive it. Second parameter is undefined
       // so OpenVidu doesn't create an HTML video by its own
       const subscriber = mySession.subscribe(event.stream, undefined);
+      console.log(event.stream);
       setSubscribers((prevSubscribers) => [...prevSubscribers, subscriber]);
     });
 
