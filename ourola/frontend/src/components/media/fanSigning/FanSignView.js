@@ -93,6 +93,7 @@ const FanSignView = () => {
       // Subscribe to the Stream to receive it. Second parameter is undefined
       // so OpenVidu doesn't create an HTML video by its own
       const subscriber = mySession.subscribe(event.stream, undefined);
+      console.log(event.stream);
       setSubscribers((prevSubscribers) => [...prevSubscribers, subscriber]);
     });
 
@@ -140,7 +141,7 @@ const FanSignView = () => {
       // Set the main video in the page to display our webcam and store our Publisher
       setMainStreamManager(publisher);
       setPublisher(publisher);
-      setSubscribers([]);
+      // setSubscribers([]);
       // setNickname(nickname);
       // setSessionId(sessionId);
     } catch (error) {
@@ -261,6 +262,7 @@ const FanSignView = () => {
 
       {subscribers.map((sub, i) => (
         <FanSignVideo
+          key={i}
           sessionId={sessionId}
           mainStreamManager={sub}
           onLeaveSession={onLeaveSession}

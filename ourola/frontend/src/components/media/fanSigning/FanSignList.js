@@ -16,6 +16,13 @@ const FanSignList = () => {
     },
   };
 
+  const config = {
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("Authorization"),
+      "Content-Type": "application/json",
+    },
+  };
+
   useEffect(() => {
     axios
       .get(`/${group}/onlinecall/list`, config) // onlinecall

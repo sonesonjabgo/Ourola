@@ -12,7 +12,7 @@ const FanSignEnter = () => {
   const [nickname, setNickname] = useState("");
   // const [sessionId, setSessionId] = useState(location.state.sessionId);
   const sessionId = location.state.sessionId;
-  const open = location.state.open;
+  var open = location.state.open;
   const callId = location.state.callId;
   
   const navigate = useNavigate();
@@ -26,9 +26,11 @@ const FanSignEnter = () => {
 
   // 세션에 입장했을 때
   const handleSubmit = () => {
+    console.log(sessionId);
     if (!isAdmin) {
+      open = true;
       console.log(open);
-      if (open) {
+      if (!open) {
         alert("입장 시간이 아닙니다");
         return;
       }
@@ -44,14 +46,14 @@ const FanSignEnter = () => {
         console.log(group);
         console.log(callId);
       });
-
-    // navigate(`/${group}/online-concert/view`, {
-    //   state: {
-    //     nickname: nickname,
-    //     sessionId: sessionId,
-    //     isAdmin: isAdmin,
-    //   },
-    // });
+    console.log(sessionId);
+    navigate(`/${group}/media/fanSigning/view`, {
+      state: {
+        nickname: nickname,
+        sessionId: sessionId,
+        isAdmin: isAdmin,
+      },
+    });
     // onJoinSession(nickname, sessionId, isAdmin);
   };
 
