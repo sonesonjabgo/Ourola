@@ -141,7 +141,7 @@ const FanSignView = () => {
       // Set the main video in the page to display our webcam and store our Publisher
       setMainStreamManager(publisher);
       setPublisher(publisher);
-      setSubscribers([]);
+      // setSubscribers([]);
       // setNickname(nickname);
       // setSessionId(sessionId);
     } catch (error) {
@@ -262,6 +262,7 @@ const FanSignView = () => {
 
       {subscribers.map((sub, i) => (
         <FanSignVideo
+          key={i}
           sessionId={sessionId}
           mainStreamManager={sub}
           onLeaveSession={onLeaveSession}
