@@ -14,7 +14,7 @@ const FanSignEnter = () => {
   const sessionId = location.state.sessionId;
   const open = location.state.open;
   const callId = location.state.callId;
-  console.log(location.state);
+  
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem("Authorization");
   const config = {
