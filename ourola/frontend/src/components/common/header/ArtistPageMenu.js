@@ -62,7 +62,7 @@ function GroupPageMenu() {
             </Link>
 
             <Link
-              to={`/${group}/media/fanSigning/list`}
+              to={`/${group}/media/fanSigning/enter`}
               className={isTabActive("media") ? "active" : ""}
             >
               미디어
