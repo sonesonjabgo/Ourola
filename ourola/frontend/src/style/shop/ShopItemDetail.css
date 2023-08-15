@@ -73,7 +73,6 @@
 
 .detailBuy {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -90,7 +89,7 @@
 }
 
 .shopDetailPurchaseContainer {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 90%;
@@ -103,4 +102,10 @@
 
 .shopDetailInfoContainer {
     width: 100%;
+}
+
+.shopDetailPurchaseContainer {
+    display: flex;
+    justify-content: center;
+    width: 30%;
 }
