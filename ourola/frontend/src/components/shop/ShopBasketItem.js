@@ -20,6 +20,12 @@ const ShopBasketItem = ({ stuffId, membershipPayDto, onlineConcertDto }) => {
         })
     }
 
+    function NumberWithComma ({value}) {
+        return (
+          <div>{value?.toLocaleString()}원</div>
+        )
+      }
+
     return (
         <div className="basketItemContainer">
             <div className="basketItemImage">
@@ -28,7 +34,7 @@ const ShopBasketItem = ({ stuffId, membershipPayDto, onlineConcertDto }) => {
             </div>
             <div className="basketItemDetails">
                 <div className="basketItemTitle">{membershipPayDto ? membershipPayDto.title : onlineConcertDto.title}</div>
-                <div className="basketItemPrice">{membershipPayDto ? `${membershipPayDto.price}원` : `${onlineConcertDto.price}원`}</div>
+                <div className="basketItemPrice">{membershipPayDto ? <NumberWithComma value = {membershipPayDto.price} /> : <NumberWithComma value = {onlineConcertDto.price} />}</div>
             </div>
             <button className="basketItemDelete" onClick={deleteRequset}>삭제</button>
         </div>
