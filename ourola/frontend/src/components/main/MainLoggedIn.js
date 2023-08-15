@@ -27,7 +27,7 @@ function MainLoggedIn() {
       .finally(() => {
         setFirstEffectCompleted(true);
       });
-  }, [userInfo]);
+  }, []);
 
   if (
     userInfo?.role === "CHANNEL_ADMIN" &&
@@ -40,6 +40,7 @@ function MainLoggedIn() {
   const [subGroup, setSubGroup] = useState([]);
 
   useEffect(() => {
+    if (firstEffectCompleted) {
       axios
         .get("fan/subscribe", { headers: headers })
         .then((response) => {
@@ -50,7 +51,8 @@ function MainLoggedIn() {
         .catch((error) => {
           console.error("error :", error);
         });
-  }, []);
+    }
+  }, [firstEffectCompleted]);
 
   // 구독 중이 아닌 아티스트 불러오기
   const [notSubGroup, setNotSubGroup] = useState([]);
