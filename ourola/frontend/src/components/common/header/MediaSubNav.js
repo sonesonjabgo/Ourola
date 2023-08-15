@@ -22,7 +22,7 @@ const MediaSubNav = ({ group }) => {
     <div className="mediaSubTab">
         <div className="mediaMenuButtonContainer">
             <Link
-            to={`/${group}/media/fanSigning/list`}
+            to={`/${group}/media/fanSigning/enter`}
             className={isTabActive("fanSigning") ? "active" : ""}
             >
             팬싸인회

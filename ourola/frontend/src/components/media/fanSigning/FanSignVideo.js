@@ -1,5 +1,6 @@
 import UserVideoComponent from "./UserVideoComponent";
 import "../../../style/media/onlineconcert/OnlineConcertVideo.css";
+import { useEffect } from "react";
 
 const FanSignVideo = ({
   sessionId,
@@ -7,14 +8,15 @@ const FanSignVideo = ({
   onLeaveSession,
   onSwitchCamera,
 }) => {
+  
   const handleLeaveSession = () => {
     onLeaveSession();
   };
-
+  
   const handleSwitchCamera = () => {
     onSwitchCamera();
   };
-
+  
   return (
     <div id="session">
       <div id="session-header">
