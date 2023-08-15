@@ -5,14 +5,14 @@ import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
 
 const OnlineConcertEnter = () => {
   const location = useLocation();
-  const pathname = window.location.pathname;
-  const group = pathname.split("/")[1];
+  const concertInfo = location.state.concertInfo;
+
+  const group = concertInfo.groupDto.name;
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [nickname, setNickname] = useState("");
-  // const [sessionId, setSessionId] = useState(location.state.sessionId);
-  const sessionId = location.state.sessionId;
-  const open = location.state.open;
+
+  const start = concertInfo.startTime;
 
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem("Authorization");
@@ -23,24 +23,26 @@ const OnlineConcertEnter = () => {
     },
   };
 
+  const fileUrl =
+    "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/{filePath}";
+
   // 세션에 입장했을 때
   const handleSubmit = () => {
-    if (!isAdmin) {
-      console.log(open);
-      if (!open) {
-        alert("입장 시간이 아닙니다");
-        return;
-      }
-    }
+    // if (!isAdmin) {
+    //   console.log(open);
+    //   if (!open) {
+    //     alert("입장 시간이 아닙니다");
+    //     return;
+    //   }
+    // }
 
-    navigate(`/${group}/online-concert/view`, {
+    navigate(`/${group}/media/online-concert/view`, {
       state: {
         nickname: nickname,
-        sessionId: sessionId,
+        sessionId: concertInfo.sessionId,
         isAdmin: isAdmin,
       },
     });
-    // onJoinSession(nickname, sessionId, isAdmin);
   };
 
   useEffect(() => {

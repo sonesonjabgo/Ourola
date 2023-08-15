@@ -6,32 +6,42 @@ import "../../../style/media/onlineconcert/OnlineConcertList.css";
 const OnlineConcertList = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
+
+  const accessToken = sessionStorage.getItem("Authorization");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  };
+
   const [concertList, setConcertList] = useState([]);
+  const [loadingList, setLoadingList] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`/${group}/online-concert/list`)
+      .get(`/${group}/online-concert/list`, config)
       .then((response) => {
+        // console.log(response);
         setConcertList(response.data);
-        console.log(response.data);
+        setLoadingList(false);
       })
       .catch((error) => {
         console.log("concert list 호출 오류 :: ", error);
+        setLoadingList(false);
       });
   }, []);
+
+  console.log(concertList);
 
   return (
     <div className="onlineConcertListMain">
       <div className="onlineConcertList">
-        {concertList.map((it) => (
-          <OnlineConcertItem
-            key={it.id}
-            text={it.title}
-            group={group}
-            sessionId={it.sessionId}
-            open={it.open}
-          />
-        ))}
+        {loadingList ? (
+          <></>
+        ) : (
+          concertList.map((it) => <OnlineConcertItem key={it.id} item={it} />)
+        )}
       </div>
     </div>
   );
