@@ -74,7 +74,6 @@
 .detailBuy {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
 }
 
@@ -91,7 +90,6 @@
 .shopDetailPurchaseContainer {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 90%;
 }
 
