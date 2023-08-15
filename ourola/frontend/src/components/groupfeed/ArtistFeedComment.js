@@ -105,7 +105,7 @@ const ArtistFeedComment = ({
             </div>
           </div>
         </div>
-        {localStorage.getItem("UserEmail") === email ? (
+        {sessionStorage.getItem("UserEmail") === email ? (
           <button
             id="artistFeedCommentUserDelete"
             className="artistFeedCommentUserDelete"
