@@ -4,7 +4,7 @@ import ShopItem from './ShopItem'
 
 function ShopItemList({allConcert, allMembership, userRole}) {
 
-  console.log(userRole)
+  console.log(allConcert)
   if (!allConcert) {
     return null
   }

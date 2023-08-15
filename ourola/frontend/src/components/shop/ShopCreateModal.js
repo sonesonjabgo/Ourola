@@ -157,7 +157,7 @@ const ShopCreateModal = (props) => {
 
                     <div className="inputValue">
                     <label htmlFor="image">썸네일</label>
-                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                        <input type="file" id="image" name="image" onChange={handleFileChange} multiple/>
                     </div>
 
                     <div className="postButtonContainer">
@@ -195,7 +195,7 @@ const ShopCreateModal = (props) => {
 
                     <div className="inputValue">
                     <label htmlFor="image">썸네일</label>
-                        <input type="file" id="image" name="image" onChange={handleFileChange} />
+                        <input type="file" id="image" name="image" onChange={handleFileChange} multiple/>
                     </div>
 
                     <div className="postButtonContainer">

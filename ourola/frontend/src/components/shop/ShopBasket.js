@@ -66,6 +66,12 @@ const ShopBasket = () => {
     })
   }
 
+  function NumberWithComma ({value}) {
+    return (
+      <div>총 금액 : {value?.toLocaleString()}원</div>
+    )
+  }
+  
     return (
         <>
         <div className="basketContentContainer">
@@ -74,9 +80,9 @@ const ShopBasket = () => {
             <ShopBasketList allBasket={allBasket} isEmpty={isEmpty}/>}
             </div>
             <div className="basketTotalPrice">
-            총 금액 : {totalPrice}원
+              <NumberWithComma value={totalPrice} />
             </div>
-            <button onClick={purchaseRequest}>전체 구매</button>
+            <button className="buyAllButton" onClick={purchaseRequest}>전체 구매</button>
         </div>
         </>
     )}
