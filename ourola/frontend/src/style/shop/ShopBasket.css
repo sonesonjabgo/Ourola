@@ -3,7 +3,7 @@
     margin: 200px 100px;
     padding-bottom: 50px;
     width: 90%; 
-    height: 80vh; 
+    height: 76vh; 
     overflow-y: auto; 
 }
 
@@ -46,4 +46,39 @@
     border-radius: 20px;
     position: absolute;
     margin: 158px 50px;
+}
+
+.shopBasketHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.shopBasketDeleteAllButton {
+    border: none;
+    width: 100px;
+    height: 45px;
+    border-radius: 20px;
+    position: absolute;
+    margin: 158px 50px;
+    background-color: #b5273c;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.shopBasketDeleteAllButton:hover {
+    background-color:  #800020;
+}
+
+.shopBasketDeleteAllButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.5);
+}
+
+.noBasket {
+    font-size: 30px;
+    margin-top: 270px;
 }

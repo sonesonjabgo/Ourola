@@ -12,7 +12,7 @@
     z-index: 1000;
 }
 
-.shopCreateDetail {
+.addBasketDetail {
     width: 60%; 
     max-width: 500px;
     padding: 20px;
@@ -58,7 +58,29 @@
     background-color: #6e5cd5;
 }
 
-.shopCreateClose {
-    margin-right: 110px;
-    margin-top: 0px;
+.addBasketClose {
+    height: 60px;
+    position: absolute;
+    top: 70px;
+    right: 650px;
+    width: 50px;
+    appearance: auto;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    color: inherit;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-size: 70px;
+    color: #e4e6ea;
 }

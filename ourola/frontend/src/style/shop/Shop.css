@@ -21,13 +21,17 @@
     margin-top: -10px;
 }
 
-.shopMainHeader {
+.shopMainHeader { 
    display: flex;
-   justify-content: space-between;
+   justify-content: flex-end;
    margin: 0px 40px;
 }
 
 .shopItemsContainer {
     display: flex;
     justify-content: center;
+}
+
+.openCreateButton {
+    margin-right: 1400px;
 }

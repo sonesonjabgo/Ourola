@@ -78,6 +78,24 @@ const ShopBasket = () => {
     })
   }
 
+  const deleteAllRequest = () => {
+    const itemsToDelete = allBasket.map(item => item.id)
+
+    const deletePromise = itemsToDelete.map(itemId => {
+      return axios.delete(`cart/delete/${itemId}`, config)
+    })
+
+    Promise.all(deletePromise)
+    .then(() => {
+      alert('장바구니 내 물품이 모두 삭제되었습니다')
+      setAllBasket([])
+    })
+    .catch((error) => {
+      alert('장바구니 전체 삭제 중 오류')
+      console.log(error)
+    })
+  }
+
   function NumberWithComma ({value}) {
     return (
       <div>총 금액 : {value?.toLocaleString()}원</div>
@@ -86,10 +104,15 @@ const ShopBasket = () => {
   
     return (
         <>
-        <div><button onClick={goBack} className="shopBasketBackButton">목록으로</button></div>
+        <div className="shopBasketHeader">
+          <div><button onClick={goBack} className="shopBasketBackButton">목록으로</button></div>
+          {allBasket.length !== 0 ?
+          <div><button onClick={deleteAllRequest} className="shopBasketDeleteAllButton">전체 삭제</button></div> : null
+          }
+        </div>
         <div className="basketContentContainer">
           <div className="basketContent">
-          {isEmpty ? '장바구니에 담긴 물건이 없습니다.' :
+          {isEmpty ? <div className="noBasket">장바구니에 담긴 물건이 없습니다.</div> :
             <ShopBasketList allBasket={allBasket} isEmpty={isEmpty}/>}
             </div>
             <div className="basketTotalPrice">
