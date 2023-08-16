@@ -7,9 +7,12 @@ const BookmarkItem = ({ setBookmarkList, item }) => {
   const feed = item.feedDto;
   const FAN = 1;
   const ARTIST = 2;
-
+console.log(item)
   const type = feed.type;
-  const [nickname, setNickname] = useState("임시닉");
+  const nickname =
+  type === FAN
+    ? feed.fanDto.nickname
+    : feed.artistDto.nickname;
   const createDate = moment(new Date(feed.createDate)).format(
     "YYYY.MM.DD HH:mm"
   );
@@ -60,6 +63,7 @@ const BookmarkItem = ({ setBookmarkList, item }) => {
                 ></img>
               </div>
               <div className="bookmarkFeedProfileInfo">
+                { }
                 <div className="bookmarkFeedNickname">{nickname}</div>
                 <div className="bookmarkFeedCreateDate">{createDate}</div>
               </div>

@@ -8,6 +8,9 @@ import bookmarkempty from "../../../assets/icons/bookmarkempty.png";
 import bookmarkfill from "../../../assets/icons/bookmarkfill.png";
 import axios from "axios";
 import MyPostDetail from "./MyPostDetail";
+import openedBin from "../../../assets/icons/opened_bin.png";
+import closedBin from "../../../assets/icons/closed_bin.png";
+
 
 const MyPostItem = ({ setPostList, item, config }) => {
   const FAN = 1;
@@ -16,6 +19,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
   const group = item.groupDto.name;
   const type = item.type;
   const id = item.id;
+  const files = item.fileList;
 
   const [likeCount, setLikeCount] = useState(item.like);
   const [comment, setComment] = useState([]);
@@ -74,7 +78,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
   }, []);
 
   const commentCount = comment.length;
-  const [nickname, setNickname] = useState("임시닉");
+  const nickname = item.fanDto.nickname
   const formatTime = moment(new Date(item.createDate)).format(
     "YYYY.MM.DD HH:mm"
   );
@@ -191,7 +195,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
     document.body.style.overflow = "hidden";
   };
 
-  console.log(userInfo);
+  const [openBin, setOpenBin] = useState(closedBin)
 
   return (
     <div>
@@ -215,7 +219,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
             commentCount,
             comment,
             scrollPosition,
-            // files,
+            files,
           }}
         ></MyPostDetail>
       ) : (
@@ -226,15 +230,12 @@ const MyPostItem = ({ setPostList, item, config }) => {
                 <img className="myPostProfileImg" src={profileImg} alt=""></img>
               </div>
               <div className="myPostProfileInfo">
-                <div className="myPostNickname">{nickname}</div>
+                <div className="myPostNickname">{item.fanDto.nickname}</div>
                 <div className="myPostCreateDate">{formatTime}</div>
               </div>
             </div>
             {userInfo ? (
               <div id="artistFeedBlank" className="artistFeedBlank">
-                {userInfo.id || userInfo.role === "CHANNEL_ADMIN" ? (
-                  <button onClick={deleteRequest}>피드 삭제</button>
-                ) : null}
                 {thisFeedBookmark ? (
                   <img
                     src={bookmarkfill}
@@ -259,14 +260,18 @@ const MyPostItem = ({ setPostList, item, config }) => {
             {fileList.length === 0 ? (
               <div className="myPostContent">{content}</div>
             ) : (
+              <div className="myPostImgContainer">
               <img
-                className="myPostContentImg"
                 src={fileUrl + fileList[0].filePath}
                 alt=""
               ></img>
+              </div>
             )}
+            <br></br>
+            {content}
           </div>
           <div className="myPostItemFooter">
+            <div className="myFeedFooterInfo">
             <div id="myFeedLike" className="myFeedLike">
               {thisFeedLike ? (
                 <img
@@ -304,6 +309,8 @@ const MyPostItem = ({ setPostList, item, config }) => {
               </div>
             </div>
           </div>
+          <img className="deleteBin" src={openBin} onClick={deleteRequest} onMouseOver={() => setOpenBin(openedBin)} onMouseOut={() => setOpenBin(closedBin)} />
+        </div>
         </div>
       )}
     </div>
