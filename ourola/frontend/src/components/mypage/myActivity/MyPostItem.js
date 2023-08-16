@@ -4,9 +4,12 @@ import "../../../style/mypage/myActivity/MyPostItem.css";
 import likeclick from "../../../assets/icons/like.png";
 import notlikeclick from "../../../assets/icons/notlike.png";
 import commentclick from "../../../assets/icons/comment.png";
+import bookmarkempty from "../../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../../assets/icons/bookmarkfill.png";
 import axios from "axios";
+import MyPostDetail from "./MyPostDetail";
 
-const MyPostItem = ({ item, config }) => {
+const MyPostItem = ({ setPostList, item, config }) => {
   const FAN = 1;
   const ARTIST = 2;
 
@@ -18,20 +21,61 @@ const MyPostItem = ({ item, config }) => {
   const [comment, setComment] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`/${item.id}/comment`, config)
-      .then((response) => {
-        setComment(response.data);
-      })
-      .catch((error) => {
+    const fetchComment = async () => {
+      try {
+        const response = await axios.get(`/${id}/comment`, config);
+        const modifiedData = response.data.map((it) => {
+          const getDate = it.createDate.split("T", 2);
+          getDate[1] = getDate[1].split(".", 1);
+
+          const [year, month, day] = getDate[0].split("-");
+          const [hour, minute] = getDate[1][0].split(":");
+
+          const formatTime = `${year.slice(
+            2
+          )}.${month}.${day} ${hour}:${minute}`;
+
+          return {
+            ...it,
+            createDate: formatTime,
+          };
+        });
+
+        setComment(modifiedData);
+      } catch (error) {
         console.error("Error fetching data : ", error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      }
+    };
+
+    const fetchLike = async () => {
+      try {
+        const response = await axios.get(`/${group}/feed/${id}/like`, config);
+        setThisFeedLike(response.data);
+      } catch (error) {
+        console.error("Error fetching data : ", error);
+      }
+    };
+
+    const fetchBookmark = async () => {
+      try {
+        const response = await axios.get(
+          `/${group}/feed/${id}/bookmark`,
+          config
+        );
+        setThisFeedBookmark(response.data);
+      } catch (error) {
+        console.error("Error fetching data : ", error);
+      }
+    };
+
+    fetchComment();
+    fetchLike();
+    fetchBookmark();
   }, []);
 
   const commentCount = comment.length;
   const [nickname, setNickname] = useState("임시닉");
-  const createDate = moment(new Date(item.createDate)).format(
+  const formatTime = moment(new Date(item.createDate)).format(
     "YYYY.MM.DD HH:mm"
   );
 
@@ -67,65 +111,201 @@ const MyPostItem = ({ item, config }) => {
     setLikeCount(like);
   };
 
+  const [thisFeedBookmark, setThisFeedBookmark] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`/${group}/feed/${id}/bookmark`, config)
+      .then((response) => {
+        setThisFeedBookmark(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data : ", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wantBookmark = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  const wantBookmarkCancle = async () => {
+    await axios.put(`/${group}/feed/${id}/bookmark`, ``, config);
+
+    const feedBookmark = !thisFeedBookmark;
+
+    setThisFeedBookmark(feedBookmark);
+  };
+
+  let userInfo = null;
+
+  if (item.artistDto === null) {
+    userInfo = item.fanDto;
+  } else {
+    userInfo = item.artistDto;
+  }
+
+  const deleteRequest = (event) => {
+    event.preventDefault();
+
+    axios
+      .delete(`${group}/feed/remove/${id}`, config)
+      .then((response) => {
+        alert("피드가 삭제되었습니다");
+        setPostList((artistFeed) =>
+          artistFeed.filter((feed) => feed.id !== id)
+        );
+      })
+      .catch((error) => {
+        if (error.response) {
+          // 서버가 응답을 반환한 경우
+          console.error("Error response:", error.response.data);
+        } else if (error.request) {
+          // 요청이 만들어졌지만 응답을 받지 못한 경우
+          console.error("No response:", error.request);
+        } else {
+          // 그 외의 오류
+          console.error("Error:", error.message);
+        }
+        alert("삭제 실패");
+      });
+  };
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+    document.getElementById("navbar").style.zIndex = 1;
+  };
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const openModalClickFunction = (event) => {
+    showModal();
+    setScrollPosition(window.pageYOffset);
+    window.scrollTo(0, 120);
+    document.body.style.overflow = "hidden";
+  };
+
+  console.log(userInfo);
+
   return (
-    <div className="myPostItemWrapper">
-      <div className="myPostItemHeader">
-        <div className="myPostProfileWrapper">
-          <div className="myPostFeedProfileImg">
-            <img className="myPostProfileImg" src={profileImg} alt=""></img>
+    <div>
+      {modalOpen ? (
+        <MyPostDetail
+          state={{
+            setModalOpen,
+            setComment,
+            setThisFeedLike,
+            setLikeCount,
+            setThisFeedBookmark,
+            id,
+            group,
+            profileImg,
+            nickname,
+            formatTime,
+            content,
+            thisFeedLike,
+            thisFeedBookmark,
+            likeCount,
+            commentCount,
+            comment,
+            scrollPosition,
+            // files,
+          }}
+        ></MyPostDetail>
+      ) : (
+        <div className="myPostItemWrapper">
+          <div className="myPostItemHeader">
+            <div className="myPostProfileWrapper">
+              <div className="myPostFeedProfileImg">
+                <img className="myPostProfileImg" src={profileImg} alt=""></img>
+              </div>
+              <div className="myPostProfileInfo">
+                <div className="myPostNickname">{nickname}</div>
+                <div className="myPostCreateDate">{formatTime}</div>
+              </div>
+            </div>
+            {userInfo ? (
+              <div id="artistFeedBlank" className="artistFeedBlank">
+                {userInfo.id || userInfo.role === "CHANNEL_ADMIN" ? (
+                  <button onClick={deleteRequest}>피드 삭제</button>
+                ) : null}
+                {thisFeedBookmark ? (
+                  <img
+                    src={bookmarkfill}
+                    alt="이미지가 없습니다."
+                    id="artistFeedBookmarkImg"
+                    className="artistFeedBookmarkImg"
+                    onClick={wantBookmarkCancle}
+                  ></img>
+                ) : (
+                  <img
+                    src={bookmarkempty}
+                    alt="이미지가 없습니다."
+                    id="artistFeedBookmarkImg"
+                    className="artistFeedBookmarkImg"
+                    onClick={wantBookmark}
+                  ></img>
+                )}
+              </div>
+            ) : null}
           </div>
-          <div className="myPostProfileInfo">
-            <div className="myPostNickname">{nickname}</div>
-            <div className="myPostCreateDate">{createDate}</div>
+          <div className="myPostItemBody" onClick={openModalClickFunction}>
+            {fileList.length === 0 ? (
+              <div className="myPostContent">{content}</div>
+            ) : (
+              <img
+                className="myPostContentImg"
+                src={fileUrl + fileList[0].filePath}
+                alt=""
+              ></img>
+            )}
+          </div>
+          <div className="myPostItemFooter">
+            <div id="myFeedLike" className="myFeedLike">
+              {thisFeedLike ? (
+                <img
+                  src={likeclick}
+                  alt="이미지가 없습니다."
+                  id="myFeedLikeImg"
+                  className="myFeedLikeImg"
+                  onClick={wantLikeCancle}
+                ></img>
+              ) : (
+                <img
+                  src={notlikeclick}
+                  alt="이미지가 없습니다."
+                  id="myFeedLikeImg"
+                  className="myFeedLikeImg"
+                  onClick={wantLike}
+                ></img>
+              )}
+              <div id="myFeedLikeCount" className="myFeedLikeCount">
+                {likeCount}
+              </div>
+            </div>
+            <div id="myFeedComment" className="myFeedComment">
+              <img
+                src={commentclick}
+                alt="이미지가 없습니다."
+                id="myFeedCommentImg"
+                className="myFeedCommentImg"
+              ></img>
+              <div
+                id="myFeedCommentRealCount"
+                className="myFeedCommentRealCount"
+              >
+                {commentCount}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="myPostItemBody">
-        {fileList.length === 0 ? (
-          <div className="myPostContent">{content}</div>
-        ) : (
-          <img
-            className="myPostContentImg"
-            src={fileUrl + fileList[0].filePath}
-            alt=""
-          ></img>
-        )}
-      </div>
-      <div className="myPostItemFooter">
-        <div id="myFeedLike" className="myFeedLike">
-          {thisFeedLike ? (
-            <img
-              src={likeclick}
-              alt="이미지가 없습니다."
-              id="myFeedLikeImg"
-              className="myFeedLikeImg"
-              onClick={wantLikeCancle}
-            ></img>
-          ) : (
-            <img
-              src={notlikeclick}
-              alt="이미지가 없습니다."
-              id="myFeedLikeImg"
-              className="myFeedLikeImg"
-              onClick={wantLike}
-            ></img>
-          )}
-          <div id="myFeedLikeCount" className="myFeedLikeCount">
-            {likeCount}
-          </div>
-        </div>
-        <div id="myFeedComment" className="myFeedComment">
-          <img
-            src={commentclick}
-            alt="이미지가 없습니다."
-            id="myFeedCommentImg"
-            className="myFeedCommentImg"
-          ></img>
-          <div id="myFeedCommentRealCount" className="myFeedCommentRealCount">
-            {commentCount}
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
