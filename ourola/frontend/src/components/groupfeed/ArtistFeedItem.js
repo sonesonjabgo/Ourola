@@ -9,6 +9,8 @@ import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 import commentclick from "../../assets/icons/comment.png";
+import openedBin from "../../assets/icons/opened_bin.png";
+import closedBin from "../../assets/icons/closed_bin.png";
 
 const ArtistFeedItem = ({
   id,
@@ -192,6 +194,8 @@ const ArtistFeedItem = ({
       });
   };
 
+  const [openBin, setOpenBin] = useState(closedBin)
+
   return (
     <div id="artistFeedItem" className="artistFeedItem">
       <div id="aritstFeedHeader" className="aritstFeedHeader">
@@ -326,6 +330,9 @@ const ArtistFeedItem = ({
             </div>
           </div>
         </div>
+        {userInfo.id === artistId || userInfo.role === "CHANNEL_ADMIN" ? (
+              <img className="deleteBin" src={openBin} onClick={deleteRequest} onMouseOver={() => setOpenBin(openedBin)} onMouseOut={() => setOpenBin(closedBin)} />
+            ) : null}
       </div>
     </div>
   );
