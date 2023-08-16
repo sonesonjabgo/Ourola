@@ -147,9 +147,9 @@ function Login({ onLogin, closeModal }) {
       </form>
       <div className={styles.loginothersdiv}>
       <div className={styles.socialLogin}>
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> <img src={kakaologo}/></a>
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> <img src={naverlogo}/></a>
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> <img src={googlelogo}/></a>
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> <img className={styles.loginModalImg} src={kakaologo}/></a>
+          {/* <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> <img src={naverlogo}/></a> */}
+          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> <img className={styles.loginModalImg} src={googlelogo}/></a>
         </div>
       <div>
       <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |

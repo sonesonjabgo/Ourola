@@ -101,7 +101,7 @@ form {
   gap: 10px; /* 원하는 간격 크기로 조정하세요 */
 }
 
-img {
+.loginModalImg {
   height: 50px;
 }
 
