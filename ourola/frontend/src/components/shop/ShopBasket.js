@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import '../../style/shop/ShopBasket.css'
 import ShopBasketList from "./ShopBasketList"
 
 const ShopBasket = () => {
-    const location = useLocation()
+      // 뒤로가기
+      const navigate = useNavigate()
+      const location = useLocation()
+  
+      const goBack = () => {
+          if (location.state?.from) {
+              navigate(location.state.from)
+          } else {
+              navigate(-1)
+          }
+      }
+  
+      const path = location.state
 
     const accessToken = sessionStorage.getItem("Authorization");
 
@@ -74,6 +86,7 @@ const ShopBasket = () => {
   
     return (
         <>
+        <div><button onClick={goBack} className="shopBasketBackButton">이전으로</button></div>
         <div className="basketContentContainer">
           <div className="basketContent">
           {isEmpty ? '장바구니에 담긴 물건이 없습니다.' :

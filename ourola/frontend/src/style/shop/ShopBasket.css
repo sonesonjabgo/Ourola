@@ -37,3 +37,12 @@
     background-color: #7b68ee;
     margin-bottom: 20px;
 }
+
+.shopBasketBackButton {
+    border: none;
+    width: 100px;
+    height: 45px;
+    border-radius: 20px;
+    position: absolute;
+    margin: 142px 55px;
+}
