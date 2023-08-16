@@ -13,6 +13,8 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
   const id = feed.id;
   const group = feed.groupDto.name;
 
+  console.log(feed)
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -117,10 +119,10 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
   let accessImg = null;
 
   if (feed.fanDto === null) {
-    userInfo = feed.ArtistDto;
+    userInfo = feed.artistDto;
     accessImg =
       "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" +
-      feed.ArtistDto.id;
+      feed.artistDto.id;
   } else {
     userInfo = feed.fanDto;
     accessImg =
@@ -300,9 +302,9 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    {/* <div className="feedImgContainer">
-                    {files.length > 0 &&
-                      files.map((file, index) => (
+                    <div className="feedImgContainer">
+                    {feed.fileList.length > 0 &&
+                      feed.fileList.map((file, index) => (
                         <img
                           className="feedImg"
                           key={index}
@@ -310,7 +312,7 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
                           alt={`File ${index}`}
                         />
                       ))}
-                  </div> */}
+                  </div>
                     {content}
                   </div>
                 </div>
