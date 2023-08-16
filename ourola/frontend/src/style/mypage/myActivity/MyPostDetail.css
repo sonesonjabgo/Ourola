@@ -14,12 +14,12 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.fanFeedModal {
+.MyPageMyPostModal {
   outline: none;
   position: fixed;
-  top: -240px;
+  top: 120px;
   display: block;
-  left: -230px;
+  left: 420px;
 }
 
 .artistFeedContent {
@@ -364,14 +364,4 @@
 .artistFeedBookmarkImgWrap {
   margin-top: 8px;
   margin-left: 535px;
-}
-
-.feedImgContainer {
-  max-width: 404px;
-}
-
-.feedImgContainer img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
 }

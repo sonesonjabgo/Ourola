@@ -27,6 +27,7 @@ const ArtistFeedDetail = (props) => {
     content,
     commentCount,
     files,
+    fanNick
   } = props.state;
 
   const comment = props.state.comment;
@@ -220,7 +221,7 @@ const ArtistFeedDetail = (props) => {
                         id="artistFeedArtistDetailNameInfo"
                         className="artistFeedArtistDetailNameInfo"
                       >
-                        {artistName}
+                        {fanNick}
                       </strong>
                       <span
                         id="artistFeedArtistDetailFormatDateInfo"
@@ -236,7 +237,6 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    {content}
                     <div className="feedImgContainer">
                       {files.length > 0 &&
                         files.map((file, index) => (
@@ -247,6 +247,8 @@ const ArtistFeedDetail = (props) => {
                           />
                         ))}
                     </div>
+                    <br></br>
+                    {content}
                   </div>
                 </div>
                 <div

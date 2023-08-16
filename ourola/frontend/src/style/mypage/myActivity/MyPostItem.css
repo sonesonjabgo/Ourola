@@ -11,6 +11,8 @@
   padding-bottom: 5px;
   margin-bottom: 5px;
   /* border-bottom: 1px solid black; */
+  display: flex;
+  cursor: default;
 }
 
 .myPostProfileWrapper {
@@ -64,6 +66,7 @@
   padding-left: 10px;
   padding-bottom: 10px;
   display: flex;
+  cursor: default;
 }
 
 .myFeedLike {

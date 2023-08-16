@@ -1,15 +1,15 @@
-import "../../style/groupfeed/ArtistFeedDetail.css";
+import "../../../style/mypage/myActivity/MyPostDetail.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import ArtistFeedComment from "./ArtistFeedComment";
-import downarrow from "../../assets/icons/downarrow.png";
-import send from "../../assets/icons/send.png";
-import bookmarkempty from "../../assets/icons/bookmarkempty.png";
-import bookmarkfill from "../../assets/icons/bookmarkfill.png";
-import likeclick from "../../assets/icons/like.png";
-import notlikeclick from "../../assets/icons/notlike.png";
+import MyPostComment from "./MyPostComment";
+import downarrow from "../../../assets/icons/downarrow.png";
+import send from "../../../assets/icons/send.png";
+import bookmarkempty from "../../../assets/icons/bookmarkempty.png";
+import bookmarkfill from "../../../assets/icons/bookmarkfill.png";
+import likeclick from "../../../assets/icons/like.png";
+import notlikeclick from "../../../assets/icons/notlike.png";
 
-const ArtistFeedDetail = (props) => {
+const MyPostDetail = (props) => {
   const setModalOpen = props.state.setModalOpen;
 
   const localHost = "http://localhost:8000";
@@ -21,13 +21,12 @@ const ArtistFeedDetail = (props) => {
   const {
     id,
     group,
-    accessImg,
-    artistName,
+    profileImg,
+    nickname,
     formatTime,
     content,
     commentCount,
     files,
-    artistNick
   } = props.state;
 
   const comment = props.state.comment;
@@ -37,8 +36,8 @@ const ArtistFeedDetail = (props) => {
 
   const thisFeedLike = props.state.thisFeedLike;
   const setThisFeedLike = props.state.setThisFeedLike;
-  const feedLikeSum = props.state.feedLikeSum;
-  const setFeedLikeSum = props.state.setFeedLikeSum;
+  const likeCount = props.state.likeCount;
+  const setLikeCount = props.state.setLikeCount;
 
   const thisFeedBookmark = props.state.thisFeedBookmark;
   const setThisFeedBookmark = props.state.setThisFeedBookmark;
@@ -74,8 +73,6 @@ const ArtistFeedDetail = (props) => {
     window.scrollTo(0, scrollPosition);
     document.body.style.overflow = "auto";
     document.getElementById("navbar").style.zIndex = 999;
-    document.getElementById("groupPageMenuContainer").style.zIndex = 998;
-    document.getElementById("artistList").style.visibility = "visible";
   };
 
   const handleModalClick = (event) => {
@@ -126,21 +123,21 @@ const ArtistFeedDetail = (props) => {
   const wantLike = async () => {
     await axios.put(`/${group}/feed/${id}/like`, ``, config);
 
-    const like = feedLikeSum + 1;
+    const like = likeCount + 1;
     const feedLike = !thisFeedLike;
 
     setThisFeedLike(feedLike);
-    setFeedLikeSum(like);
+    setLikeCount(like);
   };
 
   const wantLikeCancle = async () => {
     await axios.put(`/${group}/feed/${id}/like`, ``, config);
 
-    const like = feedLikeSum - 1;
+    const like = likeCount - 1;
     const feedLike = !thisFeedLike;
 
     setThisFeedLike(feedLike);
-    setFeedLikeSum(like);
+    setLikeCount(like);
   };
 
   const wantBookmark = async () => {
@@ -172,7 +169,7 @@ const ArtistFeedDetail = (props) => {
         className="artistFeedBackGround"
         onMouseUp={closeModalClickFunction}
       >
-        <div id="artistFeedModal" className="artistFeedModal">
+        <div id="MyPageMyPostModal" className="MyPageMyPostModal">
           <div
             id="artistFeedContent"
             className="artistFeedContent"
@@ -205,7 +202,7 @@ const ArtistFeedDetail = (props) => {
                             <img
                               id="artistImg"
                               className="artistImg"
-                              src={accessImg}
+                              src={profileImg}
                               alt="이미지 없음"
                             ></img>
                           </div>
@@ -220,7 +217,7 @@ const ArtistFeedDetail = (props) => {
                         id="artistFeedArtistDetailNameInfo"
                         className="artistFeedArtistDetailNameInfo"
                       >
-                        {artistNick}
+                        {nickname}
                       </strong>
                       <span
                         id="artistFeedArtistDetailFormatDateInfo"
@@ -236,17 +233,17 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    <div className="feedImgContainer">
+                    {/* <div className="feedImgContainer">
                       {files.length > 0 &&
                         files.map((file, index) => (
                           <img
+                            className="feedImg"
                             key={index}
                             src={`https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/${file.filePath}`}
                             alt={`File ${index}`}
                           />
                         ))}
-                    </div>
-                    <br></br>
+                    </div> */}
                     {content}
                   </div>
                 </div>
@@ -275,7 +272,7 @@ const ArtistFeedDetail = (props) => {
                     id="artistFeedInLikeCount"
                     className="artistFeedInLikeCount"
                   >
-                    {feedLikeSum}
+                    {likeCount}
                   </div>
                   <div
                     id="artistFeedInBookmarkImgWrap"
@@ -340,7 +337,7 @@ const ArtistFeedDetail = (props) => {
                       ></div>
                       <div id="aristFeedScrollCommentList">
                         {comment.map((it) => (
-                          <ArtistFeedComment
+                          <MyPostComment
                             key={it.id}
                             comment={comment}
                             setComment={setComment}
@@ -350,7 +347,7 @@ const ArtistFeedDetail = (props) => {
                             artistDto={it.artistDto}
                             fanDto={it.fanDto}
                             content={it.content}
-                          ></ArtistFeedComment>
+                          ></MyPostComment>
                         ))}
                       </div>
                     </div>
@@ -400,4 +397,4 @@ const ArtistFeedDetail = (props) => {
   );
 };
 
-export default ArtistFeedDetail;
+export default MyPostDetail;

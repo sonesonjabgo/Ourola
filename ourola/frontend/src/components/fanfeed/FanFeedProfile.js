@@ -34,7 +34,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
                 />
               )}
             </div>
-            {userInfo?.name}
+            {userInfo?.nickname}
             <div className="fanFeedProfileUserUnderline"></div>
           </div>
         </div>

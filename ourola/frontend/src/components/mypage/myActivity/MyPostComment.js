@@ -1,8 +1,9 @@
-import "../../style/fanfeed/ArtistFeedComment.css";
+import "../../../style/mypage/bookmark/BookmarkComment.css";
+import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-const ArtistFeedComment = ({
+const BookmarkComment = ({
   comment,
   setComment,
   feedId,
@@ -18,11 +19,11 @@ const ArtistFeedComment = ({
 
   if (artistDto === null) {
     accessImg += "/profile?id=" + fanDto.profileFileDto.id;
-    name = fanDto.nickname;
+    name = fanDto.name;
     email = fanDto.email;
   } else {
     accessImg += "/artist-profile?id=" + artistDto.profileFileDto.id;
-    name = artistDto.nickname;
+    name = artistDto.name;
     email = artistDto.email;
   }
 
@@ -129,4 +130,4 @@ const ArtistFeedComment = ({
   );
 };
 
-export default ArtistFeedComment;
+export default BookmarkComment;
