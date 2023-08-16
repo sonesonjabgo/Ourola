@@ -162,15 +162,15 @@ function Login({ onLogin, closeModal }) {
             <div className={styles.socialLogin}>
               <a href="https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao">
                 {" "}
-                <img src={kakaologo} />
+                <img className={styles.loginModalImg} src={kakaologo} />
               </a>
-              <a href="https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver">
+              {/* <a href="https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver">
                 {" "}
                 <img src={naverlogo} />
-              </a>
+              </a> */}
               <a href="https://i9d204.p.ssafy.io:8001/oauth2/authorization/google">
                 {" "}
-                <img src={googlelogo} />
+                <img className={styles.loginModalImg} src={googlelogo} />
               </a>
             </div>
             <div>
