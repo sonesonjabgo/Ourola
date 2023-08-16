@@ -57,10 +57,7 @@ const MyPage = () => {
 
   return (
     <div className="myPageHome">
-      <div className="myPageHeader">
-        <p className="userNickName">{userinfo.nickname}</p>
-        <p className="userEmail">{userinfo.email}</p>
-      </div>
+      <div className="myPageHeader"></div>
       <div className="myPageBody">
         <div className="myPageSideBar">
           <div className="myPageProfile">

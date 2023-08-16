@@ -20,6 +20,8 @@ const BookmarkList = ({ config }) => {
       });
   }, []);
 
+  bookmarkList.sort((a, b) => b.id - a.id);
+
   return (
     <div className="bookmarkList">
       {loadingList ? (
