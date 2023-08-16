@@ -367,5 +367,11 @@
 }
 
 .feedImgContainer {
-  max-width: 707px;
+  max-width: 404px;
+}
+
+.feedImgContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }

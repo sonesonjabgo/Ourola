@@ -237,7 +237,6 @@ const ArtistFeedDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    {content}
                     <div className="feedImgContainer">
                       {files.length > 0 &&
                         files.map((file, index) => (
@@ -248,6 +247,8 @@ const ArtistFeedDetail = (props) => {
                           />
                         ))}
                     </div>
+                    <br></br>
+                    {content}
                   </div>
                 </div>
                 <div
