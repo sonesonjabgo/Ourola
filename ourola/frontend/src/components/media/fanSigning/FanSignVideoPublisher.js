@@ -1,5 +1,5 @@
 import UserVideoComponent from "./UserVideoComponent";
-import "../../../style/media/FanSigningViewer.css"
+import "../../../style/media/fanSigning/FanSigningViewer.css"
 import { useEffect } from "react";
 
 const FanSignVideo = ({

@@ -7,12 +7,13 @@ const BookmarkItem = ({ setBookmarkList, item }) => {
   const feed = item.feedDto;
   const FAN = 1;
   const ARTIST = 2;
-
+  console.log(item);
   const type = feed.type;
-  const [nickname, setNickname] = useState("임시닉");
-  const createDate = moment(new Date(feed.createDate)).format(
-    "YYYY.MM.DD HH:mm"
-  );
+  const nickname =
+    type === FAN ? feed.fanDto.nickname : feed.artistDto.nickname;
+  const createDate = moment(new Date(feed.createDate))
+    .subtract(9, "hours")
+    .format("YYYY.MM.DD HH:mm");
   const content = feed.content;
   const fileList = feed.fileList;
   const fileUrl = "https://i9d204.p.ssafy.io:8001/file/getimg/feed-img/";
@@ -60,6 +61,7 @@ const BookmarkItem = ({ setBookmarkList, item }) => {
                 ></img>
               </div>
               <div className="bookmarkFeedProfileInfo">
+                {}
                 <div className="bookmarkFeedNickname">{nickname}</div>
                 <div className="bookmarkFeedCreateDate">{createDate}</div>
               </div>

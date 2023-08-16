@@ -18,6 +18,7 @@ import Shop from "./components/shop/Shop";
 import ShopItemDetail from "./components/shop/ShopItemDetail";
 import "./index.css";
 import Header from "./components/common/header/Header";
+import Footer from "./components/common/Footer"
 import ArtistHeader from "./components/common/header/ArtistPageMenu";
 import Signup from "./components/auth/SignUp";
 import MembershipOnly from "./components/others/membershipOnly/MembershipOnly";
@@ -117,6 +118,7 @@ render(
       <Route path="*" element={<Navigate to="/NotFound" />} />
       <Route path="/NotFound" element={<NotFound />} />
     </Routes>
+    <Footer />
   </BrowserRouter>,
   container
 );

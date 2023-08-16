@@ -1,18 +1,18 @@
 .createFeedBackground {
-    z-index: 999;
-    align-items: center;
-    bottom: 0;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    padding: 30px 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-  
+  z-index: 999;
+  align-items: center;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 30px 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
 .createFeedDetail {
   display: block;
   width: 1500px;
@@ -57,8 +57,8 @@
 .createFeedClose {
   height: 60px;
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 130px;
+  right: 130px;
   width: 50px;
   appearance: auto;
   text-rendering: auto;

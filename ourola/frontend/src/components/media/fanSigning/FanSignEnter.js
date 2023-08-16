@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../style/media/FanSigning.css"
+import "../../../style/media/fanSigning/FanSigning.css"
 import spinner from "../../../assets/loading/loadingSpinner.gif"
 
 const FanSignEnter = () => {

@@ -62,12 +62,18 @@
 }
 
 .myPostItemFooter {
-  padding-top: 15px;
   padding-left: 10px;
-  padding-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
   display: flex;
-  cursor: default;
+  position: relative;
+  z-index: 1;
 }
+
+.myFeedFooterInfo {
+  display: flex;
+}
+
 
 .myFeedLike {
   display: flex;
@@ -98,4 +104,14 @@
 
 .myFeedCommentRealCount {
   padding-top: 15px;
+}
+
+.myPostImgContainer {
+  max-width: 500px;
+}
+
+.myPostImgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

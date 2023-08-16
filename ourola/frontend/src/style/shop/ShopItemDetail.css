@@ -30,7 +30,7 @@
 .shopDetailToListButton {
     border: none;
     width: 100px;
-    height: 60px;
+    height: 45px;
     border-radius: 20px;
     margin-top: -20px;
     margin-left: 50px;
@@ -73,7 +73,7 @@
 
 .detailBuy {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
 }
 
@@ -85,6 +85,7 @@
     cursor: pointer;
     font-size: 20px;
     background-color: #7b68ee;
+    margin-left: 15px;
 }
 
 .shopDetailPurchaseContainer {

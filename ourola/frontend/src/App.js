@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
-
 import SearchResult from "./components/main/SearchResult";
 
 // artist 선언 방식 fix 필요
@@ -72,8 +71,6 @@ function App() {
           <MainNoLoggedIn showModal={showModal} />
         )}
       </div>
-      {/* 
-      <Link to="/seventeen/online-concert/list">라이브</Link> */}
     </div>
   );
 }
