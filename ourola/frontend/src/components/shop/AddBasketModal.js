@@ -88,10 +88,10 @@ const AddBasketModal = ({ state, path }) => {
         <>
         {alreadyExist ?
         (<div className="shopCreateBackground">
-            <button className="shopCreateClose" onClick={closeModal}>
+            <button className="addBasketClose" onClick={closeModal}>
                 ×
             </button>
-            <div ref={modalRef} className="shopCreateDetail">
+            <div ref={modalRef} className="addBasketDetail">
                 이미 장바구니에 담긴 물품입니다
                 <div className="basketButtonContainer">
                     <button onClick={() => navigate(-1)} className="gotoBackButton">이전으로</button>
@@ -100,7 +100,7 @@ const AddBasketModal = ({ state, path }) => {
             </div>
         </div>) : (
             <div className="shopCreateBackground">
-            <button className="shopCreateClose" onClick={closeModal}>
+            <button className="addBasketClose" onClick={closeModal}>
                 ×
             </button>
             <div ref={modalRef} className="shopCreateDetail">
