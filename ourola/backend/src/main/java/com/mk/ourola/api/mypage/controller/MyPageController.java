@@ -43,7 +43,7 @@ public class MyPageController {
 	public ResponseEntity<Object> getUserInfo(@RequestHeader("Authorization") String accessToken) {
 		try {
 			String role = myPageService.getRole(accessToken);
-			if (role.equals("USER") || role.equals("GUEST")) {
+			if (role.equals("USER") || role.equals("ADMIN")) {
 				return new ResponseEntity<>(myPageService.getFanUserInfo(accessToken), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(myPageService.getArtistUserInfo(accessToken), HttpStatus.OK);
