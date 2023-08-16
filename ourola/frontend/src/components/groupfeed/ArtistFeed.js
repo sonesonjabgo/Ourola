@@ -118,7 +118,6 @@ const ArtistFeed = ({
       {value}
     </button>
   );
-
   const onClickDateFilter = async () => {
     const formatStartDate = format(startDate, "yyyyMMdd");
     const formatEndDate = format(endDate, "yyyyMMdd");
@@ -219,6 +218,7 @@ const ArtistFeed = ({
             userInfo={userInfo}
             getArtistFeed={getArtistFeed}
             files={it.fileList}
+            artistNick={it.artistDto?.nickname}
           ></ArtistFeedItem>
         ))}
       </section>

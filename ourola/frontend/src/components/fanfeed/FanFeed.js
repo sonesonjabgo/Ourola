@@ -221,6 +221,7 @@ const ArtistFeed = ({
               fanId={it.fanDto?.id}
               profileId={it.fanDto?.profileFileDto?.id}
               files={it.fileList}
+              fanNick={it.fanDto?.nickname}
             ></ArtistFeedItem>
           ))}
         </section>

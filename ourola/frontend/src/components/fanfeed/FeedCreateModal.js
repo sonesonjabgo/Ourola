@@ -62,7 +62,7 @@ const FeedCreateModal = ({state, userInfo, groupInfo, userRole}) => {
     // 현재 로그인 중인 유저가 일반 사용자인지, 아티스트 또는 소속사인지 판단해 피드 타입 지정
     const [feedType, setFeedType] = useState()
     useEffect(() => {
-      if (userRole === 'USER') {
+      if (userRole === 'USER' || userRole === 'ADMIN') {
         setFeedType(1)
       } else {
         setFeedType(2)

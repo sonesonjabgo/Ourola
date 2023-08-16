@@ -18,11 +18,11 @@ const ArtistFeedComment = ({
 
   if (artistDto === null) {
     accessImg += "/profile?id=" + fanDto.profileFileDto.id;
-    name = fanDto.name;
+    name = fanDto.nickname;
     email = fanDto.email;
   } else {
     accessImg += "/artist-profile?id=" + artistDto.profileFileDto.id;
-    name = artistDto.name;
+    name = artistDto.nickname;
     email = artistDto.email;
   }
 

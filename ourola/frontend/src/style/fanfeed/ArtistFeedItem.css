@@ -81,6 +81,7 @@
 .artistFeedFooter {
   padding-left: 10px;
   align-items: center;
+  justify-content: space-between;
   display: flex;
   position: relative;
   z-index: 1;
@@ -135,4 +136,8 @@
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+.deleteBin {
+  max-width: 30px;
 }

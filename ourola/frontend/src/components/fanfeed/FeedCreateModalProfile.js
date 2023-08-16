@@ -37,7 +37,7 @@ const FeedCreateModalProfile = ({userInfo, userRole}) => {
                 (<img className="feedCreateModalProfileUserImg" src={`https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=1`}/>)}
             </div>
             <div className="feedCreateModalProfileUsername">
-            {userInfo.name}
+            {userInfo.nickname}
             </div>
         </div>
         </>

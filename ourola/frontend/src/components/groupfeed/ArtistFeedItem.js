@@ -23,12 +23,12 @@ const ArtistFeedItem = ({
   userInfo,
   getArtistFeed,
   files,
+  artistNick
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
 
   const localHost = "http://localhost:8000";
-
   let getDate = createDate.split("T", 2);
   getDate[1] = getDate[1].split(".", 1);
 
@@ -208,7 +208,7 @@ const ArtistFeedItem = ({
             className="artistFeedArtistNameWrapper"
           >
             <strong id="artistFeedArtistName" className="artistFeedArtistName">
-              {artistName}
+              {artistNick}
             </strong>
           </div>
           <div
@@ -269,6 +269,7 @@ const ArtistFeedItem = ({
               comment,
               scrollPosition,
               files,
+              artistNick
             }}
           ></ArtistFeedDetail>
         )}
