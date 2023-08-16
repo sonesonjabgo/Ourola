@@ -11,7 +11,6 @@ import MyPostDetail from "./MyPostDetail";
 import openedBin from "../../../assets/icons/opened_bin.png";
 import closedBin from "../../../assets/icons/closed_bin.png";
 
-
 const MyPostItem = ({ setPostList, item, config }) => {
   const FAN = 1;
   const ARTIST = 2;
@@ -78,10 +77,10 @@ const MyPostItem = ({ setPostList, item, config }) => {
   }, []);
 
   const commentCount = comment.length;
-  const nickname = item.fanDto.nickname
-  const formatTime = moment(new Date(item.createDate)).format(
-    "YYYY.MM.DD HH:mm"
-  );
+  const nickname = item.fanDto.nickname;
+  const formatTime = moment(new Date(item.createDate))
+    .subtract(9, "hours")
+    .format("YYYY.MM.DD HH:mm");
 
   const content = item.content;
   const fileList = item.fileList;
@@ -195,7 +194,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
     document.body.style.overflow = "hidden";
   };
 
-  const [openBin, setOpenBin] = useState(closedBin)
+  const [openBin, setOpenBin] = useState(closedBin);
 
   return (
     <div>
@@ -260,57 +259,63 @@ const MyPostItem = ({ setPostList, item, config }) => {
             {fileList.length === 0 ? (
               <div className="myPostContent">{content}</div>
             ) : (
-              <div className="myPostImgContainer">
-              <img
-                src={fileUrl + fileList[0].filePath}
-                alt=""
-              ></img>
+              <div>
+                <div className="myPostImgContainer">
+                  <img src={fileUrl + fileList[0].filePath} alt=""></img>
+                </div>
+                <br></br>
+                {content}
               </div>
             )}
             <br></br>
-            {content}
           </div>
           <div className="myPostItemFooter">
             <div className="myFeedFooterInfo">
-            <div id="myFeedLike" className="myFeedLike">
-              {thisFeedLike ? (
+              <div id="myFeedLike" className="myFeedLike">
+                {thisFeedLike ? (
+                  <img
+                    src={likeclick}
+                    alt="이미지가 없습니다."
+                    id="myFeedLikeImg"
+                    className="myFeedLikeImg"
+                    onClick={wantLikeCancle}
+                  ></img>
+                ) : (
+                  <img
+                    src={notlikeclick}
+                    alt="이미지가 없습니다."
+                    id="myFeedLikeImg"
+                    className="myFeedLikeImg"
+                    onClick={wantLike}
+                  ></img>
+                )}
+                <div id="myFeedLikeCount" className="myFeedLikeCount">
+                  {likeCount}
+                </div>
+              </div>
+              <div id="myFeedComment" className="myFeedComment">
                 <img
-                  src={likeclick}
+                  src={commentclick}
                   alt="이미지가 없습니다."
-                  id="myFeedLikeImg"
-                  className="myFeedLikeImg"
-                  onClick={wantLikeCancle}
+                  id="myFeedCommentImg"
+                  className="myFeedCommentImg"
                 ></img>
-              ) : (
-                <img
-                  src={notlikeclick}
-                  alt="이미지가 없습니다."
-                  id="myFeedLikeImg"
-                  className="myFeedLikeImg"
-                  onClick={wantLike}
-                ></img>
-              )}
-              <div id="myFeedLikeCount" className="myFeedLikeCount">
-                {likeCount}
+                <div
+                  id="myFeedCommentRealCount"
+                  className="myFeedCommentRealCount"
+                >
+                  {commentCount}
+                </div>
               </div>
             </div>
-            <div id="myFeedComment" className="myFeedComment">
-              <img
-                src={commentclick}
-                alt="이미지가 없습니다."
-                id="myFeedCommentImg"
-                className="myFeedCommentImg"
-              ></img>
-              <div
-                id="myFeedCommentRealCount"
-                className="myFeedCommentRealCount"
-              >
-                {commentCount}
-              </div>
-            </div>
+            <img
+              className="deleteBin"
+              src={openBin}
+              onClick={deleteRequest}
+              onMouseOver={() => setOpenBin(openedBin)}
+              onMouseOut={() => setOpenBin(closedBin)}
+            />
           </div>
-          <img className="deleteBin" src={openBin} onClick={deleteRequest} onMouseOver={() => setOpenBin(openedBin)} onMouseOut={() => setOpenBin(closedBin)} />
-        </div>
         </div>
       )}
     </div>
