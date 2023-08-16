@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../../../style/mypage/bookmark/BookmarkItem.css";
 import BookmarkDetail from "./BookmarkDetail";
 
-const BookmarkItem = ({ item }) => {
+const BookmarkItem = ({ setBookmarkList, item }) => {
   const feed = item.feedDto;
   const FAN = 1;
   const ARTIST = 2;
@@ -43,6 +43,7 @@ const BookmarkItem = ({ item }) => {
     <div>
       {modalOpen ? (
         <BookmarkDetail
+          setBookmarkList={setBookmarkList}
           setModalOpen={setModalOpen}
           scrollPosition={scrollPosition}
           feed={feed}

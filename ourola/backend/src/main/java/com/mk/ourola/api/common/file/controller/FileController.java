@@ -117,10 +117,10 @@ public class FileController {
 	public ResponseEntity<?> getShopMainImg(
 		@PathVariable(name = "filePath") String filePath) throws Exception {
 		try {
-			byte[] artistProfileImg = fileService.getShopMainImg(filePath);
+			byte[] shopProfileImg = fileService.getShopMainImg(filePath);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
-			return new ResponseEntity<>(artistProfileImg, headers, HttpStatus.OK);
+			return new ResponseEntity<>(shopProfileImg, headers, HttpStatus.OK);
 		} catch (IOException e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -9,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mk.ourola.api.artist.service.ArtistServiceImpl;
@@ -68,6 +70,18 @@ public class OnlineConcertController {
 			} else {
 				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// 채널 관리자가 온라인콘서트 open 관리
+	@PutMapping("/open/{id}")
+	public ResponseEntity<Boolean> concertOpen(@RequestHeader("Authorization") String accessToken,
+		@PathVariable(name = "id") int id,
+		@RequestParam(name = "open") boolean open) {
+		try {
+			return new ResponseEntity<>(onlineConcertService.concertOpen(id, open), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
