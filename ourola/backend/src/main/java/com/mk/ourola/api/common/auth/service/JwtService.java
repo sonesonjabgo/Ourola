@@ -202,7 +202,7 @@ public class JwtService {
 				.getClaim(USER_ROLE_CLAIM) // claim(role) 가져오기
 				.asString());
 		} catch (Exception e) {
-			log.error("액세스 토큰이 유효하지 않습니다.");
+			log.error("extracRole :: 액세스 토큰이 유효하지 않습니다.");
 			return Optional.empty();
 		}
 	}
