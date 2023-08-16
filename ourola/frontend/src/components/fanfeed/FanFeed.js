@@ -133,7 +133,7 @@ const ArtistFeed = ({
     };
 
     const result = await axios.get(
-      `/${group}/feed/filter/date?startDate=${formatStartDate}&endDate=${formatEndDate}`,
+      `/${group}/feed/filter/date?startDate=${formatStartDate}&endDate=${formatEndDate}&type=1`,
       config
     );
 
