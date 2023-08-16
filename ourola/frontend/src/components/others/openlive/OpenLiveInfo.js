@@ -56,6 +56,7 @@ const OpenLiveInfo = ({
           <div
             id="openLiveInfoWrapContentValue"
             className="openLiveInfoWrapContentValue"
+            style={{ whiteSpace: 'pre-line' }}
           >
             {content}
           </div>
