@@ -1,11 +1,11 @@
 import { OpenVidu } from "openvidu-browser";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-// import "./App.css";
-import UserVideoComponent from "./UserVideoComponent";
 import OnlineConcertEnter from "./OnlineConcertEnter";
 import OnlineConcertVideo from "./OnlineConcertVideo";
 import { useLocation } from "react-router-dom";
+import "../../../style/media/onlineconcert/OnlineConcertView.css";
+import Chat from "./chat/Chat";
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production"
@@ -26,10 +26,13 @@ const OnlineConcertView = () => {
     },
   };
 
-  const id = location.state.id;
-  const nickname = location.state.nickname;
-  const sessionId = location.state.sessionId;
-  const isAdmin = location.state.isAdmin;
+  const concertInfo = location.state.concertInfo;
+  const userInfo = location.state.userInfo;
+  const isAdmin =
+    userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group;
+
+  const nickname = userInfo.nickname;
+  const sessionId = concertInfo.sessionId;
 
   const [OV, setOV] = useState(new OpenVidu());
   const [session, setSession] = useState(undefined);
@@ -108,7 +111,7 @@ const OnlineConcertView = () => {
           videoSource: undefined,
           publishAudio: true,
           publishVideo: true,
-          resolution: "640x480",
+          resolution: "800x600",
           frameRate: 30,
           insertMode: "APPEND",
           mirror: false,
@@ -239,28 +242,36 @@ const OnlineConcertView = () => {
   };
 
   return (
-    <div className="container">
-      {session === undefined ? (
-        <OnlineConcertEnter onJoinSession={onJoinSession} />
-      ) : null}
+    <div className="onlineConcertViewMain">
+      <div className="onlineConcertViewHeader">
+        <div> </div>
+        <div className="sessionBtnArea">
+          <input
+            className="buttonLeaveSession"
+            type="button"
+            id="buttonLeaveSession"
+            onClick={onLeaveSession}
+            value="나가기"
+          />
+        </div>
+      </div>
+      <div className="onlineConcertViewBody">
+        <div className="onlineConcertVideo">
+          {session !== undefined ? (
+            <OnlineConcertVideo
+              sessionId={sessionId}
+              mainStreamManager={mainStreamManager}
+            />
+          ) : null}
 
-      {session !== undefined ? (
-        <OnlineConcertVideo
-          sessionId={sessionId}
-          mainStreamManager={mainStreamManager}
-          onLeaveSession={onLeaveSession}
-          onSwitchCamera={onSwitchCamera}
-        />
-      ) : null}
-
-      {subscribers.map((sub, i) => (
-        <OnlineConcertVideo
-          sessionId={sessionId}
-          mainStreamManager={sub}
-          onLeaveSession={onLeaveSession}
-          onSwitchCamera={onSwitchCamera}
-        />
-      ))}
+          {subscribers.map((sub, i) => (
+            <OnlineConcertVideo sessionId={sessionId} mainStreamManager={sub} />
+          ))}
+        </div>
+        <div className="onlineConcertChat">
+          <Chat sessionId={sessionId} nickname={nickname} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,25 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
+import moment from "moment";
 
 const OnlineConcertEnter = () => {
   const location = useLocation();
-  const pathname = window.location.pathname;
-  const group = pathname.split("/")[1];
 
-  // const [isAdmin, setIsAdmin] = useState(false);
-  // const [nickname, setNickname] = useState("");
-  // const [sessionId, setSessionId] = useState(location.state.sessionId);
-  // const sessionId = location.state.sessionId;
-  // const open = location.state.open;
   const concertInfo = location.state.concertInfo;
-  const sessionId = concertInfo.sessionId;
-  const open = concertInfo.open;
+  const group = concertInfo.groupDto.name;
+  const fileUrl =
+    "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
+    concertInfo.filePath;
+
+  const startTime = new Date(concertInfo.startTime);
+  const beginTime = new Date(concertInfo.startTime);
+
+  beginTime.setMinutes(beginTime.getMinutes() - 10);
 
   const [userInfo, setUserInfo] = useState(undefined);
-
   const navigate = useNavigate();
+
   const accessToken = sessionStorage.getItem("Authorization");
   const config = {
     headers: {
@@ -29,23 +30,33 @@ const OnlineConcertEnter = () => {
   };
 
   // 세션에 입장했을 때
-  const handleSubmit = async () => {
-    // if (isAdmin) {
-    //   await axios
-    //     .put(`/${group}/online-concert/open/2?open=false`)
-    //     .then((response) => {
-    //       console.log(response.data);
-    //     })
-    //     .catch((error) => console.log(error));
-    // }
-    // navigate(`/${group}/media/online-concert/view`, {
-    //   state: {
-    //     // nickname: nickname,
-    //     sessionId: sessionId,
-    //     // isAdmin: isAdmin,
-    //   },
-    // });
-    // onJoinSession(nickname, sessionId, isAdmin);
+  const onEnterClick = () => {
+    //채널 관리자
+    if (userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group) {
+      if (concertInfo.open === false) {
+        axios
+          .put(
+            `/${group}/online-concert/open/${concertInfo.id}?open=true`,
+            {},
+            config
+          )
+          .then((response) => {
+            concertInfo.open = true;
+            console.log(response);
+          })
+          .catch((error) => console.log(error));
+      }
+    } else {
+      // 일반 사용자(팬)일 때
+      if (new Date() < beginTime) {
+        alert("입장 시간이 아닙니다.");
+        return;
+      }
+    }
+
+    navigate(`/${group}/media/online-concert/view`, {
+      state: { concertInfo: concertInfo, userInfo: userInfo },
+    });
   };
 
   useEffect(() => {
@@ -59,32 +70,32 @@ const OnlineConcertEnter = () => {
       });
   }, []);
 
+  // style={{ backgroundImage: `url(${fileUrl})` }}
   return (
-    <div id="join">
-      <div id="img-div">
-        <img
-          src="resources/images/openvidu_grey_bg_transp_cropped.png"
-          alt="OpenVidu logo"
-        />
-      </div>
-      <div
-        id="OnlineConcertEnterTitle"
-        className="OnlineConcertEnterTitle vertical-center"
-      >
-        <h1 className="enterTitle"> {concertInfo.title} </h1>
-        {/* <form className="form-group" onSubmit={handleSubmit}>
-          <p>{nickname}</p>
-
-          <p className="text-center">
-            <input
-              className="enterBtn btn-lg btn-success"
-              name="입장하기"
-              type="submit"
-              value="입장하기"
-            />
-          </p>
-        </form> */}
-        <button onClick={handleSubmit}>ddd</button>
+    <div
+      id="onlineConcertEnterBackGround"
+      className="onlineConcertEnterBackGround"
+      style={{ backgroundImage: `url(${fileUrl})` }}
+    >
+      <div className="onlineConcertEnterMain">
+        <div className="titleArea">
+          <div
+            id="onlineConcertEnterTitle"
+            className="onlineConcertEnterTitle vertical-center"
+          >
+            <h1 className="enterTitle"> {concertInfo.title} </h1>
+          </div>
+          <div className="onlineConcertTime">
+            <h1 className="startTime">
+              일시 : {moment(startTime).format("YYYY.MM.DD HH:mm")}
+            </h1>
+          </div>
+        </div>
+        <div id="btnArea" className="btnArea">
+          <button id="enterBtn" className="enterBtn" onClick={onEnterClick}>
+            입장하기
+          </button>
+        </div>
       </div>
     </div>
   );
