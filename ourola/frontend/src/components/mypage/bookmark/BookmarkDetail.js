@@ -18,6 +18,8 @@ const BookmarkDetail = ({
   const id = feed.id;
   const group = feed.groupDto.name;
 
+  console.log(feed)
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -305,9 +307,9 @@ const BookmarkDetail = ({
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    {/* <div className="feedImgContainer">
-                    {files.length > 0 &&
-                      files.map((file, index) => (
+                    <div className="feedImgContainer">
+                    {feed.fileList.length > 0 &&
+                      feed.fileList.map((file, index) => (
                         <img
                           className="feedImg"
                           key={index}
@@ -315,7 +317,7 @@ const BookmarkDetail = ({
                           alt={`File ${index}`}
                         />
                       ))}
-                  </div> */}
+                  </div>
                     {content}
                   </div>
                 </div>
