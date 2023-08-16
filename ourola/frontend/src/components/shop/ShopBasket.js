@@ -10,11 +10,11 @@ const ShopBasket = () => {
       const location = useLocation()
   
       const goBack = () => {
-          if (location.state?.from) {
-              navigate(location.state.from)
-          } else {
-              navigate(-1)
-          }
+        let currentPath = location.pathname
+
+        const newPath = currentPath.replace('/basket', '')
+
+        navigate(newPath)
       }
   
       const path = location.state
@@ -86,7 +86,7 @@ const ShopBasket = () => {
   
     return (
         <>
-        <div><button onClick={goBack} className="shopBasketBackButton">이전으로</button></div>
+        <div><button onClick={goBack} className="shopBasketBackButton">목록으로</button></div>
         <div className="basketContentContainer">
           <div className="basketContent">
           {isEmpty ? '장바구니에 담긴 물건이 없습니다.' :
