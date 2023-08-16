@@ -31,6 +31,9 @@ const OnlineConcertView = () => {
   const isAdmin =
     userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group;
 
+  const isArtist =
+    userInfo.role === "ARTIST" && userInfo.groupDto.name === group;
+
   const nickname = userInfo.nickname;
   const sessionId = concertInfo.sessionId;
 
@@ -269,7 +272,7 @@ const OnlineConcertView = () => {
           ))}
         </div>
         <div className="onlineConcertChat">
-          <Chat sessionId={sessionId} nickname={nickname} />
+          <Chat sessionId={sessionId} nickname={nickname} isAdminOrArtist={isAdmin || isArtist} />
         </div>
       </div>
     </div>
