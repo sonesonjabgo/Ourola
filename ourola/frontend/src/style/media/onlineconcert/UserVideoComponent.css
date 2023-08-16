@@ -1,0 +1,12 @@
+.streamcomponent {
+  width: 800px;
+  justify-content: center;
+  align-items: center;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  /* float: left; */
+}

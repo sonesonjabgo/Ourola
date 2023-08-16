@@ -1,15 +1,10 @@
 import React from "react";
 import OpenViduVideoComponent from "./openvidu/OvVideo";
-import "../../../style/media/fanSigning/UserVideo.css"
+import "../../../style/media/onlineconcert/UserVideoComponent.css";
 
 const UserVideoComponent = (props) => {
-  const getNicknameTag = () => {
-    // Gets the nickName of the user
-    return JSON.parse(props.streamManager.stream.connection.data).clientData;
-  };
-
   return (
-    <div>
+    <div className="streamComponentWrapper">
       {props.streamManager !== undefined ? (
         <div className="streamcomponent">
           <OpenViduVideoComponent streamManager={props.streamManager} />

@@ -1,3 +1,16 @@
-#session {
-  padding-top: 120px;
+#onlineConcertVideoMain {
+  height: 100vh;
+}
+
+#onlineConcertVideoHeader {
+  display: flex;
+  padding-top: 30px;
+  padding-left: 100px;
+  padding-right: 150px;
+  text-align: center;
+}
+
+.sessionBtnArea {
+  margin-left: auto;
+  padding-right: 50px;
 }

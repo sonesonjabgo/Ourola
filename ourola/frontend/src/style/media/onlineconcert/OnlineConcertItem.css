@@ -9,3 +9,14 @@
   border-radius: 30px;
   text-align: center;
 }
+
+.onlineConcertImageWrapper {
+  width: 100px;
+  height: 100px;
+}
+
+.concertImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

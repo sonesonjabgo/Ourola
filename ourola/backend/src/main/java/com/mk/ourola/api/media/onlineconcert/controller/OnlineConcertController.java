@@ -81,7 +81,7 @@ public class OnlineConcertController {
 		@PathVariable(name = "id") int id,
 		@RequestParam(name = "open") boolean open) {
 		try {
-			return new ResponseEntity<>(onlineConcertService.concertOpen(id, open), HttpStatus.OK);
+			return new ResponseEntity<Boolean>(onlineConcertService.concertOpen(id, open), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -1,45 +1,16 @@
 import UserVideoComponent from "./UserVideoComponent";
 import "../../../style/media/onlineconcert/OnlineConcertVideo.css";
 
-const OnlineConcertVideo = ({
-  sessionId,
-  mainStreamManager,
-  onLeaveSession,
-  onSwitchCamera,
-}) => {
-  const handleLeaveSession = () => {
-    onLeaveSession();
-  };
-
-  const handleSwitchCamera = () => {
-    onSwitchCamera();
-  };
-
+const OnlineConcertVideo = ({ sessionId, mainStreamManager }) => {
   return (
-    <div id="session">
-      <div id="session-header">
-        <h1 id="session-title">{sessionId}</h1>
-        <input
-          className="btn btn-large btn-danger"
-          type="button"
-          id="buttonLeaveSession"
-          onClick={handleLeaveSession}
-          value="Leave session"
-        />
-        <input
-          className="btn btn-large btn-success"
-          type="button"
-          id="buttonSwitchCamera"
-          onClick={handleSwitchCamera}
-          value="Switch Camera"
-        />
+    <div id="onlineConcertVideoMain">
+      <div id="onlineConcertVideoBody">
+        {mainStreamManager !== undefined ? (
+          <div id="main-video" className="main-video">
+            <UserVideoComponent streamManager={mainStreamManager} />
+          </div>
+        ) : null}
       </div>
-
-      {mainStreamManager !== undefined ? (
-        <div id="main-video" className="col-md-6">
-          <UserVideoComponent streamManager={mainStreamManager} />
-        </div>
-      ) : null}
     </div>
   );
 };
