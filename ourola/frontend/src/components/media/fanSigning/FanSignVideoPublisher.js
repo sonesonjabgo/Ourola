@@ -1,9 +1,8 @@
 import UserVideoComponent from "./UserVideoComponent";
-import "../../../style/media/onlineconcert/OnlineConcertVideo.css";
+import "../../../style/media/FanSigningViewer.css"
 import { useEffect } from "react";
 
 const FanSignVideo = ({
-  sessionId,
   mainStreamManager,
   onLeaveSession,
   onSwitchCamera,
@@ -18,25 +17,14 @@ const FanSignVideo = ({
   };
   
   return (
-    <div id="session">
-      <div id="session-header">
-        <h1 id="session-title">{sessionId}</h1>
-        <input
-          className="btn btn-large btn-danger"
+    <div id="sessionPublisher">
+      <input
+          className="leaveButton"
           type="button"
           id="buttonLeaveSession"
           onClick={handleLeaveSession}
-          value="Leave session"
-        />
-        {/* <input
-          className="btn btn-large btn-success"
-          type="button"
-          id="buttonSwitchCamera"
-          onClick={handleSwitchCamera}
-          value="Switch Camera"
-        /> */}
-      </div>
-
+          value="종료하기"
+      />
       {mainStreamManager !== undefined ? (
         <div id="main-video" className="col-md-6">
           <UserVideoComponent streamManager={mainStreamManager} />

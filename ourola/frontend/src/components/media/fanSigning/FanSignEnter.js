@@ -143,10 +143,10 @@ const FanSignEnter = () => {
             playsInline
             ></video>
             ) : (<img src={spinner} alt="로딩중" className="loading"/>)}
-          <p>{nickname}</p>
+          <p>{nickname}님 준비 되셨나요 ?</p>
           <p className="text-center">
             <input
-              className="btn btn-lg btn-success"
+              className="joinButton"
               name="입장하기"
               type="button"
               onClick={handleSubmit}
