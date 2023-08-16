@@ -27,6 +27,7 @@ const ArtistFeedDetail = (props) => {
     content,
     commentCount,
     files,
+    artistNick
   } = props.state;
 
   const comment = props.state.comment;
@@ -219,7 +220,7 @@ const ArtistFeedDetail = (props) => {
                         id="artistFeedArtistDetailNameInfo"
                         className="artistFeedArtistDetailNameInfo"
                       >
-                        {artistName}
+                        {artistNick}
                       </strong>
                       <span
                         id="artistFeedArtistDetailFormatDateInfo"

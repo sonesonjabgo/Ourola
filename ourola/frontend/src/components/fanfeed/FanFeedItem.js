@@ -9,6 +9,8 @@ import bookmarkfill from "../../assets/icons/bookmarkfill.png";
 import likeclick from "../../assets/icons/like.png";
 import notlikeclick from "../../assets/icons/notlike.png";
 import commentclick from "../../assets/icons/comment.png";
+import openedBin from "../../assets/icons/opened_bin.png";
+import closedBin from "../../assets/icons/closed_bin.png";
 
 const ArtistFeedItem = ({
   id,
@@ -25,6 +27,7 @@ const ArtistFeedItem = ({
   fanId,
   profileId,
   files,
+  fanNick
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
@@ -195,6 +198,8 @@ const ArtistFeedItem = ({
       });
   };
 
+  const [openBin, setOpenBin] = useState(closedBin)
+
   return (
     <div id="artistFeedItem" className="artistFeedItem">
       <div id="aritstFeedHeader" className="aritstFeedHeader">
@@ -211,7 +216,7 @@ const ArtistFeedItem = ({
             className="artistFeedArtistNameWrapper"
           >
             <strong id="artistFeedArtistName" className="artistFeedArtistName">
-              {artistName}
+              {fanNick}
             </strong>
           </div>
           <div
@@ -226,9 +231,6 @@ const ArtistFeedItem = ({
 
         {userInfo ? (
           <div id="artistFeedBlank" className="artistFeedBlank">
-            {userInfo.id === fanId || userInfo.role === "CHANNEL_ADMIN" ? (
-              <button onClick={deleteRequest}>피드 삭제</button>
-            ) : null}
             {thisFeedBookmark ? (
               <img
                 src={bookmarkfill}
@@ -275,6 +277,7 @@ const ArtistFeedItem = ({
               comment,
               scrollPosition,
               files,
+              fanNick
             }}
           ></ArtistFeedDetail>
         )}
@@ -327,10 +330,13 @@ const ArtistFeedItem = ({
               id="artistFeedCommentRealCount"
               className="artistFeedCommentRealCount"
             >
-              {commentCount} {/*  나중에 댓글 갯수로 수정필요 */}
+              {commentCount}
             </div>
           </div>
         </div>
+        {userInfo.id === fanId || userInfo.role === "CHANNEL_ADMIN" ? (
+              <img className="deleteBin" src={openBin} onClick={deleteRequest} onMouseOver={() => setOpenBin(openedBin)} onMouseOut={() => setOpenBin(closedBin)} />
+            ) : null}
       </div>
     </div>
   );
