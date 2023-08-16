@@ -133,6 +133,7 @@ public class JwtService {
 	 * 헤더를 가져온 후 "Bearer"를 삭제(""로 replace)
 	 */
 	public Optional<String> extractAccessToken(HttpServletRequest request) {
+		log.info("extractAccessToken");
 		return Optional.ofNullable(request.getHeader(accessHeader))
 			.filter(refreshToken -> refreshToken.startsWith(BEARER))
 			.map(refreshToken -> refreshToken.replace(BEARER, ""));
@@ -174,8 +175,8 @@ public class JwtService {
 			String email = extractEmail(accessToken).get();
 			// System.out.println("email : "+email);
 			String role = extractRole(accessToken).get();
-			// System.out.println("role : "+role);
-			if (role.equals(Role.USER.getKey())) {
+			System.out.println("role : "+role);
+			if (role.equals(Role.USER.getKey()) || role.equals(Role.ADMIN.getKey())) {
 				return fanRepository.findByEmail(email).get().getId();
 			} else {
 				return artistRepository.findByEmail(email).get().getId();
