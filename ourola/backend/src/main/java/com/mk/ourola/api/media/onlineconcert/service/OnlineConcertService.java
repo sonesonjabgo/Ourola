@@ -11,5 +11,5 @@ public interface OnlineConcertService {
 
 	public OnlineConcertDto getOnlineConcert(String sessionId);
 
-	boolean toggleOnlineConcert(int concert_id);
+	boolean concertOpen(int concert_id, boolean open);
 }
