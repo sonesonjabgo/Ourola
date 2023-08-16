@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../style/media/onlineconcert/OnlineConcertEnter.css";
+import "../../../style/media/FanSigning.css"
+import spinner from "../../../assets/loading/loadingSpinner.gif"
 
 const FanSignEnter = () => {
   const pathname = window.location.pathname;
@@ -17,7 +18,7 @@ const FanSignEnter = () => {
   // const [sessionId, setSessionId] = useState(location.state.sessionId);
   const sessionId = callList.sessionId;
   const callId = callList.id;
-  
+
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem("Authorization");
   const config = {
@@ -126,30 +127,23 @@ const FanSignEnter = () => {
   return (
     <div id="join">
       <div id="join-dialog" className="jumbotron vertical-center">
-        <h1> Join a video session </h1>
-          {/* {webcamStream && (
-            <video
-              className="webcam-preview"
-              srcObject={webcamStream}
-              autoPlay
-              playsInline
-            ></video>
-          )}
-           */}
+        <div>
+        <h1>팬싸인회 대기실 </h1>
         <form className="form-group">
-          <p>Participant: {nickname}</p>
-          {webcamStream && (
+          <p>입장 전 내 모습을 확인하세요.</p>
+          {webcamStream ? (
             <video
-              className="webcam-preview"
-              ref={(videoRef) => {
-                if (videoRef) {
-                  videoRef.srcObject = webcamStream;
-                }
-              }}
-              autoPlay
-              playsInline
+            className="webcam-preview"
+            ref={(videoRef) => {
+              if (videoRef) {
+                videoRef.srcObject = webcamStream;
+              }
+            }}
+            autoPlay
+            playsInline
             ></video>
-          )}
+            ) : (<img src={spinner} alt="로딩중" className="loading"/>)}
+          <p>{nickname}</p>
           <p className="text-center">
             <input
               className="btn btn-lg btn-success"
@@ -160,6 +154,7 @@ const FanSignEnter = () => {
             />
           </p>
         </form>
+      </div>
       </div>
     </div>
   );

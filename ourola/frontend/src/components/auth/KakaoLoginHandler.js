@@ -7,6 +7,7 @@ const KakaoLoginHandler = () => {
 
     const accessToken = new URL(window.location.href).searchParams.get("accessToken");
     const refreshToken = new URL(window.location.href).searchParams.get("refreshToken");
+    const email = new URL(window.location.href).searchParams.get("email");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,6 +19,7 @@ const KakaoLoginHandler = () => {
       // console.log(code)
       // console.log(accessToken, refreshToken);
       localStorage.setItem("RefreshToken", refreshToken);
+      sessionStorage.setItem("UserEmail", email);
       sessionStorage.setItem("Authorization", accessToken);
       navigate('/')
     })
