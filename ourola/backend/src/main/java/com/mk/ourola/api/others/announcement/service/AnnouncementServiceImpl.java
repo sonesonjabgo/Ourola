@@ -43,7 +43,7 @@ public class AnnouncementServiceImpl implements Announcement {
 	public AnnouncementDto writeAnnouncement(String groupName, String accessToken,
 		AnnouncementDto announcementDto) throws
 		Exception {
-		String decodingEmail = jwtService.extractEmail(accessToken).get();
+		String decodingEmail = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get()).get();
 
 		if (decodingEmail == null) {
 			throw new Exception(); // 세세한 예외 처리 필요
