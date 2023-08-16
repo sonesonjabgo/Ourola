@@ -23,7 +23,7 @@ const ArtistFeedItem = ({
   userInfo,
   getArtistFeed,
   files,
-  artistNick
+  artistNick,
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + artistId;
@@ -269,7 +269,7 @@ const ArtistFeedItem = ({
               comment,
               scrollPosition,
               files,
-              artistNick
+              artistNick,
             }}
           ></ArtistFeedDetail>
         )}
@@ -284,6 +284,7 @@ const ArtistFeedItem = ({
                 />
               ))}
           </div>
+          <br></br>
           {content}
         </div>
       </div>

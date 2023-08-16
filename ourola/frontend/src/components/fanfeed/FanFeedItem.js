@@ -27,7 +27,7 @@ const ArtistFeedItem = ({
   fanId,
   profileId,
   files,
-  fanNick
+  fanNick,
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/profile?id=" + profileId;
@@ -198,7 +198,7 @@ const ArtistFeedItem = ({
       });
   };
 
-  const [openBin, setOpenBin] = useState(closedBin)
+  const [openBin, setOpenBin] = useState(closedBin);
 
   return (
     <div id="artistFeedItem" className="artistFeedItem">
@@ -277,7 +277,7 @@ const ArtistFeedItem = ({
               comment,
               scrollPosition,
               files,
-              fanNick
+              fanNick,
             }}
           ></ArtistFeedDetail>
         )}
@@ -292,6 +292,7 @@ const ArtistFeedItem = ({
                 />
               ))}
           </div>
+          <br></br>
           {content}
         </div>
       </div>
@@ -335,8 +336,14 @@ const ArtistFeedItem = ({
           </div>
         </div>
         {userInfo.id === fanId || userInfo.role === "CHANNEL_ADMIN" ? (
-              <img className="deleteBin" src={openBin} onClick={deleteRequest} onMouseOver={() => setOpenBin(openedBin)} onMouseOut={() => setOpenBin(closedBin)} />
-            ) : null}
+          <img
+            className="deleteBin"
+            src={openBin}
+            onClick={deleteRequest}
+            onMouseOver={() => setOpenBin(openedBin)}
+            onMouseOut={() => setOpenBin(closedBin)}
+          />
+        ) : null}
       </div>
     </div>
   );
