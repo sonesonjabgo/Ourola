@@ -233,7 +233,7 @@ const MyPostDetail = (props) => {
                   className="artistFeedDetailContent"
                 >
                   <div id="artistScrollContent" className="artistScrollContent">
-                    {/* <div className="feedImgContainer">
+                    <div className="feedImgContainer">
                       {files.length > 0 &&
                         files.map((file, index) => (
                           <img
@@ -243,7 +243,8 @@ const MyPostDetail = (props) => {
                             alt={`File ${index}`}
                           />
                         ))}
-                    </div> */}
+                    </div>
+                    <br></br>
                     {content}
                   </div>
                 </div>
