@@ -58,6 +58,7 @@ const AnnouncementDetail = (props) => {
           <div
             id="announcementDetailContent"
             className="announcementDetailContent"
+            style={{ whiteSpace: 'pre-line' }}
           >
             {content}
           </div>
