@@ -60,6 +60,8 @@ const ArtistList = ({ setArtistFeed, setArtistFilter, group, artist }) => {
     setCurrentStartPage(currentStartpage + 1);
   };
 
+  console.log(sliceArtist);
+
   return (
     <div id="artistList" className="artistList">
       <section id="artistBoard" className="artistBoard">
@@ -82,7 +84,7 @@ const ArtistList = ({ setArtistFeed, setArtistFilter, group, artist }) => {
             group={group}
             id={it.id}
             profileId={it.profileFileDto.id}
-            name={it.name}
+            nickname={it.nickname}
           ></ArtistProfile>
         ))}
         {currentStartpage !== totalPages && (

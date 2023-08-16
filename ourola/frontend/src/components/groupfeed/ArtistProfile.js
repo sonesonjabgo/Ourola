@@ -10,7 +10,7 @@ const ArtistProfile = ({
   group,
   id,
   profileId,
-  name,
+  nickname,
 }) => {
   const accessImg =
     "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + profileId;
@@ -94,7 +94,7 @@ const ArtistProfile = ({
         id={`artistProfileName-${id}`}
         className={`artistProfileName ${artistSelect ? "selected" : ""}`}
       >
-        {name}
+        {nickname}
       </div>
     </div>
   );
