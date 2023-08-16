@@ -25,7 +25,13 @@ const BookmarkList = ({ config }) => {
       {loadingList ? (
         <></>
       ) : (
-        bookmarkList.map((it) => <BookmarkItem key={it.id} item={it} />)
+        bookmarkList.map((it) => (
+          <BookmarkItem
+            setBookmarkList={setBookmarkList}
+            key={it.id}
+            item={it}
+          />
+        ))
       )}
     </div>
   );

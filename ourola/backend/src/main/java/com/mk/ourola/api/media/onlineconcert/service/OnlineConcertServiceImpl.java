@@ -35,9 +35,9 @@ public class OnlineConcertServiceImpl implements OnlineConcertService {
 	}
 
 	@Override
-	public boolean toggleOnlineConcert(int concert_id) {
+	public boolean concertOpen(int concert_id, boolean open) {
 		OnlineConcertDto concert = onlineConcertRepository.findById(concert_id);
-		concert.setOpen(!concert.isOpen());
+		concert.setOpen(open);
 		onlineConcertRepository.save(concert);
 		return concert.isOpen();
 	}
