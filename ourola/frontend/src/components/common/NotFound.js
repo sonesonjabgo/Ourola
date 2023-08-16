@@ -19,6 +19,7 @@ function NotFound() {
                 src={mainLogo}
                 alt="OurolaLogo"
               />{" "}
+              <div>홈으로 돌아가기</div>
             </Link>
           </div>
         </div>
