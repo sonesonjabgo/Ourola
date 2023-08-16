@@ -10,7 +10,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import spinner from "../../../assets/loading/loadingSpinner.gif"
 
-import "../../../style/media/FanSigningViewer.css";
+import "../../../style/media/fanSigning/FanSigningViewer.css"
 
 const FanSignView = () => {
   const navigate = useNavigate()
