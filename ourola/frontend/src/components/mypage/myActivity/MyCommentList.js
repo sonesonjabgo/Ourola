@@ -33,6 +33,8 @@ const MyCommentList = ({ config }) => {
       });
   };
 
+  commentList.sort((a, b) => b.id - a.id);
+
   return (
     <div className="myCommentList">
       {loadingComment ? (
