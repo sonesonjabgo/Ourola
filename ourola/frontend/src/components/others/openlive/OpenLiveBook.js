@@ -51,6 +51,7 @@ const OpenLiveBook = ({
 
     const result = await axios.put(
       `/${group}/open-live/participate/${liveId}`,
+      {},
       config
     );
 
