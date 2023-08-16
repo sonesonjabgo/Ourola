@@ -25,7 +25,12 @@ const MyPostList = ({ config }) => {
         <></>
       ) : (
         postList.map((it) => (
-          <MyPostItem key={it.id} item={it} config={config} />
+          <MyPostItem
+            key={it.id}
+            setPostList={setPostList}
+            item={it}
+            config={config}
+          />
         ))
       )}
     </div>
