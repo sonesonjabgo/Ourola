@@ -191,22 +191,6 @@ function Login({ onLogin, closeModal }) {
             </div>
           </div>
         </div>
-        <button type='submit' className={styles.loginsubmitbutton}>
-          로그인
-        </button>
-      </form>
-      <div className={styles.loginothersdiv}>
-      <div className={styles.socialLogin}>
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/kakao'> <img src={kakaologo}/></a>
-          {/* <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/naver'> <img src={naverlogo}/></a> */}
-          <a href='https://i9d204.p.ssafy.io:8001/oauth2/authorization/google'> <img src={googlelogo}/></a>
-        </div>
-      <div>
-      <a href='#' onClick={openFindEmailModal}>아이디 찾기</a> |
-      {showFindEmailModal && <FindEmail onClose={closeFindEmailModal} />}
-      <a href='#' onClick={openFindPasswordModal}> 비밀번호 찾기</a>
-      {showFindPasswordModal && <FindPassword onClose={closeFindPasswordModal} />}
-      </div>
       </div>
     </div>
   );
