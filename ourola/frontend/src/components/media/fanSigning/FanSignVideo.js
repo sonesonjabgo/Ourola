@@ -28,13 +28,13 @@ const FanSignVideo = ({
           onClick={handleLeaveSession}
           value="Leave session"
         />
-        <input
+        {/* <input
           className="btn btn-large btn-success"
           type="button"
           id="buttonSwitchCamera"
           onClick={handleSwitchCamera}
           value="Switch Camera"
-        />
+        /> */}
       </div>
 
       {mainStreamManager !== undefined ? (

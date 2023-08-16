@@ -5,9 +5,10 @@ import React, { useState, useEffect, useRef } from "react";
 import UserVideoComponent from "./UserVideoComponent";
 import FanSignEnter from "./FanSignEnter";
 import FanSignVideo from "./FanSignVideo";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const FanSignView = () => {
+  const navigate = useNavigate()
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
 
@@ -163,6 +164,7 @@ const FanSignView = () => {
     // setSessionId("");
     setMainStreamManager(undefined);
     setPublisher(undefined);
+    navigate('/')
   };
 
   const switchCamera = async () => {
@@ -247,6 +249,7 @@ const FanSignView = () => {
 
   return (
     <div className="container">
+      <div>
       {session === undefined ? (
         <FanSignEnter onJoinSession={onJoinSession} />
       ) : null}
@@ -269,6 +272,7 @@ const FanSignView = () => {
           onSwitchCamera={onSwitchCamera}
         />
       ))}
+      </div>
     </div>
   );
 };
