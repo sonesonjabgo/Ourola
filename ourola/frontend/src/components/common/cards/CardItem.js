@@ -11,24 +11,22 @@ const Card = ({ src, text, path }) => {
   const checkFollow = () => {
     const data = {
       headers: headers,
-    } 
-    axios
-      .post(`fan/subscribe?group=${path}`, {}, data)
-      .catch(() => {
-        return null
-      });
-  }
-  
+    };
+    axios.post(`fan/subscribe?group=${path}`, {}, data).catch(() => {
+      return null;
+    });
+  };
+
   return (
-  <Link to={`${path}/fanfeed`} className="groupLink" onClick={checkFollow}>
-    <div className="card">
-      <img src={src} alt={text} />
-      <div className="cardInfo">
-        <p className="text">{text}</p>
+    <Link to={`${path}/fanfeed`} className="groupLink" onClick={checkFollow}>
+      <div className="card">
+        <img className="fanFeedProfileGroupImg" src={src} alt={text} />
+        <div className="cardInfo">
+          <p className="text">{text}</p>
+        </div>
       </div>
-    </div>
-  </Link>
+    </Link>
   );
-}
+};
 
 export default Card;
