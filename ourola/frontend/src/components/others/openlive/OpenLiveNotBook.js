@@ -39,6 +39,12 @@ const OpenLiveNotBook = ({
   }, [setModalCancleOpen]);
 
   const bookCancle = async () => {
+    const realDelete = window.confirm("정말로 취소하시겠습니까?");
+
+    if (!realDelete) {
+      return;
+    }
+
     const accessToken = sessionStorage.getItem("Authorization");
 
     const config = {
