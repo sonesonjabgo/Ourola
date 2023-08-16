@@ -4,8 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 // import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
 import FanSignEnter from "./FanSignEnter";
-import FanSignVideo from "./FanSignVideo";
+import FanSignPublisher from "./FanSignVideoPublisher";
+import FanSignSubscriber from "./FanSignVideoSubscriber";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+
+import spinner from "../../../assets/loading/loadingSpinner.gif"
+
+import "../../../style/media/FanSigningViewer.css";
 
 const FanSignView = () => {
   const navigate = useNavigate()
@@ -249,29 +254,30 @@ const FanSignView = () => {
 
   return (
     <div className="container">
-      <div>
-      {session === undefined ? (
-        <FanSignEnter onJoinSession={onJoinSession} />
-      ) : null}
+      <div className="viewer">
+        <h1>{sessionId}</h1>
+        {/* {session === undefined ? (
+          <FanSignEnter onJoinSession={onJoinSession} />
+        ) : null} */}
+        <div className="viewerContainer">
+          <div className="viewerBox">
+            {subscribers[0] !== undefined ? (
+              <FanSignSubscriber
+                mainStreamManager={subscribers[0]}
+              />
+            ) : (<img src={spinner}/>)}
+          </div>
 
-      {session !== undefined ? (
-        <FanSignVideo
-          sessionId={sessionId}
-          mainStreamManager={mainStreamManager}
-          onLeaveSession={onLeaveSession}
-          onSwitchCamera={onSwitchCamera}
-        />
-      ) : null}
-
-      {subscribers.map((sub, i) => (
-        <FanSignVideo
-          key={i}
-          sessionId={sessionId}
-          mainStreamManager={sub}
-          onLeaveSession={onLeaveSession}
-          onSwitchCamera={onSwitchCamera}
-        />
-      ))}
+          <div className="viewerBox">
+            {session !== undefined ? (
+              <FanSignPublisher
+                mainStreamManager={mainStreamManager}
+                onLeaveSession={onLeaveSession}
+                onSwitchCamera={onSwitchCamera}
+              />
+            ) : (<img src={spinner}/>)}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@
 .jumbotron {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .webcam-preview {
@@ -29,4 +29,23 @@
 .loading{
   width: 640px;
   height: 480px;
+}
+
+.joinButton {
+  width: 300px; /* 버튼 너비 */
+  height: 80px; /* 버튼 높이 */
+  font-size: 30px;
+  border-radius: 25px;
+  background-color: #9370DB;
+  border: #9370DB;
+  cursor: pointer;
+  align-self: center;
+}
+
+p {
+  font-size: 25px;
+}
+
+#join {
+  height: 1000px;
 }
