@@ -9,7 +9,12 @@ import likeclick from "../../../assets/icons/like.png";
 import notlikeclick from "../../../assets/icons/notlike.png";
 import BookmarkComment from "./BookmarkComment";
 
-const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
+const BookmarkDetail = ({
+  setBookmarkList,
+  setModalOpen,
+  scrollPosition,
+  feed,
+}) => {
   const id = feed.id;
   const group = feed.groupDto.name;
 
@@ -17,11 +22,15 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
     setModalOpen(false);
   };
 
-  const closeModalClickFunction = (event) => {
+  const closeModalClickFunction = async (event) => {
     closeModal();
     window.scrollTo(0, scrollPosition);
     document.body.style.overflow = "auto";
     document.getElementById("navbar").style.zIndex = 999;
+
+    const response = await axios.get(`/user/bookmark`, config);
+
+    setBookmarkList(response.data);
   };
 
   useEffect(() => {
@@ -116,11 +125,11 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
   let userInfo = null;
   let accessImg = null;
 
-  if (feed.fanDto === null) {
-    userInfo = feed.ArtistDto;
+  if (!feed.fanDto) {
+    userInfo = feed.artistDto;
     accessImg =
       "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" +
-      feed.ArtistDto.id;
+      feed.artistDto.id;
   } else {
     userInfo = feed.fanDto;
     accessImg =
@@ -224,10 +233,6 @@ const BookmarkDetail = ({ setModalOpen, scrollPosition, feed }) => {
       commentPostFunction();
     }
   };
-
-  console.log(feed);
-  console.log(userInfo);
-  console.log(feedLikeSum);
 
   return (
     <div>
