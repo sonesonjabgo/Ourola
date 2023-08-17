@@ -102,9 +102,6 @@ const ShopBasket = () => {
 
     axios.post(`payment/ready`, {items: itemsToPuschase}, config)
     .then((response) => {
-      if (response.data.success) {
-        deleteAllRequest()
-      }
       setShowKakaoPay(true); 
     })
     .catch((error) => {
@@ -161,7 +158,7 @@ const ShopBasket = () => {
               <NumberWithComma value={totalPrice} />
             </div>
             <button className="buyAllButton" onClick={purchaseRequest}>전체 구매</button>
-            {showKakaoPay && firstItem && <Kakaopay allBasket={allBasket} firstItem={firstItem} totalPrice={totalPrice} group={group}/>}
+            {showKakaoPay && firstItem && <Kakaopay allBasket={allBasket} firstItem={firstItem} totalPrice={totalPrice} group={group} deleteAllRequest={deleteAllRequest}/>}
         </div>
         </>
     )}
