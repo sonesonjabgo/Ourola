@@ -25,7 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { params } = this.state;
-    const { allBasket, firstItem, totalPrice, group} = this.props
+    const { allBasket, firstItem, totalPrice, group, deleteAllRequest} = this.props
 
     if (allBasket && allBasket.length > 0) {
         const itemCount = allBasket.length - 1;
