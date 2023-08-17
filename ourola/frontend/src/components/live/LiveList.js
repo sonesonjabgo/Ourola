@@ -81,7 +81,7 @@ const LiveList = () => {
       <div className="liveList">
         {loadingList ? (
           <></>
-        ) : isLiveExist ? (
+        ) : liveList.length !== 0 ? (
           liveList.map((it) => (
             <LiveItem
               key={it.id}
