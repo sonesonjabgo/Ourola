@@ -107,10 +107,10 @@ public class ShopController {
 
 	// 상품 구매
 	@PostMapping("/buy")
-	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody BillDto product){
+	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody ShoppingCartDto product){
 		try {
-			shopService.purchaseProduct(accessToken, product);
-			return new ResponseEntity<>("구매 성공!", HttpStatus.OK);
+			// shopService.purchaseProduct(accessToken, product);
+				return new ResponseEntity<>("구매 성공!", HttpStatus.OK);
 		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
