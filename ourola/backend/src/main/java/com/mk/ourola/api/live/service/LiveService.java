@@ -10,4 +10,6 @@ public interface LiveService {
 	List<LiveDto> getAllLive(String groupName) throws Exception;
 
 	LiveDto getLive(String sessionId) throws Exception;
+
+	void removeLive(int liveId) throws Exception;
 }
