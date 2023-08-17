@@ -46,7 +46,6 @@ const LiveView = () => {
   // 참가자
   const [subscribers, setSubscribers] = useState([]);
   // ...?
-  const [currentVideoDevice, setCurrentVideoDevice] = useState({});
 
   const OVRef = useRef(null); // OV 인스턴스를 관리하기 위한 useRef
 
@@ -64,12 +63,6 @@ const LiveView = () => {
 
   const onbeforeunload = (event) => {
     leaveSession();
-  };
-
-  const handleMainVideoStream = (stream) => {
-    if (mainStreamManager !== stream) {
-      setMainStreamManager(stream);
-    }
   };
 
   const deleteSubscriber = (streamManager) => {
@@ -140,8 +133,6 @@ const LiveView = () => {
         setMainStreamManager(publisher);
         setPublisher(publisher);
         setSubscribers([]);
-        // setNickname(nickname);
-        // setSessionId(sessionId);
       }
     } catch (error) {
       console.log(
@@ -151,6 +142,8 @@ const LiveView = () => {
       );
     }
   };
+
+  const deleteLive = () => {};
 
   const leaveSession = () => {
     if (session) {

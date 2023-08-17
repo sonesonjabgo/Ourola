@@ -176,6 +176,16 @@ public class MyPageController {
 		}
 	}
 
+	// 사용자가 특정 온라인 콘서트의 티켓을 구매했는지 확인
+	@GetMapping("/purchase/online-concert/{concertId}")
+	public ResponseEntity<Boolean> isConcertTicket(@RequestHeader("Authorization") String accessToken, @PathVariable(name = "concertId") int concertId){
+		try{
+			return new ResponseEntity<Boolean>(myPageService.isConcertTicket(accessToken, concertId),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// 사용자가 작성한 피드 목록 불러옴
 	@GetMapping("/posts")
 	public ResponseEntity<List<FeedDto>> getMyFeed(@RequestHeader("Authorization") String accessToken){
