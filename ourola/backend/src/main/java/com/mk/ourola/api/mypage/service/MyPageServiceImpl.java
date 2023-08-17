@@ -162,6 +162,13 @@ public class MyPageServiceImpl implements MyPageService {
 		return membershipInfo.isPresent();
 	}
 
+	// 특정 온라인 콘서트의 티켓을 구매했는지 여부
+	@Override
+	public boolean isConcertTicket(String accessToken, int concertId) throws Exception {
+		int uid = jwtService.accessTokenToUserId(accessToken);
+		return billRepository.existsByFanDto_IdAndOnlineConcertDto_Id(uid, concertId);
+	}
+
 	// 사용자가 작성한 피드 가져오기
 	@Override
 	public List<FeedDto> getMyFeed(String accessToken) {

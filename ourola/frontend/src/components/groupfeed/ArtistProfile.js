@@ -13,7 +13,7 @@ const ArtistProfile = ({
   nickname,
 }) => {
   const accessImg =
-    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + profileId;
+    "https://i9d204.p.ssafy.io:8001/file/getimg/artist-profile?id=" + id;
 
   const artistSelect = artistFirstState.filter((it) => it.id === id)[0].value;
 

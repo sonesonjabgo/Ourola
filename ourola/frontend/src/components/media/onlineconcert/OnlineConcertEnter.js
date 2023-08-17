@@ -8,6 +8,8 @@ const OnlineConcertEnter = () => {
   const location = useLocation();
 
   const concertInfo = location.state.concertInfo;
+  const userInfo = location.state.userInfo;
+  const config = location.state.config;
   const group = concertInfo.groupDto.name;
   const fileUrl =
     "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
@@ -18,15 +20,17 @@ const OnlineConcertEnter = () => {
 
   beginTime.setMinutes(beginTime.getMinutes() - 10);
 
-  const [userInfo, setUserInfo] = useState(undefined);
   const navigate = useNavigate();
 
-  const accessToken = sessionStorage.getItem("Authorization");
-  const config = {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-      "Content-Type": "application/json",
-    },
+  const checkTicket = () => {
+    axios
+      .get(`/user/purchase/online-concert/${concertInfo.id}`, config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("온콘 티켓 확인 에러 :: ", error);
+      });
   };
 
   // 세션에 입장했을 때
@@ -52,23 +56,17 @@ const OnlineConcertEnter = () => {
         alert("입장 시간이 아닙니다.");
         return;
       }
+
+      if (!checkTicket()) {
+        alert("콘서트 티켓이 없습니다. 구매 후 시청 바랍니다.");
+        return;
+      }
     }
 
     navigate(`/${group}/media/online-concert/view`, {
-      state: { concertInfo: concertInfo, userInfo: userInfo },
+      state: { concertInfo: concertInfo, userInfo: userInfo, config: config },
     });
   };
-
-  useEffect(() => {
-    axios
-      .get("/user/userinfo", config)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.log("사용자 정보 호출 오류 :: ", error);
-      });
-  }, []);
 
   // style={{ backgroundImage: `url(${fileUrl})` }}
   return (
@@ -91,7 +89,7 @@ const OnlineConcertEnter = () => {
             </h1>
           </div>
         </div>
-        <div id="btnArea" className="btnArea">
+        <div id="concertEnterBtnArea" className="concertEnterBtnArea">
           <button id="enterBtn" className="enterBtn" onClick={onEnterClick}>
             입장하기
           </button>

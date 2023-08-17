@@ -1,8 +1,8 @@
-.onlineConcertListMain {
+.liveListMain {
   padding-top: 300px;
 }
 
-.onlineConcertList {
+.liveList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding-left: 100px;
