@@ -1,11 +1,11 @@
-.onlineConcertViewMain {
+.liveViewMain {
   width: 100%;
   height: 100vh;
   padding-top: 180px;
   background-color: black;
 }
 
-.onlineConcertViewHeader {
+.liveViewHeader {
   display: flex;
   width: 1950px;
   padding-top: 30px;
@@ -32,7 +32,7 @@
   color: white;
 }
 
-.onlineConcertViewBody {
+.liveViewBody {
   /* height: 100%; */
   background-color: black;
   display: flex;
@@ -44,11 +44,11 @@
   padding-right: 100px;
 }
 
-.onlineConcertVideo {
+.liveVideo {
   width: 1000px;
 }
 
-.onlineConcertChat {
+.liveChat {
   width: 500px;
   height: 675px;
   padding-left: 50px;

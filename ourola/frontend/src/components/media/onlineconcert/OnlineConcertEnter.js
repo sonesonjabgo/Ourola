@@ -91,7 +91,7 @@ const OnlineConcertEnter = () => {
             </h1>
           </div>
         </div>
-        <div id="btnArea" className="btnArea">
+        <div id="concertEnterBtnArea" className="concertEnterBtnArea">
           <button id="enterBtn" className="enterBtn" onClick={onEnterClick}>
             입장하기
           </button>

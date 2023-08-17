@@ -17,8 +17,8 @@ const OnlineConcertItem = ({ group, concertInfo }) => {
         <div className="onlineConcertImageWrapper">
           <img className="concertImg" src={fileUrl} alt=""></img>
         </div>
-        <div className="text">
-          <p>{concertInfo.title}</p>
+        <div className="concertInfoTextWrapper">
+          <span className="onlineConcertText">{concertInfo.title}</span>
         </div>
       </div>
     </Link>
