@@ -80,6 +80,19 @@ const Shop = () => {
 
     const path = location.pathname
 
+    // 현재 로그인 중인 사용자의 장바구니 리스트 불러와 배열의 길이 반환
+    const [allBasketCount, setAllBasketCount] = useState([])
+
+    useEffect(() => {
+        axios.get('/cart', config)
+        .then((response) => {
+            setAllBasketCount(response.data.length)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [])
+
     return (
         <>
         <div className="shopContentContainer">
@@ -93,7 +106,7 @@ const Shop = () => {
             <Link to={`${path}/basket`} state={{userInfo: userInfo}}>
               <div className="shopBasketContainer">
                   <img className="shopBasketIcon" src={BasketIcon}/>
-                  장바구니
+                  <div className="basketCount">{allBasketCount}</div>
               </div>
               </Link>
             </div>

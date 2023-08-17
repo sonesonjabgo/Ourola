@@ -35,3 +35,14 @@
 .openCreateButton {
     margin-right: 1400px;
 }
+
+.basketCount {
+    width: 35px;
+    height: 35px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
