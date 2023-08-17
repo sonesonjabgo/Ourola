@@ -10,23 +10,21 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [msgText, setMsgText] = useState("");
   //   const [msgRef, setMsgRef] = useRef();
 
-  const webSocketUrl = "wss://i9d204.p.ssafy:8001/ws/chat";
-  let ws = useRef(null);
+  const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
+  const ws = useRef(null);
+
 
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(webSocketUrl);
+      console.log("ws.current: ", ws.current)
+      let wss = new WebSocket(webSocketUrl);
+      console.log(wss);
     }
 
     ws.current.onopen = () => {
       console.log("WebSocket connection established.");
       setSocketConnected(true);
-    };
-
-    ws.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      // displayMessage(message);
-      // setItems((prevItems) => [...prevItems, message]);
     };
 
     ws.current.onclose = () => {
@@ -41,6 +39,34 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
     };
   }, []);
 
+  // 소켓이 연결되었을 시에 send 메소드
+  useEffect(() => {
+    if (socketConnected) {
+      ws.current.send(
+        JSON.stringify({
+          type: "ENTER",
+          roomName: sessionId,
+          sender: nickname,
+          message: msgText,
+          // boldNick: isAdminOrArtist,
+        })
+      );
+
+      setSendMsg(true);
+    }
+  }, [socketConnected]);
+
+  // send 후에 onmessage로 데이터 가져오기
+  useEffect(() => {
+    if (sendMsg) {
+      ws.current.onmessage = (evt) => {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        setItems((prevItems) => [...prevItems, data]);
+      };
+    }
+  }, [sendMsg]);
+
   const sendEnter = () => {
     if (msgText) {
       const msg = {
@@ -48,8 +74,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         roomName: sessionId,
         sender: nickname,
         message: msgText,
-        boldNick: isAdminOrArtist,
-        time: new Date(),
+        // boldNick: isAdminOrArtist,
       };
 
       ws.current.send(JSON.stringify(msg));
@@ -64,11 +89,11 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         roomName: sessionId,
         sender: nickname,
         message: msgText,
-        boldNick: isAdminOrArtist,
-        time: new Date(),
+        // boldNick: isAdminOrArtist,
       };
-
+      
       ws.current.send(JSON.stringify(msg));
+
       setItems([...items, msg]);
       console.log(items);
       setMsgText("");
@@ -84,6 +109,10 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
       sendMessage();
     }
   };
+
+  useEffect(() => {
+    console.log("Updated items:", items);
+  }, [items]);
 
   return (
     <div className="chatMain">

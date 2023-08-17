@@ -62,7 +62,9 @@ const OnlineConcertEnter = () => {
         return;
       }
 
-      await checkTicket();
+      if (!(await checkTicket())) {
+        return;
+      }
     }
 
     navigate(`/${group}/media/online-concert/view`, {
