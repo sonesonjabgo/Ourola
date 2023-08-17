@@ -21,7 +21,7 @@ const ArtistFeedComment = ({
     name = fanDto.nickname;
     email = fanDto.email;
   } else {
-    accessImg += "/artist-profile?id=" + artistDto.profileFileDto.id;
+    accessImg += "/artist-profile?id=" + artistDto.id;
     name = artistDto.nickname;
     email = artistDto.email;
   }
