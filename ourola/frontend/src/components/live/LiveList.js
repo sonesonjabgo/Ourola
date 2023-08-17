@@ -45,9 +45,7 @@ const LiveList = () => {
     axios
       .get(`/${group}/live/list`, config)
       .then((response) => {
-        // console.log(response);
         setLiveList(response.data);
-        console.log(response.data);
         setLoadingList(false);
       })
       .catch((error) => {
@@ -55,8 +53,6 @@ const LiveList = () => {
         setLoadingList(false);
       });
   }, []);
-
-  // console.log(concertList);
 
   const onLiveStartClick = () => {
     navigate(`/${group}/live/open`, {
