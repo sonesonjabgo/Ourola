@@ -54,17 +54,24 @@ public class ShopServiceImpl implements ShopService {
 	// }
 
 	@Override
-	public OnlineConcertDto getOnlineConcertItem(String artist, int id) {
+	public OnlineConcertDto getOnlineConcertItem(int id) {
 		// int groupId = groupRepository.findByName(artist).getId();
 		// log.info("online concert 조회 :: "+onlineConcertRepository.findById(id));
 		return onlineConcertRepository.findById(id);
 	}
+
 
 	@Override
 	public MembershipPayDto getMembershipItem(String artist) {
 		int groupId = groupRepository.findByName(artist).getId();
 		return membershipPayRepository.findByGroupDto_Id(groupId).orElse(null);
 	}
+
+	@Override
+	public MembershipPayDto getMembershipItemById(int id){
+		return membershipPayRepository.findById(id).orElse(null);
+	}
+
 
 	@Override
 	public OnlineConcertDto writeOnlineConcert(String artist, String accessToken,
