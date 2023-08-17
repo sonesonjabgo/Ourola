@@ -187,7 +187,7 @@ const UserInfoEdit = ({ userinfo, config }) => {
             )}
           </div> */}
         </div>
-        <div className="userinfoArea">
+        {/* <div className="userinfoArea">
           <div className="label">비밀번호</div>
           <div className="userinfoEdit">
             <input
@@ -213,7 +213,7 @@ const UserInfoEdit = ({ userinfo, config }) => {
               </button>
             )}
           </div>
-        </div>
+        </div> */}
         <div className="userinfoArea">
           <div className="label">생년월일</div>
           <div className="userinfoEdit">
