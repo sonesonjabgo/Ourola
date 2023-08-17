@@ -69,13 +69,9 @@ const BookmarkItem = ({ setBookmarkList, item }) => {
           </div>
           <div className="bookmarkItemBody">
             {fileList.length === 0 ? (
-              <div className="bookmarkContent">{content}</div>
+              <div className="bookmarkContent">게시글을 올렸습니다.</div>
             ) : (
-              <img
-                className="bookmarkContentImg"
-                src={fileUrl + fileList[0].filePath}
-                alt=""
-              ></img>
+              <div className="bookmarkContent">사진을 올렸습니다.</div>
             )}
           </div>
           <div className="bookmarkItemFooter"></div>

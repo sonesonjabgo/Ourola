@@ -1,19 +1,19 @@
 import { OpenVidu } from "openvidu-browser";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import OnlineConcertVideo from "./OnlineConcertVideo";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../../../style/media/onlineconcert/OnlineConcertView.css";
+import "../../style/live/LiveView.css";
 import Chat from "./chat/Chat";
+import LiveVideo from "./LiveVideo";
 
-const OnlineConcertView = () => {
+const LiveView = () => {
   const pathname = window.location.pathname;
   const group = pathname.split("/")[1];
 
   const APPLICATION_SERVER_URL =
     process.env.NODE_ENV === "production"
       ? ""
-      : `https://i9d204.p.ssafy.io:8001/${group}/online-concert`;
+      : `https://i9d204.p.ssafy.io:8001/${group}/live`;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const OnlineConcertView = () => {
     },
   };
 
-  const concertInfo = location.state.concertInfo;
+  const liveInfo = location.state.liveInfo;
   const userInfo = location.state.userInfo;
   const isAdmin =
     userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group;
@@ -35,7 +35,7 @@ const OnlineConcertView = () => {
     userInfo.role === "ARTIST" && userInfo.groupDto.name === group;
 
   const nickname = userInfo.nickname;
-  const sessionId = concertInfo.sessionId;
+  const sessionId = liveInfo.sessionId;
 
   const [OV, setOV] = useState(new OpenVidu());
   const [session, setSession] = useState(undefined);
@@ -164,40 +164,7 @@ const OnlineConcertView = () => {
     setPublisher(undefined);
 
     const path = `/${group}/media/online-concert/enter`;
-    navigate(path, { state: { concertInfo: concertInfo } });
-  };
-
-  const switchCamera = async () => {
-    try {
-      const devices = await OVRef.current.getDevices(); // useRef로 관리한 OV 인스턴스를 사용
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-
-      if (videoDevices && videoDevices.length > 1) {
-        const newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== currentVideoDevice.deviceId
-        );
-
-        if (newVideoDevice.length > 0) {
-          const newPublisher = OVRef.current.initPublisher(undefined, {
-            videoSource: newVideoDevice[0].deviceId,
-            publishAudio: true,
-            publishVideo: true,
-            mirror: true,
-          });
-
-          await session.unpublish(mainStreamManager);
-          await session.publish(newPublisher);
-
-          setMainStreamManager(newPublisher);
-          setPublisher(newPublisher);
-          setCurrentVideoDevice(newVideoDevice[0]);
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    navigate(path, { state: { liveInfo: liveInfo } });
   };
 
   const getToken = async (sessionId) => {
@@ -243,13 +210,9 @@ const OnlineConcertView = () => {
     leaveSession();
   };
 
-  const onSwitchCamera = () => {
-    switchCamera();
-  };
-
   return (
-    <div className="onlineConcertViewMain">
-      <div className="onlineConcertViewHeader">
+    <div className="liveViewMain">
+      <div className="liveViewHeader">
         <div> </div>
         <div className="sessionBtnArea">
           <input
@@ -261,20 +224,20 @@ const OnlineConcertView = () => {
           />
         </div>
       </div>
-      <div className="onlineConcertViewBody">
-        <div className="onlineConcertVideo">
+      <div className="liveViewBody">
+        <div className="liveVideo">
           {session !== undefined ? (
-            <OnlineConcertVideo
+            <LiveVideo
               sessionId={sessionId}
               mainStreamManager={mainStreamManager}
             />
           ) : null}
 
           {subscribers.map((sub, i) => (
-            <OnlineConcertVideo sessionId={sessionId} mainStreamManager={sub} />
+            <LiveVideo sessionId={sessionId} mainStreamManager={sub} />
           ))}
         </div>
-        <div className="onlineConcertChat">
+        <div className="liveChat">
           <Chat
             sessionId={sessionId}
             nickname={nickname}
@@ -285,5 +248,4 @@ const OnlineConcertView = () => {
     </div>
   );
 };
-
-export default OnlineConcertView;
+export default LiveView;

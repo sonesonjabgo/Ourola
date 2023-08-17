@@ -1,11 +1,11 @@
-#onlineConcertVideoMain {
+#liveVideoMain {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#onlineConcertVideoHeader {
+#liveVideoHeader {
   display: flex;
   padding-top: 30px;
   padding-left: 100px;

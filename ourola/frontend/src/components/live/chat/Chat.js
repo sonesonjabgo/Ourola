@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ChatList from "./ChatList";
-import "../../../../style/media/onlineconcert/chat/Chat.css";
-import send from "../../../../assets/icons/send.png";
+import "../../../style/live/chat/Chat.css";
+import send from "../../../assets/icons/send.png";
 
 const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [socketConnected, setSocketConnected] = useState(false);
