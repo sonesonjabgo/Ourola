@@ -2,7 +2,6 @@ package com.mk.ourola.api.live.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +31,12 @@ public class LiveController {
 	private final JwtService jwtService;
 
 	@PostMapping("/write")
-	public ResponseEntity<LiveDto> writeLive(@RequestBody LiveDto liveDto) {
+	public ResponseEntity<LiveDto> writeLive(@RequestHeader("Authorization") String accessToken,
+		@RequestBody LiveDto liveDto,
+		@PathVariable String group) {
 		try {
-			UUID sessionId = UUID.randomUUID();
-			liveDto.setSessionId(sessionId.toString());
-			LiveDto saved = liveService.writeLive(liveDto);
+			Integer userId = jwtService.accessTokenToUserId(accessToken);
+			LiveDto saved = liveService.writeLive(liveDto, userId, group);
 			return new ResponseEntity<>(saved, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
