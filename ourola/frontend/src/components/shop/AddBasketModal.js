@@ -103,7 +103,7 @@ const AddBasketModal = ({ state, path }) => {
             <button className="addBasketClose" onClick={closeModal}>
                 ×
             </button>
-            <div ref={modalRef} className="shopCreateDetail">
+            <div ref={modalRef} className="addBasketDetail">
                 상품이 장바구니에 등록되었습니다
                 <div className="basketButtonContainer">
                     <button onClick={() => navigate(-1)} className="gotoBackButton">이전으로</button>
