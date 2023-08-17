@@ -9,6 +9,15 @@ import axios from 'axios'
 
 const ShopItemDetail = ( ) => {
 
+    const accessToken = sessionStorage.getItem("Authorization");  
+
+    const config = {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      };
+
     // 뒤로가기
     const navigate = useNavigate()
     const location = useLocation()
@@ -32,6 +41,18 @@ const ShopItemDetail = ( ) => {
         )
       }
 
+    // 현재 로그인 중인 사용자의 장바구니 리스트 불러와 배열의 길이 반환
+    const [allBasketCount, setAllBasketCount] = useState([])
+
+    useEffect(() => {
+        axios.get('/cart', config)
+        .then((response) => {
+            setAllBasketCount(response.data.length)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [])
 
     return (
         <>
@@ -47,11 +68,12 @@ const ShopItemDetail = ( ) => {
                 : null }
                 <div onClick={() => navigate(newPath)} className="shopDetailBasketButton">
                     <img className="shopDetailBasketIcon" src={BasketIcon}/>
-                    장바구니
+                    <div className="basketCount">{allBasketCount}</div>
                 </div>
             </div>
             <div className = "shopDetailInfoContainer">
                 <div className = "shopDetailMaininfo">
+                    <div className="shopDetailSpacer"></div>
                     <div className = "shopDetailMaininfoImgContainer">
                         <img className = "shopDetailMaininfoImg" src={`https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/${path.src}`}/>
                     </div>
