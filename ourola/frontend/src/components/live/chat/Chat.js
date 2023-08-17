@@ -44,7 +44,8 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
           roomName: sessionId,
           sender: nickname,
           message: msgText,
-          // boldNick: isAdminOrArtist,
+          boldNick: isAdminOrArtist,
+          time: new Date(),
         })
       );
 
