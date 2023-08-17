@@ -5,9 +5,7 @@ import "../../style/shop/PurchaseSuccess.css";
 
 const PurchaseSuccess = () => {
   const location = useLocation();
-
-  const query = new URLSearchParams(location.search);
-  const group = query.get("group");
+  const group = location.pathname.split("/")[1];
 
   const accessToken = sessionStorage.getItem("Authorization");
 
@@ -33,8 +31,26 @@ const PurchaseSuccess = () => {
         // 장바구니 내용을 삭제합니다.
         if (currentBasket.length > 0) {
           const purchase = currentBasket.map((item) => {
-            console.log(item);
-            return axios.post(`/shop/${group}/buy`, item, config);
+            const fanDtoId = item.fanDto.id;
+            const memDtoId =
+              item.membershipPayDto === null ? null : item.membershipPayDto.id;
+            const conDtoId =
+              item.onlineConcertDto === null ? null : item.onlineConcertDto.id;
+
+            let url = ``;
+            if (memDtoId !== null) {
+              url += `&memDtoId=${memDtoId}`;
+            }
+
+            if (conDtoId !== null) {
+              url += `&conDtoId=${conDtoId}`;
+            }
+
+            return axios.post(
+              `/shop/${group}/buy?fanDtoId=${fanDtoId}` + url,
+              {},
+              config
+            );
           });
 
           Promise.all(purchase)
