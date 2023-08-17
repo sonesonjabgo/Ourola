@@ -1,10 +1,13 @@
 package com.mk.ourola.api.live.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.mk.ourola.api.artist.repository.ArtistRepository;
+import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.live.repository.Dto.LiveDto;
@@ -18,9 +21,16 @@ public class LiveServiceImpl implements LiveService {
 
 	private final LiveRepository liveRepository;
 	private final GroupRepository groupRepository;
+	private final ArtistRepository artistRepository;
 
 	@Override
-	public LiveDto writeLive(LiveDto liveDto) throws Exception {
+	public LiveDto writeLive(LiveDto liveDto, Integer userId, String group) throws Exception {
+		GroupDto groupDto = groupRepository.findByName(group);
+		Optional<ArtistDto> artistDto = artistRepository.findById(userId);
+		UUID sessionId = UUID.randomUUID();
+		liveDto.setArtistDto(artistDto.get());
+		liveDto.setGroupDto(groupDto);
+		liveDto.setSessionId(sessionId.toString());
 		return liveRepository.save(liveDto);
 	}
 

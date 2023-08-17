@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import com.mk.ourola.api.artist.repository.dto.ArtistDto;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +24,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class LiveDto {
 
