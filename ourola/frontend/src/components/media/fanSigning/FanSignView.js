@@ -255,7 +255,7 @@ const FanSignView = () => {
   return (
     <div className="container">
       <div className="viewer">
-        <h1>{sessionId}</h1>
+        <h1 className="sessionId">{sessionId}</h1>
         {/* {session === undefined ? (
           <FanSignEnter onJoinSession={onJoinSession} />
         ) : null} */}
