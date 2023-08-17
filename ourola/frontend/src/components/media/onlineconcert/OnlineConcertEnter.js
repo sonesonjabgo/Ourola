@@ -22,8 +22,8 @@ const OnlineConcertEnter = () => {
 
   const navigate = useNavigate();
 
-  const checkTicket = () => {
-    axios
+  const checkTicket = async () => {
+    await axios
       .get(`/user/purchase/online-concert/${concertInfo.id}`, config)
       .then((response) => {
         return response.data;
