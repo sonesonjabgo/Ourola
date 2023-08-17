@@ -36,8 +36,8 @@ const OnlineConcertList = () => {
 
   return (
     <div className="onlineConcertListMain">
-      <div className="onlineConcertHeader">
-        <button>콘서트 등록</button>
+      <div className="onlineConcertHeader" style={{ height: "50px" }}>
+        {/* <button>콘서트 등록</button> */}
       </div>
       <div className="onlineConcertList">
         {loadingList ? (
