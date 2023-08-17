@@ -43,9 +43,9 @@ import LiveView from "components/live/LiveView";
 import LiveOpen from "components/live/LiveOpen";
 
 // EC2 서버
-// axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
+axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
 // 로컬
-axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.baseURL = "http://localhost:8000";
 
 // axios.defaults.withCredentials = true;
 
