@@ -31,7 +31,7 @@ const PurchaseSuccess = () => {
         // 장바구니 내용을 삭제합니다.
         if (currentBasket.length > 0) {
           const purchase = currentBasket.map((item) => {
-            // item.paymentDate = new Date();
+            item.paymentDate = new Date().toISOString();
             console.log(item);
             return axios.post(`/shop/${group}/buy`, item, config);
           });
