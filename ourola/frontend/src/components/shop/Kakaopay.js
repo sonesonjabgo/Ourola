@@ -38,6 +38,8 @@ class App extends React.Component {
                 item_name: itemName,
                 total_amount: totalPrice,
                 vat_amount: (totalPrice / 10),
+                approval_url: `http://i9d204.p.ssafy.io/purchase/success?group=${group}`,
+                fail_url: `http://i9d204.p.ssafy.io/purchase/failed?group=${group}`,
             }
         }), () => {
             // setState가 완료된 후 axios 요청을 실행

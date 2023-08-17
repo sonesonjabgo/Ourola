@@ -7,11 +7,13 @@ const PurchaseFailed = () => {
     const location = useLocation();
 
     const navigate = useNavigate();
+    const query = new URLSearchParams(location.search);
+    const group = query.get("group");
 
     const goToHome = () => {
-        navigate('/');
-    };
-
+        navigate(`/${group}/shop`);
+      };
+      
     return (
         <div className="payment-success-container">
             <h1>결제에 실패했습니다</h1>
