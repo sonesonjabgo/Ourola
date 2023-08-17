@@ -22,36 +22,32 @@ const PurchaseSuccess = () => {
     const [allBasket, setAllBasket] = useState([])
 
     useEffect(() => {
+        // 장바구니 내용을 불러옵니다.
         axios.get('/cart', config)
         .then((response) => {
-            setAllBasket(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }, [])
+            const currentBasket = response.data;
+            setAllBasket(currentBasket);
 
-    const deleteAllRequest = () => {
-        const itemsToDelete = allBasket.map(item => item.id)
-        const deletePromise = itemsToDelete.map(itemId => {
-          return axios.delete(`cart/delete/${itemId}`, config)
-        })
-  
-        Promise.all(deletePromise)
-        .then(() => {
-          alert('장바구니 내 물품이 모두 삭제되었습니다');
-          setAllBasket([]);
+            // 장바구니 내용을 삭제합니다.
+            if (currentBasket.length > 0) {
+                const itemsToDelete = currentBasket.map(item => item.id);
+                const deletePromise = itemsToDelete.map(itemId => {
+                    return axios.delete(`cart/delete/${itemId}`, config);
+                });
+
+                Promise.all(deletePromise)
+                .then(() => {
+                    setAllBasket([]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
         })
         .catch((error) => {
-          alert('장바구니 전체 삭제 중 오류');
-          console.log(error);
-        })
-      };
-  
-      useEffect(() => {
-          // 페이지에 접속했을 때 장바구니 삭제
-          deleteAllRequest();
-      }, [allBasket]);
+            console.log(error);
+        });
+    }, []);
 
     const goToHome = () => {
         navigate('/');
