@@ -44,4 +44,10 @@ public class LiveServiceImpl implements LiveService {
 	public LiveDto getLive(String sessionId) throws Exception {
 		return liveRepository.findBySessionId(sessionId);
 	}
+
+	@Override
+	public void removeLive(int liveId) throws Exception {
+		liveRepository.deleteById(liveId);
+		return;
+	}
 }

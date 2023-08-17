@@ -22,6 +22,17 @@ const OnlineConcertEnter = () => {
 
   const navigate = useNavigate();
 
+  const checkTicket = () => {
+    axios
+      .get(`/user/purchase/online-concert/${concertInfo.id}`, config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("온콘 티켓 확인 에러 :: ", error);
+      });
+  };
+
   // 세션에 입장했을 때
   const onEnterClick = () => {
     //채널 관리자
@@ -43,6 +54,11 @@ const OnlineConcertEnter = () => {
       // 일반 사용자(팬)일 때
       if (new Date() < beginTime) {
         alert("입장 시간이 아닙니다.");
+        return;
+      }
+
+      if (!checkTicket()) {
+        alert("콘서트 티켓이 없습니다. 구매 후 시청 바랍니다.");
         return;
       }
     }

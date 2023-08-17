@@ -38,8 +38,15 @@ const OnlineConcertItem = ({ group, concertInfo }) => {
 
   const onConcertClick = () => {
     if (!isAdmin && !concertInfo.open) {
-      alert("시청할 수 없는 콘서트입니다.");
-      return;
+      if (new Date(concertInfo.startTime).getDate() < new Date().getDate()) {
+        alert("종료된 콘서트입니다.");
+        return;
+      }
+
+      if (!concertInfo.open) {
+        alert("시청할 수 없는 콘서트입니다.");
+        return;
+      }
     }
 
     navigate(path, {
