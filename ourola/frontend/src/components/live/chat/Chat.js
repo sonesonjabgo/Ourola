@@ -45,7 +45,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
           sender: nickname,
           message: msgText,
           boldNick: isAdminOrArtist,
-          time: new Date(),
+          time: new Date().toISOString(),
         })
       );
 
@@ -72,7 +72,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
-        // time: new Date(),
+        time: new Date().toISOString(),
       };
 
       ws.current.send(JSON.stringify(msg));
@@ -88,7 +88,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
-        // time: new Date(),
+        time: new Date().toISOString(),
       };
 
       ws.current.send(JSON.stringify(msg));

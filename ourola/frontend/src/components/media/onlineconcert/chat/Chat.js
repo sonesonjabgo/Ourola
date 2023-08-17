@@ -8,7 +8,6 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [sendMsg, setSendMsg] = useState(false);
   const [items, setItems] = useState([]);
   const [msgText, setMsgText] = useState("");
-  //   const [msgRef, setMsgRef] = useRef();
 
   const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
   const ws = useRef(null);
@@ -48,7 +47,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
           sender: nickname,
           message: msgText,
           boldNick: isAdminOrArtist,
-          time: new Date(),
+          time: new Date().toISOString(),
         })
       );
 
@@ -75,6 +74,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
+        time: new Date().toISOString(),
       };
 
       ws.current.send(JSON.stringify(msg));
@@ -90,6 +90,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
+        time: new Date().toISOString(),
       };
 
       ws.current.send(JSON.stringify(msg));
