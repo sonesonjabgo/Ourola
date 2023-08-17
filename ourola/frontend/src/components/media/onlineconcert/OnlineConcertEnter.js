@@ -31,6 +31,14 @@ const OnlineConcertEnter = () => {
         if (!response.data) {
           alert("콘서트 티켓이 없습니다. 구매 후 시청 바랍니다.");
           return;
+        } else {
+          navigate(`/${group}/media/online-concert/view`, {
+            state: {
+              concertInfo: concertInfo,
+              userInfo: userInfo,
+              config: config,
+            },
+          });
         }
       })
       .catch((error) => {
@@ -64,10 +72,6 @@ const OnlineConcertEnter = () => {
 
       await checkTicket();
     }
-
-    navigate(`/${group}/media/online-concert/view`, {
-      state: { concertInfo: concertInfo, userInfo: userInfo, config: config },
-    });
   };
 
   // style={{ backgroundImage: `url(${fileUrl})` }}
