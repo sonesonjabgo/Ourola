@@ -166,7 +166,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public boolean isConcertTicket(String accessToken, int concertId) {
 		int uid = jwtService.accessTokenToUserId(accessToken);
-		return billRepository.existsByFanDto_IdAndConcertDto_Id(uid, concertId);
+		return billRepository.existsByFanDto_IdAndOnlineConcertDto_Id(uid, concertId);
 	}
 
 	// 사용자가 작성한 피드 가져오기
