@@ -24,10 +24,12 @@ import com.mk.ourola.api.others.announcement.repository.dto.AnnouncementDto;
 import com.mk.ourola.api.others.announcement.service.AnnouncementServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("{group}/announcement")
 @RequiredArgsConstructor
+@Slf4j
 public class AnnouncementController {
 
 	private final AnnouncementServiceImpl announcementService;
@@ -58,12 +60,13 @@ public class AnnouncementController {
 	// 소속사 직원이 공지를 만드는 메서드
 	@PostMapping("/write")
 	public ResponseEntity<AnnouncementDto> writeAnnouncement(@PathVariable("group") String groupName,
-		@RequestHeader String accessToken,
-		@RequestBody AnnouncementDto announcementDto) {
+		@RequestHeader("Authorization") String accessToken,
+		AnnouncementDto announcementDto) {
 		try {
 			return new ResponseEntity<>(announcementService.writeAnnouncement(groupName, accessToken,
 				announcementDto), HttpStatus.OK);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -71,13 +74,14 @@ public class AnnouncementController {
 	// 소속사 직원이 공지 제목 혹은 내용을 바꾸는 메서드
 	@PutMapping("/modify/{announcementId}")
 	public ResponseEntity<AnnouncementDto> modifyAnnouncement(@PathVariable("group") String groupName,
-		@PathVariable("announcementId") int announcementId, @RequestHeader String accessToken,
+		@PathVariable("announcementId") int announcementId, @RequestHeader("Authorization") String accessToken,
 		@RequestBody AnnouncementDto announcementDto) {
 		try {
 			return new ResponseEntity<AnnouncementDto>(
 				announcementService.modifyAnnouncement(groupName, announcementId, accessToken, announcementDto),
 				HttpStatus.OK);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
