@@ -23,12 +23,6 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
       setSocketConnected(true);
     };
 
-    ws.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      // displayMessage(message);
-      setItems((prevItems) => [...prevItems, message]);
-    };
-
     ws.current.onclose = () => {
       console.log("WebSocket connection closed.");
     };
@@ -41,6 +35,34 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
     };
   }, []);
 
+  // 소켓이 연결되었을 시에 send 메소드
+  useEffect(() => {
+    if (socketConnected) {
+      ws.current.send(
+        JSON.stringify({
+          type: "ENTER",
+          roomName: sessionId,
+          sender: nickname,
+          message: msgText,
+          // boldNick: isAdminOrArtist,
+        })
+      );
+
+      setSendMsg(true);
+    }
+  }, [socketConnected]);
+
+  // send 후에 onmessage로 데이터 가져오기
+  useEffect(() => {
+    if (sendMsg) {
+      ws.current.onmessage = (evt) => {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        setItems((prevItems) => [...prevItems, data]);
+      };
+    }
+  }, [sendMsg]);
+
   const sendEnter = () => {
     if (msgText) {
       const msg = {
@@ -49,7 +71,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
-        time: new Date(),
+        // time: new Date(),
       };
 
       ws.current.send(JSON.stringify(msg));
@@ -65,7 +87,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         sender: nickname,
         message: msgText,
         boldNick: isAdminOrArtist,
-        time: new Date(),
+        // time: new Date(),
       };
 
       ws.current.send(JSON.stringify(msg));

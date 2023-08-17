@@ -13,11 +13,10 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
   const ws = useRef(null);
 
-
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(webSocketUrl);
-      console.log("ws.current: ", ws.current)
+      console.log("ws.current: ", ws.current);
       let wss = new WebSocket(webSocketUrl);
       console.log(wss);
     }
@@ -74,7 +73,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         roomName: sessionId,
         sender: nickname,
         message: msgText,
-        // boldNick: isAdminOrArtist,
+        boldNick: isAdminOrArtist,
       };
 
       ws.current.send(JSON.stringify(msg));
@@ -89,12 +88,12 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
         roomName: sessionId,
         sender: nickname,
         message: msgText,
-        // boldNick: isAdminOrArtist,
+        boldNick: isAdminOrArtist,
       };
-      
+
       ws.current.send(JSON.stringify(msg));
 
-      setItems([...items, msg]);
+      // setItems([...items, msg]);
       console.log(items);
       setMsgText("");
     }
