@@ -97,6 +97,7 @@
 .detailContentInfo {
     font-size: 22px;
     height: 70%;
+    white-space: pre-line;
 }
 
 .shopDetailInfoContainer {
