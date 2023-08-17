@@ -20,6 +20,7 @@ const LiveList = () => {
   const [loadingList, setLoadingList] = useState(true);
   const [userInfo, setUserInfo] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLiveExist, setIsLiveExist] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,6 +49,9 @@ const LiveList = () => {
         // console.log(response);
         setLiveList(response.data);
         console.log(response.data);
+        if (liveList.length != 0) {
+          setIsLiveExist(true);
+        }
         setLoadingList(false);
       })
       .catch((error) => {
@@ -80,7 +84,7 @@ const LiveList = () => {
       <div className="liveList">
         {loadingList ? (
           <></>
-        ) : (
+        ) : isLiveExist ? (
           liveList.map((it) => (
             <LiveItem
               key={it.id}
@@ -89,6 +93,10 @@ const LiveList = () => {
               userInfo={userInfo}
             />
           ))
+        ) : (
+          <div style={{ alignContent: "center" }}>
+            <div>진행중인 라이브가 없습니다.</div>
+          </div>
         )}
       </div>
     </div>
