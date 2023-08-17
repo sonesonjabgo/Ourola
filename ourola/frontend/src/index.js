@@ -36,6 +36,8 @@ import OnlineConcertList from "components/media/onlineconcert/OnlineConcertList"
 import OnlineConcertView from "components/media/onlineconcert/OnlineConcertView";
 import OpenLive from "components/others/openlive/OpenLive";
 import NotFound from "./components/common/NotFound";
+import PurchaseSuccess from "./components/shop/PurchaseSuccess";
+import PurchaseFailed from "./components/shop/PurchaseFailed";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -110,6 +112,8 @@ render(
       <Route path="/:group/shop*" element={<ShopItemDetail />}></Route>
       <Route exact path="/:group/shop/basket" element={<ShopBasket />}></Route>
       <Route path="/:group/shop/:itemId" element={<ShopItemDetail />} />
+      <Route path="/purchase/success" element={<PurchaseSuccess />} />
+      <Route path="/purchase/failed" element={<PurchaseFailed />} />
 
       {/* 팬싸인회 */}
 
