@@ -10,7 +10,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [msgText, setMsgText] = useState("");
   //   const [msgRef, setMsgRef] = useRef();
 
-  const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
+  const webSocketUrl = "wss://i9d204.p.ssafy:8001/ws/chat";
   let ws = useRef(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
     ws.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
       // displayMessage(message);
-      setItems((prevItems) => [...prevItems, message]);
+      // setItems((prevItems) => [...prevItems, message]);
     };
 
     ws.current.onclose = () => {
@@ -69,7 +69,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
       };
 
       ws.current.send(JSON.stringify(msg));
-      // setItems([...items, msg]);
+      setItems([...items, msg]);
       console.log(items);
       setMsgText("");
     }

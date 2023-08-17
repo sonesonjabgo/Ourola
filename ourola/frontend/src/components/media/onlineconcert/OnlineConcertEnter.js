@@ -15,6 +15,8 @@ const OnlineConcertEnter = () => {
     "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
     concertInfo.filePath;
 
+  console.log(concertInfo);
+
   const startTime = new Date(concertInfo.startTime);
   const beginTime = new Date(concertInfo.startTime);
 
@@ -26,7 +28,10 @@ const OnlineConcertEnter = () => {
     await axios
       .get(`/user/purchase/online-concert/${concertInfo.id}`, config)
       .then((response) => {
-        return response.data;
+        if (!response.data) {
+          alert("콘서트 티켓이 없습니다. 구매 후 시청 바랍니다.");
+          return;
+        }
       })
       .catch((error) => {
         console.log("온콘 티켓 확인 에러 :: ", error);
@@ -34,7 +39,7 @@ const OnlineConcertEnter = () => {
   };
 
   // 세션에 입장했을 때
-  const onEnterClick = () => {
+  const onEnterClick = async () => {
     //채널 관리자
     if (userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group) {
       if (concertInfo.open === false) {
@@ -57,10 +62,7 @@ const OnlineConcertEnter = () => {
         return;
       }
 
-      if (!checkTicket()) {
-        alert("콘서트 티켓이 없습니다. 구매 후 시청 바랍니다.");
-        return;
-      }
+      await checkTicket();
     }
 
     navigate(`/${group}/media/online-concert/view`, {
