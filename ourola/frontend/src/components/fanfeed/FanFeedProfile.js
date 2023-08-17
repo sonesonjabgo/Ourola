@@ -1,8 +1,15 @@
 import React from "react";
 import "../../style/fanfeed/FanFeedProfile.css";
+import { useNavigate } from "react-router-dom";
 
 function FanFeedProfile({ groupInfo, userInfo }) {
   // console.log(userInfo)
+  const navigate = useNavigate();
+
+  const onProfileClick = () => {
+    navigate(`/mypage`);
+  };
+
   return (
     <>
       {groupInfo && userInfo ? (
@@ -18,7 +25,7 @@ function FanFeedProfile({ groupInfo, userInfo }) {
             </div>
           </div>
           {/* 마이페이지 구현 후 연결 필요 */}
-          <div className="fanFeedProfileUserContainer">
+          <div className="fanFeedProfileUserContainer" onClick={onProfileClick}>
             <div className="fanFeedProfileUserImgContainer">
               {userInfo?.profileFileDto ? (
                 <img

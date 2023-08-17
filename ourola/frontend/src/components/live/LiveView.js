@@ -143,9 +143,7 @@ const LiveView = () => {
     }
   };
 
-  const deleteLive = () => {};
-
-  const leaveSession = () => {
+  const leaveSession = async () => {
     if (session) {
       session.disconnect();
     }
@@ -155,6 +153,17 @@ const LiveView = () => {
     setSubscribers([]);
     setMainStreamManager(undefined);
     setPublisher(undefined);
+
+    if (isAdmin) {
+      await axios
+        .delete(`/${group}/live/${liveInfo.id}`, config)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("라이브 삭제 에러 :: ", error);
+        });
+    }
 
     const path = `/${group}/live`;
     navigate(path);

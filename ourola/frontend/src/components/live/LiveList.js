@@ -17,6 +17,26 @@ const LiveList = () => {
 
   const [liveList, setLiveList] = useState([]);
   const [loadingList, setLoadingList] = useState(true);
+  const [userInfo, setUserInfo] = useState(undefined);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("/user/userinfo", config)
+      .then((response) => {
+        const user = response.data;
+        setUserInfo(user);
+        if (
+          (user.role === "ARTIST" || user.role === "CHANNEL_ADMIN") &&
+          user.groupDto.name === group
+        ) {
+          setIsAdmin(true);
+        }
+      })
+      .catch((error) => {
+        console.log("사용자 정보 호출 오류 :: ", error);
+      });
+  }, []);
 
   useEffect(() => {
     axios
@@ -37,12 +57,18 @@ const LiveList = () => {
 
   return (
     <div className="liveListMain">
+      <div className="liveListHeader">{isAdmin ? <button></button> : null}</div>
       <div className="liveList">
         {loadingList ? (
           <></>
         ) : (
           liveList.map((it) => (
-            <LiveItem key={it.id} group={group} liveInfo={it} />
+            <LiveItem
+              key={it.id}
+              group={group}
+              liveInfo={it}
+              userInfo={userInfo}
+            />
           ))
         )}
       </div>
