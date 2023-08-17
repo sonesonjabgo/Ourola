@@ -235,9 +235,7 @@ const LiveView = () => {
             />
           ) : null}
 
-          {subscribers.map((sub, i) => (
-            <LiveVideo sessionId={sessionId} mainStreamManager={sub} />
-          ))}
+          <LiveVideo sessionId={sessionId} mainStreamManager={subscribers[0]} />
         </div>
         <div className="liveChat">
           <Chat

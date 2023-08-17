@@ -22,6 +22,7 @@ import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
+import com.mk.ourola.api.mypage.repository.dto.ShoppingCartDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -106,8 +107,14 @@ public class ShopController {
 
 	// 상품 구매
 	@PostMapping("/buy")
-	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody BillDto product){
+	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody ShoppingCartDto product){
 		try {
+			BillDto bill = new BillDto();
+			bill.setId(product.getId());
+			bill.setFanDto(product.getFanDto());
+			bill.setMembershipPayDto(product.getMembershipPayDto());
+			bill.setOnlineConcertDto(product.getOnlineConcertDto());
+			shopService.purchaseProduct(accessToken, bill);
 			return new ResponseEntity<>("구매 성공!", HttpStatus.OK);
 		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

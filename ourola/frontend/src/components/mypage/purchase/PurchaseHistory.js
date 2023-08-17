@@ -11,6 +11,7 @@ const PurchaseHistory = ({ config }) => {
     axios
       .get(`/user/purchase`, config)
       .then((response) => {
+        console.log(response.data);
         setList(response.data);
         setLoadingPurchase(false);
       })
