@@ -15,7 +15,7 @@ class App extends React.Component {
       item_name: "",
       quantity: 1,
       total_amount: "",
-      vat_amount: "",
+      vat_amount: 0,
       tax_free_amount: 0,
       approval_url: "http://i9d204.p.ssafy.io/purchase/success",
       fail_url: "http://i9d204.p.ssafy.io/purchase/failed",
@@ -37,7 +37,6 @@ class App extends React.Component {
                 ...prevState.params,
                 item_name: itemName,
                 total_amount: totalPrice,
-                vat_amount: (totalPrice / 10),
                 approval_url: `http://i9d204.p.ssafy.io/purchase/success?group=${group}`,
                 fail_url: `http://i9d204.p.ssafy.io/purchase/failed?group=${group}`,
             }
