@@ -7,11 +7,15 @@
 
 .onlineConcertViewHeader {
   display: flex;
-  width: 1950px;
   padding-top: 30px;
   padding-left: 100px;
   padding-right: 100px;
   text-align: center;
+}
+
+.sessionBtnArea {
+  /* margin-left: auto; */
+  padding-right: 50px;
 }
 
 .buttonLeaveSession {
@@ -23,7 +27,6 @@
   border-radius: 5px;
   cursor: pointer;
   color: red;
-
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 }
 

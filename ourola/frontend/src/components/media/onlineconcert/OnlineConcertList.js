@@ -36,6 +36,9 @@ const OnlineConcertList = () => {
 
   return (
     <div className="onlineConcertListMain">
+      <div className="onlineConcertHeader">
+        <button>콘서트 등록</button>
+      </div>
       <div className="onlineConcertList">
         {loadingList ? (
           <></>

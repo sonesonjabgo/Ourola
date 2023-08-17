@@ -10,7 +10,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [msgText, setMsgText] = useState("");
   //   const [msgRef, setMsgRef] = useRef();
 
-  const webSocketUrl = "ws://i9d204.p.ssafy:8001/ws/chat";
+  const webSocketUrl = "wss://i9d204.p.ssafy:8001/ws/chat";
   let ws = useRef(null);
 
   useEffect(() => {
