@@ -128,7 +128,7 @@ const FanSignEnter = () => {
     <div id="join">
       <div id="join-dialog" className="jumbotron vertical-center">
         <div>
-        <h1>팬싸인회 대기실 </h1>
+        <h1 className="fanSignHeader">팬싸인회 대기실 </h1>
         <form className="form-group">
           <p>입장 전 내 모습을 확인하세요.</p>
           {webcamStream ? (
