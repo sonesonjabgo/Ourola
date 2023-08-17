@@ -1,6 +1,7 @@
 package com.mk.ourola.api.shop.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -19,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
+import com.mk.ourola.api.fan.repository.dto.FanDto;
+import com.mk.ourola.api.fan.service.FanServiceImpl;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
 import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
+import com.mk.ourola.api.mypage.repository.dto.ShoppingCartDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +39,7 @@ public class ShopController {
 
 	private final ShopServiceImpl shopService;
 	private final FileServiceImpl fileService;
+	private final FanServiceImpl fanService;
 
 	// TODO: 온콘과 멤버십은 아티스트당 보통 1개씩밖에 상품이 없다 -> 굿즈나 구매 콘텐츠를 대비해서 만들어는 놓는다.
 	// 상품 전체 목록 (온콘, 멤버십)
@@ -65,7 +70,7 @@ public class ShopController {
 	@GetMapping("/online-concert/{id}")
 	public ResponseEntity<?> getOnlineConcert(@PathVariable String group, @PathVariable int id) {
 		try {
-			OnlineConcertDto item = shopService.getOnlineConcertItem(group, id);
+			OnlineConcertDto item = shopService.getOnlineConcertItem(id);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -94,11 +99,11 @@ public class ShopController {
 			OnlineConcertDto item = shopService.writeOnlineConcert(group, accessToken, onlineConcertDto, mainFile);
 
 			System.out.println(item);
-			if(!(files == null)) {
+			if (!(files == null)) {
 				fileService.writeShopImages(files, item, null);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);
-		} catch ( Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -106,10 +111,25 @@ public class ShopController {
 
 	// 상품 구매
 	@PostMapping("/buy")
-	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody BillDto product){
+	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken,
+		@RequestParam(name = "fanDtoId") int fanDtoId,
+		@RequestParam(name = "memDtoId", required = false) Integer memDtoId,
+		@RequestParam(name = "conDtoId", required = false) Integer conDtoId) {
 		try {
+			BillDto bill = new BillDto();
+			bill.setFanDto(fanService.getFanInfo(fanDtoId));
+
+			if (memDtoId != null) {
+				bill.setMembershipPayDto(shopService.getMembershipItemById(memDtoId));
+			}
+
+			if (conDtoId != null) {
+				bill.setOnlineConcertDto(shopService.getOnlineConcertItem(conDtoId));
+			}
+
+			shopService.purchaseProduct(accessToken, bill);
 			return new ResponseEntity<>("구매 성공!", HttpStatus.OK);
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -123,7 +143,7 @@ public class ShopController {
 		try {
 			System.out.println(membershipPayDto);
 			MembershipPayDto item = shopService.writeMembership(group, accessToken, membershipPayDto, mainFile);
-			if(!(files == null)) {
+			if (!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
 			// if(!mainFile.isEmpty()) {
@@ -144,7 +164,7 @@ public class ShopController {
 		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
-	){
+	) {
 		try {
 			OnlineConcertDto item = shopService.modifyOnlineConcert(group, accessToken, onlineConcertDto, mainFile);
 			fileService.writeShopImages(files, item, null);
@@ -163,7 +183,7 @@ public class ShopController {
 	) {
 		try {
 			MembershipPayDto item = shopService.modifyMembership(group, accessToken, membershipPayDto, mainFile);
-			if(!(files == null)) {
+			if (!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
 			return new ResponseEntity<>(item, HttpStatus.OK);

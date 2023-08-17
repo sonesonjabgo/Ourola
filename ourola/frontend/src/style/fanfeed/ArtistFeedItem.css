@@ -141,4 +141,5 @@
 
 .deleteBin {
   max-width: 30px;
+  z-index: 999;
 }
