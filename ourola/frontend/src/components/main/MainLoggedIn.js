@@ -30,7 +30,7 @@ function MainLoggedIn() {
   }, []);
 
   if (
-    userInfo?.role === "CHANNEL_ADMIN" &&
+    (userInfo?.role === "CHANNEL_ADMIN" || userInfo?.role === "ARTIST") &&
     userInfo?.groupDto?.name !== undefined
   ) {
     window.location.href = `${userInfo?.groupDto?.name}/fanfeed`;
