@@ -46,7 +46,7 @@ public class AnnouncementServiceImpl implements Announcement {
 		String decodingEmail = jwtService.extractEmail(jwtService.headerStringToAccessToken(accessToken).get()).get();
 
 		if (decodingEmail == null) {
-			throw new Exception(); // 세세한 예외 처리 필요
+			throw new Exception("email 추출 실패"); // 세세한 예외 처리 필요
 		}
 
 		GroupDto groupChannelDto = groupRepository.findByName(groupName);
@@ -66,11 +66,11 @@ public class AnnouncementServiceImpl implements Announcement {
 		}
 
 		if (artistUserDto == null) {
-			throw new Exception(); // 세세한 예외 처리 필요
+			throw new Exception("artistUserDto"); // 세세한 예외 처리 필요
 		}
 
 		if (!artistUserDto.getEmail().equals(decodingEmail)) {
-			throw new Exception(); // 세세한 예외 처리 필요
+			throw new Exception("artistUserDto mail"); // 세세한 예외 처리 필요
 		}
 
 		return announcementRepository.save(announcementDto);

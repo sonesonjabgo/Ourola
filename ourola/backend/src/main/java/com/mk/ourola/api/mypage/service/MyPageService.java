@@ -50,6 +50,8 @@ public interface MyPageService {
 	// 사용자가 해당 그룹의 멤버십에 가입이 되어있는지 확인
 	boolean isMembership(String accessToken, String groupName);
 
+	boolean isConcertTicket(String accessToken, int concertId) throws Exception;
+
 	// 사용자가 작성한 피드 가져오기
 	List<FeedDto> getMyFeed(String accessToken);
 

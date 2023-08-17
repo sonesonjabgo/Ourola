@@ -77,7 +77,8 @@ const MyPostItem = ({ setPostList, item, config }) => {
   }, []);
 
   const commentCount = comment.length;
-  const nickname = item.fanDto.nickname;
+  const nickname =
+    item.fanDto === null ? item.artistDto.nickname : item.fanDto.nickname;
   const formatTime = moment(new Date(item.createDate))
     .subtract(9, "hours")
     .format("YYYY.MM.DD HH:mm");
@@ -229,7 +230,7 @@ const MyPostItem = ({ setPostList, item, config }) => {
                 <img className="myPostProfileImg" src={profileImg} alt=""></img>
               </div>
               <div className="myPostProfileInfo">
-                <div className="myPostNickname">{item.fanDto.nickname}</div>
+                <div className="myPostNickname">{nickname}</div>
                 <div className="myPostCreateDate">{formatTime}</div>
               </div>
             </div>

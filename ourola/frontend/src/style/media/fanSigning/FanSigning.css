@@ -18,7 +18,7 @@
 .jumbotron {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 .webcam-preview {
@@ -48,4 +48,8 @@ p {
 
 #join {
   height: 1000px;
+}
+
+.fanSignHeader {
+  margin-top: 200px;
 }

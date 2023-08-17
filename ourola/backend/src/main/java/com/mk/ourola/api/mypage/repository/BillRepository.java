@@ -19,4 +19,6 @@ public interface BillRepository extends JpaRepository<BillDto, Integer> {
 	// 사용자가 구매한 모든 멤버십 내역
 	List<BillDto> findByFanDto_IdAndMembershipPayDto_IdIsNotNull(int userId);
 
+	boolean existsByFanDto_IdAndOnlineConcertDto_Id(int userId, int concertId);
+
 }
