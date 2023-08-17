@@ -17,7 +17,9 @@ import com.mk.ourola.api.group.repository.GroupRepository;
 import com.mk.ourola.api.group.repository.dto.GroupDto;
 import com.mk.ourola.api.media.onlineconcert.repository.OnlineConcertRepository;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.BillRepository;
 import com.mk.ourola.api.mypage.repository.MembershipPayRepository;
+import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,7 @@ public class ShopServiceImpl implements ShopService {
 	private final FanRepository fanUserRepository;
 	private final FileServiceImpl fileService;
 	private final ShopFileRepository shopFileRepository;
+	private final BillRepository billRepository;
 
 	@Override
 	public List<OnlineConcertDto> getAllOnlineConcertItems(String artist) {
@@ -211,5 +214,11 @@ public class ShopServiceImpl implements ShopService {
 		} else {
 			throw new Exception("ERROR :: 관리자 권한입니다.");
 		}
+	}
+
+	// 사용자가 물건을 구매
+	@Override
+	public void purchaseProduct(String accessToken, BillDto product) throws Exception {
+		billRepository.save(product);
 	}
 }

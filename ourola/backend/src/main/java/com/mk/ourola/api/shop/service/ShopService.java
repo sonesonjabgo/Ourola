@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 
 public interface ShopService {
@@ -37,5 +38,7 @@ public interface ShopService {
 	public void deleteOnlineConcert(String artist, String accessToken, int id) throws Exception;
 
 	public void deleteMembership(String artist, String accessToken, int id) throws Exception;
+
+	void purchaseProduct(String accessToken, BillDto product) throws Exception;
 
 }

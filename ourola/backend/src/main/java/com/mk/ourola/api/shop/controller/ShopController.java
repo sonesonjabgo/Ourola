@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mk.ourola.api.common.file.service.FileServiceImpl;
 import com.mk.ourola.api.media.onlineconcert.repository.dto.OnlineConcertDto;
+import com.mk.ourola.api.mypage.repository.dto.BillDto;
 import com.mk.ourola.api.mypage.repository.dto.MembershipPayDto;
 import com.mk.ourola.api.shop.service.ShopServiceImpl;
 
@@ -27,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/shop/{artist}")
+@RequestMapping("/shop/{group}")
 @RequiredArgsConstructor
 @Slf4j
 public class ShopController {
@@ -38,9 +39,9 @@ public class ShopController {
 	// TODO: 온콘과 멤버십은 아티스트당 보통 1개씩밖에 상품이 없다 -> 굿즈나 구매 콘텐츠를 대비해서 만들어는 놓는다.
 	// 상품 전체 목록 (온콘, 멤버십)
 	@GetMapping("/online-concert")
-	public ResponseEntity<?> getAllOnlineConcert(@PathVariable String artist) {
+	public ResponseEntity<?> getAllOnlineConcert(@PathVariable String group) {
 		try {
-			List<OnlineConcertDto> onlineConcertList = shopService.getAllOnlineConcertItems(artist);
+			List<OnlineConcertDto> onlineConcertList = shopService.getAllOnlineConcertItems(group);
 			return new ResponseEntity<>(onlineConcertList, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -48,9 +49,9 @@ public class ShopController {
 		}
 	}
 	// @GetMapping("/membership")
-	// public ResponseEntity<?> getAllMembership(@PathVariable String artist) {
+	// public ResponseEntity<?> getAllMembership(@PathVariable String group) {
 	// 	try {
-	// 		List<MembershipPayDto> itemList = shopService.getAllMembershipItems(artist);
+	// 		List<MembershipPayDto> itemList = shopService.getAllMembershipItems(group);
 	// 		return new ResponseEntity<>(itemList, HttpStatus.OK);
 	// 	} catch (Exception e) {
 	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -62,9 +63,9 @@ public class ShopController {
 	// TODO: 아티스트만 정해지면 상품 아이디까지는 필요 없다.. 고려해보기
 	// 이전에 있었던 상품들을 삭제보다 숨기는 방향으로 가면 DB에는 그대로 남아있으니까 select 해야할듯
 	@GetMapping("/online-concert/{id}")
-	public ResponseEntity<?> getOnlineConcert(@PathVariable String artist, @PathVariable int id) {
+	public ResponseEntity<?> getOnlineConcert(@PathVariable String group, @PathVariable int id) {
 		try {
-			OnlineConcertDto item = shopService.getOnlineConcertItem(artist, id);
+			OnlineConcertDto item = shopService.getOnlineConcertItem(group, id);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,9 +73,9 @@ public class ShopController {
 	}
 
 	@GetMapping("/membership")
-	public ResponseEntity<?> getMembership(@PathVariable String artist) {
+	public ResponseEntity<?> getMembership(@PathVariable String group) {
 		try {
-			MembershipPayDto item = shopService.getMembershipItem(artist);
+			MembershipPayDto item = shopService.getMembershipItem(group);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -84,13 +85,13 @@ public class ShopController {
 
 	// 상품 등록 (소속사만 가능)
 	@PostMapping("/online-concert")
-	public ResponseEntity<?> writeOnlineConcert(@PathVariable String artist,
+	public ResponseEntity<?> writeOnlineConcert(@PathVariable String group,
 		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile) {
 		try {
 			System.out.println(onlineConcertDto);
-			OnlineConcertDto item = shopService.writeOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
+			OnlineConcertDto item = shopService.writeOnlineConcert(group, accessToken, onlineConcertDto, mainFile);
 
 			System.out.println(item);
 			if(!(files == null)) {
@@ -103,15 +104,25 @@ public class ShopController {
 		}
 	}
 
+	// 상품 구매
+	@PostMapping("/buy")
+	public ResponseEntity<?> purchaseProduct(@RequestHeader(name = "Authorization") String accessToken, @RequestBody BillDto product){
+		try {
+			return new ResponseEntity<>("구매 성공!", HttpStatus.OK);
+		} catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PostMapping("/membership")
-	public ResponseEntity<?> writeMembership(@PathVariable String artist,
+	public ResponseEntity<?> writeMembership(@PathVariable String group,
 		@RequestHeader(name = "Authorization") String accessToken, MembershipPayDto membershipPayDto,
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
 	) {
 		try {
 			System.out.println(membershipPayDto);
-			MembershipPayDto item = shopService.writeMembership(artist, accessToken, membershipPayDto, mainFile);
+			MembershipPayDto item = shopService.writeMembership(group, accessToken, membershipPayDto, mainFile);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
@@ -129,13 +140,13 @@ public class ShopController {
 	// 수정 시 DTO에 상품 아이디 필수
 	@PutMapping("/online-concert/{id}")
 	@Transactional
-	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String artist,
+	public ResponseEntity<?> modifyOnlineConcert(@PathVariable String group,
 		@RequestHeader(name = "Authorization") String accessToken, OnlineConcertDto onlineConcertDto,
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
 	){
 		try {
-			OnlineConcertDto item = shopService.modifyOnlineConcert(artist, accessToken, onlineConcertDto, mainFile);
+			OnlineConcertDto item = shopService.modifyOnlineConcert(group, accessToken, onlineConcertDto, mainFile);
 			fileService.writeShopImages(files, item, null);
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		} catch (Exception e) {
@@ -145,13 +156,13 @@ public class ShopController {
 	}
 
 	@PutMapping("/membership/{id}")
-	public ResponseEntity<?> modifyMembership(@PathVariable String artist,
+	public ResponseEntity<?> modifyMembership(@PathVariable String group,
 		@RequestHeader(name = "Authorization") String accessToken, MembershipPayDto membershipPayDto,
 		@RequestParam(required = false) List<MultipartFile> files,
 		@RequestParam(name = "main-file", required = false) MultipartFile mainFile
 	) {
 		try {
-			MembershipPayDto item = shopService.modifyMembership(artist, accessToken, membershipPayDto, mainFile);
+			MembershipPayDto item = shopService.modifyMembership(group, accessToken, membershipPayDto, mainFile);
 			if(!(files == null)) {
 				fileService.writeShopImages(files, null, item);
 			}
@@ -164,11 +175,11 @@ public class ShopController {
 
 	// 상품 삭제 (소속사만 가능)
 	@DeleteMapping("/online-concert/{id}")
-	public ResponseEntity<?> deleteOnlineConcert(@PathVariable String artist,
+	public ResponseEntity<?> deleteOnlineConcert(@PathVariable String group,
 		@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
 		try {
 			log.info("online concert delete");
-			shopService.deleteOnlineConcert(artist, accessToken, id);
+			shopService.deleteOnlineConcert(group, accessToken, id);
 			return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -177,10 +188,10 @@ public class ShopController {
 	}
 
 	// @DeleteMapping("/membership/{id}")
-	// public ResponseEntity<?> deleteMembership(@PathVariable String artist,
+	// public ResponseEntity<?> deleteMembership(@PathVariable String group,
 	// 	@RequestHeader(name = "Authorization") String accessToken, @PathVariable int id) {
 	// 	try {
-	// 		shopService.deleteMembership(artist, accessToken, id);
+	// 		shopService.deleteMembership(group, accessToken, id);
 	// 		return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
 	// 	} catch (Exception e) {
 	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
