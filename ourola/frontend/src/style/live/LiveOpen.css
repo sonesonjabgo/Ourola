@@ -1,0 +1,40 @@
+.liveOpenMain {
+  padding-top: 180px;
+  height: 100vh;
+}
+
+.liveOpenWrapper {
+  padding: 100px;
+  text-align: center;
+  font-size: 25px;
+}
+
+#liveTitleArea {
+  margin-bottom: 30px;
+}
+
+#liveTitleInput {
+  width: 400px;
+  height: 50px;
+  border: none;
+  background-color: rgba(191, 191, 252, 0.6);
+  border-radius: 30px;
+  margin-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: black;
+}
+
+#liveTitleSubmitBtn {
+  width: 90px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  background-color: lightgray;
+  border-radius: 20px;
+  font-size: 17px;
+}
+
+#liveTitleSubmitBtn:hover {
+  background-color: rgb(170, 170, 170);
+}

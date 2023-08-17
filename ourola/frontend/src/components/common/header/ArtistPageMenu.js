@@ -55,7 +55,7 @@ function GroupPageMenu() {
             </Link>
 
             <Link
-              to={`/${group}/live`}
+              to={`/${group}/live/list`}
               className={isTabActive("live") ? "active" : ""}
             >
               라이브

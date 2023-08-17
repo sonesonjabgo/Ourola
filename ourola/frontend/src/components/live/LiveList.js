@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import LiveItem from "./LiveItem";
 import "../../style/live/LiveList.css";
+import { useNavigate } from "react-router-dom";
 
 const LiveList = () => {
   const pathname = window.location.pathname;
@@ -19,6 +20,8 @@ const LiveList = () => {
   const [loadingList, setLoadingList] = useState(true);
   const [userInfo, setUserInfo] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -55,9 +58,25 @@ const LiveList = () => {
 
   // console.log(concertList);
 
+  const onLiveStartClick = () => {
+    navigate(`/${group}/live/open`, {
+      state: { group: group, config: config },
+    });
+  };
+
   return (
     <div className="liveListMain">
-      <div className="liveListHeader">{isAdmin ? <button></button> : null}</div>
+      <div className="liveListHeader">
+        {isAdmin ? (
+          <button
+            id="liveStartBtn"
+            className="liveStartBtn"
+            onClick={onLiveStartClick}
+          >
+            라이브 켜기
+          </button>
+        ) : null}
+      </div>
       <div className="liveList">
         {loadingList ? (
           <></>

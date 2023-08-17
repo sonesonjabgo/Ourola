@@ -1,5 +1,32 @@
 .liveListMain {
-  padding-top: 300px;
+  padding-top: 180px;
+  height: 100vh;
+}
+
+.liveListHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+#liveStartBtn {
+  margin-left: auto;
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  border: 3px solid #482faf;
+  border-radius: 5px;
+  color: #482faf;
+  background-color: transparent;
+  cursor: pointer;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+#liveStartBtn:hover {
+  color: white;
+  box-shadow: 0 0 40px 40px #482faf inset;
 }
 
 .liveList {

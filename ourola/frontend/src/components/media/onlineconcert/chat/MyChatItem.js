@@ -16,7 +16,7 @@ const MyChatItem = ({ msgItem }) => {
       <div id="msgItemBody" className="msgItemBody">
         <div> </div>
         <div className="myMsgBodyWrapper">
-          <div id="myMsgTimeArea" className="msgTimeArea">
+          <div id="myMsgTimeArea" className="myMsgTimeArea">
             <span id="myMsgTime">{moment(msgItem.time).format("HH:mm")}</span>
           </div>
           <span id="myMsgText">{msgItem.message}</span>
