@@ -60,6 +60,14 @@ const OnlineConcertEnter = () => {
           .then((response) => {
             concertInfo.open = true;
             console.log(response);
+
+            navigate(`/${group}/media/online-concert/view`, {
+              state: {
+                concertInfo: concertInfo,
+                userInfo: userInfo,
+                config: config,
+              },
+            });
           })
           .catch((error) => console.log(error));
       }
