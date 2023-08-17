@@ -1,9 +1,14 @@
 import { useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../../style/mypage/userinfo/UserInfoEdit.css";
 import moment from "moment";
 import axios from "axios";
 
 const UserInfoEdit = ({ userinfo, config }) => {
+  const location = useLocation();
+
+  // const config = location.state.config;
+
   const [state, setState] = useState({
     email: userinfo.email,
     nickname: userinfo.nickname,
@@ -29,9 +34,21 @@ const UserInfoEdit = ({ userinfo, config }) => {
 
   const checkNickDup = () => {
     axios
-      .get(`/user/modify/nickname/check-duplicate/${state.nickname}`)
-      .then()
-      .catch();
+      .get(`/user/modify/nickname/check-duplicate/${state.nickname}`, config)
+      .then((res) => {
+        // console.log(res.data);
+        if (!res.data) {
+          // 중복이 아니면
+          setNickBtnMode((num) => {
+            return (num + 1) % 3;
+          });
+          setNickReadOnly(true);
+          alert("변경 가능한 닉네임입니다.");
+        } else {
+          alert("중복된 닉네임입니다.");
+        }
+      })
+      .catch((e) => console.log(e));
   };
 
   // 닉네임 변경 버튼 클릭시
@@ -45,14 +62,21 @@ const UserInfoEdit = ({ userinfo, config }) => {
 
   // 닉네임 중복 검사
   const onNickDupClick = () => {
-    setNickBtnMode((num) => {
-      return (num + 1) % 3;
-    });
-    setNickReadOnly(true);
+    checkNickDup();
   };
 
   // 닉네임 변경 저장
   const onNickSaveClick = () => {
+    axios
+      .put(`/user/modify/nickname/${state.nickname}`, {}, config)
+      .then((res) => {
+        console.log(res);
+        alert("성공적으로 닉네임이 변경되었습니다.");
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("오류가 발생했습니다.");
+      });
     setNickBtnMode((num) => {
       return (num + 1) % 3;
     });
@@ -142,7 +166,8 @@ const UserInfoEdit = ({ userinfo, config }) => {
         </div>
         <div className="userinfoArea">
           <div className="label">이름</div>
-          <div className="userinfoEdit">
+          <div className="userEmail">{state.name}</div>
+          {/* <div className="userinfoEdit">
             <input
               ref={nameRef}
               name="name"
@@ -160,7 +185,7 @@ const UserInfoEdit = ({ userinfo, config }) => {
                 {btnMode[2]}
               </button>
             )}
-          </div>
+          </div> */}
         </div>
         <div className="userinfoArea">
           <div className="label">비밀번호</div>
