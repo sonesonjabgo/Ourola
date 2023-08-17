@@ -4,9 +4,11 @@ import Header from "./components/common/header/Header";
 import MainLoggedIn from "./components/main/MainLoggedIn";
 import MainNoLoggedIn from "./components/main/MainnoLoggedIn";
 import SearchResult from "./components/main/SearchResult";
+import axios from 'axios'
 
 // artist 선언 방식 fix 필요
 function App() {
+
   // 로그인 모달 열기
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {

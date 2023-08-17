@@ -3,11 +3,14 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import '../../style/shop/ShopBasket.css'
 import ShopBasketList from "./ShopBasketList"
+import Kakaopay from './Kakaopay'
 
 const ShopBasket = () => {
       // 뒤로가기
       const navigate = useNavigate()
-      const location = useLocation()
+
+      const location = useLocation();
+      const group = location.pathname.split("/")[1];
   
       const goBack = () => {
         let currentPath = location.pathname
@@ -41,6 +44,8 @@ const ShopBasket = () => {
         })
     }, [])
 
+    console.log(allBasket)
+
     // 장바구니가 비어있는지를 전달해주는 변수
     const [isEmpty, setIsEmpty] = useState(false)
 
@@ -64,21 +69,52 @@ const ShopBasket = () => {
     }
   })
 
+  // const purchaseRequest = () => {
+    
+  //   const itemsToPuschase = allBasket.map(item => item.id)
+
+  //   axios.post(`payment/ready`, {items: itemsToPuschase}, config)
+  //   .then((response) => {
+  //     alert('결제 완료')
+  //   })
+  //   .catch((error) => {
+  //     alert('결제 오류')
+  //     console.log(error)
+  //   })
+  // }
+  const [firstItem, setFirstItem] = useState("")
+
+  useEffect (() => {
+  if (allBasket.length > 0 && allBasket[0]?.membershipPayDto !== null) {
+    setFirstItem(allBasket[0]?.membershipPayDto?.title)
+  } else {
+    setFirstItem(allBasket[0]?.onlineConcertDto?.title)
+  }
+  }, [allBasket])
+
+  console.log(firstItem)
+
+  const [showKakaoPay, setShowKakaoPay] = useState(false);
+
   const purchaseRequest = () => {
     
     const itemsToPuschase = allBasket.map(item => item.id)
 
     axios.post(`payment/ready`, {items: itemsToPuschase}, config)
     .then((response) => {
-      alert('결제 완료')
+      if (response.data.success) {
+        deleteAllRequest()
+      }
+      setShowKakaoPay(true); 
     })
     .catch((error) => {
-      alert('결제 오류')
-      console.log(error)
-    })
-  }
+      alert('결제 오류');
+      console.log(error);
+    });
+}
 
   const deleteAllRequest = () => {
+
     const itemsToDelete = allBasket.map(item => item.id)
 
     const deletePromise = itemsToDelete.map(itemId => {
@@ -89,11 +125,17 @@ const ShopBasket = () => {
     .then(() => {
       alert('장바구니 내 물품이 모두 삭제되었습니다')
       setAllBasket([])
+      setTotalPrice(0)
     })
     .catch((error) => {
       alert('장바구니 전체 삭제 중 오류')
       console.log(error)
     })
+  }
+  
+  const deleteAll = () => {
+    if (window.confirm('전부 삭제하시겠습니까?'))
+      deleteAllRequest()
   }
 
   function NumberWithComma ({value}) {
@@ -107,7 +149,7 @@ const ShopBasket = () => {
         <div className="shopBasketHeader">
           <div><button onClick={goBack} className="shopBasketBackButton">목록으로</button></div>
           {allBasket.length !== 0 ?
-          <div><button onClick={deleteAllRequest} className="shopBasketDeleteAllButton">전체 삭제</button></div> : null
+          <div><button onClick={deleteAll} className="shopBasketDeleteAllButton">전체 삭제</button></div> : null
           }
         </div>
         <div className="basketContentContainer">
@@ -119,6 +161,7 @@ const ShopBasket = () => {
               <NumberWithComma value={totalPrice} />
             </div>
             <button className="buyAllButton" onClick={purchaseRequest}>전체 구매</button>
+            {showKakaoPay && firstItem && <Kakaopay allBasket={allBasket} firstItem={firstItem} totalPrice={totalPrice} group={group}/>}
         </div>
         </>
     )}
