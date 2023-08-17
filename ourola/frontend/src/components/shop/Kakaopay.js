@@ -14,7 +14,7 @@ class App extends React.Component {
       item_name: "",
       quantity: 1,
       total_amount: "",
-      vat_amount: "",
+      vat_amount: 0,
       tax_free_amount: 0,
       approval_url: "http://i9d204.p.ssafy.io/purchase/success",
       fail_url: "http://i9d204.p.ssafy.io/purchase/failed",
@@ -28,27 +28,22 @@ class App extends React.Component {
       this.props;
 
     if (allBasket && allBasket.length > 0) {
-      const itemCount = allBasket.length - 1;
-
-      const itemName =
-        itemCount > 0 ? `${firstItem} 외 ${itemCount}건` : firstItem;
-
-      this.setState(
-        (prevState) => ({
-          params: {
-            ...prevState.params,
-            item_name: itemName,
-            total_amount: totalPrice,
-            vat_amount: totalPrice / 10,
-            approval_url: `http://i9d204.p.ssafy.io/purchase/success?group=${group}`,
-            fail_url: `http://i9d204.p,ssafy.io/purchase/failed?group=${group}`,
-          },
-        }),
-        () => {
-          // setState가 완료된 후 axios 요청을 실행
-          this.sendRequest();
-        }
-      );
+        const itemCount = allBasket.length - 1;
+  
+        const itemName = itemCount > 0 ? `${firstItem} 외 ${itemCount}건` : firstItem;
+  
+        this.setState(prevState => ({
+            params: {
+                ...prevState.params,
+                item_name: itemName,
+                total_amount: totalPrice,
+                approval_url: `http://i9d204.p.ssafy.io/purchase/success?group=${group}`,
+                fail_url: `http://i9d204.p.ssafy.io/purchase/failed?group=${group}`,
+            }
+        }), () => {
+            // setState가 완료된 후 axios 요청을 실행
+            this.sendRequest();
+        });
     } else {
       // 아이템 이름이 없는 경우에도 요청을 보낼 수 있습니다.
       // 이 부분은 비즈니스 로직에 따라 조절하실 수 있습니다.
