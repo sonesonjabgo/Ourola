@@ -163,8 +163,8 @@ const LiveView = () => {
     setMainStreamManager(undefined);
     setPublisher(undefined);
 
-    const path = `/${group}/media/online-concert/enter`;
-    navigate(path, { state: { liveInfo: liveInfo } });
+    const path = `/${group}/live`;
+    navigate(path);
   };
 
   const getToken = async (sessionId) => {

@@ -8,6 +8,8 @@ const OnlineConcertEnter = () => {
   const location = useLocation();
 
   const concertInfo = location.state.concertInfo;
+  const userInfo = location.state.userInfo;
+  const config = location.state.config;
   const group = concertInfo.groupDto.name;
   const fileUrl =
     "https://i9d204.p.ssafy.io:8001/file/getimg/shop-main/" +
@@ -18,16 +20,7 @@ const OnlineConcertEnter = () => {
 
   beginTime.setMinutes(beginTime.getMinutes() - 10);
 
-  const [userInfo, setUserInfo] = useState(undefined);
   const navigate = useNavigate();
-
-  const accessToken = sessionStorage.getItem("Authorization");
-  const config = {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-      "Content-Type": "application/json",
-    },
-  };
 
   // 세션에 입장했을 때
   const onEnterClick = () => {
@@ -55,20 +48,9 @@ const OnlineConcertEnter = () => {
     }
 
     navigate(`/${group}/media/online-concert/view`, {
-      state: { concertInfo: concertInfo, userInfo: userInfo },
+      state: { concertInfo: concertInfo, userInfo: userInfo, config: config },
     });
   };
-
-  useEffect(() => {
-    axios
-      .get("/user/userinfo", config)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.log("사용자 정보 호출 오류 :: ", error);
-      });
-  }, []);
 
   // style={{ backgroundImage: `url(${fileUrl})` }}
   return (

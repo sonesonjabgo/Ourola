@@ -18,16 +18,9 @@ const OnlineConcertView = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const accessToken = sessionStorage.getItem("Authorization");
-  const config = {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-      "Content-Type": "application/json",
-    },
-  };
-
   const concertInfo = location.state.concertInfo;
   const userInfo = location.state.userInfo;
+  const config = location.state.config;
   const isAdmin =
     userInfo.role === "CHANNEL_ADMIN" && userInfo.groupDto.name === group;
 
@@ -163,6 +156,22 @@ const OnlineConcertView = () => {
     setMainStreamManager(undefined);
     setPublisher(undefined);
 
+    if (isAdmin) {
+      if (concertInfo.open === true) {
+        axios
+          .put(
+            `/${group}/online-concert/open/${concertInfo.id}?open=false`,
+            {},
+            config
+          )
+          .then((response) => {
+            concertInfo.open = false;
+            console.log(response);
+          })
+          .catch((error) => console.log(error));
+      }
+    }
+
     const path = `/${group}/media/online-concert/enter`;
     navigate(path, { state: { concertInfo: concertInfo } });
   };
@@ -209,12 +218,7 @@ const OnlineConcertView = () => {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "/api/sessions",
       { customSessionId: sessionId },
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      }
+      config
     );
 
     return response.data; // the sessionId
@@ -224,12 +228,7 @@ const OnlineConcertView = () => {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "/api/sessions/" + sessionId + "/connections",
       {},
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      }
+      config
     );
 
     return response.data;
