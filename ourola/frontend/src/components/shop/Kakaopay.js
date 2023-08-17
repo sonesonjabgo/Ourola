@@ -16,8 +16,8 @@ class App extends React.Component {
       total_amount: "",
       vat_amount: 0,
       tax_free_amount: 0,
-      approval_url: "http://i9d204.p.ssafy.io/purchase/success",
-      fail_url: "http://i9d204.p.ssafy.io/purchase/failed",
+      approval_url: "",
+      fail_url: "",
       cancel_url: "http://localhost:3000/",
     },
   };

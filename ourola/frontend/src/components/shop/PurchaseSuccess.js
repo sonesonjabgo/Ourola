@@ -5,7 +5,9 @@ import "../../style/shop/PurchaseSuccess.css";
 
 const PurchaseSuccess = () => {
   const location = useLocation();
-  const group = location.pathname.split("/")[1];
+
+  const query = new URLSearchParams(location.search);
+  const group = query.get("group");
 
   const accessToken = sessionStorage.getItem("Authorization");
 
