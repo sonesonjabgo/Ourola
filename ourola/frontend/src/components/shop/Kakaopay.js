@@ -18,7 +18,7 @@ class App extends React.Component {
       tax_free_amount: 0,
       approval_url: "",
       fail_url: "",
-      cancel_url: "http://localhost:3000/",
+      cancel_url: "",
     },
   };
 
@@ -39,6 +39,7 @@ class App extends React.Component {
                 total_amount: totalPrice,
                 approval_url: `http://i9d204.p.ssafy.io/purchase/success?group=${group}`,
                 fail_url: `http://i9d204.p.ssafy.io/purchase/failed?group=${group}`,
+                cancel_url: `http://i9d204.p.ssafy.io/${group}/shop`,
             }
         }), () => {
             // setState가 완료된 후 axios 요청을 실행
