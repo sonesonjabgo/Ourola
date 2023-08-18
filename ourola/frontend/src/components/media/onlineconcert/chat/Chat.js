@@ -9,7 +9,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const [items, setItems] = useState([]);
   const [msgText, setMsgText] = useState("");
 
-  const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
+  const webSocketUrl = "ws://localhost:8000/ws/chat";
   const ws = useRef(null);
 
   useEffect(() => {
@@ -36,6 +36,27 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
       ws.current.close();
     };
   }, []);
+
+  // 허트비트 전송을 위한 주기적인 호출
+  useEffect(() => {
+    if (socketConnected) {
+      // 30초마다 허트비트 메시지를 서버로 전송
+      const heartbeatInterval = setInterval(() => {
+        ws.current.send(
+          JSON.stringify({
+            type: "HEARTBEAT",
+          })
+        );
+      }, 30000);
+
+      // 허트비트 인터벌 정리 함수
+      const cleanup = () => {
+        clearInterval(heartbeatInterval);
+      };
+
+      return cleanup;
+    }
+  }, [socketConnected]);
 
   // 소켓이 연결되었을 시에 send 메소드
   useEffect(() => {
