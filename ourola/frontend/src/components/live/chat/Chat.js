@@ -13,6 +13,8 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
   const webSocketUrl = "wss://i9d204.p.ssafy.io:8001/ws/chat";
   let ws = useRef(null);
 
+  const scrollRef = useRef();
+
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(webSocketUrl);
@@ -83,6 +85,10 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
     }
   }, [sendMsg]);
 
+  useEffect(() => {
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [items]);
+
   const sendEnter = () => {
     if (msgText) {
       const msg = {
@@ -129,7 +135,7 @@ const Chat = ({ sessionId, nickname, isAdminOrArtist }) => {
 
   return (
     <div className="chatMain">
-      <div id="chatBody" className="chatBody">
+      <div id="chatBody" className="chatBody" ref={scrollRef}>
         <ChatList msgList={items} myNick={nickname} />
       </div>
       <div id="chatFooter" className="chatFooter">
