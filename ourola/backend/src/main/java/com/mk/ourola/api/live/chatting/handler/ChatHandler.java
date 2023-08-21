@@ -32,7 +32,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		//        TextMessage intialGretting = new TextMessage("Welcome to Chat Server");
 		//JSON -> Java Object
 		ChatDto chatMessage = mapper.readValue(payload, ChatDto.class);
-		chatMessage.setTime(LocalTime.now().toString());
+		// chatMessage.setTime(LocalTime.now().toString());
 		log.info("session : {}", chatMessage.toString());
 
 		ChatRoom room = service.findOrCreateRoomByName(chatMessage.getRoomName());

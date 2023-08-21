@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import LiveItem from "./LiveItem";
 import "../../style/live/LiveList.css";
+import { useNavigate } from "react-router-dom";
 
 const LiveList = () => {
   const pathname = window.location.pathname;
@@ -19,6 +20,9 @@ const LiveList = () => {
   const [loadingList, setLoadingList] = useState(true);
   const [userInfo, setUserInfo] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLiveExist, setIsLiveExist] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -42,9 +46,11 @@ const LiveList = () => {
     axios
       .get(`/${group}/live/list`, config)
       .then((response) => {
-        // console.log(response);
         setLiveList(response.data);
         console.log(response.data);
+        if (liveList.length != 0) {
+          setIsLiveExist(true);
+        }
         setLoadingList(false);
       })
       .catch((error) => {
@@ -53,15 +59,29 @@ const LiveList = () => {
       });
   }, []);
 
-  // console.log(concertList);
+  const onLiveStartClick = () => {
+    navigate(`/${group}/live/open`, {
+      state: { group: group, config: config },
+    });
+  };
 
   return (
     <div className="liveListMain">
-      <div className="liveListHeader">{isAdmin ? <button></button> : null}</div>
+      <div className="liveListHeader">
+        {isAdmin ? (
+          <button
+            id="liveStartBtn"
+            className="liveStartBtn"
+            onClick={onLiveStartClick}
+          >
+            라이브 켜기
+          </button>
+        ) : null}
+      </div>
       <div className="liveList">
         {loadingList ? (
           <></>
-        ) : (
+        ) : liveList.length !== 0 ? (
           liveList.map((it) => (
             <LiveItem
               key={it.id}
@@ -70,6 +90,10 @@ const LiveList = () => {
               userInfo={userInfo}
             />
           ))
+        ) : (
+          <div style={{ alignContent: "center" }}>
+            <div>진행중인 라이브가 없습니다.</div>
+          </div>
         )}
       </div>
     </div>

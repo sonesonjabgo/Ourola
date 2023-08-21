@@ -103,6 +103,7 @@ const OpenLiveBook = ({
           <div
             id="openLiveBookWrapContentValue"
             className="openLiveBookWrapContentValue"
+            style={{ whiteSpace: "pre-line" }}
           >
             {content}
           </div>

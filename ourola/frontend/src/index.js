@@ -40,6 +40,7 @@ import PurchaseSuccess from "./components/shop/PurchaseSuccess";
 import PurchaseFailed from "./components/shop/PurchaseFailed";
 import LiveList from "components/live/LiveList";
 import LiveView from "components/live/LiveView";
+import LiveOpen from "components/live/LiveOpen";
 
 // EC2 서버
 axios.defaults.baseURL = "https://i9d204.p.ssafy.io:8001";
@@ -70,7 +71,8 @@ render(
       <Route path="/:group/group" element={<Group2 />}></Route>
 
       {/* 라이브 */}
-      <Route path="/:group/live" element={<LiveList />}></Route>
+      <Route path="/:group/live/list" element={<LiveList />}></Route>
+      <Route path="/:group/live/open" element={<LiveOpen />}></Route>
       <Route path="/:group/live/view" element={<LiveView />}></Route>
 
       {/* 미디어 - 팬싸인회 */}

@@ -9,6 +9,7 @@
 .chatBody {
   height: 88%;
   overflow: auto;
+  flex-direction: column_reverse;
 }
 
 .chatFooter {

@@ -165,7 +165,7 @@ const LiveView = () => {
         });
     }
 
-    const path = `/${group}/live`;
+    const path = `/${group}/live/list`;
     navigate(path);
   };
 
@@ -208,7 +208,7 @@ const LiveView = () => {
     joinSession(nick, sid, isAdmin);
   };
 
-  const onLeaveSession = () => {
+  const onLeaveLive = () => {
     leaveSession();
   };
 
@@ -216,12 +216,12 @@ const LiveView = () => {
     <div className="liveViewMain">
       <div className="liveViewHeader">
         <div> </div>
-        <div className="sessionBtnArea">
+        <div className="leaveBtnArea">
           <input
-            className="buttonLeaveSession"
+            className="buttonLeaveLive"
             type="button"
-            id="buttonLeaveSession"
-            onClick={onLeaveSession}
+            id="buttonLeaveLive"
+            onClick={onLeaveLive}
             value="나가기"
           />
         </div>

@@ -32,7 +32,7 @@ function MainNoLoggedIn({ showModal }) {
       <div className="groupsNew">당신의 오로라에 새로운 색을 더해보세요</div>
       <div className="underline"></div>
       <div className="cardList">
-        <AllCards allGroup = {allGroup} showModal={showModal}/>
+        <AllCards className="mainCards" allGroup = {allGroup} showModal={showModal}/>
       </div>
     </>
   );
